@@ -1,15 +1,15 @@
 'use strict'
 const request = require('request');
 const sendResponse = require('../common/sendResponse.js')
- 
+
 let response = {
   "text": "Đang lấy dữ liệu..."
 };
 
-module.exports = function (sender_psid) {
+module.exports = async function (sender_psid) {
   // Fetch http://covid-rest.herokuapp.com/vietnam
-  sendResponse(sender_psid, response);
-  request({
+  await sendResponse(sender_psid, response);
+  await request({
     "uri": "http://covid-rest.herokuapp.com/vietnam",
     "method": "GET",
   }, (err, res, body) => {
@@ -21,7 +21,6 @@ module.exports = function (sender_psid) {
     } else {
       console.log("GET data successfully");
       const data = JSON.parse(body).data[0];
-      console.log(data);
       if(data.total_death === "") data.total_death = "0";
       if(data.new_cases === "") data.new_cases = "0";
       response.text = `Tình hình dịch Covid-19 ở Việt Nam:

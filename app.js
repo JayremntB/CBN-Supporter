@@ -1,6 +1,6 @@
 (async function () {
 'use strict'
-// node_modules 
+// node_modules
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
@@ -142,9 +142,6 @@ function handlePostback(sender_psid, received_postback) {
       break;
     case "chatbotInformation":
       showChatbotInfor(sender_psid);
-      break;
-    case "liveChat":
-
       break;
     default:
       response.text = "Tìm tính năng cậu cần ở phần Menu nha <3";
