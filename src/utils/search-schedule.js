@@ -1,7 +1,7 @@
 'use strict'
 const sendResponse = require('../common/sendResponse');
 const stuff = require('../common/stuff');
-
+ 
 const dbName = 'database-for-cbner';
 let response = {
   "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"

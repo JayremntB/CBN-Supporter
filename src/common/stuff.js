@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = { 
   "searchScheduleAskGroup": {
     "text": "Cậu tìm lớp nào? \n(Ví dụ: 11ti)",
     "quick_replies": [

@@ -1,6 +1,6 @@
 'use strict'
 const sendResponse = require('../common/sendResponse');
-
+ 
 module.exports = function(sender_psid) {
   const date = new Date();
   date.setHours(date.getHours() + 7); // App is deployed in heroku US +7(VN)

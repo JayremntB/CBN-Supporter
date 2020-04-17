@@ -1,6 +1,6 @@
 'use strict'
 const sendResponse = require('../common/sendResponse');
-
+ 
 module.exports = function(sender_psid) {
   const response = {
     "text": `

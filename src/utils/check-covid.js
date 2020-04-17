@@ -1,7 +1,7 @@
 'use strict'
 const request = require('request');
 const sendResponse = require('../common/sendResponse.js')
-
+ 
 let response = {
   "text": "Đang lấy dữ liệu..."
 };

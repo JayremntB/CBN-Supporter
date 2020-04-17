@@ -7,7 +7,7 @@ module.exports = function (sender_psid, response) {
     },
     "messaging_type": "RESPONSE",
     "message": response
-  }
+  } 
   request({
     "uri": "https://graph.facebook.com/v6.0/me/messages",
     "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
