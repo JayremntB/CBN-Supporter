@@ -38,11 +38,13 @@ function handleMessage(client, sender_psid, groupModify) {
   }
 }
 
-async function handlePostback(sender_psid) {
+function handlePostback(sender_psid) {
   response.text = "Gõ setclass + tên lớp để bỏ qua bước gõ tên lớp khi bạn sử dụng tính năng tra thời khoá biểu\n(Ví dụ: setclass 11ti)";
-  await sendResponse(sender_psid, response);
-  response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
-  await sendResponse(sender_psid, response);
+  sendResponse(sender_psid, response);
+  setTimeout(() => {
+    response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
+    sendResponse(sender_psid, response);
+  }, 2000);
 }
 
 function checkGroup(sender_psid, group) {

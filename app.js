@@ -23,7 +23,7 @@ app.listen(port, () => {
 });
 const connectionUrl = process.env.DATABASE_URI;
 const dbName = 'database-for-cbner';
-const collectionName = 'user-data';
+const collectionName = 'users-data';
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
@@ -75,11 +75,12 @@ async function handleMessage(sender_psid, received_message) {
     "text": "Tìm tính năng cậu cần ở phần Menu nha <3"
   };
   if(received_message.text) {
-    userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: sender_psid });
+    const userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: sender_psid });
+    console.log(userData);
     const text = received_message.text;
     const textSplit = text.split(" ");
     console.log("message: " + text + "\n---------------------------------");
-    if(textSplit[0] === 'setclass') {
+    if(textSplit[0].toLowerCase() === 'setclass') {
       setting.handleMessage(client, sender_psid, textSplit[1].toLowerCase());
     }
     if(text === 'Exit') {
@@ -123,8 +124,6 @@ function handlePostback(sender_psid, received_postback) {
       searchSchedule.handlePostback(client, sender_psid);
       break;
     case "searchSubject":
-      sendResponse(sender_psid, response);
-      break;
     case "searchClasses":
       sendResponse(sender_psid, response);
       break;
@@ -140,6 +139,7 @@ function handlePostback(sender_psid, received_postback) {
     case "setting":
       unblockAll(sender_psid);
       setting.handlePostback(sender_psid);
+      break;
     default:
       response.text = "Tìm tính năng cậu cần ở phần Menu nha <3";
       sendResponse(sender_psid, response);

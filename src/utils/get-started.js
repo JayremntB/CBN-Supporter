@@ -5,11 +5,11 @@ module.export = function(client, sender_psid) {
     "text": "Xin chào! Tớ tên Jay, rất vui được gặp cậu :D Tớ được thiết lập sẵn để cung cấp cho cậu các tính năng có trong Menu, cứ thoải mái vung tay mà sử dụng nhé :>"
   };
   sendResponse(sender_psid, response);
-  setTimeOut(() => {
+  setTimeout(() => {
     response.text = `(!) Khuyến nghị (Có thể bỏ qua hoặc đặt lại qua menu):
 Gõ setclass + tên lớp để bỏ qua bước gõ tên lớp khi bạn sử dụng tính năng tra thời khoá biểu\n(Ví dụ: setclass 11ti)`
     sendResponse(sender_psid, response);
-    setTimeOut(()=> {
+    setTimeout(()=> {
       response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
       sendResponse(sender_psid, response);
     }, 1000);
