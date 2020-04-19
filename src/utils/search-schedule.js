@@ -9,8 +9,7 @@ let response = {
 
 module.exports = {
   handleMessage: handleMessage,
-  handlePostback: handlePostback,
-  unblock: unblock
+  handlePostback: handlePostback
 }
 
 function handleMessage(client, sender_psid, text, userData) {
@@ -22,7 +21,7 @@ function handleMessage(client, sender_psid, text, userData) {
     response = stuff.searchScheduleAskGroup;
     sendResponse(sender_psid, response);
   }
-  if(!userData.search_schedule_other_group.block) {
+  else if(!userData.search_schedule_other_group.block) {
     sendSchedule(sender_psid, text.toLowerCase(), userData);
   }
   else if(userData.search_schedule_other_group.group) {
@@ -33,19 +32,24 @@ function handleMessage(client, sender_psid, text, userData) {
   }
 }
 
-async function handlePostback(client, sender_psid, userData) {
-  userData = await client.db(dbName).collection('users-data').findOne({ psid: sender_psid });
-  if(userData.group) {
-    initBlock(client, sender_psid, false); // init search_schedule_block
-    response = stuff.searchScheduleAskDay;
-    response.text = `Cập nhật thời khoá biểu lớp ${userData.group} thành công!\nCậu muốn tra thứ mấy?`
-    sendResponse(sender_psid, response);
-  }
-  else {
-    initBlock(client, sender_psid, true); // init both search_schedule_block & search_schedule_other_group block
-    response = stuff.searchScheduleAskGroup;
-    sendResponse(sender_psid, response);
-  }
+function handlePostback(client, sender_psid) {
+  client.db(dbName).collection('users-data').findOne({ sender_psid: sender_psid }, (err, userData) => {
+    if(err) {
+      console.error(err);
+      sendResponse(sender_psid, response);
+    }
+    else if(userData.group) {
+      initBlock(client, sender_psid, false); // init search_schedule_block
+      response = stuff.searchScheduleAskDay;
+      response.text = `Cập nhật thời khoá biểu lớp ${userData.group} thành công!\nCậu muốn tra thứ mấy?`
+      sendResponse(sender_psid, response);
+    }
+    else {
+      initBlock(client, sender_psid, true); // init both search_schedule_block & search_schedule_other_group block
+      response = stuff.searchScheduleAskGroup;
+      sendResponse(sender_psid, response);
+    }
+  });
 }
 
 
@@ -106,12 +110,11 @@ function checkGroup(sender_psid, group) {
 function clearOtherGroupData(client, sender_psid) {
   const collectionUsersData = client.db(dbName).collection('users-data');
   collectionUsersData.updateOne({ sender_psid: sender_psid }, {
-    $unset: {
+    $set: {
       search_schedule_other_group: {
-        group: ""
-      },
-      search_schedule_other_group: {
-        schedule: ""
+        group: "",
+        schedule: [],
+        block: true
       }
     }
   }, (err) => {
@@ -133,9 +136,8 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
     collectionUsersData.updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_other_group: {
-          group: groupInput
-        },
-        search_schedule_other_group: {
+          block: true,
+          group: groupInput,
           schedule: data.schedule
         }
       }
@@ -197,7 +199,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > schedule.length || day - 2 < 0) {
-      response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá :< Đừng có ghi gì ngoài mấy cái gợi ý -_-`
+      response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì ngoài mấy cái hiện lên bên dưới -_-`;
       sendResponse(sender_psid, response);
     } else {
       const data = schedule[day - 2];
@@ -227,8 +229,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
     }
   }
   else {
-    response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì nhiều ngoài gợi ý -_-
-    userData = await client.db(dbName).collection(collectionName).findOne({ psid: sender_psid });`
+    response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì ngoài mấy cái hiện lên bên dưới -_-`;
     sendResponse(sender_psid, response);
   }
 }

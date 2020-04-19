@@ -21,7 +21,8 @@ const app = express().use(bodyParser.json());
 app.listen(port, () => {
   console.log('webhook is listening on port ' + port);
 });
-const connectionUrl = process.env.DATABASE_URI;
+// const connectionUrl = process.env.DATABASE_URI;
+const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -76,17 +77,17 @@ async function handleMessage(sender_psid, received_message) {
   };
   if(received_message.text) {
     const userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: sender_psid });
-    console.log(userData);
     const text = received_message.text;
     const textSplit = text.split(" ");
     console.log("message: " + text + "\n---------------------------------");
-    if(textSplit[0].toLowerCase() === 'setclass') {
-      setting.handleMessage(client, sender_psid, textSplit[1].toLowerCase());
-    }
+
     if(text === 'Exit') {
       response.text = "Đã trở lại chat với Jay :>";
       sendResponse(sender_psid, response);
       unblockAll(sender_psid);
+    }
+    if(textSplit[0].toLowerCase() === 'setclass') {
+      setting.handleMessage(client, sender_psid, textSplit[1].toLowerCase());
     }
     else if(userData.search_schedule_block) {
       searchSchedule.handleMessage(client, sender_psid, text, userData);
@@ -97,9 +98,7 @@ async function handleMessage(sender_psid, received_message) {
     else if(userData.search_subject.block) {
 
     }
-    else if(userData.setting_block) {
-
-    }
+    else sendResponse(sender_psid, response);
   }
   else if(received_message.attachments) {
       console.log("Received attachment");
@@ -125,6 +124,7 @@ function handlePostback(sender_psid, received_postback) {
       break;
     case "searchSubject":
     case "searchClasses":
+      unblockAll(sender_psid);
       sendResponse(sender_psid, response);
       break;
     case "sawTime":
@@ -138,7 +138,7 @@ function handlePostback(sender_psid, received_postback) {
       break;
     case "setting":
       unblockAll(sender_psid);
-      setting.handlePostback(sender_psid);
+      setting.handlePostback(client, sender_psid);
       break;
     default:
       response.text = "Tìm tính năng cậu cần ở phần Menu nha <3";

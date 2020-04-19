@@ -1,5 +1,6 @@
 const sendResponse = require('../general/sendResponse');
 
+const dbName = 'database-for-cbner';
 let response = {
   "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
 };
@@ -11,7 +12,7 @@ module.exports = {
 function handleMessage(client, sender_psid, groupModify) {
   if(checkGroup(sender_psid, groupModify)) {
     const collectionSchedule = client.db(dbName).collection('schedule');
-    collectionSchedule.findOne({ group: groupInput }, (err, data) => {
+    collectionSchedule.findOne({ group: groupModify }, (err, data) => {
       console.log("Found data");
       // add schedule to user-search data
       const collectionUsersData = client.db(dbName).collection('users-data');
@@ -20,7 +21,8 @@ function handleMessage(client, sender_psid, groupModify) {
           group: {
             group: groupModify
           },
-          main_schedule: data.schedule
+          main_schedule: data.schedule,
+          setting_block: false
         }
       }, (err, res) => {
         let response;
@@ -38,13 +40,25 @@ function handleMessage(client, sender_psid, groupModify) {
   }
 }
 
-function handlePostback(sender_psid) {
-  response.text = "Gõ setclass + tên lớp để bỏ qua bước gõ tên lớp khi bạn sử dụng tính năng tra thời khoá biểu\n(Ví dụ: setclass 11ti)";
-  sendResponse(sender_psid, response);
-  setTimeout(() => {
-    response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
-    sendResponse(sender_psid, response);
-  }, 2000);
+function handlePostback(client, sender_psid) {
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    $set: {
+      setting_block: true
+    }
+  }, (err) => {
+    if(err) {
+      console.error(err);
+      sendResponse(sender_psid, response);
+    }
+    else {
+      response.text = "Gõ setclass + tên lớp để bỏ qua bước gõ tên lớp khi bạn sử dụng tính năng tra thời khoá biểu\n(Ví dụ: setclass 11ti)";
+      sendResponse(sender_psid, response);
+      setTimeout(() => {
+        response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
+        sendResponse(sender_psid, response);
+      }, 2000);
+    }
+  })
 }
 
 function checkGroup(sender_psid, group) {
