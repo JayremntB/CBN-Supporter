@@ -11,7 +11,7 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
   let response = {
     "text": ""
   };
-  if(textSplit[0] === 'showclass') {
+  if(textSplit[0] === 'viewclass') {
     if(userData.group) {
       response.text = `${userData.group}`;
       sendResponse(sender_psid, response);
@@ -78,7 +78,7 @@ function handlePostback(client, sender_psid) {
 - Setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
 (Ví dụ: setclass 11ti. Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt).
 
-- Showclass: Xem tên lớp đã cài đặt.
+- Viewclass: Xem tên lớp đã cài đặt.
 
 - Delclass: Xoá tên lớp đã cài đặt.`
   };

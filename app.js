@@ -86,7 +86,7 @@ async function handleMessage(sender_psid, received_message) {
       sendResponse(sender_psid, response);
       unblockAll(sender_psid);
     }
-    else if(textSplit[0] === 'setclass' || textSplit[0] === 'showclass' || textSplit[0] === 'delclass') {
+    else if(textSplit[0] === 'setclass' || textSplit[0] === 'viewclass' || textSplit[0] === 'delclass') {
       setting.handleMessage(client, sender_psid, textSplit, userData);
     }
     else if(userData.search_schedule_block) {
