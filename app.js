@@ -73,7 +73,7 @@ app.post('/webhook', async (req, res) => {
 
 async function handleMessage(sender_psid, received_message) {
   let response = {
-    "text": "Tìm tính năng cậu cần ở phần Menu nha <3"
+    "text": ""
   };
   if(received_message.text) {
     const userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: sender_psid });
@@ -81,12 +81,12 @@ async function handleMessage(sender_psid, received_message) {
     const textSplit = text.split(" ");
     console.log("message: " + text + "\n---------------------------------");
 
-    if(text === 'Exit') {
+    if(text === 'exit') {
       response.text = "Đã trở lại chat với Jay :>";
       sendResponse(sender_psid, response);
       unblockAll(sender_psid);
     }
-    else if(textSplit[0] === 'setclass' || textSplit[0] === 'showclass' || textSplit[0] === 'deleteclass') {
+    else if(textSplit[0] === 'setclass' || textSplit[0] === 'showclass' || textSplit[0] === 'delclass') {
       setting.handleMessage(client, sender_psid, textSplit, userData);
     }
     else if(userData.search_schedule_block) {
@@ -98,7 +98,10 @@ async function handleMessage(sender_psid, received_message) {
     else if(userData.search_subject.block) {
 
     }
-    else sendResponse(sender_psid, response);
+    else {
+      response.text = "Tìm tính năng cậu cần ở phần Menu nha <3";
+      sendResponse(sender_psid, response);
+    }
   }
   else if(received_message.attachments) {
       console.log("Received attachment");

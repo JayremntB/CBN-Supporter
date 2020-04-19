@@ -94,7 +94,7 @@
     ]
   },
   "searchScheduleCheckGroupResponse": {
-    "text": "Tên lớp không có trong danh sách :( Kiểm tra lại xem cậu có viết nhầm hay không nhé :^)\nNếu viết nhầm thì viết lại tên lớp luôn nha :>",
+    "text": "",
     "quick_replies": [
       {
         "content_type": "text",

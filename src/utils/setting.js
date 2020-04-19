@@ -7,11 +7,10 @@ module.exports = {
 }
 
 async function handleMessage(client, sender_psid, textSplit, userData) {
-  unblockAll(sender_psid);
+  unblockAll(client, sender_psid);
   let response = {
     "text": ""
   };
-  console.log(textSplit);
   if(textSplit[0] === 'showclass') {
     if(userData.group) {
       response.text = `${userData.group}`;
@@ -75,13 +74,13 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
 
 function handlePostback(client, sender_psid) {
  const response = {
-    "text": `Các lệnh cài đặt hỗ trợ:
-- setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
+    "text": `Các lệnh cài đặt tớ hỗ trợ:
+- Setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
 (Ví dụ: setclass 11ti. Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt).
 
-- showclass: Xem tên lớp đã cài đặt.
+- Showclass: Xem tên lớp đã cài đặt.
 
-- delclass: Xoá tên lớp đã cài đặt.`
+- Delclass: Xoá tên lớp đã cài đặt.`
   };
   sendResponse(sender_psid, response);
 }
@@ -98,7 +97,7 @@ function checkGroup(sender_psid, group) {
   }
 }
 
-function unblockAll(sender_psid) {
+function unblockAll(client, sender_psid) {
   client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_schedule_block: false,
