@@ -6,8 +6,8 @@ module.export = function(client, sender_psid) {
   };
   sendResponse(sender_psid, response);
   setTimeout(() => {
-    response.text = `(!) Khuyến nghị (Có thể bỏ qua hoặc đặt lại qua menu):
-Gõ setclass + tên lớp để bỏ qua bước gõ tên lớp khi bạn sử dụng tính năng tra thời khoá biểu\n(Ví dụ: setclass 11ti)`
+    response.text = `(!) Khuyến nghị (Có thể bỏ qua hoặc đặt lại qua phần Thông tin và cài đặt):
+Gõ Setclass + tên lớp để cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu\n(Ví dụ: setclass 11ti)`
     sendResponse(sender_psid, response);
     setTimeout(()=> {
       response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
