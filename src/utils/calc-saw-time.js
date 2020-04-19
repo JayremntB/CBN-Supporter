@@ -1,6 +1,6 @@
 'use strict'
-const sendResponse = require('../common/sendResponse');
- 
+const sendResponse = require('../general/sendResponse');
+
 module.exports = function(sender_psid) {
   const date = new Date();
   date.setHours(date.getHours() + 7); // App is deployed in heroku US +7(VN)
@@ -26,7 +26,7 @@ module.exports = function(sender_psid) {
 + ${timeEstimate[1].hours} giờ ${timeEstimate[1].minutes} phút
 + ${timeEstimate[2].hours} giờ ${timeEstimate[2].minutes} phút
 + ${timeEstimate[3].hours} giờ ${timeEstimate[3].minutes} phút
-để có thể tỉnh táo học tập. Nhưng công thức cũng chỉ là công thức thôi, cậu muốn tỉnh táo thì cứ ngủ đủ 8 tiếng như người bình thường là ok nha :D`
+để "có thể" tỉnh táo. Vì công thức cũng chỉ là công thức thôi, cậu muốn tỉnh táo thì cứ ngủ đủ 8 tiếng như người bình thường là ok nha :D`
     },
     {
       "text": "Cậu có thể vào trang https://sleepyti.me/ để tìm thời điểm nên ngủ nếu cậu muốn dậy vào lúc nào đó. Thằng dev lười lắm nên không code cái này đâu :("

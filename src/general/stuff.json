@@ -1,4 +1,4 @@
-module.exports = { 
+{
   "searchScheduleAskGroup": {
     "text": "Cậu tìm lớp nào? \n(Ví dụ: 11ti)",
     "quick_replies": [
@@ -11,11 +11,11 @@ module.exports = {
     ]
   },
   "searchScheduleAskDay": {
-    "text": "Cậu muốn tra thứ mấy?",
+    "text": "",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "Ghi lại lớp",
+        "title": "Lớp khác",
         "payload": "searchScheduleOverwriteClass",
         "image_url": ""
       },
@@ -94,7 +94,7 @@ module.exports = {
     ]
   },
   "searchScheduleCheckGroupResponse": {
-    "text": `Tên lớp không có trong danh sách :( Kiểm tra lại xem cậu có viết nhầm hay không nhé :^)\nNếu viết nhầm thì viết lại tên lớp luôn nha :>`,
+    "text": "",
     "quick_replies": [
       {
         "content_type": "text",

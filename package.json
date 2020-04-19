@@ -4,7 +4,9 @@
   "description": "Chatbot for supporting CBN students",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "npx nodemon",
+    "setpart": "node src/general/set-single-part.js"
   },
   "repository": {
     "type": "git",

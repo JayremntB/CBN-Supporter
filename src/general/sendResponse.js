@@ -1,13 +1,13 @@
 const request = require('request');
 
-module.exports = function (sender_psid, response) {
+module.exports = async function (sender_psid, response) {
   let request_body = {
     "recipient": {
       "id": sender_psid
     },
     "messaging_type": "RESPONSE",
     "message": response
-  } 
+  }
   request({
     "uri": "https://graph.facebook.com/v6.0/me/messages",
     "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
