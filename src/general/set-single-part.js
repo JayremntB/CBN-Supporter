@@ -83,7 +83,7 @@ const request_body = {
             },
             {
               "type": "web_url",
-              "title": "Góp, gợi ý tính năng (via Fb)",
+              "title": "Liên hệ dev (Messenger)",
               "url": "https://m.me/fukaijs",
               "webview_height_ratio": "full"
             }

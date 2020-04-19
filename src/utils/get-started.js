@@ -18,7 +18,6 @@ Gõ setclass + tên lớp để bỏ qua bước gõ tên lớp khi bạn sử d
     sender_psid: sender_psid,
     group: "",
     main_schedule: [],
-    setting_block: false,
     search_schedule_block: false,
     search_schedule_other_group: {
       block: false,

@@ -2,63 +2,41 @@ const sendResponse = require('../general/sendResponse');
 
 const dbName = 'database-for-cbner';
 let response = {
-  "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+  "text": "Thời khoá biểu lớp cậu chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!"
 };
 module.exports = {
   handleMessage: handleMessage,
   handlePostback: handlePostback
 }
 
-function handleMessage(client, sender_psid, groupModify) {
+async function handleMessage(client, sender_psid, groupModify) {
   if(checkGroup(sender_psid, groupModify)) {
-    const collectionSchedule = client.db(dbName).collection('schedule');
-    collectionSchedule.findOne({ group: groupModify }, (err, data) => {
+    const scheduleData = await client.db(dbName).collection('schedule').findOne({ group: groupModify });
+    console.log(scheduleData);
+    if(scheduleData) {
       console.log("Found data");
       // add schedule to user-search data
-      const collectionUsersData = client.db(dbName).collection('users-data');
-      collectionUsersData.updateOne({ sender_psid: sender_psid }, {
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
         $set: {
-          group: {
-            group: groupModify
-          },
-          main_schedule: data.schedule,
-          setting_block: false
+          group: groupModify,
+          main_schedule: scheduleData.schedule
         }
-      }, (err, res) => {
-        let response;
-        if (err) {
-          console.error("Could not setting data: \n" + err);
-          sendResponse(sender_psid, response);
-        } else {
-          console.log("Setting data successfully!");
-          response = stuff.searchScheduleAskDay;
-          response.text = `Cập nhật thời khoá biểu lớp ${groupModify} thành công!`;
-          sendResponse(sender_psid, response);
-        }
+      }, () => {
+        response.text = `Cập nhật thời khoá biểu lớp ${groupModify} thành công!`;
+        sendResponse(sender_psid, response);
       });
-    }); // find schedule of groupInput
+    }
+    else sendResponse(sender_psid, response);
   }
 }
 
 function handlePostback(client, sender_psid) {
-  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-    $set: {
-      setting_block: true
-    }
-  }, (err) => {
-    if(err) {
-      console.error(err);
-      sendResponse(sender_psid, response);
-    }
-    else {
-      response.text = "Gõ setclass + tên lớp để bỏ qua bước gõ tên lớp khi bạn sử dụng tính năng tra thời khoá biểu\n(Ví dụ: setclass 11ti)";
-      sendResponse(sender_psid, response);
-      setTimeout(() => {
-        response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
-        sendResponse(sender_psid, response);
-      }, 2000);
-    }
-  })
+  response.text = "Gõ setclass + tên lớp để bỏ qua bước gõ tên lớp khi bạn sử dụng tính năng tra thời khoá biểu\n(Ví dụ: setclass 11ti)";
+  sendResponse(sender_psid, response);
+  setTimeout(() => {
+    response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
+    sendResponse(sender_psid, response);
+  }, 1000);
 }
 
 function checkGroup(sender_psid, group) {

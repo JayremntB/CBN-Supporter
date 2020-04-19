@@ -149,7 +149,6 @@ function handlePostback(sender_psid, received_postback) {
 function unblockAll(sender_psid) {
   client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
-      setting_block: false,
       search_schedule_block: false,
       search_schedule_other_group: {
         block: false,
