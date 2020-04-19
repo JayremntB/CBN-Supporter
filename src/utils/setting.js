@@ -1,42 +1,89 @@
 const sendResponse = require('../general/sendResponse');
 
 const dbName = 'database-for-cbner';
-let response = {
-  "text": "Thời khoá biểu lớp cậu chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!"
-};
 module.exports = {
   handleMessage: handleMessage,
   handlePostback: handlePostback
 }
 
-async function handleMessage(client, sender_psid, groupModify) {
-  if(checkGroup(sender_psid, groupModify)) {
-    const scheduleData = await client.db(dbName).collection('schedule').findOne({ group: groupModify });
-    console.log(scheduleData);
-    if(scheduleData) {
-      console.log("Found data");
-      // add schedule to user-search data
-      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-        $set: {
-          group: groupModify,
-          main_schedule: scheduleData.schedule
-        }
-      }, () => {
-        response.text = `Cập nhật thời khoá biểu lớp ${groupModify} thành công!`;
-        sendResponse(sender_psid, response);
-      });
+async function handleMessage(client, sender_psid, textSplit, userData) {
+  unblockAll(sender_psid);
+  let response = {
+    "text": ""
+  };
+  console.log(textSplit);
+  if(textSplit[0] === 'showclass') {
+    if(userData.group) {
+      response.text = `${userData.group}`;
+      sendResponse(sender_psid, response);
     }
-    else sendResponse(sender_psid, response);
+    else {
+      response.text = "Cậu chưa cài đặt tên lớp :(";
+      sendResponse(sender_psid, response);
+    }
+  }
+  else if(textSplit[0] === 'delclass') {
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      $set: {
+        group: "",
+        main_schedule: []
+      }
+    }, (err) => {
+      if(err) {
+        console.error(err);
+        response.text = "Ủa không xoá được, cậu hãy thử lại sau nhé T.T";
+        sendResponse(sender_psid, response);
+      }
+      else {
+        response.text = "Xoá lớp thành công!"
+        sendResponse(sender_psid, response);
+      }
+    });
+  }
+  else if(textSplit[0] === 'setclass') {
+    if(textSplit.length === 1) {
+      response.text = "Tên lớp cậu chưa ghi kìa :(";
+      sendResponse(sender_psid, response);
+    }
+    else if(checkGroup(sender_psid, textSplit[1])) {
+      const scheduleData = await client.db(dbName).collection('schedule').findOne({ group: textSplit[1] });
+      if(scheduleData) {
+        client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+          $set: {
+            group: textSplit[1],
+            main_schedule: scheduleData.schedule
+          }
+        }, (err) => {
+          if(err) {
+            console.error(err);
+            response.text = "Ủa không cài đặt được, cậu hãy thử lại sau nhé T.T";
+            sendResponse(sender_psid, response);
+          }
+          else {
+            response.text = `Cập nhật thời khoá biểu lớp ${textSplit[1]} thành công!`;
+            sendResponse(sender_psid, response);
+          }
+        });
+      }
+      else {
+        response.text = "Thời khoá biểu lớp cậu chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!";
+        sendResponse(sender_psid, response);
+      }
+    }
   }
 }
 
 function handlePostback(client, sender_psid) {
-  response.text = "Gõ setclass + tên lớp để bỏ qua bước gõ tên lớp khi bạn sử dụng tính năng tra thời khoá biểu\n(Ví dụ: setclass 11ti)";
+ const response = {
+    "text": `Các lệnh cài đặt hỗ trợ:
+- setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
+(Ví dụ: setclass 11ti. Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt).
+
+- showclass: Xem tên lớp đã cài đặt.
+
+- delclass: Xoá tên lớp đã cài đặt.`
+  };
   sendResponse(sender_psid, response);
-  setTimeout(() => {
-    response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
-    sendResponse(sender_psid, response);
-  }, 1000);
 }
 
 function checkGroup(sender_psid, group) {
@@ -49,4 +96,28 @@ function checkGroup(sender_psid, group) {
     sendResponse(sender_psid, response);
     return false;
   }
+}
+
+function unblockAll(sender_psid) {
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    $set: {
+      search_schedule_block: false,
+      search_schedule_other_group: {
+        block: false,
+        group: "",
+        schedule: []
+      },
+      search_classes: {
+        block: false,
+        teacher: "",
+        teaches: []
+      },
+      search_subject: {
+        block: false,
+        subject: "",
+        day: "",
+        time: ""
+      }
+    }
+  });
 }

@@ -3,36 +3,32 @@ const sendResponse = require('../general/sendResponse');
 const stuff = require('../general/stuff');
 
 const dbName = 'database-for-cbner';
-let response = {
-  "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
-};
-
 module.exports = {
   handleMessage: handleMessage,
   handlePostback: handlePostback
 }
 
 function handleMessage(client, sender_psid, text, userData) {
-  let response = {
-    "text": "Tìm tính năng cậu cần ở phần Menu nha <3"
-  };
-  if(text === "Lớp khác") {
+  if(text === "lớp khác") {
+    const response = stuff.searchScheduleAskGroup;
     clearOtherGroupData(client, sender_psid);
-    response = stuff.searchScheduleAskGroup;
     sendResponse(sender_psid, response);
   }
   else if(!userData.search_schedule_other_group.block) {
-    sendSchedule(sender_psid, text.toLowerCase(), userData);
+    sendSchedule(sender_psid, text, userData);
   }
   else if(userData.search_schedule_other_group.group) {
-    sendSchedule(sender_psid, text.toLowerCase(), userData);
+    sendSchedule(sender_psid, text, userData);
   }
-  else if(checkGroup(sender_psid, text.toLowerCase())) {
-    updateOtherGroupData(client, sender_psid, text.toLowerCase());
+  else if(checkGroup(sender_psid, text)) {
+    updateOtherGroupData(client, sender_psid, text);
   }
 }
 
 function handlePostback(client, sender_psid) {
+  let response = {
+    "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+  };
   client.db(dbName).collection('users-data').findOne({ sender_psid: sender_psid }, (err, userData) => {
     if(err) {
       console.error(err);
@@ -52,33 +48,21 @@ function handlePostback(client, sender_psid) {
   });
 }
 
-
-function unblock(client, sender_psid) {
-  const collectionUserData = client.db(dbName).collection('users-data');
-  collectionUserData.updateOne({ sender_psid: sender_psid }, {
-    $set: {
-      search_schedule_block: false,
-      search_schedule_other_group: {
-        block: false,
-        group: "",
-        schedule: ""
-      }
-    }
-  }, (err) => {
-    if(err) console.error(err);
-    else console.log('unblock search schedule successfully');
-  });
-}
-
 function initBlock(client, sender_psid, otherGroup) {
   const collectionUserData = client.db(dbName).collection('users-data');
+  let response = {
+    "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+  };
   if(!otherGroup) {
     collectionUserData.updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_block: true
       }
     }, (err) => {
-      if(err) console.error(err);
+      if(err) {
+        console.error(err);
+        sendResponse(sender_psid, response);
+      }
       else console.log('init search block successfully');
     });
   }
@@ -91,7 +75,10 @@ function initBlock(client, sender_psid, otherGroup) {
         }
       }
     }, (err) => {
-      if(err) console.error(err);
+      if(err) {
+        console.error(err);
+        sendResponse(sender_psid, response);
+      }
       else console.log('init search other group successfully');
     });
   }
@@ -108,8 +95,7 @@ function checkGroup(sender_psid, group) {
 }
 
 function clearOtherGroupData(client, sender_psid) {
-  const collectionUsersData = client.db(dbName).collection('users-data');
-  collectionUsersData.updateOne({ sender_psid: sender_psid }, {
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_schedule_other_group: {
         group: "",
@@ -119,6 +105,9 @@ function clearOtherGroupData(client, sender_psid) {
     }
   }, (err) => {
     if(err) {
+      let response = {
+        "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+      };
       console.log("Could not clear other group data");
       sendResponse(sender_psid, response);
     } else {
@@ -126,33 +115,39 @@ function clearOtherGroupData(client, sender_psid) {
     }
   });
 }
+
 async function updateOtherGroupData(client, sender_psid, groupInput) {
-  const collectionSchedule = client.db(dbName).collection('schedule');
-  const data = await collectionSchedule.findOne({ group: groupInput }); // find schedule of groupInput
-  if(data) {
+  const scheduleData = await client.db(dbName).collection('schedule').findOne({ group: groupInput }); // find schedule of groupInput
+  if(scheduleData) {
     console.log("Found data");
-    // add schedule to user-search data
-    const collectionUsersData = client.db(dbName).collection('users-data');
-    collectionUsersData.updateOne({ sender_psid: sender_psid }, {
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_other_group: {
           block: true,
           group: groupInput,
-          schedule: data.schedule
+          schedule: scheduleData.schedule
         }
       }
-    }, (err, res) => {
-      let response;
+    }, (err) => {
       if (err) {
+        const response = {
+          "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+        };
         console.error("Could not update other group data: \n" + err);
         sendResponse(sender_psid, response);
       } else {
         console.log("Update other group data successfully!");
-        response = stuff.searchScheduleAskDay;
+        let response = stuff.searchScheduleAskDay;
         response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nCậu muốn tra thứ mấy?`;
         sendResponse(sender_psid, response);
       }
     });
+  }
+  else {
+    let response = {
+      "text": "Thời khoá biểu lớp cậu chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!"
+    };
+    sendResponse(sender_psid, response);
   }
 }
 
@@ -188,6 +183,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
    + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
         });
       }
+      text += `\n-----------`;
     });
     text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
     response.text = text;
@@ -223,7 +219,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
    + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
         });
       }
-      text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
+      text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
       response.text = text;
       sendResponse(sender_psid, response);
     }

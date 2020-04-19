@@ -77,7 +77,7 @@ async function handleMessage(sender_psid, received_message) {
   };
   if(received_message.text) {
     const userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: sender_psid });
-    const text = received_message.text;
+    const text = received_message.text.toLowerCase();
     const textSplit = text.split(" ");
     console.log("message: " + text + "\n---------------------------------");
 
@@ -86,8 +86,8 @@ async function handleMessage(sender_psid, received_message) {
       sendResponse(sender_psid, response);
       unblockAll(sender_psid);
     }
-    if(textSplit[0].toLowerCase() === 'setclass') {
-      setting.handleMessage(client, sender_psid, textSplit[1].toLowerCase());
+    else if(textSplit[0] === 'setclass' || textSplit[0] === 'showclass' || textSplit[0] === 'deleteclass') {
+      setting.handleMessage(client, sender_psid, textSplit, userData);
     }
     else if(userData.search_schedule_block) {
       searchSchedule.handleMessage(client, sender_psid, text, userData);
