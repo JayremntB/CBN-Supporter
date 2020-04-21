@@ -4,6 +4,12 @@
     "quick_replies": [
       {
         "content_type": "text",
+        "title": "Danh sách lớp",
+        "payload": "classList",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
         "title": "Exit",
         "payload": "exit",
         "image_url": ""
@@ -93,9 +99,15 @@
       }
     ]
   },
-  "searchScheduleCheckGroupResponse": {
-    "text": "",
+  "checkGroupResponse": {
+    "text": "Tên lớp không có trong danh sách :( Kiểm tra lại xem cậu có viết nhầm hay không nhé.\nNhầm thì viết lại luôn nha :^)",
     "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Danh sách lớp",
+        "payload": "classList",
+        "image_url": ""
+      },
       {
         "content_type": "text",
         "title": "Exit",
@@ -103,5 +115,8 @@
         "image_url": ""
       }
     ]
+  },
+  "classList": {
+    "text": "Đây là danh sách lớp cậu có thể tra\n\n+ Lớp 10: 10t1, 10t2, 10l, 10h, 10si, 10ti, 10v1, 10v2, 10su, 10d, 10a1, 10a2.\n\n+ Lớp 11: 11t, 11l, 11h, 11si, 11ti, 11v, 11su, 11d, 11c1, 11c2, 11a1, 11a2.\n\n+ Lớp 12: 12t, 12l, 12h, 12si, 12ti, 12v, 12su, 12d, 12c1, 12c2, 12a1, 12a2."
   }
 }

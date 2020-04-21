@@ -1,5 +1,5 @@
 const sendResponse = require('../general/sendResponse');
-
+const stuff = require('../general/stuff');
 const dbName = 'database-for-cbner';
 module.exports = {
   handleMessage: handleMessage,
@@ -75,23 +75,29 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
 function handlePostback(client, sender_psid) {
  const response = {
     "text": `Các lệnh cài đặt tớ hỗ trợ:
-- Setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
-(Ví dụ: setclass 11ti. Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt).
+- Setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu.
+(Ví dụ: setclass 11ti. Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt)
 
 - Viewclass: Xem tên lớp đã cài đặt.
 
-- Delclass: Xoá tên lớp đã cài đặt.`
+- Delclass: Xoá tên lớp đã cài đặt.`,
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Danh sách lớp",
+        "payload": "classList",
+        "image_url": ""
+      }
+    ]
   };
   sendResponse(sender_psid, response);
 }
 
 function checkGroup(sender_psid, group) {
-  const checkArray = ['10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10đ','10a1', '10a2', '11t', '11l', '11h', '11si', '11ti', '11v', '11su', '11đ','11c1','11c2', '11a1', '11a2', '12t', '12l', '12h', '12si', '12ti', '12v', '12su', '12đ', '12c1', '12c2', '12a1', '12a2'];
+  const checkArray = ['10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10d','10a1', '10a2', '11t', '11l', '11h', '11si', '11ti', '11v', '11su', '11d','11c1','11c2', '11a1', '11a2', '12t', '12l', '12h', '12si', '12ti', '12v', '12su', '12d', '12c1', '12c2', '12a1', '12a2'];
   if(checkArray.includes(group)) return true;
   else {
-    const response = {
-      "text": "Tên lớp không có trong danh sách :( Kiểm tra lại xem cậu có viết nhầm hay không nhé :^)"
-    };
+    response = stuff.checkGroupResponse;
     sendResponse(sender_psid, response);
     return false;
   }

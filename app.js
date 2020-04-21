@@ -85,6 +85,9 @@ async function handleMessage(sender_psid, received_message) {
       response.text = "Đã trở lại chat với Jay :>";
       sendResponse(sender_psid, response);
       unblockAll(sender_psid);
+    } else if(text === "danh sách lớp") {
+      response = stuff.classList;
+      sendResponse(sender_psid, response);
     }
     else if(textSplit[0] === 'setclass' || textSplit[0] === 'viewclass' || textSplit[0] === 'delclass') {
       setting.handleMessage(client, sender_psid, textSplit, userData);
