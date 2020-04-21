@@ -12,8 +12,8 @@ Gõ Setclass + tên lớp để cập nhật thời khoá biểu và bỏ qua b�
     setTimeout(()=> {
       response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
       sendResponse(sender_psid, response);
-    }, 1000);
-  }, 1000);
+    }, 1500);
+  }, 2000);
   client.db('database-for-cbner').collection(users-data).insertOne({
     sender_psid: sender_psid,
     group: "",
