@@ -21,8 +21,8 @@ const app = express().use(bodyParser.json());
 app.listen(port, () => {
   console.log('webhook is listening on port ' + port);
 });
-// const connectionUrl = process.env.DATABASE_URI;
-const connectionUrl = "mongodb://127.0.0.1:27017";
+const connectionUrl = process.env.DATABASE_URI;
+// const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
