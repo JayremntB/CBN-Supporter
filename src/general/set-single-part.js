@@ -9,7 +9,7 @@ const request = require('request');
 await request({
   "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
   // "uri": "https://graph.facebook.com/me/personas",
-  "qs": { "access_token": "EAANieQvJZCRoBAFTRg2Ky6tjzEJuax2N4WwA8i7qpJ6VY36ZAAZBrZANtS7lwBOEFpLdLGrojx3t7hFGbUyw3zsPFhKhdbI5ZAIyQYED29BpqgmZAGn6Li4kGtEumCedKZAo5o2RtNFLdNMxanvKEIoq1ZBvHkZBfmvNOZB770icdq2gZDZD" },
+  "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
   "method": "POST",
   "json": {
     "setting-type":"call_to_actions",
@@ -27,7 +27,7 @@ await request({
 await request({
   "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
   // "uri": "https://graph.facebook.com/me/personas",
-  "qs": { "access_token": "EAANieQvJZCRoBAFTRg2Ky6tjzEJuax2N4WwA8i7qpJ6VY36ZAAZBrZANtS7lwBOEFpLdLGrojx3t7hFGbUyw3zsPFhKhdbI5ZAIyQYED29BpqgmZAGn6Li4kGtEumCedKZAo5o2RtNFLdNMxanvKEIoq1ZBvHkZBfmvNOZB770icdq2gZDZD" },
+  "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
   "method": "POST",
   "json": {
     "greeting":[{
@@ -44,7 +44,7 @@ await request({
 await request({
   "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
   // "uri": "https://graph.facebook.com/me/personas",
-  "qs": { "access_token": "EAANieQvJZCRoBAFTRg2Ky6tjzEJuax2N4WwA8i7qpJ6VY36ZAAZBrZANtS7lwBOEFpLdLGrojx3t7hFGbUyw3zsPFhKhdbI5ZAIyQYED29BpqgmZAGn6Li4kGtEumCedKZAo5o2RtNFLdNMxanvKEIoq1ZBvHkZBfmvNOZB770icdq2gZDZD" },
+  "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
   "method": "POST",
   "json": {
     "persistent_menu": [
