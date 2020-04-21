@@ -1,7 +1,7 @@
 (async () => {
 
 // This file just for setting up single part of chatbot like get started button,
-// persistent menu, greeting text,... and it does not support for main code and
+// persistent menu, greeting text,... It does not support for main code and
 // another files in this repository
 
 const request = require('request');

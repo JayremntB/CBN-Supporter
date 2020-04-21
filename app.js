@@ -6,12 +6,12 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const { MongoClient } = require('mongodb');
 // features
+const getStarted = require('./src/utils/get-started');
+const setting = require('./src/utils/setting');
 const calcSAWTime = require('./src/utils/calc-saw-time');
 const showChatbotInfor = require('./src/utils/chatbot-infor');
 const checkCovid = require('./src/utils/check-covid');
 const searchSchedule = require('./src/utils/search-schedule');
-const getStarted = require('./src/utils/get-started');
-const setting = require('./src/utils/setting');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const stuff = require('./src/general/stuff');

@@ -2,11 +2,10 @@
 const request = require('request');
 const sendResponse = require('../general/sendResponse.js')
 
-let response = {
-  "text": "Đang lấy dữ liệu..."
-};
-
 module.exports = function (sender_psid) {
+  let response = {
+    "text": "Đang lấy dữ liệu..."
+  };
   // Fetch http://covid-rest.herokuapp.com/vietnam
   sendResponse(sender_psid, response);
   setTimeout(() => {
@@ -25,13 +24,13 @@ module.exports = function (sender_psid) {
         if(data.total_death === "") data.total_death = "0";
         if(data.new_cases === "") data.new_cases = "0";
         response.text = `Tình hình dịch Covid-19 ở Việt Nam:
-        - Tổng ca nhiễm: ${data.total_cases}
-        - Số ca nhiễm mới: ${data.new_cases}
-        - Số ca tử vong: ${data.total_death}
-        - Số ca hồi phục: ${data.total_recovered}
-        Ở yên trong nhà, giữ cho mình một sức khoẻ dẻo dai, luyện tập thể dục và rửa tay thường xuyên nha <3`
+- Tổng ca nhiễm: ${data.total_cases}
+- Số ca nhiễm mới: ${data.new_cases}
+- Số ca tử vong: ${data.total_death}
+- Số ca hồi phục: ${data.total_recovered}
+Ở yên trong nhà, giữ cho mình một sức khoẻ dẻo dai, luyện tập thể dục và rửa tay thường xuyên nha <3`
         sendResponse(sender_psid, response);
       }
     });
-  }, 1000);
+  }, 500);
 }

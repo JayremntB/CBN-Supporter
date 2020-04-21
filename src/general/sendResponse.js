@@ -1,6 +1,6 @@
 const request = require('request');
 
-module.exports = async function (sender_psid, response) {
+module.exports = function (sender_psid, response) {
   let request_body = {
     "recipient": {
       "id": sender_psid

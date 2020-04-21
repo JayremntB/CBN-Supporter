@@ -1,6 +1,8 @@
 const sendResponse = require('../general/sendResponse');
 
-module.export = function(client, sender_psid) {
+const dbName = "database-for-cbner";
+const collectionName = "users-data";
+module.exports = function(client, sender_psid) {
   let response = {
     "text": "Xin chào! Tớ tên Jay, rất vui được gặp cậu :D Tớ được thiết lập sẵn để cung cấp cho cậu các tính năng có trong Menu, cứ thoải mái vung tay mà sử dụng nhé :>"
   };
@@ -12,9 +14,9 @@ Gõ Setclass + tên lớp để cập nhật thời khoá biểu và bỏ qua b�
     setTimeout(()=> {
       response.text = "Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt :D"
       sendResponse(sender_psid, response);
-    }, 1500);
-  }, 2000);
-  client.db('database-for-cbner').collection(users-data).insertOne({
+    }, 1000);
+  }, 1000);
+  client.db(dbName).collection(collectionName).insertOne({
     sender_psid: sender_psid,
     group: "",
     main_schedule: [],
