@@ -147,7 +147,7 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
   }
   else {
     let response = stuff.searchScheduleCheckGroupResponse;
-    response.text = "Thời khoá biểu lớp cậu chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!";
+    response.text = "Thời khoá biểu lớp cậu chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng coder qua phần Thông tin và cài đặt nhé!";
     sendResponse(sender_psid, response);
   }
 }
