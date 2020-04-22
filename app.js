@@ -114,7 +114,7 @@ async function handleMessage(sender_psid, received_message) {
 
 function handlePostback(sender_psid, received_postback) {
   let response = {
-    "text": "Tính năng này hiện không khả dụng do dev đang lười và chưa có ny T.T"
+    "text": "Tính năng này hiện không khả dụng do thằng coder đang lười và chưa có ny T.T"
   };
   // Get the payload of receive postback
   let payload = received_postback.payload;

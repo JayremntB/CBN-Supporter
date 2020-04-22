@@ -29,7 +29,7 @@ module.exports = function(sender_psid) {
 để "có thể" tỉnh táo. Vì công thức cũng chỉ là công thức thôi, cậu muốn tỉnh táo thì cứ ngủ đủ 8 tiếng như người bình thường là ok nha :D`
     },
     {
-      "text": "Cậu có thể vào trang https://sleepyti.me/ để tìm thời điểm nên ngủ nếu cậu muốn dậy vào lúc nào đó. Thằng dev lười lắm nên không code cái này đâu :("
+      "text": "Cậu có thể vào trang https://sleepyti.me/ để tìm thời điểm nên ngủ nếu cậu muốn dậy vào lúc nào đó. Thằng coder lười lắm nên không code cái này đâu :("
     }
   ];
   sendResponse(sender_psid, response[0]);
