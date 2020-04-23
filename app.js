@@ -77,6 +77,7 @@ function handleMessage(sender_psid, received_message, userData) {
     "text": ""
   };
   if(received_message.text) {
+    const textNotLowerCase = received_message.text;
     const text = received_message.text.toLowerCase();
     const textSplit = text.split(" ");
     console.log("message: " + text + "\n---------------------------------");
@@ -94,7 +95,7 @@ function handleMessage(sender_psid, received_message, userData) {
         searchSchedule.handleMessage(client, sender_psid, text, userData);
       }
       else if(userData.search_classes.block) {
-
+        searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
       }
       else if(userData.search_subject.block) {
 
@@ -137,7 +138,6 @@ function handlePostback(sender_psid, received_postback, userData) {
     case 'tính năng chính':
     case 'các tính năng khác':
     case 'tìm môn học':
-    case 'tìm tiết dạy':
     case 'tính giờ ngủ':
     case 'thông tin chatbot':
     case 'góp, gợi ý tính năng':
@@ -145,6 +145,9 @@ function handlePostback(sender_psid, received_postback, userData) {
       break;
     case 'tra thời khoá biểu':
       searchSchedule.init(client, sender_psid, userData);
+      break;
+    case 'tìm tiết dạy':
+      searchClasses.init(client, sender_psid);
       break;
     case 'tính giờ dậy':
       calcWakeUpTime(sender_psid);

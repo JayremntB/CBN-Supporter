@@ -57,7 +57,7 @@ function createBlock(client, sender_psid, otherGroup) {
         console.error(err);
         sendResponse(sender_psid, response);
       }
-      else console.log('init search block successfully');
+      else console.log('init search schedule block successfully');
     });
   }
   else {
@@ -75,7 +75,7 @@ function createBlock(client, sender_psid, otherGroup) {
         console.error(err);
         sendResponse(sender_psid, response);
       }
-      else console.log('init search other group successfully');
+      else console.log('init search schedule other group successfully');
     });
   }
 }
@@ -231,7 +231,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
 
 function handleDayInput(day) {
   const date = new Date();
-  date.setHours(date.getHours()); // App is deployed in heroku US
+  date.setHours(date.getHours() + 7); // App is deployed in heroku US
   let dayNow = Number(date.getDay()) + 1;
   switch (day) {
     case 'tất cả':
