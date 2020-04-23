@@ -5,7 +5,7 @@ const stuff = require('../general/stuff');
 const dbName = 'database-for-cbner';
 module.exports = {
   handleMessage: handleMessage,
-  handlePostback: handlePostback
+  init: init
 }
 
 function handleMessage(client, sender_psid, text, userData) {
@@ -25,30 +25,24 @@ function handleMessage(client, sender_psid, text, userData) {
   }
 }
 
-function handlePostback(client, sender_psid) {
+function init(client, sender_psid, userData) {
   let response = {
     "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
   };
-  client.db(dbName).collection('users-data').findOne({ sender_psid: sender_psid }, (err, userData) => {
-    if(err) {
-      console.error(err);
-      sendResponse(sender_psid, response);
-    }
-    else if(userData.group) {
-      initBlock(client, sender_psid, false); // init search_schedule_block
-      response = stuff.searchScheduleAskDay;
-      response.text = `Cập nhật thời khoá biểu lớp ${userData.group} thành công!\nCậu muốn tra thứ mấy?`
-      sendResponse(sender_psid, response);
-    }
-    else {
-      initBlock(client, sender_psid, true); // init both search_schedule_block & search_schedule_other_group block
-      response = stuff.searchScheduleAskGroup;
-      sendResponse(sender_psid, response);
-    }
-  });
+  if(userData.group) {
+    createBlock(client, sender_psid, false); // init search_schedule_block
+    response = stuff.searchScheduleAskDay;
+    response.text = `Cập nhật thời khoá biểu lớp ${userData.group} thành công!\nCậu muốn tra thứ mấy?`
+    sendResponse(sender_psid, response);
+  }
+  else {
+    createBlock(client, sender_psid, true); // init both search_schedule_block & search_schedule_other_group block
+    response = stuff.searchScheduleAskGroup;
+    sendResponse(sender_psid, response);
+  }
 }
 
-function initBlock(client, sender_psid, otherGroup) {
+function createBlock(client, sender_psid, otherGroup) {
   const collectionUserData = client.db(dbName).collection('users-data');
   let response = {
     "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
@@ -237,7 +231,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
 
 function handleDayInput(day) {
   const date = new Date();
-  date.setHours(date.getHours() + 7); // App is deployed in heroku US
+  date.setHours(date.getHours()); // App is deployed in heroku US
   let dayNow = Number(date.getDay()) + 1;
   switch (day) {
     case 'tất cả':

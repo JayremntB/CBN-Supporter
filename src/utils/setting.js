@@ -2,8 +2,7 @@ const sendResponse = require('../general/sendResponse');
 const stuff = require('../general/stuff');
 const dbName = 'database-for-cbner';
 module.exports = {
-  handleMessage: handleMessage,
-  handlePostback: handlePostback
+  handleMessage: handleMessage
 }
 
 async function handleMessage(client, sender_psid, textSplit, userData) {
@@ -70,27 +69,6 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
       }
     }
   }
-}
-
-function handlePostback(client, sender_psid) {
- const response = {
-    "text": `Các lệnh cài đặt tớ hỗ trợ:
-- Setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu.
-(Ví dụ: setclass 11ti. Đừng lo, khi cậu muốn tra lớp khác, tớ sẽ có một cái button để giúp cậu tra mà không ảnh hưởng đến lớp cậu đã cài đặt)
-
-- Viewclass: Xem tên lớp đã cài đặt.
-
-- Delclass: Xoá tên lớp đã cài đặt.`,
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "Danh sách lớp",
-        "payload": "classList",
-        "image_url": ""
-      }
-    ]
-  };
-  sendResponse(sender_psid, response);
 }
 
 function checkGroup(sender_psid, group) {
