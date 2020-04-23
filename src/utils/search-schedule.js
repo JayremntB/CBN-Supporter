@@ -31,7 +31,7 @@ function init(client, sender_psid, userData) {
   };
   if(userData.group) {
     createBlock(client, sender_psid, false); // init search_schedule_block
-    response = stuff.searchScheduleAskDay;
+    response = stuff.askDay;
     response.text = `Cập nhật thời khoá biểu lớp ${userData.group} thành công!\nCậu muốn tra thứ mấy?`
     sendResponse(sender_psid, response);
   }
@@ -133,7 +133,7 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
         sendResponse(sender_psid, response);
       } else {
         console.log("Update other group data successfully!");
-        let response = stuff.searchScheduleAskDay;
+        let response = stuff.askDay;
         response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nCậu muốn tra thứ mấy?`;
         sendResponse(sender_psid, response);
       }
@@ -147,7 +147,7 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
 }
 
 function sendSchedule(sender_psid, dayInput, userData) {
-  let response = stuff.searchScheduleAskDay;
+  let response = stuff.askDay;
   let day = handleDayInput(dayInput);
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
   let schedule = (userData.search_schedule_other_group.block)

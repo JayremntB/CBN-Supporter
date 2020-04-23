@@ -33,13 +33,13 @@
       }
     ]
   },
-  "searchScheduleAskDay": {
+  "askDay": {
     "text": "",
     "quick_replies": [
       {
         "content_type": "text",
         "title": "Lớp khác",
-        "payload": "searchScheduleOverwriteClass",
+        "payload": "overwriteClass",
         "image_url": ""
       },
       {
@@ -133,7 +133,24 @@
       }
     ]
   },
-  "teachersList": {
+  "checkTeacherNameResponse": {
+    "text": "Nhầm thì viết lại luôn nha :^)",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Danh sách giáo viên",
+        "payload": "teacherList",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
+      }
+    ]
+  },
+  "teacherList": {
     "text": "A PN.An HTN.Ánh
 -----
 B NT.Bình NV.Bảo PT.Bằng NV.Bình
