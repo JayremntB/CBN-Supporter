@@ -117,7 +117,7 @@
     ]
   },
   "checkGroupResponse": {
-    "text": "Tên lớp không có trong danh sách :( Kiểm tra lại xem cậu có viết nhầm hay không nhé.\nNhầm thì viết lại luôn nha :^)",
+    "text": "Tên lớp không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)",
     "quick_replies": [
       {
         "content_type": "text",
@@ -134,7 +134,7 @@
     ]
   },
   "checkTeacherNameResponse": {
-    "text": "Nhầm thì viết lại luôn nha :^)",
+    "text": "Tên giáo viên không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)",
     "quick_replies": [
       {
         "content_type": "text",

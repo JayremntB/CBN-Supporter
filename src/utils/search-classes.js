@@ -23,7 +23,7 @@ function handleMessage(client, sender_psid, text, userData) {
   else if(userData.search_classes.teacher) {
     sendClasses(sender_psid, text, userData);
   }
-  else {
+  else if(checkTeacherName(sender_psid, text)) {
     updateData(client, sender_psid, text);
   }
 }
@@ -111,6 +111,123 @@ function updateData(client, sender_psid, teacherName) {
     }
     else {
       response = stuff.checkTeacherNameResponse;
+      response.text = `Tuần này giáo viên ${teacherName} không có buổi dạy nào :(`;
+      sendResponse(sender_psid, response);
     }
   });
+}
+
+function sendClasses(sender_psid, text, userData) {
+  let response = stuff.askDay;
+  response.quick_replies[0].title = "Giáo viên khác";
+  response.quick_replies[0].payload = "overwriteTeacher";
+  let day = handleDayInput(dayInput);
+  // Check if we are in search_schedule_other_group block or not, and send the suitable data
+  let schedule = (userData.search_schedule_other_group.block)
+  ? userData.search_schedule_other_group.schedule
+  : userData.main_schedule;
+  if(day === "Tất cả") {
+    let text = "Lịch học tuần này của cậu đây: ";
+    schedule.forEach((data) => {
+      console.log(data);
+      text += `
+* Thứ ${data.day}:
+ - Sáng: `
+      if(data.morning.length === 0) text += "Nghỉ";
+      else {
+        data.morning.forEach((Class, i) => {
+          if(Class.subject !== "")
+          text += `
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+        });
+      }
+      //    ------------------------
+      text += `
+ - Chiều: `
+      //
+      if(data.afternoon.length === 0) text += "Nghỉ";
+      else {
+        data.afternoon.forEach((Class, i) => {
+          if(Class.subject !== "")
+          text += `
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+        });
+      }
+      text += `\n-----------`;
+    });
+    text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
+    response.text = text;
+    sendResponse(sender_psid, response);
+  }
+  else if(!isNaN(day)){
+    if(day == 8) {
+      response.text = "Chủ nhật học hành cái gì hả đồ chăm học -_-";
+      sendResponse(sender_psid, response);
+    }
+    else if(day - 1 > schedule.length || day - 2 < 0) {
+      response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì ngoài mấy cái hiện lên bên dưới -_-`;
+      sendResponse(sender_psid, response);
+    } else {
+      const data = schedule[day - 2];
+      let text = `Lịch học thứ ${day}:
+ - Sáng: `;
+      if(data.morning.length === 0) text += "Nghỉ";
+      else {
+        data.morning.forEach((Class, i) => {
+          if(Class.subject !== "")
+          text += `
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+        });
+      }
+      //    ------------------------
+      text += `
+ - Chiều: `
+      //
+      if(data.afternoon.length === 0) text += "Nghỉ";
+      else {
+        data.afternoon.forEach((Class, i) => {
+          if(Class.subject !== "")
+          text += `
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+        });
+      }
+      text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
+      response.text = text;
+      sendResponse(sender_psid, response);
+    }
+  }
+  else {
+    response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì ngoài mấy cái hiện lên bên dưới -_-`;
+    sendResponse(sender_psid, response);
+  }
+}
+
+function checkTeacherName(sender_psid, teacherName) {
+  const checkArray = [
+    'PN.An',       'NT.Bình',  'NV.Bảo',    'PT.Bằng',    'NV.Bình',
+    'NTT.Dung',    'NT.Dịu',   'NT.Dung',   'LT.Giang',   'NT.Giang',
+    'NTT.Huyền',   'HT.Hà',    'VT.Huyến',  'NK.Hoàn',    'NT.Hương',
+    'BT.Hưng',     'ĐT.Hường', 'NT.Huế',    'ĐT.Hương',   'NT.Hà(h)',
+    'VTT.Hằng',    'HL.Hương', 'ĐT.Hiền',   'NT.Hường',   'NT.Hà(su)',
+    'NT.Hòa',      'LTT.Hiền', 'PĐ.Hiệp',   'VT.Huê',     'NT.Hoa',
+    'VB.Huy',      'LN.Hân',   'TV.Kỷ',     'NH.Khánh',   'TT.Khanh',
+    'TK.Linh',     'LT.Loan',  'NT.Linh',   'VT.Len',     'ND.Liễu',
+    'NTM.Loan',    'NT.Loan',  'NTH.Liên',  'NT.Lê',      'NT.Lệ',
+    'VT.Lợi',      'NM.Lan',   'NP.Ly Ly',  'LT.Mùi',     'NQ.Minh',
+    'NV.Mạnh',     'NT.Nga',   'TB.Ngọc',   'TTB.Ngọc',   'NT.Nhung',
+    'HT.Nhân',     'LV.Ngân',  'NP.Nga',    'DTT.Nga',    'NV.Nga',
+    'NT.Nguyệt',   'HD.Ngọc',  'NTT.Nhung', 'NV.Phán',    'NTT.Phương',
+    'TH.Quang',    'NV.Tuấn',  'HT.Thảo',   'TT.Trang',   'NTH.Trang',
+    'NT.Thu',      'HTT.Thủy', 'NTT.Thuỷ',  'LH.Trang',   'PH.Trang',
+    'NTP.Thảo',    'NT.Tuyết', 'CT.Thúy',   'NP.Thảo',    'NC.Trung',
+    'BM.Thủy',     'ĐTT.Toàn', 'NH.Vân',    'PH.Vân',     'NT.Vân',
+    'TTB.Vân',     'NĐ.Vang',  'TH.Xuân',   'NT.Yến (đ)', 'TT.Yến',
+    'NT.Yến (nn)', 'HTN.Ánh',  'TN.Điệp',   'LĐ.Điển',    'NT.Đức'
+  ];
+  if(checkArray.includes(teacherName)) return true;
+  else {
+    let response = stuff.checkTeacherNameResponse;
+    sendResponse(sender_psid, response);
+    return false;
+  }
 }
