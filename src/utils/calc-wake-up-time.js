@@ -19,13 +19,16 @@ module.exports = function(sender_psid) {
       'minutes': date.getMinutes()
     }
   }
-  const response = {
+  let response = {
     "text": `Bây giờ là ${timeNow.hours} giờ ${timeNow.minutes} phút. Đây là những thời điểm mà cậu nên thức dậy:
 + ${timeEstimate[0].hours} giờ ${timeEstimate[0].minutes} phút
 + ${timeEstimate[1].hours} giờ ${timeEstimate[1].minutes} phút
 + ${timeEstimate[2].hours} giờ ${timeEstimate[2].minutes} phút
-+ ${timeEstimate[3].hours} giờ ${timeEstimate[3].minutes} phút
-để "có thể" tỉnh táo. Vì công thức cũng chỉ là công thức thôi, cậu muốn tỉnh táo thì cứ ngủ đủ 8 tiếng như người bình thường là ok nha :D`
++ ${timeEstimate[3].hours} giờ ${timeEstimate[3].minutes} phút để "có thể" tỉnh táo :>`
   };
   sendResponse(sender_psid, response);
+  setTimeout(() => {
+    response.text = 'Vì công thức cũng chỉ là công thức thôi, cậu muốn tỉnh táo thì cứ ngủ đủ 8 tiếng như người bình thường là ok nha :D';
+    sendResponse(sender_psid, response);
+  }, 1000);
 }

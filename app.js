@@ -81,7 +81,10 @@ function handleMessage(sender_psid, received_message, userData) {
     const textSplit = text.split(" ");
     console.log("message: " + text + "\n---------------------------------");
 
-    if(text === 'exit' || text === 'danh sách lớp');
+    if(text === 'exit') {
+      unblockAll(sender_psid);
+    }
+    else if(text === 'danh sách lớp');
     else if(textSplit[0] === 'setclass' || textSplit[0] === 'viewclass' || textSplit[0] === 'delclass') {
       unblockAll(sender_psid);
       setting.handleMessage(client, sender_psid, textSplit, userData);
@@ -131,7 +134,7 @@ function handlePostback(sender_psid, received_postback, userData) {
   unblockAll(sender_psid);
   switch (text) {
     case 'menu':
-    case 'tính năng chính(tkb)':
+    case 'tính năng chính':
     case 'các tính năng khác':
     case 'tìm môn học':
     case 'tìm tiết dạy':
@@ -141,17 +144,14 @@ function handlePostback(sender_psid, received_postback, userData) {
     case 'cài đặt':
       break;
     case 'tra thời khoá biểu':
-    searchSchedule.init(client, sender_psid, userData);
-    break;
+      searchSchedule.init(client, sender_psid, userData);
+      break;
     case 'tính giờ dậy':
       calcWakeUpTime(sender_psid);
       break;
     case 'tình hình covid-19':
       checkCovid(sender_psid);
       break;
-    default:
-      response.text = "Tìm tính năng cậu cần ở phần Menu nha <3";
-      sendResponse(sender_psid, response);
   }
 }
 
@@ -176,7 +176,8 @@ function initUserData(sender_psid) {
       subject: "",
       day: "",
       time: ""
-    }
+    },
+    platform: ""
   };
   client.db(dbName).collection(collectionName).insertOne(insert);
   return insert;
