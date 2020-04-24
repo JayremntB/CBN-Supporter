@@ -107,7 +107,8 @@ function clearOtherGroupData(client, sender_psid) {
       };
       console.log("Could not clear other group data");
       sendResponse(sender_psid, response);
-    } else {
+    }
+    else {
       console.log("clear other group data successfully");
     }
   });
