@@ -83,9 +83,7 @@ function handleMessage(sender_psid, received_message, userData) {
     const textSplit = text.split(" ");
     console.log("message: " + text + "\n---------------------------------");
 
-    if(text === 'exit') {
-      unblockAll(sender_psid);
-    }
+    if(text === 'exit' || text === 'menu' || text === 'help') unblockAll(sender_psid);
     else if(text === 'danh sách lớp') {
       response = stuff.groupList;
       sendResponse(sender_psid, response);
@@ -114,7 +112,6 @@ function handleMessage(sender_psid, received_message, userData) {
       switch (text) {
         case 'tìm môn học':
         case 'tính giờ ngủ':
-        case 'quay lại':
           break;
         case 'tra thời khoá biểu':
           searchSchedule.init(client, sender_psid, userData);
