@@ -1,4 +1,15 @@
 module.exports = {
+  "exitResponse": {
+    "text": "(!) Đã quay lại chat với Jay :^)",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
   "searchScheduleAskGroup": {
     "text": "Cậu tìm lớp nào? \n(Ví dụ: 11ti, ...)",
     "quick_replies": [

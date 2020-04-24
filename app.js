@@ -83,20 +83,24 @@ function handleMessage(sender_psid, received_message, userData) {
     let text = received_message.text.toLowerCase();
     const textSplit = text.split(" ");
     console.log("message: " + text + "\n---------------------------------");
-
-    if(text === 'exit') unblockAll(sender_psid);
+    console.log(textSplit);
+    if(text === 'exit') {
+      unblockAll(sender_psid);
+      response = stuff.exitResponse;
+      sendResponse(sender_psid, response);
+    }
     else if(userData.liveChat);
-    else if(textCheck.includes(text)) {
-      if(text === 'danh sách lớp' || text === 'dsl') {
+    else if(textCheck.includes(textSplit[0])) {
+      text = textSplit[0];
+      if(text === 'dsl') {
         response = stuff.groupList;
         sendResponse(sender_psid, response);
       }
-      else if(text === 'danh sách giáo viên' || text === 'dsgv') {
+      else if(text === 'dsgv') {
         response = stuff.teacherList;
         sendResponse(sender_psid, response);
       }
       else {
-        text = textSplit[0];
         unblockAll(sender_psid);
         switch (text) {
           case 'help':
@@ -148,7 +152,11 @@ function handlePostback(sender_psid, received_postback, userData) {
   const textSplit = text.split(" ");
   console.log('postback: ' + text + "\n---------------------------------");
   // Set response based on payload
-  if(text === 'exit') unblockAll(sender_psid);
+  if(text === 'exit') {
+    unblockAll(sender_psid);
+    response = stuff.exitResponse;
+    sendResponse(sender_psid, response);
+  }
   else if(!userData.liveChat) {
     unblockAll(sender_psid);
     switch (text) {

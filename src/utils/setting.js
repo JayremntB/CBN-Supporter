@@ -28,7 +28,6 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
       }
     }, (err) => {
       if(err) {
-        console.error(err);
         response.text = "Ủa không xoá được, cậu hãy thử lại sau nhé T.T";
         sendResponse(sender_psid, response);
       }
@@ -39,6 +38,7 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
     });
   }
   else if(textSplit[0] === 'setclass') {
+    console.log("b");
     if(textSplit.length === 1) {
       response.text = "Tên lớp cậu chưa ghi kìa :(";
       sendResponse(sender_psid, response);
@@ -53,7 +53,6 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
           }
         }, (err) => {
           if(err) {
-            console.error(err);
             response.text = "Ủa không cài đặt được, cậu hãy thử lại sau nhé T.T";
             sendResponse(sender_psid, response);
           }

@@ -44,7 +44,7 @@ function init(client, sender_psid, userData) {
 
 function createBlock(client, sender_psid, otherGroup) {
   const collectionUserData = client.db(dbName).collection('users-data');
-  let response = {
+  const response = {
     "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
   };
   if(!otherGroup) {
@@ -53,11 +53,7 @@ function createBlock(client, sender_psid, otherGroup) {
         search_schedule_block: true
       }
     }, (err) => {
-      if(err) {
-        console.error(err);
-        sendResponse(sender_psid, response);
-      }
-      else console.log('init search schedule block successfully');
+      if(err) sendResponse(sender_psid, response);
     });
   }
   else {
@@ -71,11 +67,7 @@ function createBlock(client, sender_psid, otherGroup) {
         }
       }
     }, (err) => {
-      if(err) {
-        console.error(err);
-        sendResponse(sender_psid, response);
-      }
-      else console.log('init search schedule other group successfully');
+      if(err) sendResponse(sender_psid, response);
     });
   }
 }
@@ -105,11 +97,7 @@ function clearOtherGroupData(client, sender_psid) {
       let response = {
         "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
       };
-      console.log("Could not clear other group data");
       sendResponse(sender_psid, response);
-    }
-    else {
-      console.log("clear other group data successfully");
     }
   });
 }
@@ -117,7 +105,6 @@ function clearOtherGroupData(client, sender_psid) {
 async function updateOtherGroupData(client, sender_psid, groupInput) {
   const scheduleData = await client.db(dbName).collection('schedule').findOne({ group: groupInput }); // find schedule of groupInput
   if(scheduleData) {
-    console.log("Found data");
     client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_other_group: {
@@ -131,10 +118,8 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
         const response = {
           "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
         };
-        console.error("Could not update other group data: \n" + err);
         sendResponse(sender_psid, response);
       } else {
-        console.log("Update other group data successfully!");
         let response = stuff.askDay;
         response.quick_replies[0].title = "Lớp khác";
         response.quick_replies[0].payload = "overwriteClass";
