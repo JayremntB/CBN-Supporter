@@ -123,7 +123,7 @@ function updateData(client, sender_psid, teacherName) {
           response = stuff.askDay;
           response.quick_replies[0].title = "Giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
-          response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nCậu muốn tìm lịch dạy vào thứ mấy?`;
+          response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nCậu muốn tìm lịch dạy thứ mấy?`;
           sendResponse(sender_psid, response);
         }
       });
@@ -217,7 +217,7 @@ function sendClasses(sender_psid, dayInput, userData) {
     response = stuff.askDay;
     response.quick_replies[0].title = "Giáo viên khác";
     response.quick_replies[0].payload = "overwriteTeacher";
-    response.text = `Nàooo -__- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
+    response.text = `Nàooo -_- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
     sendResponse(sender_psid, response);
   }
 }

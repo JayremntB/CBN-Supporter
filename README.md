@@ -22,7 +22,7 @@ Lưu ý: Các lệnh dưới đây cũng có thể sử dụng cho bản thườ
 
 Khi truy cập [m.me link](https://m.me/107868430903710) bằng cách bấm Gửi tin nhắn (Send Message) trên trang [CBN Supporter](https://www.facebook.com/cbnsupporter/), bấm Bắt đầu (Get Started) để khởi động cuộc trò chuyện.
 Vì bạn đang sử dụng bản Lite nên bot sẽ không hiện các gợi ý có sẵn khi sử dụng các tính năng, vì vậy hãy sử dụng các lệnh sau:
-(Bạn có thể viết lệnh theo nhiều cách như Menu, MeNu, MENu, ...)
+(Bạn có thể viết lệnh theo nhiều cách như Menu, MeNu, mENu, ...)
 
 **Chung:**
 

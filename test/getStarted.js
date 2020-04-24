@@ -1,6 +1,6 @@
 const request = require('request');
 
-const webhook_uri = "https://cbnsupporter.herokuapp.com/webhook";
+const webhook_uri = "https://supportercbn.herokuapp.com/webhook";
 const body_json = {
   "object":"page",
   "entry":[

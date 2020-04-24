@@ -99,7 +99,8 @@ function unblockAll(client, sender_psid) {
         subject: "",
         day: "",
         time: ""
-      }
+      },
+      liveChat: ""
     }
   });
 }

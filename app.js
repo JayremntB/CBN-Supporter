@@ -82,7 +82,7 @@ function handleMessage(sender_psid, received_message, userData) {
     const textNotLowerCase = received_message.text;
     let text = received_message.text.toLowerCase();
     const textSplit = text.split(" ");
-    console.log("message: " + text + "\n---------------------------------");
+    console.log("message: " + text + "\n--------------------------------");
     console.log(textSplit);
     if(text === 'exit') {
       unblockAll(sender_psid);

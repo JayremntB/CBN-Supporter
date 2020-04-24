@@ -8,7 +8,6 @@ module.exports = function(sender_psid) {
     'hours': date.getHours(),
     'minutes': date.getMinutes()
   }
-
   // Estimate time to wake up if sleep now
   date.setMinutes(date.getMinutes() + 90 * 2 + 14);
   let timeEstimate = new Array(4);
