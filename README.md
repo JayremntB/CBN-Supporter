@@ -29,7 +29,7 @@ Vì bạn đang sử dụng bản Lite nên bot sẽ không hiện các gợi ý
 - *Lệnh*: danh sách tập lệnh
 - *Help*: gọi người hỗ trợ (Live chat)
 - *Exit*: dừng tính năng đang sử dụng
-- *dsl*:  danh sách lớp học
+- *dsl*:  danh sách các lớp
 - *dsgv*: danh sách giáo viên
 
 **Lệnh kích hoạt tính năng:**
@@ -71,7 +71,7 @@ Vì bạn đang sử dụng bản Lite nên bot sẽ không hiện các gợi ý
 
 ### Cài đặt lớp (*setclass + tên lớp*)
 
-Để bạn không phải mất công ghi tên lớp lần nữa nếu bạn chỉ tra một lớp duy nhất, nhập **setclass + tên lớp**. Tương tự, nếu bạn viết sai hoặc quên cách viết tên lớp của mình, gõ **dsl** để xem danh sách các lớp.
+Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó liên tục (lớp bạn chẳng hạn), nhập **setclass + tên lớp**. Tương tự, nếu bạn viết sai hoặc quên cách viết tên lớp của mình, gõ **dsl** để xem danh sách các lớp.
 Đừng lo, khi bạn muốn tra lớp khác, bot sẽ có một cái button để giúp bạn tra mà không ảnh hưởng đến lớp đã cài đặt.
 
 Các lệnh đi kèm:
