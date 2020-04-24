@@ -24,11 +24,11 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const textCheck = ['lệnh', 'exit', 'menu', 'help', 'lớp', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'danh sách lớp', 'danh sách giáo viên', 'setclass', 'viewclass', 'delclass'];
+const textCheck = ['lệnh', 'menu', 'help', 'lớp', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'dsl', 'danh sách lớp', 'dsgv', 'danh sách giáo viên', 'setclass', 'viewclass', 'delclass'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
-  res.send("ko");
+  res.send("ok");
 });
 
 app.get('/webhook', (req, res) => {
@@ -84,12 +84,14 @@ function handleMessage(sender_psid, received_message, userData) {
     const textSplit = text.split(" ");
     console.log("message: " + text + "\n---------------------------------");
 
-    if(textCheck.includes(text)) {
-      if(text === 'danh sách lớp') {
+    if(text === 'exit') unblockAll(sender_psid);
+    else if(userData.liveChat);
+    else if(textCheck.includes(text)) {
+      if(text === 'danh sách lớp' || text === 'dsl') {
         response = stuff.groupList;
         sendResponse(sender_psid, response);
       }
-      else if(text === 'danh sách giáo viên') {
+      else if(text === 'danh sách giáo viên' || text === 'dsgv') {
         response = stuff.teacherList;
         sendResponse(sender_psid, response);
       }
@@ -97,15 +99,13 @@ function handleMessage(sender_psid, received_message, userData) {
         text = textSplit[0];
         unblockAll(sender_psid);
         switch (text) {
+          case 'help':
+            onLiveChat(sender_psid);
+            break;
           case 'setclass':
           case 'viewclass':
           case 'delclass':
             setting.handleMessage(client, sender_psid, textSplit, userData);
-            break;
-          case 'lớp':
-          case 'ngủ':
-            response.text = "Tính năng này hiện không khả dụng do thằng coder đang lười và chưa có ny 😞";
-            sendResponse(sender_psid, response);
             break;
           case 'tkb':
             searchSchedule.init(client, sender_psid, userData);
@@ -119,7 +119,10 @@ function handleMessage(sender_psid, received_message, userData) {
           case 'dậy':
             calcWakeUpTime(sender_psid);
             break;
-          default: // text === 'exit', 'menu', 'help'
+          case 'lớp':
+          case 'ngủ':
+            response.text = "Tính năng này hiện không khả dụng do thằng coder đang lười và chưa có ny 😞";
+            sendResponse(sender_psid, response);
             break;
         }
       }
@@ -145,23 +148,36 @@ function handlePostback(sender_psid, received_postback, userData) {
   const textSplit = text.split(" ");
   console.log('postback: ' + text + "\n---------------------------------");
   // Set response based on payload
-  unblockAll(sender_psid);
-  switch (text) {
-    case 'tra thời khoá biểu':
-      searchSchedule.init(client, sender_psid, userData);
-      break;
-    case 'tìm tiết dạy':
-      searchClasses.init(client, sender_psid);
-      break;
-    case 'tính giờ dậy':
-      calcWakeUpTime(sender_psid);
-      break;
-    case 'tình hình covid-19':
-      checkCovid(sender_psid);
-      break;
+  if(text === 'exit') unblockAll(sender_psid);
+  else if(!userData.liveChat) {
+    unblockAll(sender_psid);
+    switch (text) {
+      case 'tra thời khoá biểu':
+        searchSchedule.init(client, sender_psid, userData);
+        break;
+      case 'tìm tiết dạy':
+        searchClasses.init(client, sender_psid);
+        break;
+      case 'tính giờ dậy':
+        calcWakeUpTime(sender_psid);
+        break;
+      case 'tình hình covid-19':
+        checkCovid(sender_psid);
+        break;
+      case 'trợ giúp (live chat)':
+        onLiveChat(sender_psid);
+        break;
+    }
   }
 }
 
+function onLiveChat(sender_psid) {
+  client.db(dbName).collection(collectionName).updateOne({ sender_psid: sender_psid }, {
+    $set: {
+      liveChat: true
+    }
+  });
+}
 function initUserData(sender_psid) {
   const insert = {
     sender_psid: sender_psid,
@@ -183,7 +199,8 @@ function initUserData(sender_psid) {
       subject: "",
       day: "",
       time: ""
-    }
+    },
+    liveChat: ""
   };
   client.db(dbName).collection(collectionName).insertOne(insert);
   return insert;
@@ -208,7 +225,8 @@ function unblockAll(sender_psid) {
         subject: "",
         day: "",
         time: ""
-      }
+      },
+      liveChat: false
     }
   });
 }
