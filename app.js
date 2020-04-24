@@ -24,11 +24,11 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const textCheck = ['lệnh', 'exit', 'menu', 'help', 'môn', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'danh sách lớp', 'danh sách giáo viên', 'setclass', 'viewclass', 'delclass'];
+const textCheck = ['lệnh', 'exit', 'menu', 'help', 'lớp', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'danh sách lớp', 'danh sách giáo viên', 'setclass', 'viewclass', 'delclass'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
-  res.send("ok");
+  res.send("ko");
 });
 
 app.get('/webhook', (req, res) => {
