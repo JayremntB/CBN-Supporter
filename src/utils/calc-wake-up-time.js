@@ -3,7 +3,7 @@ const sendResponse = require('../general/sendResponse');
 
 module.exports = function(sender_psid) {
   const date = new Date();
-  date.setHours(date.getHours()); // App is deployed in heroku US +7(VN)
+  date.setHours(date.getHours() + 7); // App is deployed in heroku US +7(VN)
   const timeNow = {
     'hours': date.getHours(),
     'minutes': date.getMinutes()

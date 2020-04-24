@@ -3,6 +3,7 @@ const sendResponse = require('../general/sendResponse');
 const stuff = require('../general/stuff');
 
 const dbName = 'database-for-cbner';
+
 module.exports = {
   handleMessage: handleMessage,
   init: init
@@ -31,7 +32,7 @@ function init(client, sender_psid, userData) {
   };
   if(userData.group) {
     createBlock(client, sender_psid, false); // init search_schedule_block
-    response = stuff.searchScheduleAskDay;
+    response = stuff.askDay;
     response.text = `Cập nhật thời khoá biểu lớp ${userData.group} thành công!\nCậu muốn tra thứ mấy?`
     sendResponse(sender_psid, response);
   }
@@ -57,7 +58,7 @@ function createBlock(client, sender_psid, otherGroup) {
         console.error(err);
         sendResponse(sender_psid, response);
       }
-      else console.log('init search block successfully');
+      else console.log('init search schedule block successfully');
     });
   }
   else {
@@ -75,7 +76,7 @@ function createBlock(client, sender_psid, otherGroup) {
         console.error(err);
         sendResponse(sender_psid, response);
       }
-      else console.log('init search other group successfully');
+      else console.log('init search schedule other group successfully');
     });
   }
 }
@@ -94,9 +95,9 @@ function clearOtherGroupData(client, sender_psid) {
   client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_schedule_other_group: {
+        block: true,
         group: "",
-        schedule: [],
-        block: true
+        schedule: []
       }
     }
   }, (err) => {
@@ -133,7 +134,7 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
         sendResponse(sender_psid, response);
       } else {
         console.log("Update other group data successfully!");
-        let response = stuff.searchScheduleAskDay;
+        let response = stuff.askDay;
         response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nCậu muốn tra thứ mấy?`;
         sendResponse(sender_psid, response);
       }
@@ -147,7 +148,7 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
 }
 
 function sendSchedule(sender_psid, dayInput, userData) {
-  let response = stuff.searchScheduleAskDay;
+  let response = stuff.askDay;
   let day = handleDayInput(dayInput);
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
   let schedule = (userData.search_schedule_other_group.block)
@@ -156,45 +157,45 @@ function sendSchedule(sender_psid, dayInput, userData) {
   if(day === "Tất cả") {
     let text = "Lịch học tuần này của cậu đây: ";
     schedule.forEach((data) => {
-      console.log(data);
       text += `
 * Thứ ${data.day}:
- - Sáng: `
+ - Sáng: `;
       if(data.morning.length === 0) text += "Nghỉ";
       else {
         data.morning.forEach((Class, i) => {
           if(Class.subject !== "")
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
         });
       }
       //    ------------------------
       text += `
- - Chiều: `
+ - Chiều: `;
       //
       if(data.afternoon.length === 0) text += "Nghỉ";
       else {
         data.afternoon.forEach((Class, i) => {
           if(Class.subject !== "")
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
         });
       }
       text += `\n-----------`;
     });
-    text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
+    text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
     response.text = text;
     sendResponse(sender_psid, response);
   }
   else if(!isNaN(day)){
     if(day == 8) {
-      response.text = "Chủ nhật học hành cái gì hả đồ chăm học -_-";
+      response.text = "Ai đi học thêm cứ đi, ai muốn tự học cứ học :>";
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > schedule.length || day - 2 < 0) {
-      response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì ngoài mấy cái hiện lên bên dưới -_-`;
+      response.text = `Nàooo -__- Đừng điền vớ vẩn .-.`;
       sendResponse(sender_psid, response);
-    } else {
+    }
+    else {
       const data = schedule[day - 2];
       let text = `Lịch học thứ ${day}:
  - Sáng: `;
@@ -203,35 +204,35 @@ function sendSchedule(sender_psid, dayInput, userData) {
         data.morning.forEach((Class, i) => {
           if(Class.subject !== "")
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
         });
       }
       //    ------------------------
       text += `
- - Chiều: `
+ - Chiều: `;
       //
       if(data.afternoon.length === 0) text += "Nghỉ";
       else {
         data.afternoon.forEach((Class, i) => {
           if(Class.subject !== "")
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
         });
       }
-      text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
+      text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
       response.text = text;
       sendResponse(sender_psid, response);
     }
   }
   else {
-    response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì ngoài mấy cái hiện lên bên dưới -_-`;
+    response.text = `Nàooo -__- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
     sendResponse(sender_psid, response);
   }
 }
 
 function handleDayInput(day) {
   const date = new Date();
-  date.setHours(date.getHours()); // App is deployed in heroku US
+  date.setHours(date.getHours() + 7); // App is deployed in heroku US
   let dayNow = Number(date.getDay()) + 1;
   switch (day) {
     case 'tất cả':
