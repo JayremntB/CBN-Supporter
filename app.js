@@ -24,6 +24,7 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
+const textCheck = ['lệnh', 'exit', 'menu', 'help', 'môn', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'danh sách lớp', 'danh sách giáo viên', 'setclass', 'viewclass', 'delclass'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
@@ -79,54 +80,58 @@ function handleMessage(sender_psid, received_message, userData) {
   };
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
-    const text = received_message.text.toLowerCase();
+    let text = received_message.text.toLowerCase();
     const textSplit = text.split(" ");
     console.log("message: " + text + "\n---------------------------------");
 
-    if(text === 'exit' || text === 'menu' || text === 'help') unblockAll(sender_psid);
-    else if(text === 'danh sách lớp') {
-      response = stuff.groupList;
-      sendResponse(sender_psid, response);
-    }
-    else if(text === 'danh sách giáo viên') {
-      response = stuff.teacherList;
-      sendResponse(sender_psid, response);
-    }
-    else if(textSplit[0] === 'setclass' || textSplit[0] === 'viewclass' || textSplit[0] === 'delclass') {
-      unblockAll(sender_psid);
-      setting.handleMessage(client, sender_psid, textSplit, userData);
-    }
-    else if(userData.search_schedule_block || userData.search_classes.block || userData.search_subject.block) {
-      if(userData.search_schedule_block) {
-        searchSchedule.handleMessage(client, sender_psid, text, userData);
+    if(textCheck.includes(text)) {
+      if(text === 'danh sách lớp') {
+        response = stuff.groupList;
+        sendResponse(sender_psid, response);
       }
-      else if(userData.search_classes.block) {
-        searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
+      else if(text === 'danh sách giáo viên') {
+        response = stuff.teacherList;
+        sendResponse(sender_psid, response);
       }
-      else if(userData.search_subject.block) {
+      else {
+        text = textSplit[0];
+        unblockAll(sender_psid);
+        switch (text) {
+          case 'setclass':
+          case 'viewclass':
+          case 'delclass':
+            setting.handleMessage(client, sender_psid, textSplit, userData);
+            break;
+          case 'lớp':
+          case 'ngủ':
+            response.text = "Tính năng này hiện không khả dụng do thằng coder đang lười và chưa có ny 😞";
+            sendResponse(sender_psid, response);
+            break;
+          case 'tkb':
+            searchSchedule.init(client, sender_psid, userData);
+            break;
+          case 'dạy':
+            searchClasses.init(client, sender_psid);
+            break;
+          case 'covid':
+            checkCovid(sender_psid);
+            break;
+          case 'dậy':
+            calcWakeUpTime(sender_psid);
+            break;
+          default: // text === 'exit', 'menu', 'help'
+            break;
+        }
+      }
+    }
+    else if(userData.search_schedule_block) {
+      searchSchedule.handleMessage(client, sender_psid, text, userData);
+    }
+    else if(userData.search_classes.block) {
+      searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
+    }
+    else if(userData.search_groups.block) {
 
-      }
-    }
-    else {
-      unblockAll(sender_psid);
-      switch (text) {
-        case 'tìm môn học':
-        case 'tính giờ ngủ':
-          break;
-        case 'tra thời khoá biểu':
-          searchSchedule.init(client, sender_psid, userData);
-          break;
-        case 'tìm tiết dạy':
-          searchClasses.init(client, sender_psid);
-          break;
-        case 'tình hình covid-19':
-          checkCovid(sender_psid);
-          break;
-        case 'tính giờ dậy':
-          calcWakeUpTime(sender_psid);
-          break;
-        default:
-      }
     }
   }
 }
@@ -142,15 +147,6 @@ function handlePostback(sender_psid, received_postback, userData) {
   // Set response based on payload
   unblockAll(sender_psid);
   switch (text) {
-    case 'menu':
-    case 'tính năng chính':
-    case 'các tính năng khác':
-    case 'tìm môn học':
-    case 'tính giờ ngủ':
-    case 'thông tin chatbot':
-    case 'góp, gợi ý tính năng':
-    case 'cài đặt':
-      break;
     case 'tra thời khoá biểu':
       searchSchedule.init(client, sender_psid, userData);
       break;
@@ -182,13 +178,12 @@ function initUserData(sender_psid) {
       teacher: "",
       teaches: []
     },
-    search_subject: {
+    search_groups: {
       block: false,
       subject: "",
       day: "",
       time: ""
-    },
-    platform: ""
+    }
   };
   client.db(dbName).collection(collectionName).insertOne(insert);
   return insert;
@@ -208,7 +203,7 @@ function unblockAll(sender_psid) {
         teacher: "",
         teaches: []
       },
-      search_subject: {
+      search_groups: {
         block: false,
         subject: "",
         day: "",

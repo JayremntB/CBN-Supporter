@@ -189,6 +189,6 @@ V NH.Vân PH.Vân NT.Vân TTB.Vân NĐ.Vang
 -----
 X TH.Xuân
 -----
-Y (NT.Yến (đ)) TT.Yến (NT.Yến (nn))`
+Y (NT.Yến (đ)) (TT.Yến) (NT.Yến (nn))`
   }
 }
