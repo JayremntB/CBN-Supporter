@@ -10,6 +10,7 @@ const setting = require('./src/utils/setting');
 const calcWakeUpTime = require('./src/utils/calc-wake-up-time');
 const checkCovid = require('./src/utils/check-covid');
 const searchSchedule = require('./src/utils/search-schedule');
+const searchClasses = require('./src/utils/search-classes');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const stuff = require('./src/general/stuff');
@@ -85,7 +86,14 @@ function handleMessage(sender_psid, received_message, userData) {
     if(text === 'exit') {
       unblockAll(sender_psid);
     }
-    else if(text === 'danh sách lớp');
+    else if(text === 'danh sách lớp') {
+      response = stuff.groupList;
+      sendResponse(sender_psid, response);
+    }
+    else if(text === 'danh sách giáo viên') {
+      response = stuff.teacherList;
+      sendResponse(sender_psid, response);
+    }
     else if(textSplit[0] === 'setclass' || textSplit[0] === 'viewclass' || textSplit[0] === 'delclass') {
       unblockAll(sender_psid);
       setting.handleMessage(client, sender_psid, textSplit, userData);
@@ -105,12 +113,14 @@ function handleMessage(sender_psid, received_message, userData) {
       unblockAll(sender_psid);
       switch (text) {
         case 'tìm môn học':
-        case 'tìm tiết dạy':
         case 'tính giờ ngủ':
         case 'quay lại':
           break;
         case 'tra thời khoá biểu':
           searchSchedule.init(client, sender_psid, userData);
+          break;
+        case 'tìm tiết dạy':
+          searchClasses.init(client, sender_psid);
           break;
         case 'tình hình covid-19':
           checkCovid(sender_psid);
@@ -130,6 +140,7 @@ function handlePostback(sender_psid, received_postback, userData) {
   };
   // Get the payload of receive postback
   let text = JSON.parse(received_postback.payload).__button_text__.toLowerCase();
+  const textSplit = text.split(" ");
   console.log('postback: ' + text + "\n---------------------------------");
   // Set response based on payload
   unblockAll(sender_psid);

@@ -1,4 +1,8 @@
+'use strict'
 const sendResponse = require('../general/sendResponse');
+const stuff = require('../general/stuff');
+
+const dbName = 'database-for-cbner';
 
 module.exports = {
   init: init,
@@ -6,17 +10,18 @@ module.exports = {
 };
 
 function init(client, sender_psid, userData) {
-  let response = {
-    "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
-  };
   createBlock(client, sender_psid);
-  response = stuff.searchClassesAskTeacher;
+  const response = stuff.searchClassesAskTeacher;
   sendResponse(sender_psid, response);
 }
 
 function handleMessage(client, sender_psid, text, userData) {
-  if(text.toLowerCase() === "giáo viên khác") {
-    const response = stuff.searchScheduleAskGroup;
+  if(text.toLowerCase() === 'danh sách giáo viên') {
+    const response = stuff.teacherList;
+    sendResponse(sender_psid, response);
+  }
+  else if(text.toLowerCase() === "giáo viên khác") {
+    const response = stuff.searchClassesAskTeacher;
     clearData(client, sender_psid);
     sendResponse(sender_psid, response);
   }
@@ -50,6 +55,28 @@ function createBlock(client, sender_psid) {
   });
 }
 
+function clearData(client, sender_psid) {
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    $set: {
+      search_classes: {
+        block: true,
+        teacher: "",
+        teaches: []
+      }
+    }
+  }, (err) => {
+    if(err) {
+      let response = {
+        "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+      };
+      console.log("Could not clear other group data");
+      sendResponse(sender_psid, response);
+    } else {
+      console.log("clear other group data successfully");
+    }
+  });
+}
+
 function updateData(client, sender_psid, teacherName) {
   let response = {
     "text": ""
@@ -72,13 +99,19 @@ function updateData(client, sender_psid, teacherName) {
           // loop groups
           docs.forEach((doc) => {
             if(doc.schedule[i].morning[j] && doc.schedule[i].morning[j].teacher === teacherName){
-              teaches[i].morning.push(doc.group);
+              teaches[i].morning.push({
+                class: j + 1,
+                group: doc.group
+              });
               return; // If found, immediately return cause teacher teaches one class per group
             }
           });
           docs.forEach((doc) => {
             if(doc.schedule[i].afternoon[j] && doc.schedule[i].afternoon[j].teacher === teacherName){
-              teaches[i].afternoon.push(doc.group);
+              teaches[i].afternoon.push({
+                class: j + 1,
+                group: doc.group
+              });
               return;
             }
           });
@@ -117,87 +150,82 @@ function updateData(client, sender_psid, teacherName) {
   });
 }
 
-function sendClasses(sender_psid, text, userData) {
+function sendClasses(sender_psid, dayInput, userData) {
   let response = stuff.askDay;
   response.quick_replies[0].title = "Giáo viên khác";
   response.quick_replies[0].payload = "overwriteTeacher";
-  let day = handleDayInput(dayInput);
+  let day = handleDayInput(dayInput.toLowerCase());
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
-  let schedule = (userData.search_schedule_other_group.block)
-  ? userData.search_schedule_other_group.schedule
-  : userData.main_schedule;
+  let teaches = userData.search_classes.teaches;
   if(day === "Tất cả") {
-    let text = "Lịch học tuần này của cậu đây: ";
-    schedule.forEach((data) => {
-      console.log(data);
+    let text = `Lịch dạy tuần này của giáo viên ${userData.search_classes.teacher}: `;
+    teaches.forEach((data, days) => {
       text += `
-* Thứ ${data.day}:
- - Sáng: `
-      if(data.morning.length === 0) text += "Nghỉ";
+* Thứ ${days + 2}:
+ - Sáng: `;
+      if(data.morning.length === 0) text += "Trống";
       else {
-        data.morning.forEach((Class, i) => {
-          if(Class.subject !== "")
+        data.morning.forEach((subdata) => {
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${subdata.class}: ${subdata.group}`;
         });
       }
       //    ------------------------
       text += `
- - Chiều: `
+ - Chiều: `;
       //
-      if(data.afternoon.length === 0) text += "Nghỉ";
+      if(data.afternoon.length === 0) text += "Trống";
       else {
-        data.afternoon.forEach((Class, i) => {
-          if(Class.subject !== "")
+        data.afternoon.forEach((subdata) => {
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${subdata.class}: ${subdata.group}`;
         });
       }
+      //    ------------------------
       text += `\n-----------`;
     });
-    text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
+    text += `\nVì Tổ quốc xã hội chủ nghĩa. Vì lý tưởng của Bác Hồ vĩ đại: Sẵn sàng!`;
     response.text = text;
     sendResponse(sender_psid, response);
   }
   else if(!isNaN(day)){
     if(day == 8) {
-      response.text = "Chủ nhật học hành cái gì hả đồ chăm học -_-";
+      response.text = "Ngày này thì ai chẳng ở nhà bận yêu gia đình :(";
       sendResponse(sender_psid, response);
     }
-    else if(day - 1 > schedule.length || day - 2 < 0) {
-      response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì ngoài mấy cái hiện lên bên dưới -_-`;
+    else if(day - 1 > teaches.length || day - 2 < 0) {
+      response.text = `Nàooo -__- Đừng điền vớ vẩn .-.`;
       sendResponse(sender_psid, response);
-    } else {
-      const data = schedule[day - 2];
-      let text = `Lịch học thứ ${day}:
+    }
+    else {
+      const data = teaches[day - 2];
+      let text = `Lịch dạy thứ ${day}:
  - Sáng: `;
-      if(data.morning.length === 0) text += "Nghỉ";
+      if(data.morning.length === 0) text += "Trống";
       else {
-        data.morning.forEach((Class, i) => {
-          if(Class.subject !== "")
+        data.morning.forEach((subdata) => {
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${subdata.class}: ${subdata.group}`;
         });
       }
       //    ------------------------
       text += `
- - Chiều: `
+ - Chiều: `;
       //
-      if(data.afternoon.length === 0) text += "Nghỉ";
+      if(data.afternoon.length === 0) text += "Trống";
       else {
-        data.afternoon.forEach((Class, i) => {
-          if(Class.subject !== "")
+        data.afternoon.forEach((subdata) => {
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${subdata.class}: ${subdata.group}`;
         });
       }
-      text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
+      text += `\n-----------\nVì Tổ quốc xã hội chủ nghĩa. Vì lý tưởng của Bác Hồ vĩ đại: Sẵn sàng!`;
       response.text = text;
       sendResponse(sender_psid, response);
     }
   }
   else {
-    response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì ngoài mấy cái hiện lên bên dưới -_-`;
+    response.text = `Nàooo -__- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
     sendResponse(sender_psid, response);
   }
 }
@@ -229,5 +257,34 @@ function checkTeacherName(sender_psid, teacherName) {
     let response = stuff.checkTeacherNameResponse;
     sendResponse(sender_psid, response);
     return false;
+  }
+}
+
+function handleDayInput(day) {
+  const date = new Date();
+  date.setHours(date.getHours() + 7); // App is deployed in heroku US
+  let dayNow = Number(date.getDay()) + 1;
+  switch (day) {
+    case 'tất cả':
+      return 'Tất cả';
+      break;
+    case 'hôm nay':
+      return dayNow;
+      break;
+    case 'hôm qua':
+      if(dayNow === 2) return 8;
+      if(dayNow === 1) return 7;
+      dayNow --;
+      return dayNow;
+      break;
+    case 'ngày mai':
+      dayNow ++;
+      return dayNow;
+      break;
+    case 'chủ nhật':
+      return 8;
+      break;
+    default:
+      return day;
   }
 }

@@ -3,6 +3,7 @@ const sendResponse = require('../general/sendResponse');
 const stuff = require('../general/stuff');
 
 const dbName = 'database-for-cbner';
+
 module.exports = {
   handleMessage: handleMessage,
   init: init
@@ -94,9 +95,9 @@ function clearOtherGroupData(client, sender_psid) {
   client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_schedule_other_group: {
+        block: true,
         group: "",
-        schedule: [],
-        block: true
+        schedule: []
       }
     }
   }, (err) => {
@@ -156,45 +157,45 @@ function sendSchedule(sender_psid, dayInput, userData) {
   if(day === "Tất cả") {
     let text = "Lịch học tuần này của cậu đây: ";
     schedule.forEach((data) => {
-      console.log(data);
       text += `
 * Thứ ${data.day}:
- - Sáng: `
+ - Sáng: `;
       if(data.morning.length === 0) text += "Nghỉ";
       else {
         data.morning.forEach((Class, i) => {
           if(Class.subject !== "")
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
         });
       }
       //    ------------------------
       text += `
- - Chiều: `
+ - Chiều: `;
       //
       if(data.afternoon.length === 0) text += "Nghỉ";
       else {
         data.afternoon.forEach((Class, i) => {
           if(Class.subject !== "")
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
         });
       }
       text += `\n-----------`;
     });
-    text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
+    text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
     response.text = text;
     sendResponse(sender_psid, response);
   }
   else if(!isNaN(day)){
     if(day == 8) {
-      response.text = "Chủ nhật học hành cái gì hả đồ chăm học -_-";
+      response.text = "Ai đi học thêm cứ đi, ai muốn tự học cứ học :>";
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > schedule.length || day - 2 < 0) {
-      response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì ngoài mấy cái hiện lên bên dưới -_-`;
+      response.text = `Nàooo -__- Đừng điền vớ vẩn .-.`;
       sendResponse(sender_psid, response);
-    } else {
+    }
+    else {
       const data = schedule[day - 2];
       let text = `Lịch học thứ ${day}:
  - Sáng: `;
@@ -203,28 +204,28 @@ function sendSchedule(sender_psid, dayInput, userData) {
         data.morning.forEach((Class, i) => {
           if(Class.subject !== "")
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
         });
       }
       //    ------------------------
       text += `
- - Chiều: `
+ - Chiều: `;
       //
       if(data.afternoon.length === 0) text += "Nghỉ";
       else {
         data.afternoon.forEach((Class, i) => {
           if(Class.subject !== "")
           text += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`
+   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
         });
       }
-      text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!"
+      text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
       response.text = text;
       sendResponse(sender_psid, response);
     }
   }
   else {
-    response.text = `Lại điền vớ vẩn đúng không :( Tôi đây biết hết nhá -_-\nĐừng viết gì ngoài mấy cái hiện lên bên dưới -_-`;
+    response.text = `Nàooo -__- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
     sendResponse(sender_psid, response);
   }
 }
