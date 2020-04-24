@@ -40,7 +40,7 @@ function createBlock(client, sender_psid) {
       }
     }
   }, (err) => {
-    if(err)
+    if(err) {
       const response = {
         "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
       };
@@ -189,6 +189,9 @@ function sendClasses(sender_psid, dayInput, userData) {
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > teaches.length || day - 2 < 0) {
+      response = stuff.askday;
+      response.quick_replies[0].title = "Giáo viên khác";
+      response.quick_replies[0].payload = "overwriteTeacher";
       response.text = `Nàooo -__- Đừng điền vớ vẩn .-.`;
       sendResponse(sender_psid, response);
     }
@@ -220,6 +223,9 @@ function sendClasses(sender_psid, dayInput, userData) {
     }
   }
   else {
+    response = stuff.askDay;
+    response.quick_replies[0].title = "Giáo viên khác";
+    response.quick_replies[0].payload = "overwriteTeacher";
     response.text = `Nàooo -__- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
     sendResponse(sender_psid, response);
   }
@@ -249,7 +255,8 @@ function checkTeacherName(sender_psid, teacherName) {
   ];
   if(checkArray.includes(teacherName)) return true;
   else {
-    const response = stuff.checkTeacherNameResponse;
+    let response = stuff.checkTeacherNameResponse;
+    response.text = "Tên giáo viên không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)";
     sendResponse(sender_psid, response);
     return false;
   }

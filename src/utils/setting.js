@@ -95,7 +95,7 @@ function unblockAll(client, sender_psid) {
         teacher: "",
         teaches: []
       },
-      search_subject: {
+      search_groups: {
         block: false,
         subject: "",
         day: "",

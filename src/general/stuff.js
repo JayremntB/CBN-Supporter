@@ -38,8 +38,8 @@ module.exports = {
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "Lớp khác",
-        "payload": "overwriteClass",
+        "title": "",
+        "payload": "",
         "image_url": ""
       },
       {
@@ -117,7 +117,7 @@ module.exports = {
     ]
   },
   "checkGroupResponse": {
-    "text": "Tên lớp không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)",
+    "text": "",
     "quick_replies": [
       {
         "content_type": "text",
@@ -134,7 +134,7 @@ module.exports = {
     ]
   },
   "checkTeacherNameResponse": {
-    "text": "Tên giáo viên không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)",
+    "text": "",
     "quick_replies": [
       {
         "content_type": "text",
@@ -189,6 +189,6 @@ V NH.Vân PH.Vân NT.Vân TTB.Vân NĐ.Vang
 -----
 X TH.Xuân
 -----
-Y (NT.Yến (đ)) TT.Yến (NT.Yến (nn))`
+Y (NT.Yến (đ)) (TT.Yến) (NT.Yến (nn))`
   }
 }

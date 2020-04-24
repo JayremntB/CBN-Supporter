@@ -27,18 +27,17 @@ function handleMessage(client, sender_psid, text, userData) {
 }
 
 function init(client, sender_psid, userData) {
-  let response = {
-    "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
-  };
   if(userData.group) {
     createBlock(client, sender_psid, false); // init search_schedule_block
-    response = stuff.askDay;
+    let response = stuff.askDay;
+    response.quick_replies[0].title = "Lớp khác";
+    response.quick_replies[0].payload = "overwriteClass";
     response.text = `Cập nhật thời khoá biểu lớp ${userData.group} thành công!\nCậu muốn tra thứ mấy?`
     sendResponse(sender_psid, response);
   }
   else {
     createBlock(client, sender_psid, true); // init both search_schedule_block & search_schedule_other_group block
-    response = stuff.searchScheduleAskGroup;
+    const response = stuff.searchScheduleAskGroup;
     sendResponse(sender_psid, response);
   }
 }
@@ -86,6 +85,7 @@ function checkGroup(sender_psid, group) {
   if(checkArray.includes(group)) return true;
   else {
     let response = stuff.checkGroupResponse;
+    response.text = "Tên lớp không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)"
     sendResponse(sender_psid, response);
     return false;
   }
@@ -136,13 +136,15 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
       } else {
         console.log("Update other group data successfully!");
         let response = stuff.askDay;
+        response.quick_replies[0].title = "Lớp khác";
+        response.quick_replies[0].payload = "overwriteClass";
         response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nCậu muốn tra thứ mấy?`;
         sendResponse(sender_psid, response);
       }
     });
   }
   else {
-    let response = stuff.searchScheduleCheckGroupResponse;
+    let response = stuff.checkGroupResponse;
     response.text = "Thời khoá biểu lớp cậu chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng coder qua phần Thông tin và cài đặt nhé!";
     sendResponse(sender_psid, response);
   }
@@ -150,6 +152,8 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
 
 function sendSchedule(sender_psid, dayInput, userData) {
   let response = stuff.askDay;
+  response.quick_replies[0].title = "Lớp khác";
+  response.quick_replies[0].payload = "overwriteClass";
   let day = handleDayInput(dayInput);
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
   let schedule = (userData.search_schedule_other_group.block)
@@ -193,6 +197,9 @@ function sendSchedule(sender_psid, dayInput, userData) {
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > schedule.length || day - 2 < 0) {
+      response = stuff.askDay;
+      response.quick_replies[0].title = "Lớp khác";
+      response.quick_replies[0].payload = "overwriteClass";
       response.text = `Nàooo -__- Đừng điền vớ vẩn .-.`;
       sendResponse(sender_psid, response);
     }
@@ -226,6 +233,9 @@ function sendSchedule(sender_psid, dayInput, userData) {
     }
   }
   else {
+    response = stuff.askDay;
+    response.quick_replies[0].title = "Lớp khác";
+    response.quick_replies[0].payload = "overwriteClass";
     response.text = `Nàooo -__- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
     sendResponse(sender_psid, response);
   }
