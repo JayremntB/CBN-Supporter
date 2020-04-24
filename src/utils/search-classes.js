@@ -16,11 +16,7 @@ function init(client, sender_psid, userData) {
 }
 
 function handleMessage(client, sender_psid, text, userData) {
-  if(text.toLowerCase() === 'danh sách giáo viên') {
-    const response = stuff.teacherList;
-    sendResponse(sender_psid, response);
-  }
-  else if(text.toLowerCase() === "giáo viên khác") {
+  if(text.toLowerCase() === "giáo viên khác") {
     const response = stuff.searchClassesAskTeacher;
     clearData(client, sender_psid);
     sendResponse(sender_psid, response);
@@ -35,9 +31,6 @@ function handleMessage(client, sender_psid, text, userData) {
 
 function createBlock(client, sender_psid) {
   const collectionUserData = client.db(dbName).collection('users-data');
-  let response = {
-    "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
-  };
   collectionUserData.updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_classes: {
@@ -47,7 +40,10 @@ function createBlock(client, sender_psid) {
       }
     }
   }, (err) => {
-    if(err) {
+    if(err)
+      const response = {
+        "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+      };
       console.error(err);
       sendResponse(sender_psid, response);
     }
@@ -66,12 +62,13 @@ function clearData(client, sender_psid) {
     }
   }, (err) => {
     if(err) {
-      let response = {
+      const response = {
         "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
       };
       console.log("Could not clear other group data");
       sendResponse(sender_psid, response);
-    } else {
+    }
+    else {
       console.log("clear other group data successfully");
     }
   });
@@ -80,11 +77,11 @@ function clearData(client, sender_psid) {
 function updateData(client, sender_psid, teacherName) {
   let response = {
     "text": ""
-  }
+  };
   client.db(dbName).collection('schedule').find({
     $or: [
-      {"schedule.morning.teacher": teacherName},
-      {"schedule.afternoon.teacher": teacherName}
+      { "schedule.morning.teacher": teacherName },
+      { "schedule.afternoon.teacher": teacherName }
     ]
   }).toArray((err, docs) => {
     if(err) console.log(err);
@@ -127,14 +124,12 @@ function updateData(client, sender_psid, teacherName) {
         }
       }, (err) => {
         if (err) {
-          const response = {
-            "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
-          };
+          response.text = "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T";
           console.error("Could not update teaches data: \n" + err);
           sendResponse(sender_psid, response);
         } else {
           console.log("Update teaches data successfully!");
-          let response = stuff.askDay;
+          response = stuff.askDay;
           response.quick_replies[0].title = "Giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
           response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nCậu muốn tìm lịch dạy vào thứ mấy?`;
@@ -254,7 +249,7 @@ function checkTeacherName(sender_psid, teacherName) {
   ];
   if(checkArray.includes(teacherName)) return true;
   else {
-    let response = stuff.checkTeacherNameResponse;
+    const response = stuff.checkTeacherNameResponse;
     sendResponse(sender_psid, response);
     return false;
   }
