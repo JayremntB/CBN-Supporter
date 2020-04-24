@@ -44,10 +44,8 @@ function createBlock(client, sender_psid) {
       const response = {
         "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
       };
-      console.error(err);
       sendResponse(sender_psid, response);
     }
-    else console.log('init search block successfully');
   });
 }
 
@@ -65,11 +63,7 @@ function clearData(client, sender_psid) {
       const response = {
         "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
       };
-      console.log("Could not clear other group data");
       sendResponse(sender_psid, response);
-    }
-    else {
-      console.log("clear other group data successfully");
     }
   });
 }
@@ -84,8 +78,7 @@ function updateData(client, sender_psid, teacherName) {
       { "schedule.afternoon.teacher": teacherName }
     ]
   }).toArray((err, docs) => {
-    if(err) console.log(err);
-    else if(docs) {
+    if(docs) {
       let teaches = [];
       for(let i = 0; i < 6; i ++) { // loop days
         teaches.push({
@@ -125,10 +118,8 @@ function updateData(client, sender_psid, teacherName) {
       }, (err) => {
         if (err) {
           response.text = "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T";
-          console.error("Could not update teaches data: \n" + err);
           sendResponse(sender_psid, response);
         } else {
-          console.log("Update teaches data successfully!");
           response = stuff.askDay;
           response.quick_replies[0].title = "Giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
