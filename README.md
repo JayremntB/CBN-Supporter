@@ -3,7 +3,7 @@
 
 ## TÍNH NĂNG
 
-### Tính năng chính
+### Tìm kiếm
 
 * Tra thời khoá biểu
 * Tìm tiết dạy
