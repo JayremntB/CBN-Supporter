@@ -10,6 +10,113 @@ module.exports = {
       }
     ]
   },
+  "listCommands": {
+    "text": `Các lệnh tớ hỗ trợ:
+* Chung:
+- lệnh: danh sách tập lệnh
+- hd: hướng dẫn
+- help: gọi người hỗ trợ (Live chat)
+- exit: dừng tính năng đang sử dụng
+- dsl:  danh sách các lớp
+- dsgv: danh sách giáo viên
+
+* Lệnh kích hoạt tính năng:
+- tkb: tra thời khoá biểu
+- dạy: tìm lịch dạy học của giáo viên
+- covid: tình hình dịch bệnh hiện tại
+- dậy + thời gian: Xác định thời điểm ngủ
+- ngủ + thời gian: Xác định thời điểm thức dậy
+
+* Lệnh cài đặt và đi kèm:
+- setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
++ viewclass: xem tên lớp đã cài đặt
++ delclass:  xoá tên lớp đã cài đặt`,
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "help",
+        "payload": "liveChat",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "hd",
+        "payload": "ref",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "tkb",
+        "payload": "searchSchedule",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "dạy",
+        "payload": "searchClasses",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "ngủ",
+        "payload": "estimateWakeUpTime",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "dậy",
+        "payload": "estimateSleepTime",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "covid",
+        "payload": "checkCovid",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "viewclass",
+        "payload": "viewClass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "delclass",
+        "payload": "delClass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "dsl",
+        "payload": "listGroups",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "dsgv",
+        "payload": "listTeachers",
+        "image_url": ""
+      }
+    ]
+  },
+  "checkGroupResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Danh sách lớp",
+        "payload": "classList",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
+      }
+    ]
+  },
   "searchScheduleAskGroup": {
     "text": "Bạn tìm lớp nào? \n(Ví dụ: 11ti, ...)",
     "quick_replies": [

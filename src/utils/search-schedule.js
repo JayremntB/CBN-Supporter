@@ -27,16 +27,11 @@ function handleMessage(client, sender_psid, text, userData) {
 }
 
 function init(client, sender_psid, userData) {
-  if(userData.group) createBlock(client, sender_psid, false); // init search_schedule_block
-  else createBlock(client, sender_psid, true); // init both search_schedule_block & search_schedule_other_group block
-}
-
-function createBlock(client, sender_psid, otherGroup) {
   const collectionUserData = client.db(dbName).collection('users-data');
   let response = {
     "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
   };
-  if(!otherGroup) {
+  if(userData.group) { // init search_schedule_block
     collectionUserData.updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_block: true
@@ -47,7 +42,7 @@ function createBlock(client, sender_psid, otherGroup) {
         sendResponse(sender_psid, response);
       }
       else {
-        console.log('create search schedule block successfully');
+        console.log('init search schedule block successfully');
         let response = stuff.askDay;
         response.quick_replies[0].title = "Lớp khác";
         response.quick_replies[0].payload = "overwriteClass";
@@ -56,7 +51,7 @@ function createBlock(client, sender_psid, otherGroup) {
       }
     });
   }
-  else {
+  else { // init both search_schedule_block & search_schedule_other_group block
     collectionUserData.updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_block: true,

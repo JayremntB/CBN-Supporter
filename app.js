@@ -7,7 +7,8 @@ const request = require('request');
 const { MongoClient } = require('mongodb');
 // features
 const setting = require('./src/utils/setting');
-const calcWakeUpTime = require('./src/utils/calc-wake-up-time');
+const estimateWakeUpTime = require('./src/utils/estimate-wake-up-time');
+const estimateSleepTime = require('./src/utils/estimate-sleep-time');
 const checkCovid = require('./src/utils/check-covid');
 const searchSchedule = require('./src/utils/search-schedule');
 const searchClasses = require('./src/utils/search-classes');
@@ -102,6 +103,10 @@ function handleMessage(sender_psid, received_message, userData) {
     else if(textCheck.includes(textSplit[0])) {
       unblockAll(sender_psid);
       switch (textSplit[0]) {
+        case 'lệnh':
+          response = stuff.listCommands;
+          sendResponse(sender_psid, response);
+          break;
         case 'help':
           onLiveChat(sender_psid);
           break;
@@ -120,11 +125,10 @@ function handleMessage(sender_psid, received_message, userData) {
           checkCovid(sender_psid);
           break;
         case 'dậy':
-          calcWakeUpTime(sender_psid);
+          estimateSleepTime(sender_psid, textSplit);
           break;
         case 'ngủ':
-          response.text = "Tính năng này đang trong quá trình phát triển...";
-          sendResponse(sender_psid, response);
+          estimateWakeUpTime(sender_psid, textSplit);
           break;
       }
     }
@@ -168,6 +172,10 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
       case 'trợ giúp (live chat)':
         onLiveChat(sender_psid);
+        break;
+      case 'danh sách các lệnh':
+        response = stuff.listCommands;
+        sendResponse(sender_psid, response);
         break;
     }
   }
