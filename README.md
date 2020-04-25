@@ -1,4 +1,4 @@
-# CBN-Supporter
+# CBN Supporter
 [*Chatbot for supporting CBN students*](https://m.me/107868430903710)
 
 ## TÍNH NĂNG
@@ -15,49 +15,55 @@
 * Tính giờ ngủ (Updating)
 * Tình hình dịch bệnh Covid-19 hiện tại
 
-## HƯỚNG DẪN SỬ DỤNG CHATBOT (ĐỐI VỚI PHIÊN BẢN MESSENGER LITE)
+## HƯỚNG DẪN SỬ DỤNG CHATBOT (ĐỐI VỚI PHIÊN BẢN FACEBOOK/MESSENGER LITE)
 ``
-Lưu ý: Các lệnh dưới đây cũng có thể sử dụng cho bản thường
+Lưu ý: Update phiên bản của bạn lên bản beta để hiển thị các gợi ý có sẵn.
+Các lệnh dưới đây cũng có thể sử dụng cho bản thường.
 ``
 
 Khi truy cập [m.me link](https://m.me/107868430903710) bằng cách bấm Gửi tin nhắn (Send Message) trên trang [CBN Supporter](https://www.facebook.com/cbnsupporter/), bấm Bắt đầu (Get Started) để khởi động cuộc trò chuyện.
-Vì bạn đang sử dụng bản Lite nên bot sẽ không hiện các gợi ý có sẵn khi sử dụng các tính năng, vì vậy hãy sử dụng các lệnh sau:
+Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các gợi ý có sẵn khi sử dụng các tính năng, vì vậy hãy sử dụng các lệnh sau:
 (Bạn có thể viết lệnh theo nhiều cách như Menu, MeNu, mENu, ...)
 
 **Chung:**
 
-- *Lệnh*: danh sách tập lệnh
-- *Help*: gọi người hỗ trợ (Live chat)
-- *Exit*: dừng tính năng đang sử dụng
+- *lệnh*: danh sách tập lệnh
+- *hd*: hướng dẫn 
+- *help*: gọi người hỗ trợ (Live chat)
+- *exit*: dừng tính năng đang sử dụng
 - *dsl*:  danh sách các lớp
 - *dsgv*: danh sách giáo viên
 
 **Lệnh kích hoạt tính năng:**
-- *Tkb*: tra thời khoá biểu
-- *Dạy*: tìm lịch dạy học của giáo viên
-- *Covid*: Tình hình dịch bệnh hiện tại
-- *Dậy*: Tìm thời gian thức dậy dựa theo công thức ngủ
+- *tkb*: tra thời khoá biểu
+- *dạy*: tìm lịch dạy học của giáo viên
+- *covid*: Tình hình dịch bệnh hiện tại
+- *dậy*: Tìm thời gian thức dậy dựa theo công thức ngủ
 
 **Lệnh cài đặt và đi kèm:**
 
-*Setclass + tên lớp*: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
-  - *Viewclass*: Xem tên lớp đã cài đặt    
-  - *Delclass*:  Xoá tên lớp đã cài đặt    
+*setclass + tên lớp*: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
+  - *viewclass*: Xem tên lớp đã cài đặt    
+  - *delclass*:  Xoá tên lớp đã cài đặt    
 
 **Đang cập nhật:**
 
-- *Lớp*: Tìm lớp được dạy môn nào đó
-- *Ngủ*:  Tìm thời gian ngủ nếu muốn thức dậy vào thời điểm nào đó
+- *lớp*: Tìm lớp được dạy môn nào đó
+- *ngủ*:  Tìm thời gian ngủ nếu muốn thức dậy vào thời điểm nào đó
+
+``
+Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có thể tiếp tục quá trình nhập dữ liệu nếu bạn sử dụng các tính năng như tra thời khoá biểu, tìm lịch dạy, ...
+``
 
 ### Tra thời khoá biểu (*tkb*)
 * Nhập lệnh
-* Nếu bạn đã cài đặt tên lớp từ trước hoặc sau khi bạn nhập tên lớp cần tìm, bot sẽ hỏi bạn muốn tra thời khoá biểu lớp bạn vào thứ mấy. Lúc này bạn sẽ có các lựa chọn sau:
+* Nếu bạn đã cài đặt tên lớp từ trước hoặc sau khi nhập tên lớp cần tìm, bot sẽ hỏi bạn muốn tra thời khoá biểu lớp bạn vào thứ mấy. Lúc này bạn sẽ có các lựa chọn sau:
   - Lớp khác
   - Hôm nay, hôm qua, ngày mai
   - 2, 3, 4, 5, 6, 7, chủ nhật
   - Exit
 > **Lưu ý**: Sau khi gửi lựa chọn của bạn, nếu như không sử dụng lệnh *Exit* hoặc các lệnh khác, bạn vẫn sẽ nằm trong **vòng lặp chọn ngày** và sử dụng các lựa chọn bên trên. Nghĩa là, bạn sẽ tiếp tục chọn ngày ngay sau khi vừa chọn ngày thay vì phải nhập lớp khác. Nhập *Exit* để thoát.
-* Nếu bạn chưa cài đặt tên lớp từ trước hoặc nhập "Lớp khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên lớp cần tra. Nếu bạn viết sai hoặc quên cách viết tên lớp, gõ **dsl** để xem danh sách các lớp.
+* Nếu bạn chưa cài đặt tên lớp từ trước hoặc nhập "Lớp khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên lớp cần tra. Nếu bot thông báo không tìm thấy lớp hoặc bạn không biết form nhập tên, gõ **dsl** để xem danh sách các lớp.
 
 ### Tìm tiết dạy (*dạy*)
 * Nhập lệnh
