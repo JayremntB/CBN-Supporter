@@ -221,7 +221,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
     response = stuff.askDay;
     response.quick_replies[0].title = "Lớp khác";
     response.quick_replies[0].payload = "overwriteClass";
-    response.text = `Nàooo -__- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
+    response.text = `Nàooo -_- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
     sendResponse(sender_psid, response);
   }
 }

@@ -23,7 +23,7 @@ module.exports = function (sender_psid) {
     }, (err, res, body) => {
       if(err) {
         response = {
-          "text": "Đang có trục trặc, tớ không lấy được dữ liệu rồi :(. Hãy quay lại sau nha T.T"
+          "text": "Đang có trục trặc, tớ không lấy được dữ liệu rồi :( Hãy quay lại sau nha T.T"
         };
         sendResponse(sender_psid, response);
       }
