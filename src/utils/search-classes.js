@@ -9,14 +9,8 @@ module.exports = {
   handleMessage: handleMessage
 };
 
-function init(client, sender_psid, userData) {
-  createBlock(client, sender_psid);
-  const response = stuff.searchClassesAskTeacher;
-  sendResponse(sender_psid, response);
-}
-
 function handleMessage(client, sender_psid, text, userData) {
-  if(text.toLowerCase() === "tra giáo viên khác") {
+  if(text.toLowerCase() === "giáo viên khác") {
     const response = stuff.searchClassesAskTeacher;
     clearData(client, sender_psid);
     sendResponse(sender_psid, response);
@@ -29,7 +23,7 @@ function handleMessage(client, sender_psid, text, userData) {
   }
 }
 
-function createBlock(client, sender_psid) {
+function init(client, sender_psid) {
   const collectionUserData = client.db(dbName).collection('users-data');
   collectionUserData.updateOne({ sender_psid: sender_psid }, {
     $set: {
@@ -41,9 +35,15 @@ function createBlock(client, sender_psid) {
     }
   }, (err) => {
     if(err) {
+      console.log("Could not init search teach block: " + err);
       const response = {
-        "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+        "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
       };
+      sendResponse(sender_psid, response);
+    }
+    else {
+      console.log('create search teach block successfully');
+      const response = stuff.searchClassesAskTeacher;
       sendResponse(sender_psid, response);
     }
   });
@@ -60,11 +60,13 @@ function clearData(client, sender_psid) {
     }
   }, (err) => {
     if(err) {
+      console.log("Could not clear teacher-data: " + err);
       const response = {
-        "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+        "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
       };
       sendResponse(sender_psid, response);
     }
+    else console.log("Clear teacher-data successfully");
   });
 }
 
@@ -78,7 +80,8 @@ function updateData(client, sender_psid, teacherName) {
       { "schedule.afternoon.teacher": teacherName }
     ]
   }).toArray((err, docs) => {
-    if(docs) {
+    if(err) console.log("Cound not find any teach data");
+    else if(docs) {
       let teaches = [];
       for(let i = 0; i < 6; i ++) { // loop days
         teaches.push({
@@ -117,13 +120,15 @@ function updateData(client, sender_psid, teacherName) {
         }
       }, (err) => {
         if (err) {
-          response.text = "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T";
+          console.log("Could not update teacher data");
+          response.text = "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T";
           sendResponse(sender_psid, response);
         } else {
+          console.log("Update teacher data successfully");
           response = stuff.askDay;
-          response.quick_replies[0].title = "Tra giáo viên khác";
+          response.quick_replies[0].title = "Giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
-          response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nCậu muốn tìm lịch dạy thứ mấy?`;
+          response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nBạn muốn tìm lịch dạy thứ mấy?`;
           sendResponse(sender_psid, response);
         }
       });
@@ -138,7 +143,7 @@ function updateData(client, sender_psid, teacherName) {
 
 function sendClasses(sender_psid, dayInput, userData) {
   let response = stuff.askDay;
-  response.quick_replies[0].title = "Tra giáo viên khác";
+  response.quick_replies[0].title = "Giáo viên khác";
   response.quick_replies[0].payload = "overwriteTeacher";
   let day = handleDayInput(dayInput.toLowerCase());
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
@@ -176,7 +181,7 @@ function sendClasses(sender_psid, dayInput, userData) {
   }
   else if(!isNaN(day)){
     if(day == 8) {
-      response.text = "Ngày này thì ai chẳng ở nhà bận yêu gia đình :(";
+      response.text = "Chủ nhật thì ai chẳng ở nhà bận yêu gia đình :3";
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > teaches.length || day - 2 < 0) {
@@ -215,9 +220,9 @@ function sendClasses(sender_psid, dayInput, userData) {
   }
   else {
     response = stuff.askDay;
-    response.quick_replies[0].title = "Tra giáo viên khác";
+    response.quick_replies[0].title = "Giáo viên khác";
     response.quick_replies[0].payload = "overwriteTeacher";
-    response.text = `Nàooo -_- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
+    response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-`;
     sendResponse(sender_psid, response);
   }
 }
@@ -247,7 +252,7 @@ function checkTeacherName(sender_psid, teacherName) {
   if(checkArray.includes(teacherName)) return true;
   else {
     let response = stuff.checkTeacherNameResponse;
-    response.text = "Tên giáo viên không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)";
+    response.text = "Tên giáo viên không có trong danh sách. Kiểm tra lại xem bạn có viết nhầm hay không nhé.\nNhầm thì viết lại luôn nha :>";
     sendResponse(sender_psid, response);
     return false;
   }
@@ -262,6 +267,7 @@ function handleDayInput(day) {
       return 'Tất cả';
       break;
     case 'hôm nay':
+      if(dayNow === 1) return 8;
       return dayNow;
       break;
     case 'hôm qua':

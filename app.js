@@ -24,7 +24,7 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const textCheck = ['lệnh', 'hd', 'menu', 'help', 'lớp', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass'];
+const textCheck = ['lệnh', 'hd', 'menu', 'help', 'ngủ', 'tkb', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
@@ -122,9 +122,8 @@ function handleMessage(sender_psid, received_message, userData) {
         case 'dậy':
           calcWakeUpTime(sender_psid);
           break;
-        case 'lớp':
         case 'ngủ':
-          response.text = "Tính năng này hiện không khả dụng do thằng coder đang lười và chưa có ny 😞";
+          response.text = "Tính năng này đang trong quá trình phát triển...";
           sendResponse(sender_psid, response);
           break;
       }
@@ -135,15 +134,12 @@ function handleMessage(sender_psid, received_message, userData) {
     else if(userData.search_classes.block) {
       searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
-    else if(userData.search_groups.block) {
-
-    }
   }
 }
 
 function handlePostback(sender_psid, received_postback, userData) {
   let response = {
-    "text": "Tính năng này hiện không khả dụng do thằng coder đang lười và chưa có ny T.T"
+    "text": ""
   };
   // Get the payload of receive postback
   let text = JSON.parse(received_postback.payload).__button_text__.toLowerCase();

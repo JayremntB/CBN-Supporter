@@ -16,7 +16,7 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
       sendResponse(sender_psid, response);
     }
     else {
-      response.text = "Cậu chưa cài đặt tên lớp :(";
+      response.text = "Bạn chưa cài đặt tên lớp :(";
       sendResponse(sender_psid, response);
     }
   }
@@ -28,7 +28,7 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
       }
     }, (err) => {
       if(err) {
-        response.text = "Ủa không xoá được, cậu hãy thử lại sau nhé T.T";
+        response.text = "Ủa không xoá được, bạn hãy thử lại sau nhé T.T";
         sendResponse(sender_psid, response);
       }
       else {
@@ -40,7 +40,7 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
   else if(textSplit[0] === 'setclass') {
     console.log("b");
     if(textSplit.length === 1) {
-      response.text = "Tên lớp cậu chưa ghi kìa :(";
+      response.text = "Tên lớp bạn chưa ghi kìa :(";
       sendResponse(sender_psid, response);
     }
     else if(checkGroup(sender_psid, textSplit[1])) {
@@ -53,7 +53,7 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
           }
         }, (err) => {
           if(err) {
-            response.text = "Ủa không cài đặt được, cậu hãy thử lại sau nhé T.T";
+            response.text = "Ủa không cài đặt được, bạn hãy thử lại sau nhé T.T";
             sendResponse(sender_psid, response);
           }
           else {
@@ -63,7 +63,7 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
         });
       }
       else {
-        response.text = "Thời khoá biểu lớp cậu chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!";
+        response.text = "Thời khoá biểu lớp bạn chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!";
         sendResponse(sender_psid, response);
       }
     }
@@ -75,7 +75,7 @@ function checkGroup(sender_psid, group) {
   if(checkArray.includes(group)) return true;
   else {
     response = stuff.checkGroupResponse;
-    response.text = "Tên lớp không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)";
+    response.text = "Tên lớp không có trong danh sách. Kiểm tra lại xem bạn có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)";
     sendResponse(sender_psid, response);
     return false;
   }

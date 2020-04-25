@@ -1,6 +1,6 @@
 module.exports = {
   "exitResponse": {
-    "text": "(!) Đã quay lại chat với Jay :^)",
+    "text": "(!) Đã quay lại chat với Jay.",
     "quick_replies": [
       {
         "content_type": "text",
@@ -11,7 +11,7 @@ module.exports = {
     ]
   },
   "searchScheduleAskGroup": {
-    "text": "Cậu tìm lớp nào? \n(Ví dụ: 11ti, ...)",
+    "text": "Bạn tìm lớp nào? \n(Ví dụ: 11ti, ...)",
     "quick_replies": [
       {
         "content_type": "text",
@@ -28,7 +28,7 @@ module.exports = {
     ]
   },
   "searchClassesAskTeacher": {
-    "text": "Tên của giáo viên cậu tìm?\n(Ví dụ: NT.Lê, NQ.Minh, ...)",
+    "text": "Tên của giáo viên bạn tìm?\n(Ví dụ: NT.Lê, NQ.Minh, ...)",
     "quick_replies": [
       {
         "content_type": "text",
@@ -162,7 +162,7 @@ module.exports = {
     ]
   },
   'groupList': {
-    "text": `Đây là danh sách lớp cậu có thể tra:
+    "text": `Đây là danh sách lớp bạn có thể tra:
 + Lớp 10: 10t1, 10t2, 10l, 10h, 10si, 10ti, 10v1, 10v2, 10su, 10d, 10a1, 10a2.
 
 + Lớp 11: 11t, 11l, 11h, 11si, 11ti, 11v, 11su, 11d, 11c1, 11c2, 11a1, 11a2.
