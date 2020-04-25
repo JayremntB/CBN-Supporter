@@ -10,7 +10,7 @@ module.exports = {
 }
 
 function handleMessage(client, sender_psid, text, userData) {
-  if(text === "lớp khác") {
+  if(text === "tra lớp khác") {
     const response = stuff.searchScheduleAskGroup;
     clearOtherGroupData(client, sender_psid);
     sendResponse(sender_psid, response);
@@ -30,7 +30,7 @@ function init(client, sender_psid, userData) {
   if(userData.group) {
     createBlock(client, sender_psid, false); // init search_schedule_block
     let response = stuff.askDay;
-    response.quick_replies[0].title = "Lớp khác";
+    response.quick_replies[0].title = "Tra lớp khác";
     response.quick_replies[0].payload = "overwriteClass";
     response.text = `Cập nhật thời khoá biểu lớp ${userData.group} thành công!\nCậu muốn tra thứ mấy?`
     sendResponse(sender_psid, response);
@@ -121,7 +121,7 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
         sendResponse(sender_psid, response);
       } else {
         let response = stuff.askDay;
-        response.quick_replies[0].title = "Lớp khác";
+        response.quick_replies[0].title = "Tra lớp khác";
         response.quick_replies[0].payload = "overwriteClass";
         response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nCậu muốn tra thứ mấy?`;
         sendResponse(sender_psid, response);
@@ -137,7 +137,7 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
 
 function sendSchedule(sender_psid, dayInput, userData) {
   let response = stuff.askDay;
-  response.quick_replies[0].title = "Lớp khác";
+  response.quick_replies[0].title = "Tra lớp khác";
   response.quick_replies[0].payload = "overwriteClass";
   let day = handleDayInput(dayInput);
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
@@ -219,7 +219,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
   }
   else {
     response = stuff.askDay;
-    response.quick_replies[0].title = "Lớp khác";
+    response.quick_replies[0].title = "Tra lớp khác";
     response.quick_replies[0].payload = "overwriteClass";
     response.text = `Nàooo -_- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
     sendResponse(sender_psid, response);
