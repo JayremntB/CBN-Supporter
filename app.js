@@ -24,7 +24,7 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const textCheck = ['lệnh', 'menu', 'help', 'lớp', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'dsl', 'danh sách lớp', 'dsgv', 'danh sách giáo viên', 'setclass', 'viewclass', 'delclass'];
+const textCheck = ['lệnh', 'hd', 'menu', 'help', 'lớp', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
@@ -90,45 +90,43 @@ function handleMessage(sender_psid, received_message, userData) {
       sendResponse(sender_psid, response);
     }
     else if(userData.liveChat);
+    else if(text === 'hd');
+    else if(text === 'danh sách lớp' || text === 'dsl') {
+      response = stuff.groupList;
+      sendResponse(sender_psid, response);
+    }
+    else if(text === 'danh sách giáo viên' || text === 'dsgv') {
+      response = stuff.teacherList;
+      sendResponse(sender_psid, response);
+    }
     else if(textCheck.includes(textSplit[0])) {
-      text = textSplit[0];
-      if(text === 'dsl') {
-        response = stuff.groupList;
-        sendResponse(sender_psid, response);
-      }
-      else if(text === 'dsgv') {
-        response = stuff.teacherList;
-        sendResponse(sender_psid, response);
-      }
-      else {
-        unblockAll(sender_psid);
-        switch (text) {
-          case 'help':
-            onLiveChat(sender_psid);
-            break;
-          case 'setclass':
-          case 'viewclass':
-          case 'delclass':
-            setting.handleMessage(client, sender_psid, textSplit, userData);
-            break;
-          case 'tkb':
-            searchSchedule.init(client, sender_psid, userData);
-            break;
-          case 'dạy':
-            searchClasses.init(client, sender_psid);
-            break;
-          case 'covid':
-            checkCovid(sender_psid);
-            break;
-          case 'dậy':
-            calcWakeUpTime(sender_psid);
-            break;
-          case 'lớp':
-          case 'ngủ':
-            response.text = "Tính năng này hiện không khả dụng do thằng coder đang lười và chưa có ny 😞";
-            sendResponse(sender_psid, response);
-            break;
-        }
+      unblockAll(sender_psid);
+      switch (textSplit[0]) {
+        case 'help':
+          onLiveChat(sender_psid);
+          break;
+        case 'setclass':
+        case 'viewclass':
+        case 'delclass':
+          setting.handleMessage(client, sender_psid, textSplit, userData);
+          break;
+        case 'tkb':
+          searchSchedule.init(client, sender_psid, userData);
+          break;
+        case 'dạy':
+          searchClasses.init(client, sender_psid);
+          break;
+        case 'covid':
+          checkCovid(sender_psid);
+          break;
+        case 'dậy':
+          calcWakeUpTime(sender_psid);
+          break;
+        case 'lớp':
+        case 'ngủ':
+          response.text = "Tính năng này hiện không khả dụng do thằng coder đang lười và chưa có ny 😞";
+          sendResponse(sender_psid, response);
+          break;
       }
     }
     else if(userData.search_schedule_block) {

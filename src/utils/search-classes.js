@@ -16,7 +16,7 @@ function init(client, sender_psid, userData) {
 }
 
 function handleMessage(client, sender_psid, text, userData) {
-  if(text.toLowerCase() === "giáo viên khác") {
+  if(text.toLowerCase() === "tra giáo viên khác") {
     const response = stuff.searchClassesAskTeacher;
     clearData(client, sender_psid);
     sendResponse(sender_psid, response);
@@ -121,7 +121,7 @@ function updateData(client, sender_psid, teacherName) {
           sendResponse(sender_psid, response);
         } else {
           response = stuff.askDay;
-          response.quick_replies[0].title = "Giáo viên khác";
+          response.quick_replies[0].title = "Tra giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
           response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nCậu muốn tìm lịch dạy thứ mấy?`;
           sendResponse(sender_psid, response);
@@ -138,7 +138,7 @@ function updateData(client, sender_psid, teacherName) {
 
 function sendClasses(sender_psid, dayInput, userData) {
   let response = stuff.askDay;
-  response.quick_replies[0].title = "Giáo viên khác";
+  response.quick_replies[0].title = "Tra giáo viên khác";
   response.quick_replies[0].payload = "overwriteTeacher";
   let day = handleDayInput(dayInput.toLowerCase());
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
@@ -215,7 +215,7 @@ function sendClasses(sender_psid, dayInput, userData) {
   }
   else {
     response = stuff.askDay;
-    response.quick_replies[0].title = "Giáo viên khác";
+    response.quick_replies[0].title = "Tra giáo viên khác";
     response.quick_replies[0].payload = "overwriteTeacher";
     response.text = `Nàooo -_- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
     sendResponse(sender_psid, response);

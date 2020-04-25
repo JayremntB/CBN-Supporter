@@ -75,6 +75,7 @@ function checkGroup(sender_psid, group) {
   if(checkArray.includes(group)) return true;
   else {
     response = stuff.checkGroupResponse;
+    response.text = "Tên lớp không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)";
     sendResponse(sender_psid, response);
     return false;
   }
