@@ -34,30 +34,31 @@ Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các 
 
 **Chung:**
 
-- *lệnh*: danh sách tập lệnh
-- *hd*: hướng dẫn 
-- *help*: gọi người hỗ trợ (Live chat)
-- *exit*: dừng tính năng đang sử dụng
-- *dsl*:  danh sách các lớp
-- *dsgv*: danh sách giáo viên
+- *lệnh*: Danh sách tập lệnh
+- *hd*: Hướng dẫn 
+- *help*: Gọi người hỗ trợ (Live chat)
+- *exit*: Dừng tính năng đang sử dụng
+- *dsl*:  Danh sách các lớp
+- *dsgv*: Danh sách giáo viên
 
 **Lệnh kích hoạt tính năng:**
-- *tkb*: tra thời khoá biểu
-- *dạy*: tìm lịch dạy học của giáo viên
+- *tkb*: Tra thời khoá biểu
+- *dạy*: Tìm lịch dạy học của giáo viên
 - *covid*: Tình hình dịch bệnh hiện tại
 - *dậy + thời điểm dậy*: Xác định thời điểm nên ngủ nếu bạn muốn dậy ở thời điểm bạn nhập. 
 - *ngủ + thời điểm ngủ*: Xác định thời điểm nên thức dậy nếu bạn ngủ ở thời điểm bạn nhập. 
 
 **Lệnh cài đặt và đi kèm:**
 
-  - *setclass + tên lớp*: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
+  - *setclass + tên lớp*: Cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
     - *viewclass*: Xem tên lớp đã cài đặt    
     - *delclass*:  Xoá tên lớp đã cài đặt   
   
   - *setwd + thời gian (phút)*: cập nhật thời gian đi vào giấc ngủ (wind-down)
     - viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
     - delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')
-  
+    
+  > P/s: Thực ra *wide-down* là quá trình nghỉ ngơi trước khi ngủ.
 **Đang cập nhật:**
 
   *lớp*: Tìm lớp được dạy môn nào đó
@@ -79,7 +80,7 @@ Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có th
 * Nếu bạn chưa cài đặt tên lớp từ trước hoặc nhập "Lớp khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên lớp cần tra. Nếu bot thông báo không tìm thấy lớp hoặc bạn không biết form nhập tên, nhập **dsl** để xem danh sách các lớp.
 
 ``
- Nhập *Exit* để thoát.
+ Nhập Exit để thoát.
 ``
 
 #### Tìm tiết dạy (*dạy*)
@@ -113,8 +114,8 @@ Ví dụ: dậy 6h15/dậy 6h
 Đừng lo, khi bạn muốn tra lớp khác, bot sẽ có một cái button để giúp bạn tra mà không ảnh hưởng đến lớp đã cài đặt.
 
 Các lệnh đi kèm:
-* *Viewclass*: Xem tên lớp đã cài đặt
-* *Delclass*:  Xoá tên lớp đã cài đặt
+* *viewclass*: Xem tên lớp đã cài đặt
+* *delclass*:  Xoá tên lớp đã cài đặt
 
 #### Cài đặt thời gian đi vào giấc ngủ (*setwd + thời gian (phút)*)
 
