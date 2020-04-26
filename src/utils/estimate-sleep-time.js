@@ -9,6 +9,12 @@ let response = {
       "title": "Menu",
       "payload": "menu",
       "image_url": ""
+    },
+    {
+      "content_type": "text",
+      "title": "Đổi thời gian tiền giấc ngủ",
+      "payload": "changeWindDownTime",
+      "image_url": ""
     }
   ]
 };
@@ -18,8 +24,8 @@ const responseDefault = [
   "Nếu có thể thức dậy vào lúc đó, đảm bảo bạn sẽ có một ngày tuyệt vời tràn đầy năng lượng!"
 ];
 
-module.exports = function(sender_psid, textSplit) {
-  while(textSplit.length < 2) textSplit.push("0h");
+module.exports = function(sender_psid, textSplit, userData) {
+  while(textSplit.length < 2) textSplit.push("6h");
   const time = textSplit[1].split("h");
   if(checkTime(sender_psid, time)) {
     const date = new Date();
@@ -27,7 +33,7 @@ module.exports = function(sender_psid, textSplit) {
     date.setMinutes(time[1]);
     response.text = `Nếu muốn thức dậy lúc ${date.getHours()} giờ ${date.getMinutes()} phút, bạn nên ngủ vào những thời điểm sau:\n`;
     // Estimate time to sleep if wake up at that time
-    date.setMinutes(date.getMinutes() - 90 * 6 + 14);
+    date.setMinutes(date.getMinutes() - 90 * 6 - userData.wind_down_time);
     for(let i = 0; i < 4; i ++) {
       date.setMinutes(date.getMinutes() + 90);
       response.text += `+ ${date.getHours()} giờ ${date.getMinutes()} phút\n`;

@@ -1,4 +1,15 @@
 module.exports = {
+  "defaultResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
   "exitResponse": {
     "text": "(!) Đã quay lại chat với Jay.",
     "quick_replies": [
@@ -24,13 +35,16 @@ module.exports = {
 - tkb: tra thời khoá biểu
 - dạy: tìm lịch dạy học của giáo viên
 - covid: tình hình dịch bệnh hiện tại
-- dậy + thời gian: Xác định thời điểm ngủ
-- ngủ + thời gian: Xác định thời điểm thức dậy
+- dậy + thời điểm dậy: Xác định thời điểm nên ngủ (ví dụ: dậy 6h15)
+- ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 9h15)
 
 * Lệnh cài đặt và đi kèm:
 - setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
 + viewclass: xem tên lớp đã cài đặt
-+ delclass:  xoá tên lớp đã cài đặt`,
++ delclass:  xoá tên lớp đã cài đặt
+- setwd + thời gian (phút): cập nhật thời gian đi vào giấc ngủ (~ wind-down)
++ viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
++ delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')`,
     "quick_replies": [
       {
         "content_type": "text",
@@ -58,32 +72,8 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "ngủ",
-        "payload": "estimateWakeUpTime",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "dậy",
-        "payload": "estimateSleepTime",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
         "title": "covid",
         "payload": "checkCovid",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "viewclass",
-        "payload": "viewClass",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "delclass",
-        "payload": "delClass",
         "image_url": ""
       },
       {
@@ -96,6 +86,30 @@ module.exports = {
         "content_type": "text",
         "title": "dsgv",
         "payload": "listTeachers",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "viewclass",
+        "payload": "viewClass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "viewwd",
+        "payload": "viewwd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "delclass",
+        "payload": "delClass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "delwd",
+        "payload": "delwd",
         "image_url": ""
       }
     ]

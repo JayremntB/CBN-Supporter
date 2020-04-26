@@ -25,7 +25,7 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const textCheck = ['lệnh', 'hd', 'menu', 'help', 'ngủ', 'tkb', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass'];
+const textCheck = ['lệnh', 'hd', 'menu', 'help', 'ngủ', 'tkb', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'setwd', 'viewwd', 'delwd'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
@@ -76,9 +76,7 @@ app.post('/webhook', (req, res) => {
 });
 
 function handleMessage(sender_psid, received_message, userData) {
-  let response = {
-    "text": ""
-  };
+  let response = stuff.defaultResponse;
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
     let text = received_message.text.toLowerCase();
@@ -90,14 +88,17 @@ function handleMessage(sender_psid, received_message, userData) {
       response = stuff.exitResponse;
       sendResponse(sender_psid, response);
     }
-    else if(userData.liveChat);
-    else if(text === 'hd');
+    else if(userData.live_chat);
     else if(text === 'danh sách lớp' || text === 'dsl') {
       response = stuff.groupList;
       sendResponse(sender_psid, response);
     }
     else if(text === 'danh sách giáo viên' || text === 'dsgv') {
       response = stuff.teacherList;
+      sendResponse(sender_psid, response);
+    }
+    else if(text === 'tiền giấc ngủ') {
+      response = stuff.explainWindDownTime;
       sendResponse(sender_psid, response);
     }
     else if(textCheck.includes(textSplit[0])) {
@@ -110,10 +111,19 @@ function handleMessage(sender_psid, received_message, userData) {
         case 'help':
           onLiveChat(sender_psid);
           break;
+        case 'hd':
+          response.text = "https://github.com/jayremntB/CBN-Supporter/blob/master/README.md";
+          sendResponse(sender_psid, response);
+          break;
         case 'setclass':
         case 'viewclass':
         case 'delclass':
-          setting.handleMessage(client, sender_psid, textSplit, userData);
+          setting.handleClassMessage(client, sender_psid, textSplit, userData);
+          break;
+        case 'setwd':
+        case 'viewwd':
+        case 'delwd':
+          setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
           break;
         case 'tkb':
           searchSchedule.init(client, sender_psid, userData);
@@ -125,10 +135,10 @@ function handleMessage(sender_psid, received_message, userData) {
           checkCovid(sender_psid);
           break;
         case 'dậy':
-          estimateSleepTime(sender_psid, textSplit);
+          estimateSleepTime(sender_psid, textSplit, userData);
           break;
         case 'ngủ':
-          estimateWakeUpTime(sender_psid, textSplit);
+          estimateWakeUpTime(sender_psid, textSplit, userData);
           break;
       }
     }
@@ -155,7 +165,7 @@ function handlePostback(sender_psid, received_postback, userData) {
     response = stuff.exitResponse;
     sendResponse(sender_psid, response);
   }
-  else if(!userData.liveChat) {
+  else if(!userData.live_chat) {
     unblockAll(sender_psid);
     switch (text) {
       case 'tra thời khoá biểu':
@@ -184,7 +194,7 @@ function handlePostback(sender_psid, received_postback, userData) {
 function onLiveChat(sender_psid) {
   client.db(dbName).collection(collectionName).updateOne({ sender_psid: sender_psid }, {
     $set: {
-      liveChat: true
+      live_chat: true
     }
   });
 }
@@ -210,7 +220,8 @@ function initUserData(sender_psid) {
       day: "",
       time: ""
     },
-    liveChat: ""
+    live_chat: "",
+    wind_down_time: 14
   };
   client.db(dbName).collection(collectionName).insertOne(insert);
   return insert;
@@ -236,7 +247,7 @@ function unblockAll(sender_psid) {
         day: "",
         time: ""
       },
-      liveChat: false
+      live_chat: false
     }
   });
 }

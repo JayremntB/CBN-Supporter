@@ -1,19 +1,11 @@
 'use strict'
 const request = require('request');
 const sendResponse = require('../general/sendResponse.js')
+const stuff = require('../general/stuff');
 
 module.exports = function (sender_psid) {
-  let response = {
-    "text": "Đang lấy dữ liệu...",
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "Menu",
-        "payload": "menu",
-        "image_url": ""
-      }
-    ]
-  };
+  let response = stuff.defaultResponse;
+  response.text = 'Đang lấy dữ liệu...';
   // Fetch http://covid-rest.herokuapp.com/vietnam
   sendResponse(sender_psid, response);
   setTimeout(() => {
@@ -22,9 +14,7 @@ module.exports = function (sender_psid) {
       "method": "GET",
     }, (err, res, body) => {
       if(err) {
-        response = {
-          "text": "Đang có trục trặc, tớ không lấy được dữ liệu rồi :( Hãy quay lại sau nha T.T"
-        };
+        response.text = "Đang có trục trặc, tớ không lấy được dữ liệu rồi :( Hãy quay lại sau nha T.T";
         sendResponse(sender_psid, response);
       }
       else {

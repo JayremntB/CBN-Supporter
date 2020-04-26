@@ -17,13 +17,13 @@ const responseDefault = [
   "Nếu có thể thức dậy vào lúc đó, đảm bảo bạn sẽ có một ngày tuyệt vời tràn đầy năng lượng!"
 ];
 
-module.exports = function(sender_psid, textSplit) {
+module.exports = function(sender_psid, textSplit, userData) {
   if(textSplit.length === 1) { // Sleep now
     const date = new Date();
     date.setHours(date.getHours() + 7); // App is deployed in heroku US +7(VN)
     response.text = `Bây giờ là ${date.getHours()} giờ ${date.getMinutes()} phút. Bạn nên thức dậy vào những thời điểm sau:\n`;
     // Estimate time to wake up if sleep now
-    date.setMinutes(date.getMinutes() + 90 * 2 + 14);
+    date.setMinutes(date.getMinutes() + 90 * 2 + userData.wind_down_time);
     for (let i = 0; i < 4; i ++) {
       date.setMinutes(date.getMinutes() + 90);
       response.text += `+ ${date.getHours()} giờ ${date.getMinutes()} phút\n`;
@@ -45,7 +45,7 @@ module.exports = function(sender_psid, textSplit) {
     date.setMinutes(time[1]);
     response.text = `Nếu ngủ lúc ${date.getHours()} giờ ${date.getMinutes()} phút, bạn nên thức dậy vào những thời điểm:\n`;
     // Estimate time to wake up if sleep at that time
-    date.setMinutes(date.getMinutes() + 90 * 2 + 14);
+    date.setMinutes(date.getMinutes() + 90 * 2 + userData.wind_down_time);
     for(let i = 0; i < 4; i ++) {
       date.setMinutes(date.getMinutes() + 90);
       response.text += `+ ${date.getHours()} giờ ${date.getMinutes()} phút\n`;
