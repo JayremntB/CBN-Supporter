@@ -26,8 +26,9 @@ Nếu bạn sử dụng phiên bản thường, chatbot sẽ hiển thị Menu c
 Các lệnh dưới đây có thể sử dụng cho cả hai bản.
 ``
 
-Khi truy cập link [m.me](https://m.me/107868430903710) bằng cách bấm Gửi tin nhắn (Send Message) trên trang [CBN Supporter](https://www.facebook.com/cbnsupporter/), bấm Bắt đầu (Get Started) để khởi động cuộc trò chuyện.
+Khi truy cập link [m.me](https://m.me/107868430903710) bằng cách bấm Gửi tin nhắn (Send Message) trên trang [CBN Supporter](https://www.facebook.com/cbnsupporter/) hoặc vào thẳng đường link, bấm Bắt đầu (Get Started) để khởi động cuộc trò chuyện.
 Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các gợi ý có sẵn khi sử dụng các tính năng, vì vậy hãy sử dụng các lệnh sau:
+
 (Bạn có thể viết lệnh theo nhiều cách như Menu, MeNu, mENu, ...)
 
 ### DANH SÁCH CÁC LỆNH
@@ -58,7 +59,8 @@ Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các 
     - viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
     - delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')
     
-  > P/s: Thực ra *wide-down* là quá trình nghỉ ngơi trước khi ngủ.
+  > P/s: Thực ra *wind-down* là quá trình nghỉ ngơi trước khi ngủ.
+  
 **Đang cập nhật:**
 
   *lớp*: Tìm lớp được dạy môn nào đó
