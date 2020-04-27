@@ -21,7 +21,7 @@ async function handleClassMessage(client, sender_psid, textSplit, userData) {
     }
   }
   else if(textSplit[0] === 'delclass') {
-    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         group: "",
         main_schedule: []
@@ -45,7 +45,7 @@ async function handleClassMessage(client, sender_psid, textSplit, userData) {
     else if(checkGroup(sender_psid, textSplit[1])) {
       const scheduleData = await client.db(dbName).collection('schedule').findOne({ group: textSplit[1] });
       if(scheduleData) {
-        client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+        await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
           $set: {
             group: textSplit[1],
             main_schedule: scheduleData.schedule
@@ -69,7 +69,7 @@ async function handleClassMessage(client, sender_psid, textSplit, userData) {
   }
 }
 
-function handleWindDownMessage(client, sender_psid, textSplit, userData) {
+async function handleWindDownMessage(client, sender_psid, textSplit, userData) {
   let response = stuff.defaultResponse;
   unblockAll(client, sender_psid);
   if(textSplit[0] === 'viewwd') {
@@ -77,7 +77,7 @@ function handleWindDownMessage(client, sender_psid, textSplit, userData) {
     sendResponse(sender_psid, response);
   }
   else if(textSplit[0] === 'delwd') {
-    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         wind_down_time: 14
       }
@@ -98,7 +98,7 @@ function handleWindDownMessage(client, sender_psid, textSplit, userData) {
       sendResponse(sender_psid, response);
     }
     else if(checkWindDownTime(sender_psid, textSplit[1])) {
-      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
         $set: {
           wind_down_time: textSplit[1]
         }

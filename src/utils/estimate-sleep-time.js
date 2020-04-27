@@ -12,7 +12,7 @@ let response = {
     },
     {
       "content_type": "text",
-      "title": "Đổi thời gian tiền giấc ngủ",
+      "title": "Thời gian vào giấc",
       "payload": "changeWindDownTime",
       "image_url": ""
     }

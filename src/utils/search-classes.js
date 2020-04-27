@@ -9,23 +9,22 @@ module.exports = {
   handleMessage: handleMessage
 };
 
-function handleMessage(client, sender_psid, text, userData) {
+async function handleMessage(client, sender_psid, text, userData) {
   if(text.toLowerCase() === "giáo viên khác") {
     const response = stuff.searchClassesAskTeacher;
-    clearData(client, sender_psid);
-    sendResponse(sender_psid, response);
+    await clearData(client, sender_psid);
+    await sendResponse(sender_psid, response);
   }
   else if(userData.search_classes.teacher) {
     sendClasses(sender_psid, text, userData);
   }
   else if(checkTeacherName(sender_psid, text)) {
-    updateData(client, sender_psid, text);
+    await updateData(client, sender_psid, text);
   }
 }
 
-function init(client, sender_psid) {
-  const collectionUserData = client.db(dbName).collection('users-data');
-  collectionUserData.updateOne({ sender_psid: sender_psid }, {
+async function init(client, sender_psid) {
+  await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_classes: {
         block: true,
@@ -49,8 +48,8 @@ function init(client, sender_psid) {
   });
 }
 
-function clearData(client, sender_psid) {
-  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+async function clearData(client, sender_psid) {
+  await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_classes: {
         block: true,
@@ -70,16 +69,16 @@ function clearData(client, sender_psid) {
   });
 }
 
-function updateData(client, sender_psid, teacherName) {
+async function updateData(client, sender_psid, teacherName) {
   let response = {
     "text": ""
   };
-  client.db(dbName).collection('schedule').find({
+  await client.db(dbName).collection('schedule').find({
     $or: [
       { "schedule.morning.teacher": teacherName },
       { "schedule.afternoon.teacher": teacherName }
     ]
-  }).toArray((err, docs) => {
+  }).toArray(async (err, docs) => {
     if(err) console.log("Cound not find any teach data");
     else if(docs) {
       let teaches = [];
@@ -88,6 +87,11 @@ function updateData(client, sender_psid, teacherName) {
           "morning": [],
           "afternoon": []
         });
+        if(teacherName === "LV.Ngân" || teacherName === "HT.Nhân")
+          if(i === 0) teaches[i].afternoon.push({
+            class: 1,
+            group: '11t'
+          })
         for(let j = 0; j < 5; j ++) { // loop classes
           // loop groups
           docs.forEach((doc) => {
@@ -110,7 +114,7 @@ function updateData(client, sender_psid, teacherName) {
           });
         }
       }
-      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
         $set: {
           search_classes: {
             block: true,
@@ -247,7 +251,9 @@ function checkTeacherName(sender_psid, teacherName) {
     'NTP.Thảo',    'NT.Tuyết', 'CT.Thúy',   'NP.Thảo',    'NC.Trung',
     'BM.Thủy',     'ĐTT.Toàn', 'NH.Vân',    'PH.Vân',     'NT.Vân',
     'TTB.Vân',     'NĐ.Vang',  'TH.Xuân',   'NT.Yến (đ)', 'TT.Yến',
-    'NT.Yến (nn)', 'HTN.Ánh',  'TN.Điệp',   'LĐ.Điển',    'NT.Đức'
+    'NT.Yến (nn)', 'HTN.Ánh',  'TN.Điệp',   'LĐ.Điển',    'NT.Đức',
+    'TV.Điệp',     'NT.Đô',    'Shaine',    'VD.Khanh',   'Ngân/Nhân',
+    'VK.Oanh',     'HT.Toan',  'LX.Cường',  'NQ.Huy',     'LT.Vui'
   ];
   if(checkArray.includes(teacherName)) return true;
   else {

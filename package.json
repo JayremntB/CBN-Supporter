@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "npx nodemon",
-    "setpart": "node src/general/set-single-part.js"
+    "setpart": "node src/general/set-single-part.js",
+    "getteachers": "node test/getteachers.js"
   },
   "repository": {
     "type": "git",

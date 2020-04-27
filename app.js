@@ -75,7 +75,7 @@ app.post('/webhook', (req, res) => {
   }
 });
 
-function handleMessage(sender_psid, received_message, userData) {
+async function handleMessage(sender_psid, received_message, userData) {
   let response = stuff.defaultResponse;
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
@@ -97,7 +97,11 @@ function handleMessage(sender_psid, received_message, userData) {
       response = stuff.teacherList;
       sendResponse(sender_psid, response);
     }
-    else if(text === 'tiền giấc ngủ') {
+    else if(text === 'sử dụng lệnh') {
+      response = stuff.listCommands;
+      sendResponse(sender_psid, response);
+    }
+    else if(text === 'thời gian vào giấc') {
       response = stuff.explainWindDownTime;
       sendResponse(sender_psid, response);
     }
@@ -118,18 +122,18 @@ function handleMessage(sender_psid, received_message, userData) {
         case 'setclass':
         case 'viewclass':
         case 'delclass':
-          setting.handleClassMessage(client, sender_psid, textSplit, userData);
+          await setting.handleClassMessage(client, sender_psid, textSplit, userData);
           break;
         case 'setwd':
         case 'viewwd':
         case 'delwd':
-          setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
+          await setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
           break;
         case 'tkb':
-          searchSchedule.init(client, sender_psid, userData);
+          await searchSchedule.init(client, sender_psid, userData);
           break;
         case 'dạy':
-          searchClasses.init(client, sender_psid);
+          await searchClasses.init(client, sender_psid);
           break;
         case 'covid':
           checkCovid(sender_psid);
@@ -143,10 +147,10 @@ function handleMessage(sender_psid, received_message, userData) {
       }
     }
     else if(userData.search_schedule_block) {
-      searchSchedule.handleMessage(client, sender_psid, text, userData);
+      await searchSchedule.handleMessage(client, sender_psid, text, userData);
     }
     else if(userData.search_classes.block) {
-      searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
+      await searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
   }
 }
@@ -220,7 +224,7 @@ function initUserData(sender_psid) {
       day: "",
       time: ""
     },
-    live_chat: "",
+    live_chat: false,
     wind_down_time: 14
   };
   client.db(dbName).collection(collectionName).insertOne(insert);

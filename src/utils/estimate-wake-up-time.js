@@ -9,6 +9,12 @@ let response = {
       "title": "Menu",
       "payload": "menu",
       "image_url": ""
+    },
+    {
+      "content_type": "text",
+      "title": "Thời gian vào giấc",
+      "payload": "changeWindDownTime",
+      "image_url": ""
     }
   ]
 };

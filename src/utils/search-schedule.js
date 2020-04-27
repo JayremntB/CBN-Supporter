@@ -9,11 +9,11 @@ module.exports = {
   init: init
 }
 
-function handleMessage(client, sender_psid, text, userData) {
+async function handleMessage(client, sender_psid, text, userData) {
   if(text === "lớp khác") {
     const response = stuff.searchScheduleAskGroup;
-    clearOtherGroupData(client, sender_psid);
-    sendResponse(sender_psid, response);
+    await clearOtherGroupData(client, sender_psid);
+    await sendResponse(sender_psid, response);
   }
   else if(!userData.search_schedule_other_group.block) {
     sendSchedule(sender_psid, text, userData);
@@ -22,21 +22,20 @@ function handleMessage(client, sender_psid, text, userData) {
     sendSchedule(sender_psid, text, userData);
   }
   else if(checkGroup(sender_psid, text)) {
-    updateOtherGroupData(client, sender_psid, text);
+    await updateOtherGroupData(client, sender_psid, text);
   }
 }
 
-function init(client, sender_psid, userData) {
-  const collectionUserData = client.db(dbName).collection('users-data');
+async function init(client, sender_psid, userData) {
   let response = {
     "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
   };
   if(userData.group) { // init search_schedule_block
-    collectionUserData.updateOne({ sender_psid: sender_psid }, {
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_block: true
       }
-    }, (err) => {
+    }, (err, data) => {
       if(err) {
         console.log("Could not create search block");
         sendResponse(sender_psid, response);
@@ -52,7 +51,7 @@ function init(client, sender_psid, userData) {
     });
   }
   else { // init both search_schedule_block & search_schedule_other_group block
-    collectionUserData.updateOne({ sender_psid: sender_psid }, {
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_block: true,
         search_schedule_other_group: {
@@ -86,8 +85,8 @@ function checkGroup(sender_psid, group) {
   }
 }
 
-function clearOtherGroupData(client, sender_psid) {
-  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+async function clearOtherGroupData(client, sender_psid) {
+  await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_schedule_other_group: {
         block: true,
@@ -153,30 +152,31 @@ function sendSchedule(sender_psid, dayInput, userData) {
   : userData.main_schedule;
   if(day === "Tất cả") {
     let text = "Lịch học tuần này của bạn đây: ";
+    let subText = "";
     schedule.forEach((data) => {
       text += `
 * Thứ ${data.day}:
  - Sáng: `;
-      if(data.morning.length === 0) text += "Nghỉ";
-      else {
-        data.morning.forEach((Class, i) => {
-          if(Class.subject !== "")
-          text += `
+      data.morning.forEach((Class, i) => {
+        if(Class.subject !== "")
+        subText += `
    + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
-        });
-      }
-      //    ------------------------
-      text += `
+      });
+    //    ------------------------
+    if(!subText) text += "Nghỉ";
+    else text += subText;
+    subText = "";
+    text += `
  - Chiều: `;
       //
-      if(data.afternoon.length === 0) text += "Nghỉ";
-      else {
-        data.afternoon.forEach((Class, i) => {
-          if(Class.subject !== "")
-          text += `
+      data.afternoon.forEach((Class, i) => {
+        if(Class.subject !== "")
+        subText += `
    + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
-        });
-      }
+      });
+      if(!subText) text += "Nghỉ";
+      else text += subText;
+      subText = "";
       text += `\n-----------`;
     });
     text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
@@ -197,6 +197,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
     }
     else {
       const data = schedule[day - 2];
+      let subText = "";
       let text = `Lịch học thứ ${day}:
  - Sáng: `;
       if(data.morning.length === 0) text += "Nghỉ";
@@ -219,6 +220,8 @@ function sendSchedule(sender_psid, dayInput, userData) {
    + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
         });
       }
+      if(!subText) text += "Nghỉ";
+      else text += subText;
       text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
       response.text = text;
       sendResponse(sender_psid, response);

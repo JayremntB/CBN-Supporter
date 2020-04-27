@@ -42,7 +42,7 @@ module.exports = {
 - setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
 + viewclass: xem tên lớp đã cài đặt
 + delclass:  xoá tên lớp đã cài đặt
-- setwd + thời gian (phút): cập nhật thời gian đi vào giấc ngủ (~ wind-down)
+- setwd + thời gian (phút): cập nhật thời gian đi vào giấc ngủ (tạm gọi: wind down)
 + viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
 + delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')`,
     "quick_replies": [
@@ -104,6 +104,23 @@ module.exports = {
         "content_type": "text",
         "title": "delclass",
         "payload": "delClass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "delwd",
+        "payload": "delwd",
+        "image_url": ""
+      }
+    ]
+  },
+  "explainWindDownTime": {
+    "text": "Thời gian vào giấc là thời gian trung bình để bạn chìm vào giấc ngủ. Để thuận tiện hơn trong việc xác định thời điểm dậy (ngủ) dựa trên thời gian đi vào giấc ngủ của bạn khi sử dụng các tính năng Tính giờ dậy và Tính giờ ngủ, nhập setwd + thời gian (tính theo phút)",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "viewwd",
+        "payload": "viewwd",
         "image_url": ""
       },
       {
@@ -295,15 +312,17 @@ module.exports = {
 -----
 B NT.Bình NV.Bảo PT.Bằng NV.Bình
 -----
+C LX.Cường
+-----
 D NTT.Dung NT.Dịu NT.Dung
 -----
-Đ TN.Điệp LĐ.Điển NT.Đức
+Đ TN.Điệp TV.Điệp LĐ.Điển NT.Đô NT.Đức
 -----
 G LT.Giang NT.Giang
 -----
-H NTT.Huyền HT.Hà VT.Huyến NK.Hoàn NT.Hương BT.Hưng ĐT.Hường NT.Huế ĐT.Hương NT.Hà(h) VTT.Hằng HL.Hương ĐT.Hiền NT.Hường NT.Hà(su) NT.Hòa LTT.Hiền PĐ.Hiệp VT.Huê NT.Hoa VB.Huy LN.Hân
+H NTT.Huyền HT.Hà VT.Huyến NK.Hoàn NT.Hương BT.Hưng ĐT.Hường NT.Huế ĐT.Hương NT.Hà(h) VTT.Hằng HL.Hương ĐT.Hiền NT.Hường NT.Hà(su) NT.Hòa LTT.Hiền PĐ.Hiệp VT.Huê NT.Hoa NQ.Huy VB.Huy LN.Hân
 -----
-K TV.Kỷ NH.Khánh TT.Khanh
+K TV.Kỷ NH.Khánh TT.Khanh VD.Khanh
 -----
 L TK.Linh LT.Loan NT.Linh VT.Len D.Liễu NTM.Loan NT.Loan NTH.Liên NT.Lê NT.Lệ VT.Lợi NM.Lan (NP.Ly Ly)
 -----
@@ -311,13 +330,17 @@ M LT.Mùi NQ.Minh NV.Mạnh
 -----
 N NT.Nga TB.Ngọc TTB.Ngọc NT.Nhung HT.Nhân LV.Ngân NP.Nga DTT.Nga NV.Nga NT.Nguyệt HD.Ngọc NTT.Nhung
 -----
+O VK.Oanh
+-----
 P NV.Phán NTT.Phương
 -----
 Q TH.Quang
 -----
-T NV.Tuấn HT.Thảo TT.Trang NTH.Trang NT.Thu HTT.Thủy NTT.Thuỷ LH.Trang PH.Trang NTP.Thảo NT.Tuyết CT.Thúy NP.Thảo NC.Trung BM.Thủy ĐTT.Toàn
+S Shaine
 -----
-V NH.Vân PH.Vân NT.Vân TTB.Vân NĐ.Vang
+T NV.Tuấn HT.Thảo TT.Trang NTH.Trang NT.Thu HTT.Thủy NTT.Thuỷ LH.Trang PH.Trang NTP.Thảo NT.Tuyết CT.Thúy NP.Thảo NC.Trung BM.Thủy HT.Toan ĐTT.Toàn
+-----
+V NH.Vân PH.Vân NT.Vân TTB.Vân NĐ.Vang LT.Vui
 -----
 X TH.Xuân
 -----
