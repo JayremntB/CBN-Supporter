@@ -29,7 +29,7 @@ const textCheck = ['lệnh', 'hd', 'menu', 'help', 'ngủ', 'tkb', 'covid', 'd�
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
-  res.send("ok");
+  res.send("ko");
 });
 
 app.get('/webhook', (req, res) => {
