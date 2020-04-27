@@ -11,7 +11,7 @@
 
 * Tính giờ ngủ
 * Tính giờ dậy
-* Tình hình dịch bệnh Covid-19 hiện tại
+* Tình hình dịch bệnh Covid-19
 
 ## HƯỚNG DẪN SỬ DỤNG CHATBOT
 ``
@@ -55,11 +55,9 @@ Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các 
     - *viewclass*: Xem tên lớp đã cài đặt    
     - *delclass*:  Xoá tên lớp đã cài đặt   
   
-  - *setwd + thời gian (phút)*: cập nhật thời gian đi vào giấc ngủ (wind-down)
+  - *setwd + thời gian (phút)*: cập nhật thời gian đi vào giấc ngủ (Tạm gọi: Wind-down)
     - viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
     - delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')
-    
-  > P/s: Thực ra *wind-down* là quá trình nghỉ ngơi trước khi ngủ.
   
 **Đang cập nhật:**
 
