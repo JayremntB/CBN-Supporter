@@ -7,7 +7,8 @@ const request = require('request');
 const { MongoClient } = require('mongodb');
 // features
 const setting = require('./src/utils/setting');
-const calcWakeUpTime = require('./src/utils/calc-wake-up-time');
+const estimateWakeUpTime = require('./src/utils/estimate-wake-up-time');
+const estimateSleepTime = require('./src/utils/estimate-sleep-time');
 const checkCovid = require('./src/utils/check-covid');
 const searchSchedule = require('./src/utils/search-schedule');
 const searchClasses = require('./src/utils/search-classes');
@@ -24,7 +25,7 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const textCheck = ['lệnh', 'hd', 'menu', 'help', 'lớp', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass'];
+const textCheck = ['lệnh', 'hd', 'menu', 'help', 'ngủ', 'tkb', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'setwd', 'viewwd', 'delwd'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.get('/', (req, res) => {
@@ -74,10 +75,8 @@ app.post('/webhook', (req, res) => {
   }
 });
 
-function handleMessage(sender_psid, received_message, userData) {
-  let response = {
-    "text": ""
-  };
+async function handleMessage(sender_psid, received_message, userData) {
+  let response = stuff.defaultResponse;
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
     let text = received_message.text.toLowerCase();
@@ -89,8 +88,7 @@ function handleMessage(sender_psid, received_message, userData) {
       response = stuff.exitResponse;
       sendResponse(sender_psid, response);
     }
-    else if(userData.liveChat);
-    else if(text === 'hd');
+    else if(userData.live_chat);
     else if(text === 'danh sách lớp' || text === 'dsl') {
       response = stuff.groupList;
       sendResponse(sender_psid, response);
@@ -99,51 +97,67 @@ function handleMessage(sender_psid, received_message, userData) {
       response = stuff.teacherList;
       sendResponse(sender_psid, response);
     }
+    else if(text === 'sử dụng lệnh') {
+      response = stuff.listCommands;
+      sendResponse(sender_psid, response);
+    }
+    else if(text === 'thời gian vào giấc') {
+      response = stuff.explainWindDownTime;
+      sendResponse(sender_psid, response);
+    }
     else if(textCheck.includes(textSplit[0])) {
       unblockAll(sender_psid);
       switch (textSplit[0]) {
+        case 'lệnh':
+          response = stuff.listCommands;
+          sendResponse(sender_psid, response);
+          break;
         case 'help':
           onLiveChat(sender_psid);
+          break;
+        case 'hd':
+          response.text = "https://github.com/jayremntB/CBN-Supporter/blob/master/README.md";
+          sendResponse(sender_psid, response);
           break;
         case 'setclass':
         case 'viewclass':
         case 'delclass':
-          setting.handleMessage(client, sender_psid, textSplit, userData);
+          await setting.handleClassMessage(client, sender_psid, textSplit, userData);
+          break;
+        case 'setwd':
+        case 'viewwd':
+        case 'delwd':
+          await setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
           break;
         case 'tkb':
-          searchSchedule.init(client, sender_psid, userData);
+          await searchSchedule.init(client, sender_psid, userData);
           break;
         case 'dạy':
-          searchClasses.init(client, sender_psid);
+          await searchClasses.init(client, sender_psid);
           break;
         case 'covid':
           checkCovid(sender_psid);
           break;
         case 'dậy':
-          calcWakeUpTime(sender_psid);
+          estimateSleepTime(sender_psid, textSplit, userData);
           break;
-        case 'lớp':
         case 'ngủ':
-          response.text = "Tính năng này hiện không khả dụng do thằng coder đang lười và chưa có ny 😞";
-          sendResponse(sender_psid, response);
+          estimateWakeUpTime(sender_psid, textSplit, userData);
           break;
       }
     }
     else if(userData.search_schedule_block) {
-      searchSchedule.handleMessage(client, sender_psid, text, userData);
+      await searchSchedule.handleMessage(client, sender_psid, text, userData);
     }
     else if(userData.search_classes.block) {
-      searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
-    }
-    else if(userData.search_groups.block) {
-
+      await searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
   }
 }
 
 function handlePostback(sender_psid, received_postback, userData) {
   let response = {
-    "text": "Tính năng này hiện không khả dụng do thằng coder đang lười và chưa có ny T.T"
+    "text": ""
   };
   // Get the payload of receive postback
   let text = JSON.parse(received_postback.payload).__button_text__.toLowerCase();
@@ -155,7 +169,7 @@ function handlePostback(sender_psid, received_postback, userData) {
     response = stuff.exitResponse;
     sendResponse(sender_psid, response);
   }
-  else if(!userData.liveChat) {
+  else if(!userData.live_chat) {
     unblockAll(sender_psid);
     switch (text) {
       case 'tra thời khoá biểu':
@@ -173,6 +187,10 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'trợ giúp (live chat)':
         onLiveChat(sender_psid);
         break;
+      case 'danh sách các lệnh':
+        response = stuff.listCommands;
+        sendResponse(sender_psid, response);
+        break;
     }
   }
 }
@@ -180,7 +198,7 @@ function handlePostback(sender_psid, received_postback, userData) {
 function onLiveChat(sender_psid) {
   client.db(dbName).collection(collectionName).updateOne({ sender_psid: sender_psid }, {
     $set: {
-      liveChat: true
+      live_chat: true
     }
   });
 }
@@ -206,7 +224,8 @@ function initUserData(sender_psid) {
       day: "",
       time: ""
     },
-    liveChat: ""
+    live_chat: false,
+    wind_down_time: 14
   };
   client.db(dbName).collection(collectionName).insertOne(insert);
   return insert;
@@ -232,7 +251,7 @@ function unblockAll(sender_psid) {
         day: "",
         time: ""
       },
-      liveChat: false
+      live_chat: false
     }
   });
 }

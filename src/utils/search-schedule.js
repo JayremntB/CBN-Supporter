@@ -9,11 +9,11 @@ module.exports = {
   init: init
 }
 
-function handleMessage(client, sender_psid, text, userData) {
-  if(text === "tra lớp khác") {
+async function handleMessage(client, sender_psid, text, userData) {
+  if(text === "lớp khác") {
     const response = stuff.searchScheduleAskGroup;
-    clearOtherGroupData(client, sender_psid);
-    sendResponse(sender_psid, response);
+    await clearOtherGroupData(client, sender_psid);
+    await sendResponse(sender_psid, response);
   }
   else if(!userData.search_schedule_other_group.block) {
     sendSchedule(sender_psid, text, userData);
@@ -22,42 +22,36 @@ function handleMessage(client, sender_psid, text, userData) {
     sendSchedule(sender_psid, text, userData);
   }
   else if(checkGroup(sender_psid, text)) {
-    updateOtherGroupData(client, sender_psid, text);
+    await updateOtherGroupData(client, sender_psid, text);
   }
 }
 
-function init(client, sender_psid, userData) {
-  if(userData.group) {
-    createBlock(client, sender_psid, false); // init search_schedule_block
-    let response = stuff.askDay;
-    response.quick_replies[0].title = "Tra lớp khác";
-    response.quick_replies[0].payload = "overwriteClass";
-    response.text = `Cập nhật thời khoá biểu lớp ${userData.group} thành công!\nCậu muốn tra thứ mấy?`
-    sendResponse(sender_psid, response);
-  }
-  else {
-    createBlock(client, sender_psid, true); // init both search_schedule_block & search_schedule_other_group block
-    const response = stuff.searchScheduleAskGroup;
-    sendResponse(sender_psid, response);
-  }
-}
-
-function createBlock(client, sender_psid, otherGroup) {
-  const collectionUserData = client.db(dbName).collection('users-data');
-  const response = {
-    "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+async function init(client, sender_psid, userData) {
+  let response = {
+    "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
   };
-  if(!otherGroup) {
-    collectionUserData.updateOne({ sender_psid: sender_psid }, {
+  if(userData.group) { // init search_schedule_block
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_block: true
       }
-    }, (err) => {
-      if(err) sendResponse(sender_psid, response);
+    }, (err, data) => {
+      if(err) {
+        console.log("Could not create search block");
+        sendResponse(sender_psid, response);
+      }
+      else {
+        console.log('init search schedule block successfully');
+        let response = stuff.askDay;
+        response.quick_replies[0].title = "Lớp khác";
+        response.quick_replies[0].payload = "overwriteClass";
+        response.text = `Cập nhật thời khoá biểu lớp ${userData.group} thành công!\nBạn muốn tra thứ mấy?`
+        sendResponse(sender_psid, response);
+      }
     });
   }
-  else {
-    collectionUserData.updateOne({ sender_psid: sender_psid }, {
+  else { // init both search_schedule_block & search_schedule_other_group block
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_block: true,
         search_schedule_other_group: {
@@ -67,7 +61,15 @@ function createBlock(client, sender_psid, otherGroup) {
         }
       }
     }, (err) => {
-      if(err) sendResponse(sender_psid, response);
+      if(err) {
+        console.log("Could not create search other group block");
+        sendResponse(sender_psid, response);
+      }
+      else {
+        console.log('init search other group block successfully');
+        response = stuff.searchScheduleAskGroup;
+        sendResponse(sender_psid, response);
+      }
     });
   }
 }
@@ -77,14 +79,14 @@ function checkGroup(sender_psid, group) {
   if(checkArray.includes(group)) return true;
   else {
     let response = stuff.checkGroupResponse;
-    response.text = "Tên lớp không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)"
+    response.text = "Tên lớp không có trong danh sách. Kiểm tra lại xem bạn có viết nhầm hay không nhé.\nNhầm thì viết lại luôn nha :>"
     sendResponse(sender_psid, response);
     return false;
   }
 }
 
-function clearOtherGroupData(client, sender_psid) {
-  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+async function clearOtherGroupData(client, sender_psid) {
+  await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_schedule_other_group: {
         block: true,
@@ -94,11 +96,13 @@ function clearOtherGroupData(client, sender_psid) {
     }
   }, (err) => {
     if(err) {
+      console.log("Could not clear other group data");
       let response = {
-        "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+        "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
       };
       sendResponse(sender_psid, response);
     }
+    else console.log("clear other group data successfully");
   });
 }
 
@@ -115,29 +119,31 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
       }
     }, (err) => {
       if (err) {
+        console.error("Could not update other group data: \n" + err);
         const response = {
-          "text": "Úi, tớ không kết nối với database được. Cậu hãy thử lại sau nha T.T"
+          "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
         };
         sendResponse(sender_psid, response);
       } else {
+        console.log("Update other group data successfully!");
         let response = stuff.askDay;
-        response.quick_replies[0].title = "Tra lớp khác";
+        response.quick_replies[0].title = "Lớp khác";
         response.quick_replies[0].payload = "overwriteClass";
-        response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nCậu muốn tra thứ mấy?`;
+        response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nBạn muốn tra thứ mấy?`;
         sendResponse(sender_psid, response);
       }
     });
   }
   else {
     let response = stuff.checkGroupResponse;
-    response.text = "Thời khoá biểu lớp cậu chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng coder qua phần Thông tin và cài đặt nhé!";
+    response.text = "Thời khoá biểu lớp bạn chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng coder qua phần Thông tin và cài đặt nhé!";
     sendResponse(sender_psid, response);
   }
 }
 
 function sendSchedule(sender_psid, dayInput, userData) {
   let response = stuff.askDay;
-  response.quick_replies[0].title = "Tra lớp khác";
+  response.quick_replies[0].title = "Lớp khác";
   response.quick_replies[0].payload = "overwriteClass";
   let day = handleDayInput(dayInput);
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
@@ -145,31 +151,32 @@ function sendSchedule(sender_psid, dayInput, userData) {
   ? userData.search_schedule_other_group.schedule
   : userData.main_schedule;
   if(day === "Tất cả") {
-    let text = "Lịch học tuần này của cậu đây: ";
+    let text = "Lịch học tuần này của bạn đây: ";
+    let subText = "";
     schedule.forEach((data) => {
       text += `
 * Thứ ${data.day}:
  - Sáng: `;
-      if(data.morning.length === 0) text += "Nghỉ";
-      else {
-        data.morning.forEach((Class, i) => {
-          if(Class.subject !== "")
-          text += `
+      data.morning.forEach((Class, i) => {
+        if(Class.subject !== "")
+        subText += `
    + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
-        });
-      }
-      //    ------------------------
-      text += `
+      });
+    //    ------------------------
+    if(!subText) text += "Nghỉ";
+    else text += subText;
+    subText = "";
+    text += `
  - Chiều: `;
       //
-      if(data.afternoon.length === 0) text += "Nghỉ";
-      else {
-        data.afternoon.forEach((Class, i) => {
-          if(Class.subject !== "")
-          text += `
+      data.afternoon.forEach((Class, i) => {
+        if(Class.subject !== "")
+        subText += `
    + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
-        });
-      }
+      });
+      if(!subText) text += "Nghỉ";
+      else text += subText;
+      subText = "";
       text += `\n-----------`;
     });
     text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
@@ -178,7 +185,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
   }
   else if(!isNaN(day)){
     if(day == 8) {
-      response.text = "Ai đi học thêm cứ đi, ai muốn tự học cứ học :>";
+      response.text = "Chủ nhật, ai đi học thêm cứ đi, ai muốn tự học cứ học :>";
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > schedule.length || day - 2 < 0) {
@@ -190,6 +197,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
     }
     else {
       const data = schedule[day - 2];
+      let subText = "";
       let text = `Lịch học thứ ${day}:
  - Sáng: `;
       if(data.morning.length === 0) text += "Nghỉ";
@@ -212,6 +220,8 @@ function sendSchedule(sender_psid, dayInput, userData) {
    + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
         });
       }
+      if(!subText) text += "Nghỉ";
+      else text += subText;
       text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
       response.text = text;
       sendResponse(sender_psid, response);
@@ -219,9 +229,9 @@ function sendSchedule(sender_psid, dayInput, userData) {
   }
   else {
     response = stuff.askDay;
-    response.quick_replies[0].title = "Tra lớp khác";
+    response.quick_replies[0].title = "Lớp khác";
     response.quick_replies[0].payload = "overwriteClass";
-    response.text = `Nàooo -_- Đừng nhắn gì ngoài mấy cái hiện lên bên dưới .-.`;
+    response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-`;
     sendResponse(sender_psid, response);
   }
 }
@@ -235,6 +245,7 @@ function handleDayInput(day) {
       return 'Tất cả';
       break;
     case 'hôm nay':
+      if(dayNow === 1) return 8;
       return dayNow;
       break;
     case 'hôm qua':

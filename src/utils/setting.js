@@ -1,34 +1,34 @@
 const sendResponse = require('../general/sendResponse');
 const stuff = require('../general/stuff');
 const dbName = 'database-for-cbner';
+
 module.exports = {
-  handleMessage: handleMessage
+  handleClassMessage: handleClassMessage,
+  handleWindDownMessage: handleWindDownMessage
 }
 
-async function handleMessage(client, sender_psid, textSplit, userData) {
+async function handleClassMessage(client, sender_psid, textSplit, userData) {
+  let response = stuff.defaultResponse;
   unblockAll(client, sender_psid);
-  let response = {
-    "text": ""
-  };
   if(textSplit[0] === 'viewclass') {
     if(userData.group) {
       response.text = `${userData.group}`;
       sendResponse(sender_psid, response);
     }
     else {
-      response.text = "Cậu chưa cài đặt tên lớp :(";
+      response.text = "Bạn chưa cài đặt tên lớp :(";
       sendResponse(sender_psid, response);
     }
   }
   else if(textSplit[0] === 'delclass') {
-    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         group: "",
         main_schedule: []
       }
     }, (err) => {
       if(err) {
-        response.text = "Ủa không xoá được, cậu hãy thử lại sau nhé T.T";
+        response.text = "Ủa không xoá được, bạn hãy thử lại sau nhé T.T";
         sendResponse(sender_psid, response);
       }
       else {
@@ -38,22 +38,21 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
     });
   }
   else if(textSplit[0] === 'setclass') {
-    console.log("b");
     if(textSplit.length === 1) {
-      response.text = "Tên lớp cậu chưa ghi kìa :(";
+      response.text = "Tên lớp bạn chưa ghi kìa :(";
       sendResponse(sender_psid, response);
     }
     else if(checkGroup(sender_psid, textSplit[1])) {
       const scheduleData = await client.db(dbName).collection('schedule').findOne({ group: textSplit[1] });
       if(scheduleData) {
-        client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+        await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
           $set: {
             group: textSplit[1],
             main_schedule: scheduleData.schedule
           }
         }, (err) => {
           if(err) {
-            response.text = "Ủa không cài đặt được, cậu hãy thử lại sau nhé T.T";
+            response.text = "Ủa không cài đặt được, bạn hãy thử lại sau nhé T.T";
             sendResponse(sender_psid, response);
           }
           else {
@@ -63,9 +62,56 @@ async function handleMessage(client, sender_psid, textSplit, userData) {
         });
       }
       else {
-        response.text = "Thời khoá biểu lớp cậu chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!";
+        response.text = "Thời khoá biểu lớp bạn chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!";
         sendResponse(sender_psid, response);
       }
+    }
+  }
+}
+
+async function handleWindDownMessage(client, sender_psid, textSplit, userData) {
+  let response = stuff.defaultResponse;
+  unblockAll(client, sender_psid);
+  if(textSplit[0] === 'viewwd') {
+    response.text = `${userData.wind_down_time}'`;
+    sendResponse(sender_psid, response);
+  }
+  else if(textSplit[0] === 'delwd') {
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      $set: {
+        wind_down_time: 14
+      }
+    }, (err) => {
+      if(err) {
+        response.text = "Ủa không xoá được, bạn hãy thử lại sau nhé T.T";
+        sendResponse(sender_psid, response);
+      }
+      else {
+        response.text = "Thời gian đi vào giấc ngủ của bạn đã được đổi về mặc định (14')"
+        sendResponse(sender_psid, response);
+      }
+    });
+  }
+  else if(textSplit[0] === 'setwd') {
+    if(textSplit.length === 1) {
+      response.text = "Bạn chưa ghi thời gian kìa :(";
+      sendResponse(sender_psid, response);
+    }
+    else if(checkWindDownTime(sender_psid, textSplit[1])) {
+      await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+        $set: {
+          wind_down_time: textSplit[1]
+        }
+      }, (err) => {
+        if(err) {
+          response.text = "Ủa không cài đặt được, bạn hãy thử lại sau nhé T.T";
+          sendResponse(sender_psid, response);
+        }
+        else {
+          response.text = `Thời gian đi vào giấc ngủ của bạn là ${textSplit[1]}'.`;
+          sendResponse(sender_psid, response);
+        }
+      });
     }
   }
 }
@@ -75,12 +121,27 @@ function checkGroup(sender_psid, group) {
   if(checkArray.includes(group)) return true;
   else {
     response = stuff.checkGroupResponse;
-    response.text = "Tên lớp không có trong danh sách. Kiểm tra lại xem cậu có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)";
+    response.text = "Tên lớp không có trong danh sách. Kiểm tra lại xem bạn có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)";
     sendResponse(sender_psid, response);
     return false;
   }
 }
 
+function checkWindDownTime(sender_psid, time) {
+  if(isNaN(time) || time < 0) {
+    let response = stuff.defaultResponse;
+    response.text = "Xin lỗi, tớ không hiểu thời gian bạn vừa nhập :(";
+    sendResponse(sender_psid, response);
+    return 0;
+  }
+  if(time >= 8 * 60) {
+    let response = stuff.defaultResponse;
+    response.text = "Thế thì thức luôn đi chứ còn ngủ gì nữa @@";
+    sendResponse(sender_psid, response);
+    return 0;
+  }
+  return 1;
+}
 function unblockAll(client, sender_psid) {
   client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
