@@ -45,7 +45,7 @@ async function init(client, sender_psid, userData) {
         let response = stuff.askDay;
         response.quick_replies[0].title = "Giáo viên khác";
         response.quick_replies[0].payload = "overwriteTeacher";
-        response.text = `Cập nhật lịch dạy của giáo viên ${userData.teacher} thành công!\nBạn muốn tìm lịch dạy thứ mấy?`;
+        response.text = `Cập nhật lịch dạy của giáo viên ${userData.teacher} thành công!\nBạn muốn tra thứ mấy?`;
         sendResponse(sender_psid, response);
       }
     });
@@ -161,7 +161,7 @@ async function updateOtherTeacherData(client, sender_psid, teacherName) {
           let response = stuff.askDay;
           response.quick_replies[0].title = "Giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
-          response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nBạn muốn tìm lịch dạy thứ mấy?`;
+          response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nBạn muốn tra thứ mấy?`;
           sendResponse(sender_psid, response);
         }
       });
