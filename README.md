@@ -4,8 +4,8 @@
 ## TÍNH NĂNG
 
 * Tra thời khoá biểu
-* Tìm tiết dạy
-* Tìm lớp học (Updating)
+* Tra lịch dạy
+* Tìm lớp học (đang phát triển)
 
 ### Các tính năng khác
 
@@ -44,18 +44,20 @@ Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các 
 
 **Lệnh kích hoạt tính năng:**
 - *tkb*: Tra thời khoá biểu
-- *dạy*: Tìm lịch dạy học của giáo viên
+- *dạy*: Tra lịch dạy học 
 - *covid*: Tình hình dịch bệnh hiện tại
 - *dậy + thời điểm dậy*: Xác định thời điểm nên ngủ nếu bạn muốn dậy ở thời điểm bạn nhập.
 - *ngủ + thời điểm ngủ*: Xác định thời điểm nên thức dậy nếu bạn ngủ ở thời điểm bạn nhập.
 
 **Lệnh cài đặt và đi kèm:**
 
-  - *setclass + tên lớp*: Cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
+  - *setclass + tên lớp*: Cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng **Tra thời khoá biểu**
     - *viewclass*: Xem tên lớp đã cài đặt    
     - *delclass*:  Xoá tên lớp đã cài đặt   
-
-  - *setwd + thời gian (phút)*: cập nhật thời gian đi vào giấc ngủ (tạm gọi: Wind down)
+  - *gv + tên giáo viên*: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng **Tra lịch dạy**
+    - *xemgv*: Xem tên giáo viên đã cài đặt
+    - *xoagv*: Xoá lịch dạy giáo viên đã cài đặt
+  - *setwd + thời gian (phút)*: cập nhật thời gian đi vào giấc ngủ (tạm gọi: wind down)
     - viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
     - delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')
 
@@ -64,34 +66,39 @@ Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các 
   *lớp*: Tìm lớp được dạy môn nào đó
 
 ``
-Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có thể tiếp tục quá trình nhập dữ liệu khi bạn sử dụng các tính năng như tra thời khoá biểu, tìm lịch dạy.
+Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có thể tiếp tục quá trình nhập dữ liệu khi bạn sử dụng các tính năng như tra thời khoá biểu, tra lịch dạy.
 ``
 
 ### CHI TIẾT TÍNH NĂNG
 
 #### Tra thời khoá biểu (*tkb*)
 * Nhập lệnh
-* Nếu bạn đã cài đặt tên lớp từ trước hoặc sau khi nhập tên lớp cần tìm, bot sẽ hỏi bạn muốn tra thời khoá biểu vào thứ mấy. Lúc này bạn có thể nhập các lựa chọn sau:
+* Nếu bạn đã cài đặt tên lớp mặc định hoặc sau khi nhập tên lớp cần tra, bot sẽ hỏi ngày bạn muốn tra thời khoá biểu. Lúc này bạn có thể nhập các lựa chọn sau:
   - Lớp khác
   - Hôm nay, hôm qua, ngày mai
   - 2, 3, 4, 5, 6, 7, chủ nhật
   - Exit
 > **Lưu ý**: Sau khi gửi lựa chọn của bạn, nếu như không sử dụng lệnh *Exit* hoặc các lệnh khác, bạn vẫn sẽ nằm trong **vòng lặp chọn ngày** và sử dụng các lựa chọn bên trên. Nghĩa là, bạn sẽ tiếp tục chọn ngày ngay sau khi vừa chọn ngày thay vì phải nhập lớp khác.
-* Nếu bạn chưa cài đặt tên lớp từ trước hoặc nhập "Lớp khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên lớp cần tra. Nếu bot thông báo không tìm thấy lớp hoặc bạn không biết form nhập tên, nhập **dsl** để xem danh sách các lớp.
+* Nếu bạn chưa cài đặt tên lớp mặc định hoặc nhập "Lớp khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên lớp cần tra. Nếu bot thông báo không tìm thấy lớp hoặc bạn không biết form nhập tên, nhập **dsl** để xem danh sách các lớp.
 
 ``
  Nhập Exit để thoát.
 ``
 
-#### Tìm tiết dạy (*dạy*)
+#### Tra lịch dạy (*dạy*)
 * Nhập lệnh
-* Nhập tên giáo viên. Hãy xem danh sách giáo viên trước khi nhập bằng cách nhập **dsgv** để tránh trường hợp ghi sai form đã cho.
-* Nhập ngày cần tìm. Bạn có thể nhập các lựa chọn sau:
+* Nếu bạn đã cài đặt lịch dạy mặc định hoặc sau khi nhập tên giáo viên cần tra, bot sẽ hỏi ngày bạn muốn tra lịch dạy. Lúc này bạn có thể nhập các lựa chọn sau:
   - Giáo viên khác
   - Hôm nay, hôm qua, ngày mai
   - 2, 3, 4, 5, 6, 7, chủ nhật
   - Exit
-> Lưu ý: Xem lưu ý bên trên.
+> **Lưu ý**: Sau khi gửi lựa chọn của bạn, nếu như không sử dụng lệnh *Exit* hoặc các lệnh khác, bạn vẫn sẽ nằm trong **vòng lặp chọn ngày** và sử dụng các lựa chọn bên trên. Nghĩa là, bạn sẽ tiếp tục chọn ngày ngay sau khi vừa chọn ngày thay vì phải nhập giáo viên khác.
+* Nếu bạn chưa cài đặt lịch dạy mặc định hoặc nhập "Giáo viên khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên giáo viên cần tra. Nếu bot thông báo không tìm thấy giáo viên hoặc bạn không biết form nhập tên, nhập **dsgv** để xem danh sách giáo viên.
+
+``
+ Nhập Exit để thoát.
+``
+
 ####  Tính giờ dậy (*ngủ + thời điểm ngủ*)
 
 Nhập *ngủ + thời điểm ngủ* để xác định thời điểm nên thức dậy nếu bạn ngủ ở thời điểm bạn nhập.
@@ -108,18 +115,24 @@ Ví dụ: dậy 6h15/dậy 6h
 
 ### CHI TIẾT LỆNH CÀI ĐẶT
 
-#### Cài đặt lớp (*setclass + tên lớp*)
+#### Cài đặt thời khoá biểu (tên lớp) mặc định (*setclass + tên lớp*)
 
-Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó liên tục (lớp bạn chẳng hạn), nhập **setclass + tên lớp**. Tương tự, nếu bạn viết sai hoặc quên cách viết tên lớp của mình, gõ **dsl** để xem danh sách các lớp.
+Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó thường xuyên (lớp bạn chẳng hạn), nhập **setclass + tên lớp**. Nếu bot thông báo không tìm thấy lớp hoặc bạn không biết form nhập tên lớp, nhập **dsl** để xem danh sách các lớp.
 Đừng lo, khi bạn muốn tra lớp khác, bot sẽ có một cái button để giúp bạn tra mà không ảnh hưởng đến lớp đã cài đặt.
 
 Các lệnh đi kèm:
 * *viewclass*: Xem tên lớp đã cài đặt
 * *delclass*:  Xoá tên lớp đã cài đặt
+#### Cài đặt lịch dạy (tên giáo viên) mặc định (*gv + tên giáo viên*)
 
+Để mỗi lần sử dụng tính năng tìm tiết dạy bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập **gv + tên giáo viên**. Tương tự, nếu bot thông báo không tìm thấy giáo viên hoặc bạn không biết form nhập tên giáo viên, nhập **dsgv** để xem danh sách giáo viên.
+Đừng lo, khi bạn muốn tra lịch dạy của giáo viên khác, bot sẽ có một cái button để giúp bạn tra mà không ảnh hưởng đến giáo viên đã cài đặt.
+Các lệnh đi kèm:
+* *xemgv*: Xem tên lớp đã cài đặt
+* *xoagv*:  Xoá tên lớp đã cài đặt
 #### Cài đặt thời gian đi vào giấc ngủ (*setwd + thời gian (phút)*)
 
-Để thuận tiện hơn trong việc xác định thời điểm ngủ, dậy theo thời gian đi vào giấc ngủ của bạn khi sử dụng các tính năng *Tính giờ dậy* và *Tính giờ ngủ*, nhập **setwd + thời gian (phút)**.
+Để thuận tiện hơn trong việc xác định thời điểm dậy (ngủ) dựa trên thời gian đi vào giấc ngủ của bạn khi sử dụng các tính năng *Tính giờ dậy* và *Tính giờ ngủ*, nhập **setwd + thời gian (phút)**.
 
 Các lệnh đi kèm:
 * *viewwd*: Xem thời gian đi vào giấc ngủ đã cài đặt
