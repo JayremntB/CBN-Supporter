@@ -25,9 +25,9 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const textCheck = ['lệnh', 'hd', 'menu', 'help', 'ngủ', 'tkb', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'setwd', 'viewwd', 'delwd'];
+const textCheck = ['lệnh', 'hd', 'menu', 'help', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'gv', 'xemgv', 'xoagv', 'setwd', 'viewwd', 'delwd'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-
+//
 app.get('/', (req, res) => {
   res.send("ok");
 });
@@ -80,7 +80,8 @@ async function handleMessage(sender_psid, received_message, userData) {
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
     let text = received_message.text.toLowerCase();
-    const textSplit = text.split(" ");
+    const textSplit = textNotLowerCase.split(" ");
+    textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
     console.log(textSplit);
     if(text === 'exit') {
@@ -105,6 +106,16 @@ async function handleMessage(sender_psid, received_message, userData) {
       response = stuff.explainWindDownTime;
       sendResponse(sender_psid, response);
     }
+    else if(text === 'đặt lớp mặc định') {
+      unblockAll(sender_psid);
+      response = stuff.recommendedSetGroup;
+      sendResponse(sender_psid, response);
+    }
+    else if(text === 'đặt gv mặc định') {
+      unblockAll(sender_psid);
+      response = stuff.recommendedSetTeacher;
+      sendResponse(sender_psid, response);
+    }
     else if(textCheck.includes(textSplit[0])) {
       unblockAll(sender_psid);
       switch (textSplit[0]) {
@@ -122,7 +133,12 @@ async function handleMessage(sender_psid, received_message, userData) {
         case 'setclass':
         case 'viewclass':
         case 'delclass':
-          await setting.handleClassMessage(client, sender_psid, textSplit, userData);
+          await setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
+          break;
+        case 'gv':
+        case 'xemgv':
+        case 'xoagv':
+          await setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
           break;
         case 'setwd':
         case 'viewwd':
@@ -133,7 +149,7 @@ async function handleMessage(sender_psid, received_message, userData) {
           await searchSchedule.init(client, sender_psid, userData);
           break;
         case 'dạy':
-          await searchClasses.init(client, sender_psid);
+          await searchClasses.init(client, sender_psid, userData);
           break;
         case 'covid':
           checkCovid(sender_psid);
@@ -149,16 +165,13 @@ async function handleMessage(sender_psid, received_message, userData) {
     else if(userData.search_schedule_block) {
       await searchSchedule.handleMessage(client, sender_psid, text, userData);
     }
-    else if(userData.search_classes.block) {
+    else if(userData.search_classes_block) {
       await searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
   }
 }
 
 function handlePostback(sender_psid, received_postback, userData) {
-  let response = {
-    "text": ""
-  };
   // Get the payload of receive postback
   let text = JSON.parse(received_postback.payload).__button_text__.toLowerCase();
   const textSplit = text.split(" ");
@@ -166,7 +179,7 @@ function handlePostback(sender_psid, received_postback, userData) {
   // Set response based on payload
   if(text === 'exit') {
     unblockAll(sender_psid);
-    response = stuff.exitResponse;
+    const response = stuff.exitResponse;
     sendResponse(sender_psid, response);
   }
   else if(!userData.live_chat) {
@@ -176,7 +189,7 @@ function handlePostback(sender_psid, received_postback, userData) {
         searchSchedule.init(client, sender_psid, userData);
         break;
       case 'tìm tiết dạy':
-        searchClasses.init(client, sender_psid);
+        searchClasses.init(client, sender_psid, userData);
         break;
       case 'tính giờ dậy':
         calcWakeUpTime(sender_psid);
@@ -184,11 +197,11 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'tình hình covid-19':
         checkCovid(sender_psid);
         break;
-      case 'trợ giúp (live chat)':
+      case 'hỗ trợ':
         onLiveChat(sender_psid);
         break;
       case 'danh sách các lệnh':
-        response = stuff.listCommands;
+        const response = stuff.listCommands;
         sendResponse(sender_psid, response);
         break;
     }
@@ -206,14 +219,17 @@ function initUserData(sender_psid) {
   const insert = {
     sender_psid: sender_psid,
     group: "",
+    teacher: "",
     main_schedule: [],
+    main_teach_schedule: [],
     search_schedule_block: false,
+    search_classes_block: false,
     search_schedule_other_group: {
       block: false,
       group: "",
       schedule: []
     },
-    search_classes: {
+    search_classes_other_teacher: {
       block: false,
       teacher: "",
       teaches: []
@@ -235,12 +251,13 @@ function unblockAll(sender_psid) {
   client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_schedule_block: false,
+      search_classes_block: false,
       search_schedule_other_group: {
         block: false,
         group: "",
         schedule: []
       },
-      search_classes: {
+      search_classes_other_teacher: {
         block: false,
         teacher: "",
         teaches: []
