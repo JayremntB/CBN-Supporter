@@ -33,7 +33,7 @@ module.exports = {
 
 * Lệnh kích hoạt tính năng:
 - tkb: Tra thời khoá biểu
-- dạy: Tìm lịch dạy học của giáo viên
+- dạy: Tra lịch dạy học
 - covid: Tình hình dịch bệnh hiện tại
 - dậy + thời điểm dậy: Xác định thời điểm nên ngủ (ví dụ: dậy 6h15)
 - ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 9h15)
@@ -43,9 +43,9 @@ module.exports = {
   + viewclass: Xem tên lớp đã cài đặt
   + delclass:  Xoá tên lớp đã cài đặt
 
-- gv + tên giáo viên: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng Tìm tiết dạy
+- gv + tên giáo viên: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng Tra lịch dạy
   + xemgv: Xem tên giáo viên đã cài đặt
-  + xoagv:  Xoá tên giáo viên đã cài đặt
+  + xoagv: Xoá tên giáo viên đã cài đặt
 
 - setwd + thời gian (phút): Cập nhật thời gian đi vào giấc ngủ (tạm gọi: wind down)
   + viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
@@ -130,7 +130,7 @@ module.exports = {
     ]
   },
   "recommendedSetTeacher": {
-    "text": "Để mỗi lần sử dụng tính năng tìm tiết dạy bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập gv + tên giáo viên.\nVí dụ: gv NT.A",
+    "text": "Để mỗi lần sử dụng tính năng tra tiết dạy bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập gv + tên giáo viên.\nVí dụ: gv NT.A",
     "quick_replies": [
       {
         "content_type": "text",

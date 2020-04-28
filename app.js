@@ -188,7 +188,7 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'tra thời khoá biểu':
         searchSchedule.init(client, sender_psid, userData);
         break;
-      case 'tìm tiết dạy':
+      case 'tra lịch dạy':
         searchClasses.init(client, sender_psid, userData);
         break;
       case 'tính giờ dậy':
