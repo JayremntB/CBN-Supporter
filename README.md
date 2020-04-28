@@ -15,7 +15,7 @@
 
 ## HƯỚNG DẪN SỬ DỤNG CHATBOT
 ``
-Lưu ý: Nếu bạn đang sử dụng phiên bản Messenger Lite, hãy update lên bản beta để hiển thị các gợi ý có sẵn.
+Lưu ý: Nếu bạn đang sử dụng nền tảng Messenger Lite, bạn có thể update lên bản beta để hiển thị các gợi ý có sẵn.
 ``
 
 ``
@@ -55,7 +55,7 @@ Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các 
     - *viewclass*: Xem tên lớp đã cài đặt    
     - *delclass*:  Xoá tên lớp đã cài đặt   
 
-  - *setwd + thời gian (phút)*: cập nhật thời gian đi vào giấc ngủ (Tạm gọi: Wind-down)
+  - *setwd + thời gian (phút)*: cập nhật thời gian đi vào giấc ngủ (tạm gọi: Wind down)
     - viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
     - delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')
 
@@ -71,7 +71,7 @@ Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có th
 
 #### Tra thời khoá biểu (*tkb*)
 * Nhập lệnh
-* Nếu bạn đã cài đặt tên lớp từ trước hoặc sau khi nhập tên lớp cần tìm, bot sẽ hỏi bạn muốn tra thời khoá biểu lớp bạn vào thứ mấy. Lúc này bạn sẽ có các lựa chọn sau:
+* Nếu bạn đã cài đặt tên lớp từ trước hoặc sau khi nhập tên lớp cần tìm, bot sẽ hỏi bạn muốn tra thời khoá biểu vào thứ mấy. Lúc này bạn có thể nhập các lựa chọn sau:
   - Lớp khác
   - Hôm nay, hôm qua, ngày mai
   - 2, 3, 4, 5, 6, 7, chủ nhật
@@ -86,7 +86,7 @@ Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có th
 #### Tìm tiết dạy (*dạy*)
 * Nhập lệnh
 * Nhập tên giáo viên. Hãy xem danh sách giáo viên trước khi nhập bằng cách nhập **dsgv** để tránh trường hợp ghi sai form đã cho.
-* Nhập ngày cần tìm. Bạn sẽ có các lựa chọn sau:
+* Nhập ngày cần tìm. Bạn có thể nhập các lựa chọn sau:
   - Giáo viên khác
   - Hôm nay, hôm qua, ngày mai
   - 2, 3, 4, 5, 6, 7, chủ nhật
@@ -126,7 +126,7 @@ Các lệnh đi kèm:
 * *delwd*: Đổi thời gian đi vào giấc ngủ về mặc định (14')
 
 ### Hỗ trợ (*help*)
-Khi bạn có thắc mắc cần hỗ trợ, cần góp ý hay muốn gợi ý một tính năng nào đó cho bot, nhập *help* và bot sẽ kết nối bạn với chúng tôi để trao đổi. Lúc này, bạn sẽ **KHÔNG** thể sử dụng các tính năng được cung cấp sẵn.
+Nếu bạn có thắc mắc cần hỗ trợ, cần góp ý hay muốn gợi ý một tính năng nào đó cho bot, nhập *help* và bot sẽ kết nối bạn với chúng tôi để trao đổi. Lúc này, bạn sẽ **KHÔNG** thể sử dụng các tính năng được cung cấp sẵn.
 
 Nếu bạn không muốn tiếp tục chat hoặc muốn sử dụng các tính năng được cung cấp, nhập *Exit* để thoát.
 
