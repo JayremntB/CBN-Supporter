@@ -1,7 +1,7 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
 const stuff = require('../general/stuff');
-
+const { checkTeacherName } = require('../general/validate-input');
 const dbName = 'database-for-cbner';
 
 module.exports = {
@@ -12,46 +12,75 @@ module.exports = {
 async function handleMessage(client, sender_psid, text, userData) {
   if(text.toLowerCase() === "giáo viên khác") {
     const response = stuff.searchClassesAskTeacher;
-    await clearData(client, sender_psid);
+    await clearOtherTeacherData(client, sender_psid);
     await sendResponse(sender_psid, response);
   }
-  else if(userData.search_classes.teacher) {
+  else if(!userData.search_classes_other_teacher.block) {
+    sendClasses(sender_psid, text, userData);
+  }
+  else if(userData.search_classes_other_teacher.teacher) {
     sendClasses(sender_psid, text, userData);
   }
   else if(checkTeacherName(sender_psid, text)) {
-    await updateData(client, sender_psid, text);
+    await updateOtherTeacherData(client, sender_psid, text);
   }
 }
 
-async function init(client, sender_psid) {
-  await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-    $set: {
-      search_classes: {
-        block: true,
-        teacher: "",
-        teaches: []
+async function init(client, sender_psid, userData) {
+  if(userData.teacher) { // init search_classes_block
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      $set: {
+        search_classes_block: true
       }
-    }
-  }, (err) => {
-    if(err) {
-      console.log("Could not init search teach block: " + err);
-      const response = {
-        "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
-      };
-      sendResponse(sender_psid, response);
-    }
-    else {
-      console.log('create search teach block successfully');
-      const response = stuff.searchClassesAskTeacher;
-      sendResponse(sender_psid, response);
-    }
-  });
+    }, (err) => {
+      if(err) {
+        console.log("could not init search_classes block: " + err);
+        const response = {
+          "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+        };
+        sendResponse(sender_psid, response);
+      }
+      else {
+        console.log('init search_classes_block successfully');
+        let response = stuff.askDay;
+        response.quick_replies[0].title = "Giáo viên khác";
+        response.quick_replies[0].payload = "overwriteTeacher";
+        response.text = `Cập nhật lịch dạy của giáo viên ${userData.teacher} thành công!\nBạn muốn tìm lịch dạy thứ mấy?`;
+        sendResponse(sender_psid, response);
+      }
+    });
+  }
+  else { // init both search_classes_block & search_classes_other_teacher block
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      $set: {
+        search_classes_block: true,
+        search_classes_other_teacher: {
+          block: true,
+          teacher: "",
+          teaches: []
+        }
+      }
+    }, (err) => {
+      if(err) {
+        console.log("could not init search_classes_other_teacher block");
+        const response = {
+          "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+        };
+        sendResponse(sender_psid, response);
+      }
+      else {
+        console.log('init search search_classes_other_teacher successfully');
+        const response = stuff.searchClassesAskTeacher;
+        sendResponse(sender_psid, response);
+      }
+    });
+  }
 }
 
-async function clearData(client, sender_psid) {
+async function clearOtherTeacherData(client, sender_psid) {
   await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
-      search_classes: {
+      search_classes_other_teacher: {
         block: true,
         teacher: "",
         teaches: []
@@ -65,14 +94,11 @@ async function clearData(client, sender_psid) {
       };
       sendResponse(sender_psid, response);
     }
-    else console.log("Clear teacher-data successfully");
+    else console.log("Clear other_teacher data successfully");
   });
 }
 
-async function updateData(client, sender_psid, teacherName) {
-  let response = {
-    "text": ""
-  };
+async function updateOtherTeacherData(client, sender_psid, teacherName) {
   await client.db(dbName).collection('schedule').find({
     $or: [
       { "schedule.morning.teacher": teacherName },
@@ -114,9 +140,10 @@ async function updateData(client, sender_psid, teacherName) {
           });
         }
       }
+      console.log(teaches);
       await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
         $set: {
-          search_classes: {
+          search_classes_other_teacher: {
             block: true,
             teacher: teacherName,
             teaches: teaches
@@ -124,12 +151,14 @@ async function updateData(client, sender_psid, teacherName) {
         }
       }, (err) => {
         if (err) {
-          console.log("Could not update teacher data");
-          response.text = "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T";
+          console.log("Could not update teacher data: " + err);
+          const response = {
+            "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+          };
           sendResponse(sender_psid, response);
         } else {
           console.log("Update teacher data successfully");
-          response = stuff.askDay;
+          let response = stuff.askDay;
           response.quick_replies[0].title = "Giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
           response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nBạn muốn tìm lịch dạy thứ mấy?`;
@@ -151,12 +180,14 @@ function sendClasses(sender_psid, dayInput, userData) {
   response.quick_replies[0].payload = "overwriteTeacher";
   let day = handleDayInput(dayInput.toLowerCase());
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
-  let teaches = userData.search_classes.teaches;
+  let teaches = userData.search_classes_other_teacher.block
+  ? userData.search_classes_other_teacher.teaches
+  : userData.main_teach_schedule;
   if(day === "Tất cả") {
-    let text = `Lịch dạy tuần này của giáo viên ${userData.search_classes.teacher}: `;
+    let text = `Lịch dạy tuần này: `;
     teaches.forEach((data, days) => {
       text += `
-* Thứ ${days + 2}:
+Thứ ${days + 2}:
  - Sáng: `;
       if(data.morning.length === 0) text += "Trống";
       else {
@@ -189,10 +220,7 @@ function sendClasses(sender_psid, dayInput, userData) {
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > teaches.length || day - 2 < 0) {
-      response = stuff.askday;
-      response.quick_replies[0].title = "Giáo viên khác";
-      response.quick_replies[0].payload = "overwriteTeacher";
-      response.text = `Nàooo -__- Đừng điền vớ vẩn .-.`;
+      response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-`;
       sendResponse(sender_psid, response);
     }
     else {
@@ -223,44 +251,8 @@ function sendClasses(sender_psid, dayInput, userData) {
     }
   }
   else {
-    response = stuff.askDay;
-    response.quick_replies[0].title = "Giáo viên khác";
-    response.quick_replies[0].payload = "overwriteTeacher";
     response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-`;
     sendResponse(sender_psid, response);
-  }
-}
-
-function checkTeacherName(sender_psid, teacherName) {
-  const checkArray = [
-    'PN.An',       'NT.Bình',  'NV.Bảo',    'PT.Bằng',    'NV.Bình',
-    'NTT.Dung',    'NT.Dịu',   'NT.Dung',   'LT.Giang',   'NT.Giang',
-    'NTT.Huyền',   'HT.Hà',    'VT.Huyến',  'NK.Hoàn',    'NT.Hương',
-    'BT.Hưng',     'ĐT.Hường', 'NT.Huế',    'ĐT.Hương',   'NT.Hà(h)',
-    'VTT.Hằng',    'HL.Hương', 'ĐT.Hiền',   'NT.Hường',   'NT.Hà(su)',
-    'NT.Hòa',      'LTT.Hiền', 'PĐ.Hiệp',   'VT.Huê',     'NT.Hoa',
-    'VB.Huy',      'LN.Hân',   'TV.Kỷ',     'NH.Khánh',   'TT.Khanh',
-    'TK.Linh',     'LT.Loan',  'NT.Linh',   'VT.Len',     'ND.Liễu',
-    'NTM.Loan',    'NT.Loan',  'NTH.Liên',  'NT.Lê',      'NT.Lệ',
-    'VT.Lợi',      'NM.Lan',   'NP.Ly Ly',  'LT.Mùi',     'NQ.Minh',
-    'NV.Mạnh',     'NT.Nga',   'TB.Ngọc',   'TTB.Ngọc',   'NT.Nhung',
-    'HT.Nhân',     'LV.Ngân',  'NP.Nga',    'DTT.Nga',    'NV.Nga',
-    'NT.Nguyệt',   'HD.Ngọc',  'NTT.Nhung', 'NV.Phán',    'NTT.Phương',
-    'TH.Quang',    'NV.Tuấn',  'HT.Thảo',   'TT.Trang',   'NTH.Trang',
-    'NT.Thu',      'HTT.Thủy', 'NTT.Thuỷ',  'LH.Trang',   'PH.Trang',
-    'NTP.Thảo',    'NT.Tuyết', 'CT.Thúy',   'NP.Thảo',    'NC.Trung',
-    'BM.Thủy',     'ĐTT.Toàn', 'NH.Vân',    'PH.Vân',     'NT.Vân',
-    'TTB.Vân',     'NĐ.Vang',  'TH.Xuân',   'NT.Yến (đ)', 'TT.Yến',
-    'NT.Yến (nn)', 'HTN.Ánh',  'TN.Điệp',   'LĐ.Điển',    'NT.Đức',
-    'TV.Điệp',     'NT.Đô',    'Shaine',    'VD.Khanh',   'Ngân/Nhân',
-    'VK.Oanh',     'HT.Toan',  'LX.Cường',  'NQ.Huy',     'LT.Vui'
-  ];
-  if(checkArray.includes(teacherName)) return true;
-  else {
-    let response = stuff.checkTeacherNameResponse;
-    response.text = "Tên giáo viên không có trong danh sách. Kiểm tra lại xem bạn có viết nhầm hay không nhé.\nNhầm thì viết lại luôn nha :>";
-    sendResponse(sender_psid, response);
-    return false;
   }
 }
 

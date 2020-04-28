@@ -1,15 +1,17 @@
 const sendResponse = require('../general/sendResponse');
 const stuff = require('../general/stuff');
+const validateInput = require('../general/validate-input');
+
 const dbName = 'database-for-cbner';
 
 module.exports = {
-  handleClassMessage: handleClassMessage,
+  handleSetGroupMessage: handleSetGroupMessage,
+  handleSetTeacherMessage: handleSetTeacherMessage,
   handleWindDownMessage: handleWindDownMessage
 }
 
-async function handleClassMessage(client, sender_psid, textSplit, userData) {
+async function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
   let response = stuff.defaultResponse;
-  unblockAll(client, sender_psid);
   if(textSplit[0] === 'viewclass') {
     if(userData.group) {
       response.text = `${userData.group}`;
@@ -42,7 +44,7 @@ async function handleClassMessage(client, sender_psid, textSplit, userData) {
       response.text = "Tên lớp bạn chưa ghi kìa :(";
       sendResponse(sender_psid, response);
     }
-    else if(checkGroup(sender_psid, textSplit[1])) {
+    else if(validateInput.checkGroup(sender_psid, textSplit[1])) {
       const scheduleData = await client.db(dbName).collection('schedule').findOne({ group: textSplit[1] });
       if(scheduleData) {
         await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
@@ -69,9 +71,105 @@ async function handleClassMessage(client, sender_psid, textSplit, userData) {
   }
 }
 
+async function handleSetTeacherMessage(client, sender_psid, textSplit, userData) {
+  let response = stuff.defaultResponse;
+  if(textSplit[0] === 'xemgv') {
+    if(userData.teacher) {
+      response.text = `${userData.teacher}`;
+      sendResponse(sender_psid, response);
+    }
+    else {
+      response.text = "Bạn chưa cài đặt tên giáo viên :(";
+      sendResponse(sender_psid, response);
+    }
+  }
+  else if(textSplit[0] === 'xoagv') {
+    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      $set: {
+        teacher: "",
+        main_teach_schedule: []
+      }
+    }, (err) => {
+      if(err) {
+        response.text = "Ủa không xoá được, bạn hãy thử lại sau nhé T.T";
+        sendResponse(sender_psid, response);
+      }
+      else {
+        response.text = "Xoá lịch dạy thành công!"
+        sendResponse(sender_psid, response);
+      }
+    });
+  }
+  else if(textSplit[0] === 'gv') {
+    if(textSplit.length === 1) {
+      response.text = "Tên giáo viên bạn chưa ghi kìa :(";
+      sendResponse(sender_psid, response);
+    }
+    else if(validateInput.checkTeacherName(sender_psid, textSplit[1])) {
+      await client.db(dbName).collection('schedule').find({
+        $or: [
+          { "schedule.morning.teacher": textSplit[1] },
+          { "schedule.afternoon.teacher": textSplit[1] }
+        ]
+      }).toArray(async (err, docs) => {
+        if(err) console.log("Cound not find any teach data");
+        else if(docs) {
+          let teaches = [];
+          for(let i = 0; i < 6; i ++) { // loop days
+            teaches.push({
+              "morning": [],
+              "afternoon": []
+            });
+            if(textSplit[1] === "LV.Ngân" || textSplit[1] === "HT.Nhân")
+              if(i === 0) teaches[i].afternoon.push({
+                class: 1,
+                group: '11t'
+              })
+            for(let j = 0; j < 5; j ++) { // loop classes
+              // loop groups
+              docs.forEach((doc) => {
+                if(doc.schedule[i].morning[j] && doc.schedule[i].morning[j].teacher === textSplit[1]){
+                  teaches[i].morning.push({
+                    class: j + 1,
+                    group: doc.group
+                  });
+                  return; // If found, immediately return cause teacher teaches one class per group
+                }
+              });
+              docs.forEach((doc) => {
+                if(doc.schedule[i].afternoon[j] && doc.schedule[i].afternoon[j].teacher === textSplit[1]){
+                  teaches[i].afternoon.push({
+                    class: j + 1,
+                    group: doc.group
+                  });
+                  return;
+                }
+              });
+            }
+          }
+          await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+            $set: {
+              teacher: textSplit[1],
+              main_teach_schedule: teaches
+            }
+          }, (err) => {
+            if(err) {
+              response.text = "Ủa không cài đặt được, bạn hãy thử lại sau nhé T.T";
+              sendResponse(sender_psid, response);
+            }
+            else {
+              response.text = `Cập nhật lịch dạy giáo viên ${textSplit[1]} thành công!`;
+              sendResponse(sender_psid, response);
+            }
+          });
+        }
+      });
+    }
+  }
+}
+
 async function handleWindDownMessage(client, sender_psid, textSplit, userData) {
   let response = stuff.defaultResponse;
-  unblockAll(client, sender_psid);
   if(textSplit[0] === 'viewwd') {
     response.text = `${userData.wind_down_time}'`;
     sendResponse(sender_psid, response);
@@ -97,7 +195,7 @@ async function handleWindDownMessage(client, sender_psid, textSplit, userData) {
       response.text = "Bạn chưa ghi thời gian kìa :(";
       sendResponse(sender_psid, response);
     }
-    else if(checkWindDownTime(sender_psid, textSplit[1])) {
+    else if(validateInput.checkWindDownTime(sender_psid, textSplit[1])) {
       await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
         $set: {
           wind_down_time: textSplit[1]
@@ -108,61 +206,10 @@ async function handleWindDownMessage(client, sender_psid, textSplit, userData) {
           sendResponse(sender_psid, response);
         }
         else {
-          response.text = `Thời gian đi vào giấc ngủ của bạn là ${textSplit[1]}'.`;
+          response.text = `Cài đặt thành công! Thời gian đi vào giấc ngủ của bạn là ${textSplit[1]}'.`;
           sendResponse(sender_psid, response);
         }
       });
     }
   }
-}
-
-function checkGroup(sender_psid, group) {
-  const checkArray = ['10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10d','10a1', '10a2', '11t', '11l', '11h', '11si', '11ti', '11v', '11su', '11d','11c1','11c2', '11a1', '11a2', '12t', '12l', '12h', '12si', '12ti', '12v', '12su', '12d', '12c1', '12c2', '12a1', '12a2'];
-  if(checkArray.includes(group)) return true;
-  else {
-    response = stuff.checkGroupResponse;
-    response.text = "Tên lớp không có trong danh sách. Kiểm tra lại xem bạn có viết nhầm hay không nhé :(\nNhầm thì viết lại luôn nha :^)";
-    sendResponse(sender_psid, response);
-    return false;
-  }
-}
-
-function checkWindDownTime(sender_psid, time) {
-  if(isNaN(time) || time < 0) {
-    let response = stuff.defaultResponse;
-    response.text = "Xin lỗi, tớ không hiểu thời gian bạn vừa nhập :(";
-    sendResponse(sender_psid, response);
-    return 0;
-  }
-  if(time >= 8 * 60) {
-    let response = stuff.defaultResponse;
-    response.text = "Thế thì thức luôn đi chứ còn ngủ gì nữa @@";
-    sendResponse(sender_psid, response);
-    return 0;
-  }
-  return 1;
-}
-function unblockAll(client, sender_psid) {
-  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-    $set: {
-      search_schedule_block: false,
-      search_schedule_other_group: {
-        block: false,
-        group: "",
-        schedule: []
-      },
-      search_classes: {
-        block: false,
-        teacher: "",
-        teaches: []
-      },
-      search_groups: {
-        block: false,
-        subject: "",
-        day: "",
-        time: ""
-      },
-      liveChat: ""
-    }
-  });
 }

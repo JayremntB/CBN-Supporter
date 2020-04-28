@@ -1,7 +1,7 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
 const stuff = require('../general/stuff');
-
+const { checkGroup } = require('../general/validate-input');
 const dbName = 'database-for-cbner';
 
 module.exports = {
@@ -13,7 +13,7 @@ async function handleMessage(client, sender_psid, text, userData) {
   if(text === "lớp khác") {
     const response = stuff.searchScheduleAskGroup;
     await clearOtherGroupData(client, sender_psid);
-    await sendResponse(sender_psid, response);
+    sendResponse(sender_psid, response);
   }
   else if(!userData.search_schedule_other_group.block) {
     sendSchedule(sender_psid, text, userData);
@@ -27,21 +27,21 @@ async function handleMessage(client, sender_psid, text, userData) {
 }
 
 async function init(client, sender_psid, userData) {
-  let response = {
-    "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
-  };
   if(userData.group) { // init search_schedule_block
     await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_block: true
       }
-    }, (err, data) => {
+    }, (err) => {
       if(err) {
-        console.log("Could not create search block");
+        console.log("could not init search_schedule_block: " + err);
+        const response = {
+          "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+        };
         sendResponse(sender_psid, response);
       }
       else {
-        console.log('init search schedule block successfully');
+        console.log('init search_schedule_block successfully');
         let response = stuff.askDay;
         response.quick_replies[0].title = "Lớp khác";
         response.quick_replies[0].payload = "overwriteClass";
@@ -62,26 +62,18 @@ async function init(client, sender_psid, userData) {
       }
     }, (err) => {
       if(err) {
-        console.log("Could not create search other group block");
+        console.log("could not init search_schedule_other_group block");
+        const response = {
+          "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+        };
         sendResponse(sender_psid, response);
       }
       else {
-        console.log('init search other group block successfully');
-        response = stuff.searchScheduleAskGroup;
+        console.log('init search_schedule_other_group block successfully');
+        const response = stuff.searchScheduleAskGroup;
         sendResponse(sender_psid, response);
       }
     });
-  }
-}
-
-function checkGroup(sender_psid, group) {
-  const checkArray = ['10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10d','10a1', '10a2', '11t', '11l', '11h', '11si', '11ti', '11v', '11su', '11d','11c1','11c2', '11a1', '11a2', '12t', '12l', '12h', '12si', '12ti', '12v', '12su', '12d', '12c1', '12c2', '12a1', '12a2'];
-  if(checkArray.includes(group)) return true;
-  else {
-    let response = stuff.checkGroupResponse;
-    response.text = "Tên lớp không có trong danh sách. Kiểm tra lại xem bạn có viết nhầm hay không nhé.\nNhầm thì viết lại luôn nha :>"
-    sendResponse(sender_psid, response);
-    return false;
   }
 }
 
@@ -143,19 +135,17 @@ async function updateOtherGroupData(client, sender_psid, groupInput) {
 
 function sendSchedule(sender_psid, dayInput, userData) {
   let response = stuff.askDay;
-  response.quick_replies[0].title = "Lớp khác";
-  response.quick_replies[0].payload = "overwriteClass";
   let day = handleDayInput(dayInput);
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
   let schedule = (userData.search_schedule_other_group.block)
   ? userData.search_schedule_other_group.schedule
   : userData.main_schedule;
   if(day === "Tất cả") {
-    let text = "Lịch học tuần này của bạn đây: ";
+    let text = "Lịch học tuần này: ";
     let subText = "";
     schedule.forEach((data) => {
       text += `
-* Thứ ${data.day}:
+Thứ ${data.day}:
  - Sáng: `;
       data.morning.forEach((Class, i) => {
         if(Class.subject !== "")
@@ -189,10 +179,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > schedule.length || day - 2 < 0) {
-      response = stuff.askDay;
-      response.quick_replies[0].title = "Lớp khác";
-      response.quick_replies[0].payload = "overwriteClass";
-      response.text = `Nàooo -__- Đừng điền vớ vẩn .-.`;
+      response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-`;
       sendResponse(sender_psid, response);
     }
     else {
@@ -200,26 +187,23 @@ function sendSchedule(sender_psid, dayInput, userData) {
       let subText = "";
       let text = `Lịch học thứ ${day}:
  - Sáng: `;
-      if(data.morning.length === 0) text += "Nghỉ";
-      else {
-        data.morning.forEach((Class, i) => {
-          if(Class.subject !== "")
-          text += `
+      data.morning.forEach((Class, i) => {
+        if(Class.subject !== "")
+        subText += `
    + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
-        });
-      }
+      });
       //    ------------------------
+      if(!subText) text += "Nghỉ";
+      else text += subText;
       text += `
  - Chiều: `;
       //
-      if(data.afternoon.length === 0) text += "Nghỉ";
-      else {
-        data.afternoon.forEach((Class, i) => {
-          if(Class.subject !== "")
-          text += `
+      subText = "";
+      data.afternoon.forEach((Class, i) => {
+        if(Class.subject !== "")
+        subText += `
    + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
-        });
-      }
+      });
       if(!subText) text += "Nghỉ";
       else text += subText;
       text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
@@ -228,10 +212,7 @@ function sendSchedule(sender_psid, dayInput, userData) {
     }
   }
   else {
-    response = stuff.askDay;
-    response.quick_replies[0].title = "Lớp khác";
-    response.quick_replies[0].payload = "overwriteClass";
-    response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-`;
+    response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-\n`;
     sendResponse(sender_psid, response);
   }
 }

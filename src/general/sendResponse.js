@@ -1,6 +1,9 @@
 const request = require('request');
 
 module.exports = function (sender_psid, response) {
+  if(response === "") response = {
+    "text": `Có lỗi xảy ra... Bạn vui lòng qua sử dụng những tính năng khác rồi quay lại thử lại luôn nhé!\nCòn nếu vẫn bị lỗi, hãy liên hệ thằng coder nhé!`
+  }
   let request_body = {
     "recipient": {
       "id": sender_psid

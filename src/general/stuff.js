@@ -11,7 +11,7 @@ module.exports = {
     ]
   },
   "exitResponse": {
-    "text": "(!) Đã quay lại chat với Jay.",
+    "text": "(!) Thoát thành công! Trở lại với Jay :3",
     "quick_replies": [
       {
         "content_type": "text",
@@ -24,27 +24,32 @@ module.exports = {
   "listCommands": {
     "text": `Các lệnh tớ hỗ trợ:
 * Chung:
-- lệnh: danh sách tập lệnh
-- hd: hướng dẫn
-- help: gọi người hỗ trợ (Live chat)
-- exit: dừng tính năng đang sử dụng
-- dsl:  danh sách các lớp
-- dsgv: danh sách giáo viên
+- lệnh: Danh sách tập lệnh
+- hd: Hướng dẫn
+- help: Gọi người hỗ trợ (Live chat)
+- exit: Dừng tính năng đang sử dụng
+- dsl:  Danh sách các lớp
+- dsgv: Danh sách giáo viên
 
 * Lệnh kích hoạt tính năng:
-- tkb: tra thời khoá biểu
-- dạy: tìm lịch dạy học của giáo viên
-- covid: tình hình dịch bệnh hiện tại
+- tkb: Tra thời khoá biểu
+- dạy: Tìm lịch dạy học của giáo viên
+- covid: Tình hình dịch bệnh hiện tại
 - dậy + thời điểm dậy: Xác định thời điểm nên ngủ (ví dụ: dậy 6h15)
 - ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 9h15)
 
 * Lệnh cài đặt và đi kèm:
-- setclass + tên lớp: cập nhật thời khoá biểu và bỏ qua bước gõ tên lớp khi sử dụng tính năng tra thời khoá biểu
-+ viewclass: xem tên lớp đã cài đặt
-+ delclass:  xoá tên lớp đã cài đặt
-- setwd + thời gian (phút): cập nhật thời gian đi vào giấc ngủ (tạm gọi: wind down)
-+ viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
-+ delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')`,
+- setclass + tên lớp: Cập nhật thời khoá biểu và bỏ qua bước nhập tên lớp khi sử dụng tính năng Tra thời khoá biểu
+  + viewclass: Xem tên lớp đã cài đặt
+  + delclass:  Xoá tên lớp đã cài đặt
+
+- gv + tên giáo viên: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng Tìm tiết dạy
+  + xemgv: Xem tên giáo viên đã cài đặt
+  + xoagv:  Xoá tên giáo viên đã cài đặt
+
+- setwd + thời gian (phút): Cập nhật thời gian đi vào giấc ngủ (tạm gọi: wind down)
+  + viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
+  + delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')`,
     "quick_replies": [
       {
         "content_type": "text",
@@ -87,35 +92,11 @@ module.exports = {
         "title": "dsgv",
         "payload": "listTeachers",
         "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "viewclass",
-        "payload": "viewClass",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "viewwd",
-        "payload": "viewwd",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "delclass",
-        "payload": "delClass",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "delwd",
-        "payload": "delwd",
-        "image_url": ""
       }
     ]
   },
   "explainWindDownTime": {
-    "text": "Thời gian vào giấc là thời gian trung bình để bạn chìm vào giấc ngủ. Để thuận tiện hơn trong việc xác định thời điểm dậy (ngủ) dựa trên thời gian đi vào giấc ngủ của bạn khi sử dụng các tính năng Tính giờ dậy và Tính giờ ngủ, nhập setwd + thời gian (tính theo phút)",
+    "text": "Thời gian vào giấc là thời gian trung bình để bạn chìm vào giấc ngủ. Để thuận tiện hơn trong việc xác định thời điểm dậy (ngủ) dựa trên thời gian đi vào giấc ngủ của bạn khi sử dụng các tính năng Tính giờ dậy và Tính giờ ngủ, nhập setwd + thời gian (tính theo phút)\nVí dụ: setwd 480",
     "quick_replies": [
       {
         "content_type": "text",
@@ -127,6 +108,40 @@ module.exports = {
         "content_type": "text",
         "title": "delwd",
         "payload": "delwd",
+        "image_url": ""
+      }
+    ]
+  },
+  "recommendedSetGroup": {
+    "text": "Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó thường xuyên (lớp bạn chẳng hạn), nhập setclass + tên lớp.\nVí dụ: setclass 11ti",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "viewclass",
+        "payload": "viewclass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "delclass",
+        "payload": "delclass",
+        "image_url": ""
+      }
+    ]
+  },
+  "recommendedSetTeacher": {
+    "text": "Để mỗi lần sử dụng tính năng tìm tiết dạy bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập gv + tên giáo viên.\nVí dụ: gv NT.A",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "xemgv",
+        "payload": "xemgv",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xoagv",
+        "payload": "xoagv",
         "image_url": ""
       }
     ]
@@ -159,6 +174,12 @@ module.exports = {
       },
       {
         "content_type": "text",
+        "title": "Đặt lớp mặc định",
+        "payload": "setclass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
         "title": "Exit",
         "payload": "exit",
         "image_url": ""
@@ -166,12 +187,18 @@ module.exports = {
     ]
   },
   "searchClassesAskTeacher": {
-    "text": "Tên của giáo viên bạn tìm?\n(Ví dụ: NT.Lê, NQ.Minh, ...)",
+    "text": "Tên của giáo viên bạn tìm?\nVí dụ: NT.A",
     "quick_replies": [
       {
         "content_type": "text",
         "title": "Danh sách giáo viên",
         "payload": "teacherList",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Đặt gv mặc định",
+        "payload": "setTeacher",
         "image_url": ""
       },
       {
