@@ -1,13 +1,13 @@
 'use strict'
 const request = require('request');
-const sendResponse = require('../general/sendResponse.js')
+const sendResponse = require('../general/sendResponse');
+const typingOn = require('../general/typing')
 const stuff = require('../general/stuff');
 
 module.exports = function (sender_psid) {
   let response = stuff.defaultResponse;
-  response.text = 'Đang lấy dữ liệu...';
   // Fetch http://covid-rest.herokuapp.com/vietnam
-  sendResponse(sender_psid, response);
+  typingOn(sender_psid);
   setTimeout(() => {
     request({
       "uri": "http://covid-rest.herokuapp.com/vietnam",

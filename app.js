@@ -98,8 +98,8 @@ async function handleMessage(sender_psid, received_message, userData) {
       response = stuff.teacherList;
       sendResponse(sender_psid, response);
     }
-    else if(text === 'sử dụng lệnh' || 'lệnh') {
-      response.text = `${stuff.listGeneralCommands}\n${stuff.listInitFeatureCommands}\n${stuff.listSettingCommands}`;
+    else if(text === 'lệnh') {
+      response.text = `${stuff.listGeneralCommands.text}\n${stuff.listInitFeatureCommands.text}\n${stuff.listSettingCommands.text}`;
       sendResponse(sender_psid, response);
     }
     else if(text === 'đặt lớp mặc định') {
@@ -142,10 +142,10 @@ async function handleMessage(sender_psid, received_message, userData) {
           checkCovid(sender_psid);
           break;
         case 'dậy':
-          estimateSleepTime(sender_psid, textSplit, userData);
+          estimateSleepTime(sender_psid, textSplit);
           break;
         case 'ngủ':
-          estimateWakeUpTime(sender_psid, textSplit, userData);
+          estimateWakeUpTime(sender_psid, textSplit);
           break;
       }
     }

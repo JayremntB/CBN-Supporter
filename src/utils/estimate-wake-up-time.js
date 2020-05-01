@@ -1,5 +1,6 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
+const typingOn = require('../general/typing');
 const stuff = require('../general/stuff');
 
 let response = stuff.defaultResponse;
@@ -20,14 +21,17 @@ module.exports = function(sender_psid, textSplit) {
       response.text += `+ ${date.getHours()} giờ ${date.getMinutes()} phút\n`;
     }
     sendResponse(sender_psid, response);
+    typingOn(sender_psid);
     setTimeout(() => {
       response.text = responseDefault[0];
       sendResponse(sender_psid, response);
+      typingOn(sender_psid);
       setTimeout(() => {
+        typingOn(sender_psid);
         response.text = responseDefault[1];
         sendResponse(sender_psid, response);
-      }, 1000);
-    }, 1000);
+      }, 3500);
+    }, 3000);
   }
   else if(checkTime(sender_psid, textSplit[1].split("h"))) {
     const time = textSplit[1].split("h");
@@ -42,14 +46,17 @@ module.exports = function(sender_psid, textSplit) {
       response.text += `+ ${date.getHours()} giờ ${date.getMinutes()} phút\n`;
     }
     sendResponse(sender_psid, response);
+    typingOn(sender_psid);
     setTimeout(() => {
       response.text = responseDefault[0];
       sendResponse(sender_psid, response);
+      typingOn(sender_psid);
       setTimeout(() => {
+        typingOn(sender_psid);
         response.text = responseDefault[1];
         sendResponse(sender_psid, response);
-      }, 1000);
-    }, 1000);
+      }, 3500);
+    }, 3000);
   }
 }
 

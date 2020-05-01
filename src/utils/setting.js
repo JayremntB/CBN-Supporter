@@ -6,8 +6,7 @@ const dbName = 'database-for-cbner';
 
 module.exports = {
   handleSetGroupMessage: handleSetGroupMessage,
-  handleSetTeacherMessage: handleSetTeacherMessage,
-  handleWindDownMessage: handleWindDownMessage
+  handleSetTeacherMessage: handleSetTeacherMessage
 }
 
 async function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
