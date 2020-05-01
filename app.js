@@ -183,6 +183,7 @@ function handlePostback(sender_psid, received_postback, userData) {
     sendResponse(sender_psid, response);
   }
   else if(!userData.live_chat) {
+    let response;
     unblockAll(sender_psid);
     switch (text) {
       case 'tra thời khoá biểu':
@@ -200,8 +201,16 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'hỗ trợ':
         onLiveChat(sender_psid);
         break;
-      case 'danh sách các lệnh':
-        const response = stuff.listCommands;
+      case 'chung':
+        response = stuff.listGeneralCommands;
+        sendResponse(sender_psid, response);
+        break;
+      case 'kích hoạt tính năng':
+        response = stuff.listInitFeatureCommands;
+        sendResponse(sender_psid, response);
+        break;
+      case 'cài đặt và đi kèm':
+        response = stuff.listSettingCommands;
         sendResponse(sender_psid, response);
         break;
     }
