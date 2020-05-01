@@ -57,10 +57,7 @@ Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các 
   - *gv + tên giáo viên*: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng **Tra lịch dạy**
     - *xemgv*: Xem tên giáo viên đã cài đặt
     - *xoagv*: Xoá lịch dạy giáo viên đã cài đặt
-  - *setwd + thời gian (phút)*: cập nhật thời gian đi vào giấc ngủ (tạm gọi: wind down)
-    - viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
-    - delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')
-
+    
 **Đang cập nhật:**
 
   *lớp*: Tìm lớp được dạy môn nào đó
@@ -130,13 +127,6 @@ Các lệnh đi kèm:
 Các lệnh đi kèm:
 * *xemgv*: Xem tên lớp đã cài đặt
 * *xoagv*:  Xoá tên lớp đã cài đặt
-#### Cài đặt thời gian đi vào giấc ngủ (*setwd + thời gian (phút)*)
-
-Để thuận tiện hơn trong việc xác định thời điểm dậy (ngủ) dựa trên thời gian đi vào giấc ngủ của bạn khi sử dụng các tính năng *Tính giờ dậy* và *Tính giờ ngủ*, nhập **setwd + thời gian (phút)**.
-
-Các lệnh đi kèm:
-* *viewwd*: Xem thời gian đi vào giấc ngủ đã cài đặt
-* *delwd*: Đổi thời gian đi vào giấc ngủ về mặc định (14')
 
 ### Hỗ trợ (*help*)
 Nếu bạn có thắc mắc cần hỗ trợ, cần góp ý hay muốn gợi ý một tính năng nào đó cho bot, nhập *help* và bot sẽ kết nối bạn với chúng tôi để trao đổi. Lúc này, bạn sẽ **KHÔNG** thể sử dụng các tính năng được cung cấp sẵn.
