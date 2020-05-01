@@ -23,7 +23,7 @@ module.exports = {
   },
   "listGeneralCommands": {
     "text": `
-- lệnh: Danh sách tập lệnh
+- lệnh: Danh sách tất cả các lệnh
 - hd: Hướng dẫn
 - help: Gọi người hỗ trợ (Live chat)
 - exit: Dừng tính năng đang sử dụng
@@ -62,7 +62,7 @@ module.exports = {
 - dạy: Tra lịch dạy học
 - covid: Tình hình dịch bệnh hiện tại
 - dậy + thời điểm dậy: Xác định thời điểm nên ngủ (ví dụ: dậy 6h15)
-- ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 9h15)`,
+- ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 21h15)`,
     "quick_replies": [
       {
         "content_type": "text",
@@ -81,6 +81,18 @@ module.exports = {
         "title": "covid",
         "payload": "checkCovid",
         "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "ngủ",
+        "payload": "estimateWakeUpTime",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "dậy",
+        "payload": "estimateSleepTime",
+        "image_url": ""
       }
     ]
   },
@@ -92,11 +104,7 @@ module.exports = {
 
 - gv + tên giáo viên: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng Tra lịch dạy
   + xemgv: Xem tên giáo viên đã cài đặt
-  + xoagv: Xoá tên giáo viên đã cài đặt
-
-- setwd + thời gian (phút): Cài đặt thời gian đi vào giấc ngủ để thuận tiện trong việc xác định thời gian dậy (ngủ) bằng công thức khi sử dụng tính năng Tính giờ dậy hoặc Tính giờ ngủ (tạm gọi: wind down) 
-  + viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
-  + delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')`,
+  + xoagv: Xoá tên giáo viên đã cài đặt`,
     "quick_replies": [
       {
         "content_type": "text",
@@ -120,35 +128,6 @@ module.exports = {
         "content_type": "text",
         "title": "xoagv",
         "payload": "xoagv",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "viewwd",
-        "payload": "viewwd",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "delwd",
-        "payload": "delwd",
-        "image_url": ""
-      }
-    ]
-  },
-  "explainWindDownTime": {
-    "text": "Thời gian vào giấc là thời gian trung bình để bạn chìm vào giấc ngủ. Để thuận tiện hơn trong việc xác định thời điểm dậy (ngủ) dựa trên thời gian đi vào giấc ngủ của bạn khi sử dụng các tính năng Tính giờ dậy và Tính giờ ngủ, nhập setwd + thời gian (tính theo phút)\nVí dụ: setwd 480",
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "viewwd",
-        "payload": "viewwd",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "delwd",
-        "payload": "delwd",
         "image_url": ""
       }
     ]
@@ -413,5 +392,29 @@ V NH.Vân PH.Vân NT.Vân TTB.Vân NĐ.Vang LT.Vui
 X TH.Xuân
 -----
 Y (NT.Yến (đ)) (TT.Yến) (NT.Yến (nn))`
-  }
+  },
+  "groupsCheckArray": ['10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10d','10a1', '10a2', '11t', '11l', '11h', '11si', '11ti', '11v', '11su', '11d','11c1','11c2', '11a1', '11a2', '12t', '12l', '12h', '12si', '12ti', '12v', '12su', '12d', '12c1', '12c2', '12a1', '12a2'],
+  "teachersCheckArray": [
+    'PN.An',       'NT.Bình',  'NV.Bảo',    'PT.Bằng',    'NV.Bình',
+    'NTT.Dung',    'NT.Dịu',   'NT.Dung',   'LT.Giang',   'NT.Giang',
+    'NTT.Huyền',   'HT.Hà',    'VT.Huyến',  'NK.Hoàn',    'NT.Hương',
+    'BT.Hưng',     'ĐT.Hường', 'NT.Huế',    'ĐT.Hương',   'NT.Hà(h)',
+    'VTT.Hằng',    'HL.Hương', 'ĐT.Hiền',   'NT.Hường',   'NT.Hà(su)',
+    'NT.Hòa',      'LTT.Hiền', 'PĐ.Hiệp',   'VT.Huê',     'NT.Hoa',
+    'VB.Huy',      'LN.Hân',   'TV.Kỷ',     'NH.Khánh',   'TT.Khanh',
+    'TK.Linh',     'LT.Loan',  'NT.Linh',   'VT.Len',     'ND.Liễu',
+    'NTM.Loan',    'NT.Loan',  'NTH.Liên',  'NT.Lê',      'NT.Lệ',
+    'VT.Lợi',      'NM.Lan',   'NP.Ly Ly',  'LT.Mùi',     'NQ.Minh',
+    'NV.Mạnh',     'NT.Nga',   'TB.Ngọc',   'TTB.Ngọc',   'NT.Nhung',
+    'HT.Nhân',     'LV.Ngân',  'NP.Nga',    'DTT.Nga',    'NV.Nga',
+    'NT.Nguyệt',   'HD.Ngọc',  'NTT.Nhung', 'NV.Phán',    'NTT.Phương',
+    'TH.Quang',    'NV.Tuấn',  'HT.Thảo',   'TT.Trang',   'NTH.Trang',
+    'NT.Thu',      'HTT.Thủy', 'NTT.Thuỷ',  'LH.Trang',   'PH.Trang',
+    'NTP.Thảo',    'NT.Tuyết', 'CT.Thúy',   'NP.Thảo',    'NC.Trung',
+    'BM.Thủy',     'ĐTT.Toàn', 'NH.Vân',    'PH.Vân',     'NT.Vân',
+    'TTB.Vân',     'NĐ.Vang',  'TH.Xuân',   'NT.Yến (đ)', 'TT.Yến',
+    'NT.Yến (nn)', 'HTN.Ánh',  'TN.Điệp',   'LĐ.Điển',    'NT.Đức',
+    'TV.Điệp',     'NT.Đô',    'Shaine',    'VD.Khanh',   'VK.Oanh',
+    'HT.Toan',     'LX.Cường', 'NQ.Huy',    'LT.Vui'
+  ]
 }
