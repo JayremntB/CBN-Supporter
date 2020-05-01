@@ -50,19 +50,3 @@ function checkGroup(sender_psid, group) {
     return false;
   }
 }
-
-function checkWindDownTime(sender_psid, time) {
-  if(isNaN(time) || time < 0) {
-    let response = stuff.defaultResponse;
-    response.text = "Xin lỗi, tớ không hiểu thời gian bạn vừa nhập :(";
-    sendResponse(sender_psid, response);
-    return 0;
-  }
-  if(time >= 8 * 60) {
-    let response = stuff.defaultResponse;
-    response.text = "Thế thì thức luôn đi chứ còn ngủ gì nữa @@";
-    sendResponse(sender_psid, response);
-    return 0;
-  }
-  return 1;
-}

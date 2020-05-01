@@ -25,7 +25,7 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const textCheck = ['lệnh', 'hd', 'menu', 'help', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'gv', 'xemgv', 'xoagv', 'setwd', 'viewwd', 'delwd'];
+const listCommands = ['hd', 'help', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'gv', 'xemgv', 'xoagv'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
@@ -98,12 +98,8 @@ async function handleMessage(sender_psid, received_message, userData) {
       response = stuff.teacherList;
       sendResponse(sender_psid, response);
     }
-    else if(text === 'sử dụng lệnh') {
-      response = stuff.listCommands;
-      sendResponse(sender_psid, response);
-    }
-    else if(text === 'thời gian vào giấc') {
-      response = stuff.explainWindDownTime;
+    else if(text === 'sử dụng lệnh' || 'lệnh') {
+      response.text = `${stuff.listGeneralCommands}\n${stuff.listInitFeatureCommands}\n${stuff.listSettingCommands}`;
       sendResponse(sender_psid, response);
     }
     else if(text === 'đặt lớp mặc định') {
@@ -116,13 +112,9 @@ async function handleMessage(sender_psid, received_message, userData) {
       response = stuff.recommendedSetTeacher;
       sendResponse(sender_psid, response);
     }
-    else if(textCheck.includes(textSplit[0])) {
+    else if(listCommands.includes(textSplit[0])) {
       unblockAll(sender_psid);
       switch (textSplit[0]) {
-        case 'lệnh':
-          response = stuff.listCommands;
-          sendResponse(sender_psid, response);
-          break;
         case 'help':
           onLiveChat(sender_psid);
           break;
@@ -139,11 +131,6 @@ async function handleMessage(sender_psid, received_message, userData) {
         case 'xemgv':
         case 'xoagv':
           await setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
-          break;
-        case 'setwd':
-        case 'viewwd':
-        case 'delwd':
-          await setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
           break;
         case 'tkb':
           await searchSchedule.init(client, sender_psid, userData);
@@ -249,8 +236,7 @@ function initUserData(sender_psid) {
       day: "",
       time: ""
     },
-    live_chat: false,
-    wind_down_time: 14
+    live_chat: false
   };
   client.db(dbName).collection(collectionName).insertOne(insert);
   return insert;
