@@ -21,36 +21,21 @@ module.exports = {
       }
     ]
   },
-  "listCommands": {
-    "text": `Các lệnh tớ hỗ trợ:
-* Chung:
+  "listGeneralCommands": {
+    "text": `
 - lệnh: Danh sách tập lệnh
 - hd: Hướng dẫn
 - help: Gọi người hỗ trợ (Live chat)
 - exit: Dừng tính năng đang sử dụng
 - dsl:  Danh sách các lớp
-- dsgv: Danh sách giáo viên
-
-* Lệnh kích hoạt tính năng:
-- tkb: Tra thời khoá biểu
-- dạy: Tra lịch dạy học
-- covid: Tình hình dịch bệnh hiện tại
-- dậy + thời điểm dậy: Xác định thời điểm nên ngủ (ví dụ: dậy 6h15)
-- ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 9h15)
-
-* Lệnh cài đặt và đi kèm:
-- setclass + tên lớp: Cập nhật thời khoá biểu và bỏ qua bước nhập tên lớp khi sử dụng tính năng Tra thời khoá biểu
-  + viewclass: Xem tên lớp đã cài đặt
-  + delclass:  Xoá tên lớp đã cài đặt
-
-- gv + tên giáo viên: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng Tra lịch dạy
-  + xemgv: Xem tên giáo viên đã cài đặt
-  + xoagv: Xoá tên giáo viên đã cài đặt
-
-- setwd + thời gian (phút): Cập nhật thời gian đi vào giấc ngủ (tạm gọi: wind down)
-  + viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
-  + delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')`,
+- dsgv: Danh sách giáo viên`,
     "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "hd",
+        "payload": "ref",
+        "image_url": ""
+      },
       {
         "content_type": "text",
         "title": "help",
@@ -59,10 +44,26 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "hd",
-        "payload": "ref",
+        "title": "dsl",
+        "payload": "listGroups",
         "image_url": ""
       },
+      {
+        "content_type": "text",
+        "title": "dsgv",
+        "payload": "listTeachers",
+        "image_url": ""
+      }
+    ]
+  },
+  "listInitFeatureCommands": {
+    "text": `
+- tkb: Tra thời khoá biểu
+- dạy: Tra lịch dạy học
+- covid: Tình hình dịch bệnh hiện tại
+- dậy + thời điểm dậy: Xác định thời điểm nên ngủ (ví dụ: dậy 6h15)
+- ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 9h15)`,
+    "quick_replies": [
       {
         "content_type": "text",
         "title": "tkb",
@@ -80,17 +81,57 @@ module.exports = {
         "title": "covid",
         "payload": "checkCovid",
         "image_url": ""
-      },
+      }
+    ]
+  },
+  "listSettingCommands": {
+    "text": `
+- setclass + tên lớp: Cập nhật thời khoá biểu và bỏ qua bước nhập tên lớp khi sử dụng tính năng Tra thời khoá biểu
+  + viewclass: Xem tên lớp đã cài đặt
+  + delclass:  Xoá tên lớp đã cài đặt
+
+- gv + tên giáo viên: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng Tra lịch dạy
+  + xemgv: Xem tên giáo viên đã cài đặt
+  + xoagv: Xoá tên giáo viên đã cài đặt
+
+- setwd + thời gian (phút): Cài đặt thời gian đi vào giấc ngủ để thuận tiện trong việc xác định thời gian dậy (ngủ) bằng công thức khi sử dụng tính năng Tính giờ dậy hoặc Tính giờ ngủ (tạm gọi: wind down) 
+  + viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
+  + delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')`,
+    "quick_replies": [
       {
         "content_type": "text",
-        "title": "dsl",
-        "payload": "listGroups",
+        "title": "viewclass",
+        "payload": "viewclass",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "dsgv",
-        "payload": "listTeachers",
+        "title": "delclass",
+        "payload": "delclass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xemgv",
+        "payload": "xemgv",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xoagv",
+        "payload": "xoagv",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "viewwd",
+        "payload": "viewwd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "delwd",
+        "payload": "delwd",
         "image_url": ""
       }
     ]
