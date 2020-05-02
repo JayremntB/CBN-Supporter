@@ -5,7 +5,7 @@
 
 * Tra thời khoá biểu
 * Tra lịch dạy
-* Tìm lớp học (đang phát triển)
+* Tìm lớp học (developing)
 
 ### Các tính năng khác
 
@@ -100,7 +100,7 @@ Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có th
 
 Nhập *ngủ + thời điểm ngủ* để xác định thời điểm nên thức dậy nếu bạn ngủ ở thời điểm bạn nhập.
 
-Ví dụ: ngủ 9h15/ngủ 9h
+Ví dụ: ngủ 21h15/ngủ 21h
 > Lưu ý: Nếu bạn bỏ trống thời điểm ngủ, bot sẽ lấy thời điểm lúc bạn nhập lệnh.
 
 #### Tính giờ ngủ (*dậy + thời điểm dậy*)
