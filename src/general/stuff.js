@@ -32,6 +32,12 @@ module.exports = {
     "quick_replies": [
       {
         "content_type": "text",
+        "title": "lệnh",
+        "payload": "allCommands",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
         "title": "hd",
         "payload": "ref",
         "image_url": ""
@@ -352,7 +358,9 @@ module.exports = {
 
 + Lớp 11: 11t, 11l, 11h, 11si, 11ti, 11v, 11su, 11d, 11c1, 11c2, 11a1, 11a2.
 
-+ Lớp 12: 12t, 12l, 12h, 12si, 12ti, 12v, 12su, 12d, 12c1, 12c2, 12a1, 12a2.`
++ Lớp 12: 12t, 12l, 12h, 12si, 12ti, 12v, 12su, 12d, 12c1, 12c2, 12a1, 12a2.
+
+Bạn có thể tiếp tục nhập dữ liệu nếu đang sử dụng tính năng tìm kiếm...`
   },
   "teacherList": {
     "text": `A PN.An HTN.Ánh
@@ -391,7 +399,9 @@ V NH.Vân PH.Vân NT.Vân TTB.Vân NĐ.Vang LT.Vui
 -----
 X TH.Xuân
 -----
-Y (NT.Yến (đ)) (TT.Yến) (NT.Yến (nn))`
+Y (NT.Yến (đ)) (TT.Yến) (NT.Yến (nn))
+
+Bạn có thể tiếp tục nhập dữ liệu nếu đang sử dụng tính năng tìm kiếm...`
   },
   "groupsCheckArray": ['10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10d','10a1', '10a2', '11t', '11l', '11h', '11si', '11ti', '11v', '11su', '11d','11c1','11c2', '11a1', '11a2', '12t', '12l', '12h', '12si', '12ti', '12v', '12su', '12d', '12c1', '12c2', '12a1', '12a2'],
   "teachersCheckArray": [
