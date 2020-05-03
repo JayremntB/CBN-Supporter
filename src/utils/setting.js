@@ -13,6 +13,7 @@ async function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
   let response = stuff.defaultResponse;
   if(textSplit[0] === 'viewclass') {
     if(userData.group) {
+      response = stuff.viewclassResponse;
       response.text = `${userData.group}`;
       sendResponse(sender_psid, response);
     }
@@ -57,6 +58,7 @@ async function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
             sendResponse(sender_psid, response);
           }
           else {
+            response = stuff.setclassResponse;
             response.text = `Cập nhật thời khoá biểu lớp ${textSplit[1]} thành công!`;
             sendResponse(sender_psid, response);
           }
@@ -74,6 +76,7 @@ async function handleSetTeacherMessage(client, sender_psid, textSplit, userData)
   let response = stuff.defaultResponse;
   if(textSplit[0] === 'xemgv') {
     if(userData.teacher) {
+      response = stuff.xemgvResponse;
       response.text = `${userData.teacher}`;
       sendResponse(sender_psid, response);
     }
@@ -157,6 +160,7 @@ async function handleSetTeacherMessage(client, sender_psid, textSplit, userData)
               sendResponse(sender_psid, response);
             }
             else {
+              response = stuff.gvResponse;
               response.text = `Cập nhật lịch dạy giáo viên ${textSplit[1]} thành công!`;
               sendResponse(sender_psid, response);
             }

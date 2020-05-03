@@ -25,11 +25,11 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const listCommands = ['hd', 'help', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'gv', 'xemgv', 'xoagv'];
+const listCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'dạy', 'lớp', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'gv', 'xemgv', 'xoagv'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
-  res.send("ko");
+  res.send("deployed successfully");
 });
 
 app.get('/webhook', (req, res) => {
@@ -98,10 +98,6 @@ async function handleMessage(sender_psid, received_message, userData) {
       response = stuff.teacherList;
       sendResponse(sender_psid, response);
     }
-    else if(text === 'lệnh') {
-      response.text = `${stuff.listGeneralCommands.text}\n${stuff.listInitFeatureCommands.text}\n${stuff.listSettingCommands.text}`;
-      sendResponse(sender_psid, response);
-    }
     else if(text === 'đặt lớp mặc định') {
       unblockAll(sender_psid);
       response = stuff.recommendedSetGroup;
@@ -115,11 +111,19 @@ async function handleMessage(sender_psid, received_message, userData) {
     else if(listCommands.includes(textSplit[0])) {
       unblockAll(sender_psid);
       switch (textSplit[0]) {
+        case 'lệnh':
+          response.text = `${stuff.listGeneralCommands.text}\n${stuff.listInitFeatureCommands.text}\n${stuff.listSettingCommands.text}`;
+          sendResponse(sender_psid, response);
+          break;
         case 'help':
           onLiveChat(sender_psid);
           break;
         case 'hd':
           response.text = "https://github.com/jayremntB/CBN-Supporter/blob/master/README.md";
+          sendResponse(sender_psid, response);
+          break;
+        case 'lớp':
+          response.text = 'Tính năng này đang trong quá trình phát triển...';
           sendResponse(sender_psid, response);
           break;
         case 'setclass':

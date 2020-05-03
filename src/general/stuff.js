@@ -24,9 +24,9 @@ module.exports = {
   "listGeneralCommands": {
     "text": `
 - lệnh: Danh sách tất cả các lệnh
-- hd: Hướng dẫn
+- hd: Hướng dẫn sử dụng
 - help: Gọi người hỗ trợ (Live chat)
-- exit: Dừng tính năng đang sử dụng
+- exit: Thoát tính năng đang sử dụng
 - dsl:  Danh sách các lớp
 - dsgv: Danh sách giáo viên`,
     "quick_replies": [
@@ -172,19 +172,82 @@ module.exports = {
       }
     ]
   },
-  "checkGroupResponse": {
+  "viewclassResponse": {
     "text": "",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "Danh sách lớp",
-        "payload": "classList",
+        "title": "delclass",
+        "payload": "delclass",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "Exit",
-        "payload": "exit",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
+  "setclassResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "viewclass",
+        "payload": "viewclass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "delclass",
+        "payload": "delclass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
+  "xemgvResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "xoagv",
+        "payload": "viewclass",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
+  "gvResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "xemgv",
+        "payload": "xemgv",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xoagv",
+        "payload": "xoagv",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
         "image_url": ""
       }
     ]
@@ -225,6 +288,40 @@ module.exports = {
         "content_type": "text",
         "title": "Đặt gv mặc định",
         "payload": "setTeacher",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
+      }
+    ]
+  },
+  "checkGroupResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Danh sách lớp",
+        "payload": "classList",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
+      }
+    ]
+  },
+  "checkTeacherNameResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Danh sách giáo viên",
+        "payload": "teacherList",
         "image_url": ""
       },
       {
@@ -318,40 +415,6 @@ module.exports = {
       }
     ]
   },
-  "checkGroupResponse": {
-    "text": "",
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "Danh sách lớp",
-        "payload": "classList",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "Exit",
-        "payload": "exit",
-        "image_url": ""
-      }
-    ]
-  },
-  "checkTeacherNameResponse": {
-    "text": "",
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "Danh sách giáo viên",
-        "payload": "teacherList",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "Exit",
-        "payload": "exit",
-        "image_url": ""
-      }
-    ]
-  },
   'groupList': {
     "text": `Đây là danh sách lớp bạn có thể tra:
 + Lớp 10: 10t1, 10t2, 10l, 10h, 10si, 10ti, 10v1, 10v2, 10su, 10d, 10a1, 10a2.
@@ -403,7 +466,11 @@ Y (NT.Yến (đ)) (TT.Yến) (NT.Yến (nn))
 
 Bạn có thể tiếp tục nhập dữ liệu nếu đang sử dụng tính năng tìm kiếm...`
   },
-  "groupsCheckArray": ['10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10d','10a1', '10a2', '11t', '11l', '11h', '11si', '11ti', '11v', '11su', '11d','11c1','11c2', '11a1', '11a2', '12t', '12l', '12h', '12si', '12ti', '12v', '12su', '12d', '12c1', '12c2', '12a1', '12a2'],
+  "groupsCheckArray": [
+    '10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10d','10a1', '10a2',
+    '11t', '11l', '11h', '11si', '11ti', '11v', '11su', '11d','11c1','11c2', '11a1', '11a2',
+    '12t', '12l', '12h', '12si', '12ti', '12v', '12su', '12d', '12c1', '12c2', '12a1', '12a2'
+  ],
   "teachersCheckArray": [
     'PN.An',       'NT.Bình',  'NV.Bảo',    'PT.Bằng',    'NV.Bình',
     'NTT.Dung',    'NT.Dịu',   'NT.Dung',   'LT.Giang',   'NT.Giang',
