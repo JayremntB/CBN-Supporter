@@ -99,12 +99,10 @@ async function handleMessage(sender_psid, received_message, userData) {
       sendResponse(sender_psid, response);
     }
     else if(text === 'đặt lớp mặc định') {
-      unblockAll(sender_psid);
       response = stuff.recommendedSetGroup;
       sendResponse(sender_psid, response);
     }
     else if(text === 'đặt gv mặc định') {
-      unblockAll(sender_psid);
       response = stuff.recommendedSetTeacher;
       sendResponse(sender_psid, response);
     }

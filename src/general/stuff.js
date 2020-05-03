@@ -143,6 +143,12 @@ module.exports = {
     "quick_replies": [
       {
         "content_type": "text",
+        "title": "Danh sách lớp",
+        "payload": "groupsList",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
         "title": "viewclass",
         "payload": "viewclass",
         "image_url": ""
@@ -158,6 +164,12 @@ module.exports = {
   "recommendedSetTeacher": {
     "text": "Để mỗi lần sử dụng tính năng tra tiết dạy bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập gv + tên giáo viên.\nVí dụ: gv NT.A",
     "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Danh sách giáo viên",
+        "payload": "teachersList",
+        "image_url": ""
+      },
       {
         "content_type": "text",
         "title": "xemgv",
@@ -258,7 +270,7 @@ module.exports = {
       {
         "content_type": "text",
         "title": "Danh sách lớp",
-        "payload": "classList",
+        "payload": "groupsList",
         "image_url": ""
       },
       {
@@ -281,7 +293,7 @@ module.exports = {
       {
         "content_type": "text",
         "title": "Danh sách giáo viên",
-        "payload": "teacherList",
+        "payload": "teachersList",
         "image_url": ""
       },
       {
@@ -304,7 +316,7 @@ module.exports = {
       {
         "content_type": "text",
         "title": "Danh sách lớp",
-        "payload": "classList",
+        "payload": "groupsList",
         "image_url": ""
       },
       {
@@ -321,7 +333,7 @@ module.exports = {
       {
         "content_type": "text",
         "title": "Danh sách giáo viên",
-        "payload": "teacherList",
+        "payload": "teachersList",
         "image_url": ""
       },
       {
@@ -416,7 +428,7 @@ module.exports = {
     ]
   },
   'groupList': {
-    "text": `Đây là danh sách lớp bạn có thể tra:
+    "text": `
 + Lớp 10: 10t1, 10t2, 10l, 10h, 10si, 10ti, 10v1, 10v2, 10su, 10d, 10a1, 10a2.
 
 + Lớp 11: 11t, 11l, 11h, 11si, 11ti, 11v, 11su, 11d, 11c1, 11c2, 11a1, 11a2.
