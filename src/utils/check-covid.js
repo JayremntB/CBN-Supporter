@@ -26,7 +26,7 @@ module.exports = function (sender_psid) {
 - Số ca nhiễm mới: ${data.new_cases}
 - Số ca tử vong: ${data.total_death}
 - Số ca hồi phục: ${data.total_recovered}
-Ở yên trong nhà, giữ cho mình một sức khoẻ dẻo dai, luyện tập thể dục và rửa tay thường xuyên nha <3`
+Giữ cho mình một sức khoẻ dẻo dai, luyện tập thể dục và rửa tay thường xuyên nha <3`
         sendResponse(sender_psid, response);
       }
     });
