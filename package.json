@@ -1,7 +1,7 @@
 {
   "name": "CBN-Supporter",
   "version": "1.0.0",
-  "description": "Chatbot for supporting CBN students",
+  "description": "Chatbot for supporting CBNer",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/jayremntB/CBN-Supporter.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "JayremntB",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jayremntB/CBN-Supporter/issues"
