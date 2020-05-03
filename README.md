@@ -5,7 +5,7 @@
 
 * Tra thời khoá biểu
 * Tra lịch dạy
-* Tìm lớp học (developing)
+* Tìm lớp học (đang phát triển)
 
 ### Các tính năng khác
 
@@ -27,7 +27,7 @@ Các lệnh dưới đây có thể sử dụng cho cả hai bản.
 ``
 
 Khi truy cập link [m.me](https://m.me/107868430903710) bằng cách bấm Gửi tin nhắn (Send Message) trên trang [CBN Supporter](https://www.facebook.com/cbnsupporter/) hoặc vào thẳng đường link, bấm Bắt đầu (Get Started) để khởi động cuộc trò chuyện.
-Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các gợi ý có sẵn khi sử dụng các tính năng, vì vậy hãy sử dụng các lệnh sau:
+Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các gợi ý có sẵn khi sử dụng các tính năng, khi đó hãy sử dụng các lệnh sau:
 
 (Bạn có thể viết lệnh theo nhiều cách như Menu, MeNu, mENu, ...)
 
@@ -36,7 +36,7 @@ Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các 
 **Chung:**
 
 - *lệnh*: Danh sách tập lệnh
-- *hd*: Hướng dẫn
+- *hd*: Hướng dẫn sử dụng
 - *help*: Gọi người hỗ trợ (Live chat)
 - *exit*: Dừng tính năng đang sử dụng
 - *dsl*:  Danh sách các lớp
@@ -71,12 +71,12 @@ Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có th
 #### Tra thời khoá biểu (*tkb*)
 * Nhập lệnh
 * Nếu bạn đã cài đặt tên lớp mặc định hoặc sau khi nhập tên lớp cần tra, bot sẽ hỏi ngày bạn muốn tra thời khoá biểu. Lúc này bạn có thể nhập các lựa chọn sau:
-  - Lớp khác
+  - Tra lớp khác
   - Hôm nay, hôm qua, ngày mai
   - 2, 3, 4, 5, 6, 7, chủ nhật
   - Exit
 > **Lưu ý**: Sau khi gửi lựa chọn của bạn, nếu như không sử dụng lệnh *Exit* hoặc các lệnh khác, bạn vẫn sẽ nằm trong **vòng lặp chọn ngày** và sử dụng các lựa chọn bên trên. Nghĩa là, bạn sẽ tiếp tục chọn ngày ngay sau khi vừa chọn ngày thay vì phải nhập lớp khác.
-* Nếu bạn chưa cài đặt tên lớp mặc định hoặc nhập "Lớp khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên lớp cần tra. Nếu bot thông báo không tìm thấy lớp hoặc bạn không biết form nhập tên, nhập **dsl** để xem danh sách các lớp.
+* Nếu bạn chưa cài đặt tên lớp mặc định hoặc nhập "Tra lớp khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên lớp cần tra. Nếu bot thông báo không tìm thấy lớp hoặc bạn không biết form nhập tên, nhập **dsl** để xem danh sách các lớp.
 
 ``
  Nhập Exit để thoát.
@@ -85,12 +85,12 @@ Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có th
 #### Tra lịch dạy (*dạy*)
 * Nhập lệnh
 * Nếu bạn đã cài đặt lịch dạy mặc định hoặc sau khi nhập tên giáo viên cần tra, bot sẽ hỏi ngày bạn muốn tra lịch dạy. Lúc này bạn có thể nhập các lựa chọn sau:
-  - Giáo viên khác
+  - Tra giáo viên khác
   - Hôm nay, hôm qua, ngày mai
   - 2, 3, 4, 5, 6, 7, chủ nhật
   - Exit
 > **Lưu ý**: Sau khi gửi lựa chọn của bạn, nếu như không sử dụng lệnh *Exit* hoặc các lệnh khác, bạn vẫn sẽ nằm trong **vòng lặp chọn ngày** và sử dụng các lựa chọn bên trên. Nghĩa là, bạn sẽ tiếp tục chọn ngày ngay sau khi vừa chọn ngày thay vì phải nhập giáo viên khác.
-* Nếu bạn chưa cài đặt lịch dạy mặc định hoặc nhập "Giáo viên khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên giáo viên cần tra. Nếu bot thông báo không tìm thấy giáo viên hoặc bạn không biết form nhập tên, nhập **dsgv** để xem danh sách giáo viên.
+* Nếu bạn chưa cài đặt lịch dạy mặc định hoặc nhập "Tra giáo viên khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên giáo viên cần tra. Nếu bot thông báo không tìm thấy giáo viên hoặc bạn không biết form nhập tên, nhập **dsgv** để xem danh sách giáo viên.
 
 ``
  Nhập Exit để thoát.
@@ -135,6 +135,6 @@ Nếu bạn không muốn tiếp tục chat hoặc muốn sử dụng các tính
 
 ## PHÁT TRIỂN CHATBOT
 
-[**jayremntB**](https://www.facebook.com/jayremntB) & [**Fukai**](https://www.facebook.com/fukaijs)
+[**JayremntB**](https://www.facebook.com/jayremntB) & [**Fukai**](https://www.facebook.com/fukaijs)
 
 *Enjoy!*
