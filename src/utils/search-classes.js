@@ -10,7 +10,7 @@ module.exports = {
 };
 
 async function handleMessage(client, sender_psid, text, userData) {
-  if(text.toLowerCase() === "giáo viên khác") {
+  if(text.toLowerCase() === "tra giáo viên khác") {
     const response = stuff.searchClassesAskTeacher;
     await clearOtherTeacherData(client, sender_psid);
     await sendResponse(sender_psid, response);
@@ -43,7 +43,7 @@ async function init(client, sender_psid, userData) {
       else {
         console.log('init search_classes_block successfully');
         let response = stuff.askDay;
-        response.quick_replies[0].title = "Giáo viên khác";
+        response.quick_replies[0].title = "Tra giáo viên khác";
         response.quick_replies[0].payload = "overwriteTeacher";
         response.text = `Cập nhật lịch dạy của giáo viên ${userData.teacher} thành công!\nBạn muốn tra thứ mấy?`;
         sendResponse(sender_psid, response);
@@ -140,7 +140,6 @@ async function updateOtherTeacherData(client, sender_psid, teacherName) {
           });
         }
       }
-      console.log(teaches);
       await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
         $set: {
           search_classes_other_teacher: {
@@ -159,7 +158,7 @@ async function updateOtherTeacherData(client, sender_psid, teacherName) {
         } else {
           console.log("Update teacher data successfully");
           let response = stuff.askDay;
-          response.quick_replies[0].title = "Giáo viên khác";
+          response.quick_replies[0].title = "Tra giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
           response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nBạn muốn tra thứ mấy?`;
           sendResponse(sender_psid, response);
@@ -176,7 +175,7 @@ async function updateOtherTeacherData(client, sender_psid, teacherName) {
 
 function sendClasses(sender_psid, dayInput, userData) {
   let response = stuff.askDay;
-  response.quick_replies[0].title = "Giáo viên khác";
+  response.quick_replies[0].title = "Tra giáo viên khác";
   response.quick_replies[0].payload = "overwriteTeacher";
   let day = handleDayInput(dayInput.toLowerCase());
   // Check if we are in search_schedule_other_group block or not, and send the suitable data
