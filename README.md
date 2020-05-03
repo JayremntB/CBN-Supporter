@@ -1,5 +1,5 @@
 # CBN Supporter
-[*Chatbot for supporting CBN students*](https://m.me/107868430903710)
+[*Chatbot for supporting CBNer*](https://m.me/107868430903710)
 
 ## TÍNH NĂNG
 
@@ -74,7 +74,6 @@ Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có th
   - Tra lớp khác
   - Hôm nay, hôm qua, ngày mai
   - 2, 3, 4, 5, 6, 7, chủ nhật
-  - Exit
 > **Lưu ý**: Sau khi gửi lựa chọn của bạn, nếu như không sử dụng lệnh *Exit* hoặc các lệnh khác, bạn vẫn sẽ nằm trong **vòng lặp chọn ngày** và sử dụng các lựa chọn bên trên. Nghĩa là, bạn sẽ tiếp tục chọn ngày ngay sau khi vừa chọn ngày thay vì phải nhập lớp khác.
 * Nếu bạn chưa cài đặt tên lớp mặc định hoặc nhập "Tra lớp khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên lớp cần tra. Nếu bot thông báo không tìm thấy lớp hoặc bạn không biết form nhập tên, nhập **dsl** để xem danh sách các lớp.
 
@@ -88,7 +87,6 @@ Lưu ý: với các lệnh hd, dsl, dsgv, sau khi nhập xong bạn vẫn có th
   - Tra giáo viên khác
   - Hôm nay, hôm qua, ngày mai
   - 2, 3, 4, 5, 6, 7, chủ nhật
-  - Exit
 > **Lưu ý**: Sau khi gửi lựa chọn của bạn, nếu như không sử dụng lệnh *Exit* hoặc các lệnh khác, bạn vẫn sẽ nằm trong **vòng lặp chọn ngày** và sử dụng các lựa chọn bên trên. Nghĩa là, bạn sẽ tiếp tục chọn ngày ngay sau khi vừa chọn ngày thay vì phải nhập giáo viên khác.
 * Nếu bạn chưa cài đặt lịch dạy mặc định hoặc nhập "Tra giáo viên khác" trong quá trình chọn ngày, bạn sẽ cần nhập tên giáo viên cần tra. Nếu bot thông báo không tìm thấy giáo viên hoặc bạn không biết form nhập tên, nhập **dsgv** để xem danh sách giáo viên.
 
