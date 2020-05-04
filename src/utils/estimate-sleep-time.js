@@ -22,8 +22,8 @@ module.exports = function(sender_psid, textSplit) {
     // Estimate time to sleep if wake up at that time
     date.setMinutes(date.getMinutes() - 90 * 6 - 14);
     for(let i = 0; i < 4; i ++) {
-      date.setMinutes(date.getMinutes() + 90);
       response.text += `+ ${date.getHours()} giờ ${date.getMinutes()} phút\n`;
+      date.setMinutes(date.getMinutes() + 90);
     }
     sendResponse(sender_psid, response);
     typingOn(sender_psid);
