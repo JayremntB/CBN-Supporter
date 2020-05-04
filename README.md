@@ -3,19 +3,21 @@
 
 ## TÍNH NĂNG
 
+### Tìm kiếm
+
 * Tra thời khoá biểu
 * Tra lịch dạy
 * Tìm lớp học (đang phát triển)
-
+ 
 ### Các tính năng khác
 
 * Tính giờ ngủ
 * Tính giờ dậy
-* Tình hình dịch bệnh Covid-19
+* Cập nhật tình hình dịch bệnh
 
 ## HƯỚNG DẪN SỬ DỤNG CHATBOT
 ``
-Lưu ý: Nếu bạn đang sử dụng nền tảng Messenger Lite, bạn có thể update lên bản beta để hiển thị các gợi ý có sẵn.
+Lưu ý: Nếu bạn đang sử dụng nền tảng Facebook/Messenger Lite, bạn có thể update lên bản beta để hiển thị các gợi ý có sẵn.
 ``
 
 ``
@@ -122,6 +124,7 @@ Các lệnh đi kèm:
 
 Để mỗi lần sử dụng tính năng tìm tiết dạy bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập **gv + tên giáo viên**. Tương tự, nếu bot thông báo không tìm thấy giáo viên hoặc bạn không biết form nhập tên giáo viên, nhập **dsgv** để xem danh sách giáo viên.
 Đừng lo, khi bạn muốn tra lịch dạy của giáo viên khác, bot sẽ có một cái button để giúp bạn tra mà không ảnh hưởng đến giáo viên đã cài đặt.
+
 Các lệnh đi kèm:
 * *xemgv*: Xem tên lớp đã cài đặt
 * *xoagv*:  Xoá tên lớp đã cài đặt
