@@ -136,6 +136,6 @@ Nếu bạn không muốn tiếp tục chat hoặc muốn sử dụng các tính
 
 ## PHÁT TRIỂN CHATBOT
 
-[**JayremntB**](https://www.facebook.com/jayremntB) & [**Fukai**](https://www.facebook.com/fukaijs)
+[**JayremntB**](https://www.facebook.com/jayremnt)
 
 *Enjoy!*
