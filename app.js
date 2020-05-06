@@ -114,7 +114,7 @@ async function handleMessage(sender_psid, received_message, userData) {
           sendResponse(sender_psid, response);
           break;
         case 'help':
-          onLiveChat(sender_psid);
+          // onLiveChat(sender_psid);
           break;
         case 'hd':
           response.text = "https://github.com/jayremntB/CBN-Supporter/blob/master/README.md";
@@ -188,7 +188,7 @@ function handlePostback(sender_psid, received_postback, userData) {
         checkCovid(sender_psid);
         break;
       case 'hỗ trợ':
-        onLiveChat(sender_psid);
+        // onLiveChat(sender_psid);
         break;
       case 'chung':
         response = stuff.listGeneralCommands;
