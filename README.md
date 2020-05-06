@@ -39,7 +39,7 @@ Nếu bạn đang sử dụng bản Lite, bot có thể sẽ không hiện các 
 
 - *lệnh*: Danh sách tập lệnh
 - *hd*: Hướng dẫn sử dụng
-- *help*: Gọi người hỗ trợ (Live chat)
+- *help*: Gọi người hỗ trợ (Live chat) (Ngừng hoạt động)
 - *exit*: Dừng tính năng đang sử dụng
 - *dsl*:  Danh sách các lớp
 - *dsgv*: Danh sách giáo viên
@@ -129,8 +129,8 @@ Các lệnh đi kèm:
 * *xemgv*: Xem tên lớp đã cài đặt
 * *xoagv*:  Xoá tên lớp đã cài đặt
 
-### Hỗ trợ (*help*)
-Nếu bạn có thắc mắc cần hỗ trợ, cần góp ý hay muốn gợi ý một tính năng nào đó cho bot, nhập *help* và bot sẽ kết nối bạn với chúng tôi để trao đổi. Lúc này, bạn sẽ **KHÔNG** thể sử dụng các tính năng được cung cấp sẵn.
+### Hỗ trợ (*help*) (Ngừng hoạt động)
+Nếu bạn có thắc mắc cần hỗ trợ, cần góp ý hay muốn gợi ý một tính năng nào đó cho bot, nhập *help* và bot sẽ kết nối bạn với coder để trao đổi. Lúc này, bạn sẽ **KHÔNG** thể sử dụng các tính năng được cung cấp sẵn.
 
 Nếu bạn không muốn tiếp tục chat hoặc muốn sử dụng các tính năng được cung cấp, nhập *Exit* để thoát.
 
