@@ -216,7 +216,7 @@ function handleWindDownMessage(client, sender_psid, textSplit, userData) {
     else if(validateInput.checkWindDownTime(sender_psid, textSplit[1])) {
       client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
         $set: {
-          wind_down_time: textSplit[1]
+          wind_down_time: Number(textSplit[1])
         }
       }, (err) => {
         if(err) {
