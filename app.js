@@ -26,8 +26,8 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const listUnblockCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv'];
-const listNonUnblockCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định'];
+const listUnblockCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listNonUnblockCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
@@ -60,8 +60,7 @@ app.post('/webhook', (req, res) => {
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       console.log("From: " + sender_psid);
-      // check if the webhook_event is a normal message
-      // or a Postback message
+      // check if the webhook_event is a normal message or a Postback message
       let userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: sender_psid });
       if(!userData) userData = initUserData(sender_psid);
       if(webhook_event.message) {
@@ -85,7 +84,7 @@ function handleMessage(sender_psid, received_message, userData) {
     const textSplit = textNotLowerCase.split(" ");
     textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
-    console.log(textSplit);
+    //
     if(text === 'exit') {
       unblockAll(sender_psid);
       response = stuff.exitResponse;
@@ -113,6 +112,10 @@ function handleMessage(sender_psid, received_message, userData) {
             break;
           case 'đặt gv mặc định':
             response = stuff.recommendedSetTeacher;
+            sendResponse(sender_psid, response);
+            break;
+          case 'đổi thời gian tb':
+            response = stuff.recommendedSetWindDown;
             sendResponse(sender_psid, response);
             break;
         }
@@ -146,6 +149,11 @@ function handleMessage(sender_psid, received_message, userData) {
           case 'xoagv':
             setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
             break;
+          case 'wd':
+          case 'xemwd':
+          case 'xoawd':
+            setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
+            break;
           case 'tkb':
             searchSchedule.init(client, sender_psid, userData);
             break;
@@ -156,10 +164,10 @@ function handleMessage(sender_psid, received_message, userData) {
             checkCovid(sender_psid);
             break;
           case 'dậy':
-            estimateSleepTime(sender_psid, textSplit);
+            estimateSleepTime(sender_psid, textSplit, userData);
             break;
           case 'ngủ':
-            estimateWakeUpTime(sender_psid, textSplit);
+            estimateWakeUpTime(sender_psid, textSplit, userData);
             break;
         }
       }
@@ -222,6 +230,7 @@ function initUserData(sender_psid) {
     sender_psid: sender_psid,
     group: "",
     teacher: "",
+    wind_down_time: 14,
     main_schedule: [],
     main_teach_schedule: [],
     search_schedule_block: false,

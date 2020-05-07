@@ -6,7 +6,8 @@ const dbName = 'database-for-cbner';
 
 module.exports = {
   handleSetGroupMessage: handleSetGroupMessage,
-  handleSetTeacherMessage: handleSetTeacherMessage
+  handleSetTeacherMessage: handleSetTeacherMessage,
+  handleWindDownMessage: handleWindDownMessage
 }
 
 function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
@@ -178,6 +179,54 @@ function handleSetTeacherMessage(client, sender_psid, textSplit, userData) {
               sendResponse(sender_psid, response);
             }
           });
+        }
+      });
+    }
+  }
+}
+
+function handleWindDownMessage(client, sender_psid, textSplit, userData) {
+  let response = stuff.defaultResponse;
+  if(textSplit[0] === 'xemwd') {
+    response = stuff.xemwdResponse;
+    response.text = `${userData.wind_down_time}'`;
+    sendResponse(sender_psid, response);
+  }
+  else if(textSplit[0] === 'xoawd') {
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      $set: {
+        wind_down_time: 14
+      }
+    }, (err) => {
+      if(err) {
+        response.text = "Ủa không xoá được, bạn hãy thử lại sau nhé T.T";
+        sendResponse(sender_psid, response);
+      }
+      else {
+        response.text = "Thời gian trung bình để chìm vào giấc ngủ của bạn đã được đổi về mặc định (14')"
+        sendResponse(sender_psid, response);
+      }
+    });
+  }
+  else if(textSplit[0] === 'wd') {
+    if(textSplit.length === 1) {
+      response.text = "Bạn chưa ghi thời gian kìa :(";
+      sendResponse(sender_psid, response);
+    }
+    else if(validateInput.checkWindDownTime(sender_psid, textSplit[1])) {
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+        $set: {
+          wind_down_time: textSplit[1]
+        }
+      }, (err) => {
+        if(err) {
+          response.text = "Ủa không cài đặt được, bạn hãy thử lại sau nhé T.T";
+          sendResponse(sender_psid, response);
+        }
+        else {
+          response = stuff.wdResponse;
+          response.text = `Cài đặt thành công! Thời gian trung bình để chìm vào giấc ngủ của bạn là ${textSplit[1]}'.`;
+          sendResponse(sender_psid, response);
         }
       });
     }

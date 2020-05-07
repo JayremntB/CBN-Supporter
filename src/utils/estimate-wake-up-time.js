@@ -3,12 +3,11 @@ const sendResponse = require('../general/sendResponse');
 const typingOn = require('../general/typing');
 const stuff = require('../general/stuff');
 
-const responseDefault = [
-  "Trung bình một người thường mất 14 phút để chìm vào giấc ngủ, một giấc ngủ đủ giấc sẽ kéo dài từ 3 đến 6 chu kỳ. Thời điểm tốt nhất bạn nên thức dậy chính là lúc giao thoa giữa 2 chu kỳ.",
-  "Nếu có thể thức dậy vào lúc đó, đảm bảo bạn sẽ có một ngày tuyệt vời tràn đầy năng lượng!"
-];
-
-module.exports = function(sender_psid, textSplit) {
+module.exports = function(sender_psid, textSplit, userData) {
+  const responseDefault = [
+    `Trung bình bạn mất ${userData.wind_down_time} phút để chìm vào giấc ngủ, một giấc ngủ đủ giấc sẽ kéo dài từ 3 đến 6 chu kỳ. Thời điểm tốt nhất bạn nên thức dậy chính là lúc giao thoa giữa 2 chu kỳ.`,
+    "Nếu có thể thức dậy vào lúc đó, đảm bảo bạn sẽ có một ngày tuyệt vời tràn đầy năng lượng!"
+  ];
   let response = {
     "text": ""
   };
@@ -17,7 +16,7 @@ module.exports = function(sender_psid, textSplit) {
     date.setHours(date.getHours() + 7); // App is deployed in heroku US +7(VN)
     response.text = `Bây giờ là ${date.getHours()} giờ ${date.getMinutes()} phút. Bạn nên thức dậy vào những thời điểm sau:\n`;
     // Estimate time to wake up if sleep now
-    date.setMinutes(date.getMinutes() + 90 * 2 + 14);
+    date.setMinutes(date.getMinutes() + 90 * 2 + userData.wind_down_time);
     for (let i = 0; i < 4; i ++) {
       date.setMinutes(date.getMinutes() + 90);
       response.text += `+ ${date.getHours()} giờ ${date.getMinutes()} phút\n`;
@@ -30,7 +29,7 @@ module.exports = function(sender_psid, textSplit) {
       typingOn(sender_psid);
       setTimeout(() => {
         typingOn(sender_psid);
-        response = stuff.defaultResponse;
+        response = stuff.estimateTimeResponse;
         response.text = responseDefault[1];
         sendResponse(sender_psid, response);
       }, 3500);
@@ -43,7 +42,7 @@ module.exports = function(sender_psid, textSplit) {
     date.setMinutes(time[1]);
     response.text = `Nếu ngủ lúc ${date.getHours()} giờ ${date.getMinutes()} phút, bạn nên thức dậy vào những thời điểm sau:\n`;
     // Estimate time to wake up if sleep at that time
-    date.setMinutes(date.getMinutes() + 90 * 2 + 14);
+    date.setMinutes(date.getMinutes() + 90 * 2 + userData.wind_down_time);
     for(let i = 0; i < 4; i ++) {
       date.setMinutes(date.getMinutes() + 90);
       response.text += `+ ${date.getHours()} giờ ${date.getMinutes()} phút\n`;
@@ -56,7 +55,7 @@ module.exports = function(sender_psid, textSplit) {
       typingOn(sender_psid);
       setTimeout(() => {
         typingOn(sender_psid);
-        response = stuff.defaultResponse;
+        response = stuff.estimateTimeResponse;
         response.text = responseDefault[1];
         sendResponse(sender_psid, response);
       }, 3500);

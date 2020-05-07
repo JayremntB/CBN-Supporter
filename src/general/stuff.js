@@ -121,7 +121,11 @@ module.exports = {
 
 - gv + tên giáo viên: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng Tra lịch dạy
   + xemgv: Xem tên giáo viên đã cài đặt
-  + xoagv: Xoá tên giáo viên đã cài đặt`,
+  + xoagv: Xoá tên giáo viên đã cài đặt
+
+- setwd + thời gian (phút): Cài đặt thời gian đi vào giấc ngủ để thuận tiện trong việc xác định thời gian dậy (ngủ) bằng công thức khi sử dụng tính năng Tính giờ dậy hoặc Tính giờ ngủ (tạm gọi: wind down)
+  + viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
+  + delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')`,
     "quick_replies": [
       {
         "content_type": "text",
@@ -145,6 +149,18 @@ module.exports = {
         "content_type": "text",
         "title": "xoagv",
         "payload": "xoagv",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xemwd",
+        "payload": "xemwd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xoawd",
+        "payload": "xoawd",
         "image_url": ""
       }
     ]
@@ -195,9 +211,32 @@ module.exports = {
       }
     ]
   },
-  "xemlopResponse": {
+  "recommendedSetWindDown": {
+    "text": "Trung bình một người thường mất 14' để chìm vào giấc ngủ. Để thuận tiện hơn trong việc xác định thời điểm dậy (ngủ) dựa trên thời gian trung bình để chìm vào giấc ngủ của bạn khi sử dụng các tính năng Tính giờ dậy và Tính giờ ngủ, nhập wd + thời gian (tính theo phút)\nVí dụ: wd 480",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "xemwd",
+        "payload": "xemwd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xoawd",
+        "payload": "xoawd",
+        "image_url": ""
+      }
+    ]
+  },
+  "lopResponse": {
     "text": "",
     "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "xemlop",
+        "payload": "xemlop",
+        "image_url": ""
+      },
       {
         "content_type": "text",
         "title": "xoalop",
@@ -212,15 +251,55 @@ module.exports = {
       }
     ]
   },
-  "lopResponse": {
+  "gvResponse": {
     "text": "",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "xemlop",
-        "payload": "xemlop",
+        "title": "xemgv",
+        "payload": "xemgv",
         "image_url": ""
       },
+      {
+        "content_type": "text",
+        "title": "xoagv",
+        "payload": "xoagv",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
+  "wdResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "xemwd",
+        "payload": "xemwd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xoawd",
+        "payload": "xoawd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
+  "xemlopResponse": {
+    "text": "",
+    "quick_replies": [
       {
         "content_type": "text",
         "title": "xoalop",
@@ -252,19 +331,13 @@ module.exports = {
       }
     ]
   },
-  "gvResponse": {
+  "xemwdResponse": {
     "text": "",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "xemgv",
-        "payload": "xemgv",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xoagv",
-        "payload": "xoagv",
+        "title": "xoawd",
+        "payload": "xoawd",
         "image_url": ""
       },
       {
@@ -351,6 +424,29 @@ module.exports = {
         "content_type": "text",
         "title": "Exit",
         "payload": "exit",
+        "image_url": ""
+      }
+    ]
+  },
+  "estimateTimeResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Đổi thời gian tb",
+        "payload": "changeAverageWdTime",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xemwd",
+        "payload": "xemwd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xoawd",
+        "payload": "xoawd",
         "image_url": ""
       }
     ]
