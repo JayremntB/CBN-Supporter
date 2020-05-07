@@ -21,6 +21,17 @@ module.exports = {
       }
     ]
   },
+  "liveChatExitResponse": {
+    "text": "Không muốn tiếp tục trò chuyện nữa thì nhập Exit nha :(",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
+      }
+    ]
+  },
   "listGeneralCommands": {
     "text": `
 - lệnh: Danh sách tất cả các lệnh
@@ -104,24 +115,28 @@ module.exports = {
   },
   "listSettingCommands": {
     "text": `
-- setclass + tên lớp: Cập nhật thời khoá biểu và bỏ qua bước nhập tên lớp khi sử dụng tính năng Tra thời khoá biểu
-  + viewclass: Xem tên lớp đã cài đặt
-  + delclass:  Xoá tên lớp đã cài đặt
+- lop + tên lớp: Cập nhật thời khoá biểu và bỏ qua bước nhập tên lớp khi sử dụng tính năng Tra thời khoá biểu
+  + xemlop: Xem tên lớp đã cài đặt
+  + xoalop:  Xoá tên lớp đã cài đặt
 
 - gv + tên giáo viên: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng Tra lịch dạy
   + xemgv: Xem tên giáo viên đã cài đặt
-  + xoagv: Xoá tên giáo viên đã cài đặt`,
+  + xoagv: Xoá tên giáo viên đã cài đặt
+
+- wd + thời gian (phút): Cài đặt thời gian trung bình để chìm vào giấc ngủ để thuận tiện trong việc xác định thời gian dậy (ngủ) dựa trên thời gian đó của bạn khi sử dụng tính năng Tính giờ dậy hoặc Tính giờ ngủ (tạm gọi: wind down)
+  + xemwd: Xem thời gian trung bình để chìm vào giấc ngủ đã cài đặt
+  + xoawd: Đổi thời gian trung bình để chìm vào giấc ngủ về mặc định (14')`,
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "viewclass",
-        "payload": "viewclass",
+        "title": "xemlop",
+        "payload": "xemlop",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "delclass",
-        "payload": "delclass",
+        "title": "xoalop",
+        "payload": "xoalop",
         "image_url": ""
       },
       {
@@ -135,11 +150,23 @@ module.exports = {
         "title": "xoagv",
         "payload": "xoagv",
         "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xemwd",
+        "payload": "xemwd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xoawd",
+        "payload": "xoawd",
+        "image_url": ""
       }
     ]
   },
   "recommendedSetGroup": {
-    "text": "Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó thường xuyên (lớp bạn chẳng hạn), nhập setclass + tên lớp.\nVí dụ: setclass 11ti",
+    "text": "Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó thường xuyên (lớp bạn chẳng hạn), nhập lop + tên lớp.\nVí dụ: lop 11ti",
     "quick_replies": [
       {
         "content_type": "text",
@@ -149,14 +176,14 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "viewclass",
-        "payload": "viewclass",
+        "title": "xemlop",
+        "payload": "xemlop",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "delclass",
-        "payload": "delclass",
+        "title": "xoalop",
+        "payload": "xoalop",
         "image_url": ""
       }
     ]
@@ -184,53 +211,36 @@ module.exports = {
       }
     ]
   },
-  "viewclassResponse": {
-    "text": "",
+  "recommendedSetWindDown": {
+    "text": "Trung bình một người thường mất 14' để chìm vào giấc ngủ. Để thuận tiện hơn trong việc xác định thời điểm dậy (ngủ) dựa trên thời gian trung bình để chìm vào giấc ngủ của bạn khi sử dụng các tính năng Tính giờ dậy và Tính giờ ngủ, nhập wd + thời gian (tính theo phút)\nVí dụ: wd 480",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "delclass",
-        "payload": "delclass",
+        "title": "xemwd",
+        "payload": "xemwd",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "Menu",
-        "payload": "menu",
+        "title": "xoawd",
+        "payload": "xoawd",
         "image_url": ""
       }
     ]
   },
-  "setclassResponse": {
+  "lopResponse": {
     "text": "",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "viewclass",
-        "payload": "viewclass",
+        "title": "xemlop",
+        "payload": "xemlop",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "delclass",
-        "payload": "delclass",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "Menu",
-        "payload": "menu",
-        "image_url": ""
-      }
-    ]
-  },
-  "xemgvResponse": {
-    "text": "",
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "xoagv",
-        "payload": "viewclass",
+        "title": "xoalop",
+        "payload": "xoalop",
         "image_url": ""
       },
       {
@@ -264,6 +274,80 @@ module.exports = {
       }
     ]
   },
+  "wdResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "xemwd",
+        "payload": "xemwd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xoawd",
+        "payload": "xoawd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
+  "xemlopResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "xoalop",
+        "payload": "xoalop",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
+  "xemgvResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "xoagv",
+        "payload": "xoagv",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
+  "xemwdResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "xoawd",
+        "payload": "xoawd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
   "searchScheduleAskGroup": {
     "text": "Bạn tìm lớp nào? \n(Ví dụ: 11ti, ...)",
     "quick_replies": [
@@ -276,7 +360,7 @@ module.exports = {
       {
         "content_type": "text",
         "title": "Đặt lớp mặc định",
-        "payload": "setclass",
+        "payload": "lop",
         "image_url": ""
       },
       {
@@ -340,6 +424,29 @@ module.exports = {
         "content_type": "text",
         "title": "Exit",
         "payload": "exit",
+        "image_url": ""
+      }
+    ]
+  },
+  "estimateTimeResponse": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Đổi thời gian tb",
+        "payload": "changeAverageWdTime",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xemwd",
+        "payload": "xemwd",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "xoawd",
+        "payload": "xoawd",
         "image_url": ""
       }
     ]
@@ -435,7 +542,7 @@ module.exports = {
 
 + Lớp 12: 12t, 12l, 12h, 12si, 12ti, 12v, 12su, 12d, 12c1, 12c2, 12a1, 12a2.
 
-Bạn có thể tiếp tục nhập dữ liệu nếu đang sử dụng tính năng tìm kiếm...`
+Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm nha...`
   },
   "teacherList": {
     "text": `A PN.An HTN.Ánh
@@ -476,7 +583,7 @@ X TH.Xuân
 -----
 Y (NT.Yến (đ)) (TT.Yến) (NT.Yến (nn))
 
-Bạn có thể tiếp tục nhập dữ liệu nếu đang sử dụng tính năng tìm kiếm...`
+Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm nha...`
   },
   "groupsCheckArray": [
     '10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10d','10a1', '10a2',

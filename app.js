@@ -12,6 +12,7 @@ const estimateSleepTime = require('./src/utils/estimate-sleep-time');
 const checkCovid = require('./src/utils/check-covid');
 const searchSchedule = require('./src/utils/search-schedule');
 const searchClasses = require('./src/utils/search-classes');
+const liveChat = require('./src/utils/live-chat');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const stuff = require('./src/general/stuff');
@@ -25,11 +26,12 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const listCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'dạy', 'lớp', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'gv', 'xemgv', 'xoagv'];
+const listUnblockCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listNonUnblockCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
-  res.send("deployed successfully");
+  res.send("ok");
 });
 
 app.get('/webhook', (req, res) => {
@@ -58,8 +60,7 @@ app.post('/webhook', (req, res) => {
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       console.log("From: " + sender_psid);
-      // check if the webhook_event is a normal message
-      // or a Postback message
+      // check if the webhook_event is a normal message or a Postback message
       let userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: sender_psid });
       if(!userData) userData = initUserData(sender_psid);
       if(webhook_event.message) {
@@ -75,7 +76,7 @@ app.post('/webhook', (req, res) => {
   }
 });
 
-async function handleMessage(sender_psid, received_message, userData) {
+function handleMessage(sender_psid, received_message, userData) {
   let response = stuff.defaultResponse;
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
@@ -83,79 +84,99 @@ async function handleMessage(sender_psid, received_message, userData) {
     const textSplit = textNotLowerCase.split(" ");
     textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
-    console.log(textSplit);
+    //
     if(text === 'exit') {
       unblockAll(sender_psid);
       response = stuff.exitResponse;
       sendResponse(sender_psid, response);
     }
-    else if(userData.live_chat);
-    else if(text === 'danh sách lớp' || text === 'dsl') {
-      response = stuff.groupList;
-      sendResponse(sender_psid, response);
+    else if(listNonUnblockCommands.includes(text)) {
+      if(userData.live_chat) {
+        liveChat.deniedUsingOtherFeatures(sender_psid);
+      }
+      else {
+        switch (text) {
+          case 'danh sách lớp':
+          case 'dsl':
+            response = stuff.groupList;
+            sendResponse(sender_psid, response);
+            break;
+          case 'danh sách giáo viên':
+          case 'dsgv':
+            response = stuff.teacherList;
+            sendResponse(sender_psid, response);
+            break;
+          case 'đặt lớp mặc định':
+            response = stuff.recommendedSetGroup;
+            sendResponse(sender_psid, response);
+            break;
+          case 'đặt gv mặc định':
+            response = stuff.recommendedSetTeacher;
+            sendResponse(sender_psid, response);
+            break;
+          case 'đổi thời gian tb':
+            response = stuff.recommendedSetWindDown;
+            sendResponse(sender_psid, response);
+            break;
+        }
+      }
     }
-    else if(text === 'danh sách giáo viên' || text === 'dsgv') {
-      response = stuff.teacherList;
-      sendResponse(sender_psid, response);
-    }
-    else if(text === 'đặt lớp mặc định') {
-      response = stuff.recommendedSetGroup;
-      sendResponse(sender_psid, response);
-    }
-    else if(text === 'đặt gv mặc định') {
-      response = stuff.recommendedSetTeacher;
-      sendResponse(sender_psid, response);
-    }
-    else if(listCommands.includes(textSplit[0])) {
-      unblockAll(sender_psid);
-      switch (textSplit[0]) {
-        case 'lệnh':
-          response.text = `${stuff.listGeneralCommands.text}\n${stuff.listInitFeatureCommands.text}\n${stuff.listSettingCommands.text}`;
-          sendResponse(sender_psid, response);
-          break;
-        case 'help':
-          // onLiveChat(sender_psid);
-          break;
-        case 'hd':
-          response.text = "https://github.com/jayremntB/CBN-Supporter/blob/master/README.md";
-          sendResponse(sender_psid, response);
-          break;
-        case 'lớp':
-          response.text = 'Tính năng này đang trong quá trình phát triển...';
-          sendResponse(sender_psid, response);
-          break;
-        case 'setclass':
-        case 'viewclass':
-        case 'delclass':
-          await setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
-          break;
-        case 'gv':
-        case 'xemgv':
-        case 'xoagv':
-          await setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
-          break;
-        case 'tkb':
-          await searchSchedule.init(client, sender_psid, userData);
-          break;
-        case 'dạy':
-          await searchClasses.init(client, sender_psid, userData);
-          break;
-        case 'covid':
-          checkCovid(sender_psid);
-          break;
-        case 'dậy':
-          estimateSleepTime(sender_psid, textSplit);
-          break;
-        case 'ngủ':
-          estimateWakeUpTime(sender_psid, textSplit);
-          break;
+    else if(listUnblockCommands.includes(textSplit[0])) {
+      if(userData.live_chat) {
+        liveChat.deniedUsingOtherFeatures(sender_psid);
+      }
+      else {
+        unblockAll(sender_psid);
+        switch (textSplit[0]) {
+          case 'lệnh':
+            response.text = `${stuff.listGeneralCommands.text}\n${stuff.listInitFeatureCommands.text}\n${stuff.listSettingCommands.text}`;
+            sendResponse(sender_psid, response);
+            break;
+          case 'help':
+            liveChat.startLiveChat(client, sender_psid);
+            break;
+          case 'hd':
+            response.text = "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md";
+            sendResponse(sender_psid, response);
+            break;
+          case 'lop':
+          case 'xemlop':
+          case 'xoalop':
+            setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
+            break;
+          case 'gv':
+          case 'xemgv':
+          case 'xoagv':
+            setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
+            break;
+          case 'wd':
+          case 'xemwd':
+          case 'xoawd':
+            setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
+            break;
+          case 'tkb':
+            searchSchedule.init(client, sender_psid, userData);
+            break;
+          case 'dạy':
+            searchClasses.init(client, sender_psid, userData);
+            break;
+          case 'covid':
+            checkCovid(sender_psid);
+            break;
+          case 'dậy':
+            estimateSleepTime(sender_psid, textSplit, userData);
+            break;
+          case 'ngủ':
+            estimateWakeUpTime(sender_psid, textSplit, userData);
+            break;
+        }
       }
     }
     else if(userData.search_schedule_block) {
-      await searchSchedule.handleMessage(client, sender_psid, text, userData);
+      searchSchedule.handleMessage(client, sender_psid, text, userData);
     }
     else if(userData.search_classes_block) {
-      await searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
+      searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
   }
 }
@@ -166,12 +187,10 @@ function handlePostback(sender_psid, received_postback, userData) {
   const textSplit = text.split(" ");
   console.log('postback: ' + text + "\n---------------------------------");
   // Set response based on payload
-  if(text === 'exit') {
-    unblockAll(sender_psid);
-    const response = stuff.exitResponse;
-    sendResponse(sender_psid, response);
+  if(userData.live_chat) {
+    liveChat.deniedUsingOtherFeatures(sender_psid);
   }
-  else if(!userData.live_chat) {
+  else {
     let response;
     unblockAll(sender_psid);
     switch (text) {
@@ -188,7 +207,7 @@ function handlePostback(sender_psid, received_postback, userData) {
         checkCovid(sender_psid);
         break;
       case 'hỗ trợ':
-        // onLiveChat(sender_psid);
+        liveChat.startLiveChat(client, sender_psid);
         break;
       case 'chung':
         response = stuff.listGeneralCommands;
@@ -206,18 +225,12 @@ function handlePostback(sender_psid, received_postback, userData) {
   }
 }
 
-function onLiveChat(sender_psid) {
-  client.db(dbName).collection(collectionName).updateOne({ sender_psid: sender_psid }, {
-    $set: {
-      live_chat: true
-    }
-  });
-}
 function initUserData(sender_psid) {
   const insert = {
     sender_psid: sender_psid,
     group: "",
     teacher: "",
+    wind_down_time: 14,
     main_schedule: [],
     main_teach_schedule: [],
     search_schedule_block: false,
