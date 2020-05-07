@@ -115,9 +115,9 @@ module.exports = {
   },
   "listSettingCommands": {
     "text": `
-- setclass + tên lớp: Cập nhật thời khoá biểu và bỏ qua bước nhập tên lớp khi sử dụng tính năng Tra thời khoá biểu
-  + viewclass: Xem tên lớp đã cài đặt
-  + delclass:  Xoá tên lớp đã cài đặt
+- lop + tên lớp: Cập nhật thời khoá biểu và bỏ qua bước nhập tên lớp khi sử dụng tính năng Tra thời khoá biểu
+  + xemlop: Xem tên lớp đã cài đặt
+  + xoalop:  Xoá tên lớp đã cài đặt
 
 - gv + tên giáo viên: Cập nhật lịch dạy và bỏ qua bước nhập tên giáo viên khi sử dụng tính năng Tra lịch dạy
   + xemgv: Xem tên giáo viên đã cài đặt
@@ -125,14 +125,14 @@ module.exports = {
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "viewclass",
-        "payload": "viewclass",
+        "title": "xemlop",
+        "payload": "xemlop",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "delclass",
-        "payload": "delclass",
+        "title": "xoalop",
+        "payload": "xoalop",
         "image_url": ""
       },
       {
@@ -150,7 +150,7 @@ module.exports = {
     ]
   },
   "recommendedSetGroup": {
-    "text": "Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó thường xuyên (lớp bạn chẳng hạn), nhập setclass + tên lớp.\nVí dụ: setclass 11ti",
+    "text": "Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó thường xuyên (lớp bạn chẳng hạn), nhập lop + tên lớp.\nVí dụ: lop 11ti",
     "quick_replies": [
       {
         "content_type": "text",
@@ -160,14 +160,14 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "viewclass",
-        "payload": "viewclass",
+        "title": "xemlop",
+        "payload": "xemlop",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "delclass",
-        "payload": "delclass",
+        "title": "xoalop",
+        "payload": "xoalop",
         "image_url": ""
       }
     ]
@@ -195,13 +195,13 @@ module.exports = {
       }
     ]
   },
-  "viewclassResponse": {
+  "xemlopResponse": {
     "text": "",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "delclass",
-        "payload": "delclass",
+        "title": "xoalop",
+        "payload": "xoalop",
         "image_url": ""
       },
       {
@@ -212,19 +212,19 @@ module.exports = {
       }
     ]
   },
-  "setclassResponse": {
+  "lopResponse": {
     "text": "",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "viewclass",
-        "payload": "viewclass",
+        "title": "xemlop",
+        "payload": "xemlop",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "delclass",
-        "payload": "delclass",
+        "title": "xoalop",
+        "payload": "xoalop",
         "image_url": ""
       },
       {
@@ -241,7 +241,7 @@ module.exports = {
       {
         "content_type": "text",
         "title": "xoagv",
-        "payload": "viewclass",
+        "payload": "xoagv",
         "image_url": ""
       },
       {
@@ -287,7 +287,7 @@ module.exports = {
       {
         "content_type": "text",
         "title": "Đặt lớp mặc định",
-        "payload": "setclass",
+        "payload": "lop",
         "image_url": ""
       },
       {

@@ -11,9 +11,9 @@ module.exports = {
 
 function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
   let response = stuff.defaultResponse;
-  if(textSplit[0] === 'viewclass') {
+  if(textSplit[0] === 'xemlop') {
     if(userData.group) {
-      response = stuff.viewclassResponse;
+      response = stuff.xemlopResponse;
       response.text = `${userData.group}`;
       sendResponse(sender_psid, response);
     }
@@ -22,7 +22,7 @@ function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
       sendResponse(sender_psid, response);
     }
   }
-  else if(textSplit[0] === 'delclass') {
+  else if(textSplit[0] === 'xoalop') {
     client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         group: "",
@@ -39,7 +39,7 @@ function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
       }
     });
   }
-  else if(textSplit[0] === 'setclass') {
+  else if(textSplit[0] === 'lop') {
     if(textSplit.length === 1) {
       response.text = "Tên lớp bạn chưa ghi kìa :(";
       sendResponse(sender_psid, response);
@@ -64,7 +64,7 @@ function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
               sendResponse(sender_psid, response);
             }
             else {
-              response = stuff.setclassResponse;
+              response = stuff.lopResponse;
               response.text = `Cập nhật thời khoá biểu lớp ${textSplit[1]} thành công!`;
               sendResponse(sender_psid, response);
             }
