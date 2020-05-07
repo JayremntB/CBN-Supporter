@@ -123,9 +123,9 @@ module.exports = {
   + xemgv: Xem tên giáo viên đã cài đặt
   + xoagv: Xoá tên giáo viên đã cài đặt
 
-- setwd + thời gian (phút): Cài đặt thời gian đi vào giấc ngủ để thuận tiện trong việc xác định thời gian dậy (ngủ) bằng công thức khi sử dụng tính năng Tính giờ dậy hoặc Tính giờ ngủ (tạm gọi: wind down)
-  + viewwd: Xem thời gian đi vào giấc ngủ đã cài đặt
-  + delwd: Đổi thời gian đi vào giấc ngủ về mặc định (14')`,
+- wd + thời gian (phút): Cài đặt thời gian trung bình để chìm vào giấc ngủ để thuận tiện trong việc xác định thời gian dậy (ngủ) dựa trên thời gian đó của bạn khi sử dụng tính năng Tính giờ dậy hoặc Tính giờ ngủ (tạm gọi: wind down)
+  + xemwd: Xem thời gian trung bình để chìm vào giấc ngủ đã cài đặt
+  + xoawd: Đổi thời gian trung bình để chìm vào giấc ngủ về mặc định (14')`,
     "quick_replies": [
       {
         "content_type": "text",
@@ -542,7 +542,7 @@ module.exports = {
 
 + Lớp 12: 12t, 12l, 12h, 12si, 12ti, 12v, 12su, 12d, 12c1, 12c2, 12a1, 12a2.
 
-Bạn có thể tiếp tục nhập dữ liệu nếu đang sử dụng tính năng tìm kiếm...`
+Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm nha...`
   },
   "teacherList": {
     "text": `A PN.An HTN.Ánh
@@ -583,7 +583,7 @@ X TH.Xuân
 -----
 Y (NT.Yến (đ)) (TT.Yến) (NT.Yến (nn))
 
-Bạn có thể tiếp tục nhập dữ liệu nếu đang sử dụng tính năng tìm kiếm...`
+Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm nha...`
   },
   "groupsCheckArray": [
     '10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10d','10a1', '10a2',
