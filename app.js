@@ -12,6 +12,7 @@ const estimateSleepTime = require('./src/utils/estimate-sleep-time');
 const checkCovid = require('./src/utils/check-covid');
 const searchSchedule = require('./src/utils/search-schedule');
 const searchClasses = require('./src/utils/search-classes');
+const liveChat = require('./src/utils/live-chat');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const stuff = require('./src/general/stuff');
@@ -25,7 +26,8 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const listCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'covid', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv'];
+const listUnblockCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv'];
+const listNonUnblockCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
@@ -89,64 +91,77 @@ function handleMessage(sender_psid, received_message, userData) {
       response = stuff.exitResponse;
       sendResponse(sender_psid, response);
     }
-    else if(userData.live_chat) {
-      liveChat.deniedUsingOtherFeatures(sender_psid);
+    else if(listNonUnblockCommands.includes(text)) {
+      if(userData.live_chat) {
+        liveChat.deniedUsingOtherFeatures(sender_psid);
+      }
+      else {
+        switch (text) {
+          case 'danh sách lớp':
+          case 'dsl':
+            response = stuff.groupList;
+            sendResponse(sender_psid, response);
+            break;
+          case 'danh sách giáo viên':
+          case 'dsgv':
+            response = stuff.teacherList;
+            sendResponse(sender_psid, response);
+            break;
+          case 'đặt lớp mặc định':
+            response = stuff.recommendedSetGroup;
+            sendResponse(sender_psid, response);
+            break;
+          case 'đặt gv mặc định':
+            response = stuff.recommendedSetTeacher;
+            sendResponse(sender_psid, response);
+            break;
+        }
+      }
     }
-    else if(text === 'danh sách lớp' || text === 'dsl') {
-      response = stuff.groupList;
-      sendResponse(sender_psid, response);
-    }
-    else if(text === 'danh sách giáo viên' || text === 'dsgv') {
-      response = stuff.teacherList;
-      sendResponse(sender_psid, response);
-    }
-    else if(text === 'đặt lớp mặc định') {
-      response = stuff.recommendedSetGroup;
-      sendResponse(sender_psid, response);
-    }
-    else if(text === 'đặt gv mặc định') {
-      response = stuff.recommendedSetTeacher;
-      sendResponse(sender_psid, response);
-    }
-    else if(listCommands.includes(textSplit[0])) {
-      unblockAll(sender_psid);
-      switch (textSplit[0]) {
-        case 'lệnh':
-          response.text = `${stuff.listGeneralCommands.text}\n${stuff.listInitFeatureCommands.text}\n${stuff.listSettingCommands.text}`;
-          sendResponse(sender_psid, response);
-          break;
-        case 'help':
-          liveChat.startLiveChat(client, sender_psid);
-          break;
-        case 'hd':
-          response.text = "https://github.com/jayremntB/CBN-Supporter/blob/master/README.md";
-          sendResponse(sender_psid, response);
-          break;
-        case 'lop':
-        case 'xemlop':
-        case 'xoalop':
-          setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
-          break;
-        case 'gv':
-        case 'xemgv':
-        case 'xoagv':
-          setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
-          break;
-        case 'tkb':
-          searchSchedule.init(client, sender_psid, userData);
-          break;
-        case 'dạy':
-          searchClasses.init(client, sender_psid, userData);
-          break;
-        case 'covid':
-          checkCovid(sender_psid);
-          break;
-        case 'dậy':
-          estimateSleepTime(sender_psid, textSplit);
-          break;
-        case 'ngủ':
-          estimateWakeUpTime(sender_psid, textSplit);
-          break;
+    else if(listUnblockCommands.includes(textSplit[0])) {
+      if(userData.live_chat) {
+        liveChat.deniedUsingOtherFeatures(sender_psid);
+      }
+      else {
+        unblockAll(sender_psid);
+        switch (textSplit[0]) {
+          case 'lệnh':
+            response.text = `${stuff.listGeneralCommands.text}\n${stuff.listInitFeatureCommands.text}\n${stuff.listSettingCommands.text}`;
+            sendResponse(sender_psid, response);
+            break;
+          case 'help':
+            liveChat.startLiveChat(client, sender_psid);
+            break;
+          case 'hd':
+            response.text = "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md";
+            sendResponse(sender_psid, response);
+            break;
+          case 'lop':
+          case 'xemlop':
+          case 'xoalop':
+            setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
+            break;
+          case 'gv':
+          case 'xemgv':
+          case 'xoagv':
+            setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
+            break;
+          case 'tkb':
+            searchSchedule.init(client, sender_psid, userData);
+            break;
+          case 'dạy':
+            searchClasses.init(client, sender_psid, userData);
+            break;
+          case 'covid':
+            checkCovid(sender_psid);
+            break;
+          case 'dậy':
+            estimateSleepTime(sender_psid, textSplit);
+            break;
+          case 'ngủ':
+            estimateWakeUpTime(sender_psid, textSplit);
+            break;
+        }
       }
     }
     else if(userData.search_schedule_block) {

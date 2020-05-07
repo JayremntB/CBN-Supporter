@@ -22,12 +22,12 @@ module.exports = {
     ]
   },
   "liveChatExitResponse": {
-    "text": "Không muốn tiếp tục trò chuyện nữa thì nhập Exit nha :3",
+    "text": "Không muốn tiếp tục trò chuyện nữa thì nhập Exit nha :(",
     "quick_replies": [
       {
         "content_type": "text",
         "title": "Exit",
-        "payload": "Exit",
+        "payload": "exit",
         "image_url": ""
       }
     ]

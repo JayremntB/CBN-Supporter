@@ -74,8 +74,8 @@ function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
           response.text = "Thời khoá biểu lớp bạn chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!";
           sendResponse(sender_psid, response);
         }
-      }
-    });
+      });
+    }
   }
 }
 
