@@ -25,7 +25,7 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const listCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'gv', 'xemgv', 'xoagv'];
+const listCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'covid', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
@@ -122,9 +122,9 @@ function handleMessage(sender_psid, received_message, userData) {
           response.text = "https://github.com/jayremntB/CBN-Supporter/blob/master/README.md";
           sendResponse(sender_psid, response);
           break;
-        case 'setclass':
-        case 'viewclass':
-        case 'delclass':
+        case 'lop':
+        case 'xemlop':
+        case 'xoalop':
           setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
           break;
         case 'gv':
