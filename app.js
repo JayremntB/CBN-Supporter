@@ -25,7 +25,7 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const listCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'dạy', 'lớp', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'gv', 'xemgv', 'xoagv'];
+const listCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'setclass', 'viewclass', 'delclass', 'gv', 'xemgv', 'xoagv'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
@@ -75,7 +75,7 @@ app.post('/webhook', (req, res) => {
   }
 });
 
-async function handleMessage(sender_psid, received_message, userData) {
+function handleMessage(sender_psid, received_message, userData) {
   let response = stuff.defaultResponse;
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
@@ -122,25 +122,21 @@ async function handleMessage(sender_psid, received_message, userData) {
           response.text = "https://github.com/jayremntB/CBN-Supporter/blob/master/README.md";
           sendResponse(sender_psid, response);
           break;
-        case 'lớp':
-          response.text = 'Tính năng này đang trong quá trình phát triển...';
-          sendResponse(sender_psid, response);
-          break;
         case 'setclass':
         case 'viewclass':
         case 'delclass':
-          await setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
+          setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
           break;
         case 'gv':
         case 'xemgv':
         case 'xoagv':
-          await setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
+          setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
           break;
         case 'tkb':
-          await searchSchedule.init(client, sender_psid, userData);
+          searchSchedule.init(client, sender_psid, userData);
           break;
         case 'dạy':
-          await searchClasses.init(client, sender_psid, userData);
+          searchClasses.init(client, sender_psid, userData);
           break;
         case 'covid':
           checkCovid(sender_psid);
@@ -154,10 +150,10 @@ async function handleMessage(sender_psid, received_message, userData) {
       }
     }
     else if(userData.search_schedule_block) {
-      await searchSchedule.handleMessage(client, sender_psid, text, userData);
+      searchSchedule.handleMessage(client, sender_psid, text, userData);
     }
     else if(userData.search_classes_block) {
-      await searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
+      searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
   }
 }

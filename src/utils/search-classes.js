@@ -9,11 +9,11 @@ module.exports = {
   handleMessage: handleMessage
 };
 
-async function handleMessage(client, sender_psid, text, userData) {
+function handleMessage(client, sender_psid, text, userData) {
   if(text.toLowerCase() === "tra giáo viên khác") {
     const response = stuff.searchClassesAskTeacher;
-    await clearOtherTeacherData(client, sender_psid);
-    await sendResponse(sender_psid, response);
+    clearOtherTeacherData(client, sender_psid);
+    sendResponse(sender_psid, response);
   }
   else if(!userData.search_classes_other_teacher.block) {
     sendClasses(sender_psid, text, userData);
@@ -22,13 +22,13 @@ async function handleMessage(client, sender_psid, text, userData) {
     sendClasses(sender_psid, text, userData);
   }
   else if(checkTeacherName(sender_psid, text)) {
-    await updateOtherTeacherData(client, sender_psid, text);
+    updateOtherTeacherData(client, sender_psid, text);
   }
 }
 
-async function init(client, sender_psid, userData) {
+function init(client, sender_psid, userData) {
   if(userData.teacher) { // init search_classes_block
-    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_classes_block: true
       }
@@ -51,7 +51,7 @@ async function init(client, sender_psid, userData) {
     });
   }
   else { // init both search_classes_block & search_classes_other_teacher block
-    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_classes_block: true,
         search_classes_other_teacher: {
@@ -77,8 +77,8 @@ async function init(client, sender_psid, userData) {
   }
 }
 
-async function clearOtherTeacherData(client, sender_psid) {
-  await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+function clearOtherTeacherData(client, sender_psid) {
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_classes_other_teacher: {
         block: true,
@@ -98,14 +98,20 @@ async function clearOtherTeacherData(client, sender_psid) {
   });
 }
 
-async function updateOtherTeacherData(client, sender_psid, teacherName) {
-  await client.db(dbName).collection('schedule').find({
+function updateOtherTeacherData(client, sender_psid, teacherName) {
+  client.db(dbName).collection('schedule').find({
     $or: [
       { "schedule.morning.teacher": teacherName },
       { "schedule.afternoon.teacher": teacherName }
     ]
-  }).toArray(async (err, docs) => {
-    if(err) console.log("Cound not find any teach data");
+  }).toArray((err, docs) => {
+    if (err) {
+      console.error("Could not update other teacher data: \n" + err);
+      const response = {
+        "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+      };
+      sendResponse(sender_psid, response);
+    }
     else if(docs) {
       let teaches = [];
       for(let i = 0; i < 6; i ++) { // loop days
@@ -140,7 +146,7 @@ async function updateOtherTeacherData(client, sender_psid, teacherName) {
           });
         }
       }
-      await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
         $set: {
           search_classes_other_teacher: {
             block: true,

@@ -9,10 +9,10 @@ module.exports = {
   init: init
 }
 
-async function handleMessage(client, sender_psid, text, userData) {
+function handleMessage(client, sender_psid, text, userData) {
   if(text === "tra lớp khác") {
     const response = stuff.searchScheduleAskGroup;
-    await clearOtherGroupData(client, sender_psid);
+    clearOtherGroupData(client, sender_psid);
     sendResponse(sender_psid, response);
   }
   else if(!userData.search_schedule_other_group.block) {
@@ -22,13 +22,13 @@ async function handleMessage(client, sender_psid, text, userData) {
     sendSchedule(sender_psid, text, userData);
   }
   else if(checkGroup(sender_psid, text)) {
-    await updateOtherGroupData(client, sender_psid, text);
+    updateOtherGroupData(client, sender_psid, text);
   }
 }
 
 async function init(client, sender_psid, userData) {
   if(userData.group) { // init search_schedule_block
-    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_block: true
       }
@@ -51,7 +51,7 @@ async function init(client, sender_psid, userData) {
     });
   }
   else { // init both search_schedule_block & search_schedule_other_group block
-    await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
         search_schedule_block: true,
         search_schedule_other_group: {
@@ -77,8 +77,8 @@ async function init(client, sender_psid, userData) {
   }
 }
 
-async function clearOtherGroupData(client, sender_psid) {
-  await client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+function clearOtherGroupData(client, sender_psid) {
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
       search_schedule_other_group: {
         block: true,
@@ -98,39 +98,42 @@ async function clearOtherGroupData(client, sender_psid) {
   });
 }
 
-async function updateOtherGroupData(client, sender_psid, groupInput) {
-  const scheduleData = await client.db(dbName).collection('schedule').findOne({ group: groupInput }); // find schedule of groupInput
-  if(scheduleData) {
-    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-      $set: {
-        search_schedule_other_group: {
-          block: true,
-          group: groupInput,
-          schedule: scheduleData.schedule
+function updateOtherGroupData(client, sender_psid, groupInput) {
+  client.db(dbName).collection('schedule').findOne({ group: groupInput }, (err, scheduleData) => { // find schedule of groupInput
+    if (err) {
+      console.error("Could not update other group data: \n" + err);
+      const response = {
+        "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+      };
+      sendResponse(sender_psid, response);
+    }
+    else {
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+        $set: {
+          search_schedule_other_group: {
+            block: true,
+            group: groupInput,
+            schedule: scheduleData.schedule
+          }
         }
-      }
-    }, (err) => {
-      if (err) {
-        console.error("Could not update other group data: \n" + err);
-        const response = {
-          "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
-        };
-        sendResponse(sender_psid, response);
-      } else {
-        console.log("Update other group data successfully!");
-        let response = stuff.askDay;
-        response.quick_replies[0].title = "Tra lớp khác";
-        response.quick_replies[0].payload = "overwriteClass";
-        response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nBạn muốn tra thứ mấy?`;
-        sendResponse(sender_psid, response);
-      }
-    });
-  }
-  else {
-    let response = stuff.checkGroupResponse;
-    response.text = "Thời khoá biểu lớp bạn chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng coder qua phần Thông tin và cài đặt nhé!";
-    sendResponse(sender_psid, response);
-  }
+      }, (err) => {
+        if (err) {
+          console.error("Could not update other group data: \n" + err);
+          const response = {
+            "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+          };
+          sendResponse(sender_psid, response);
+        } else {
+          console.log("Update other group data successfully!");
+          let response = stuff.askDay;
+          response.quick_replies[0].title = "Tra lớp khác";
+          response.quick_replies[0].payload = "overwriteClass";
+          response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nBạn muốn tra thứ mấy?`;
+          sendResponse(sender_psid, response);
+        }
+      });
+    }
+  });
 }
 
 function sendSchedule(sender_psid, dayInput, userData) {
