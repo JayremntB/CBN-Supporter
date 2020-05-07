@@ -21,6 +21,17 @@ module.exports = {
       }
     ]
   },
+  "liveChatExitResponse": {
+    "text": "Không muốn tiếp tục trò chuyện nữa thì nhập Exit nha :3",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "Exit",
+        "image_url": ""
+      }
+    ]
+  },
   "listGeneralCommands": {
     "text": `
 - lệnh: Danh sách tất cả các lệnh

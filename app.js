@@ -89,7 +89,9 @@ async function handleMessage(sender_psid, received_message, userData) {
       response = stuff.exitResponse;
       sendResponse(sender_psid, response);
     }
-    else if(userData.live_chat);
+    else if(userData.live_chat) {
+      liveChat.deniedUsingOtherFeatures(sender_psid);
+    }
     else if(text === 'danh sách lớp' || text === 'dsl') {
       response = stuff.groupList;
       sendResponse(sender_psid, response);
@@ -114,7 +116,7 @@ async function handleMessage(sender_psid, received_message, userData) {
           sendResponse(sender_psid, response);
           break;
         case 'help':
-          // onLiveChat(sender_psid);
+          liveChat.startLiveChat(client, sender_psid);
           break;
         case 'hd':
           response.text = "https://github.com/jayremntB/CBN-Supporter/blob/master/README.md";
@@ -166,12 +168,10 @@ function handlePostback(sender_psid, received_postback, userData) {
   const textSplit = text.split(" ");
   console.log('postback: ' + text + "\n---------------------------------");
   // Set response based on payload
-  if(text === 'exit') {
-    unblockAll(sender_psid);
-    const response = stuff.exitResponse;
-    sendResponse(sender_psid, response);
+  if(userData.live_chat) {
+    liveChat.deniedUsingOtherFeatures(sender_psid);
   }
-  else if(!userData.live_chat) {
+  else {
     let response;
     unblockAll(sender_psid);
     switch (text) {
@@ -188,7 +188,7 @@ function handlePostback(sender_psid, received_postback, userData) {
         checkCovid(sender_psid);
         break;
       case 'hỗ trợ':
-        // onLiveChat(sender_psid);
+        liveChat.startLiveChat(client, sender_psid);
         break;
       case 'chung':
         response = stuff.listGeneralCommands;
@@ -206,13 +206,6 @@ function handlePostback(sender_psid, received_postback, userData) {
   }
 }
 
-function onLiveChat(sender_psid) {
-  client.db(dbName).collection(collectionName).updateOne({ sender_psid: sender_psid }, {
-    $set: {
-      live_chat: true
-    }
-  });
-}
 function initUserData(sender_psid) {
   const insert = {
     sender_psid: sender_psid,
