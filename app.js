@@ -187,41 +187,36 @@ function handlePostback(sender_psid, received_postback, userData) {
   const textSplit = text.split(" ");
   console.log('postback: ' + text + "\n---------------------------------");
   // Set response based on payload
-  if(userData.live_chat) {
-    liveChat.deniedUsingOtherFeatures(sender_psid);
-  }
-  else {
-    let response;
-    unblockAll(sender_psid);
-    switch (text) {
-      case 'tra thời khoá biểu':
-        searchSchedule.init(client, sender_psid, userData);
-        break;
-      case 'tra lịch dạy':
-        searchClasses.init(client, sender_psid, userData);
-        break;
-      case 'tính giờ dậy':
-        calcWakeUpTime(sender_psid);
-        break;
-      case 'tình hình covid-19':
-        checkCovid(sender_psid);
-        break;
-      case 'hỗ trợ':
-        liveChat.startLiveChat(client, sender_psid);
-        break;
-      case 'chung':
-        response = stuff.listGeneralCommands;
-        sendResponse(sender_psid, response);
-        break;
-      case 'kích hoạt tính năng':
-        response = stuff.listInitFeatureCommands;
-        sendResponse(sender_psid, response);
-        break;
-      case 'cài đặt và đi kèm':
-        response = stuff.listSettingCommands;
-        sendResponse(sender_psid, response);
-        break;
-    }
+  let response;
+  unblockAll(sender_psid);
+  switch (text) {
+    case 'tra thời khoá biểu':
+      searchSchedule.init(client, sender_psid, userData);
+      break;
+    case 'tra lịch dạy':
+      searchClasses.init(client, sender_psid, userData);
+      break;
+    case 'tính giờ dậy':
+      calcWakeUpTime(sender_psid);
+      break;
+    case 'tình hình covid-19':
+      checkCovid(sender_psid);
+      break;
+    case 'hỗ trợ':
+      liveChat.startLiveChat(client, sender_psid);
+      break;
+    case 'chung':
+      response = stuff.listGeneralCommands;
+      sendResponse(sender_psid, response);
+      break;
+    case 'kích hoạt tính năng':
+      response = stuff.listInitFeatureCommands;
+      sendResponse(sender_psid, response);
+      break;
+    case 'cài đặt và đi kèm':
+      response = stuff.listSettingCommands;
+      sendResponse(sender_psid, response);
+      break;
   }
 }
 
