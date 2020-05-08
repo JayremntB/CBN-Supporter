@@ -12,7 +12,7 @@ function checkTeacherName(sender_psid, teacherName) {
   if(checkArray.includes(teacherName)) return true;
   else {
     let response = stuff.checkTeacherNameResponse;
-    response.text = "Tên giáo viên không có trong danh sách. Kiểm tra lại xem bạn có viết nhầm hay không nhé.\nNhầm thì viết lại luôn nha :>";
+    response.text = "Tên giáo viên không có trong danh sách hoặc không có tiết dạy nào. Kiểm tra lại xem bạn có viết nhầm hay không nhé.\nNhầm thì viết lại luôn nha :>";
     sendResponse(sender_psid, response);
     return false;
   }

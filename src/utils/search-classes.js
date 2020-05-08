@@ -225,7 +225,7 @@ Thứ ${days + 2}:
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > teaches.length || day - 2 < 0) {
-      response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-`;
+      response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
       sendResponse(sender_psid, response);
     }
     else {
@@ -256,7 +256,7 @@ Thứ ${days + 2}:
     }
   }
   else {
-    response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-`;
+    response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
     sendResponse(sender_psid, response);
   }
 }
