@@ -112,7 +112,7 @@ function updateOtherTeacherData(client, sender_psid, teacherName) {
       };
       sendResponse(sender_psid, response);
     }
-    else if(docs) {
+    else {
       let teaches = [];
       for(let i = 0; i < 6; i ++) { // loop days
         teaches.push({
@@ -170,11 +170,6 @@ function updateOtherTeacherData(client, sender_psid, teacherName) {
           sendResponse(sender_psid, response);
         }
       });
-    }
-    else {
-      response = stuff.checkTeacherNameResponse;
-      response.text = `Tuần này giáo viên ${teacherName} không có buổi dạy nào :(`;
-      sendResponse(sender_psid, response);
     }
   });
 }
