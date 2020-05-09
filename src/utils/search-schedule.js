@@ -180,11 +180,11 @@ Thứ ${data.day}:
   }
   else if(!isNaN(day)){
     if(day == 8) {
-      response.text = "Mục này để cho đẹp thôi chứ ai chả biết là được nghỉ :>";
+      response.text = "Chủ nhật mà vẫn muốn tìm thời khoá biểu để học ư 🥺";
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > schedule.length || day - 2 < 0) {
-      response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
+      response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới 🥺\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
       sendResponse(sender_psid, response);
     }
     else {
@@ -217,7 +217,7 @@ Thứ ${data.day}:
     }
   }
   else {
-    response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới -_-\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
+    response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới 🥺\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
     sendResponse(sender_psid, response);
   }
 }
