@@ -180,7 +180,7 @@ Thứ ${data.day}:
   }
   else if(!isNaN(day)){
     if(day == 8) {
-      response.text = "Chủ nhật, ai đi học thêm cứ đi, ai muốn tự học cứ học :>";
+      response.text = "Mục này để cho đẹp thôi chứ ai chả biết là được nghỉ :>";
       sendResponse(sender_psid, response);
     }
     else if(day - 1 > schedule.length || day - 2 < 0) {

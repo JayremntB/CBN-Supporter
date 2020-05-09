@@ -545,7 +545,9 @@ module.exports = {
 Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm nha...`
   },
   "teacherList": {
-    "text": `A PN.An HTN.Ánh
+    "text": `
+Danh sách giáo viên bạn có thể tra:
+A PN.An HTN.Ánh
 -----
 B NT.Bình NV.Bảo PT.Bằng NV.Bình
 -----
@@ -553,7 +555,7 @@ C LX.Cường
 -----
 D NTT.Dung NT.Dịu NT.Dung
 -----
-Đ TN.Điệp TV.Điệp LĐ.Điển NT.Đô NT.Đức
+Đ TN.Điệp LĐ.Điển NT.Đô NT.Đức
 -----
 G LT.Giang NT.Giang
 -----
@@ -565,7 +567,7 @@ L TK.Linh LT.Loan NT.Linh VT.Len D.Liễu NTM.Loan NT.Loan NTH.Liên NT.Lê NT.L
 -----
 M LT.Mùi NQ.Minh NV.Mạnh
 -----
-N NT.Nga TB.Ngọc TTB.Ngọc NT.Nhung HT.Nhân LV.Ngân NP.Nga DTT.Nga NV.Nga NT.Nguyệt HD.Ngọc NTT.Nhung
+N NT.Nga TTB.Ngọc NT.Nhung HT.Nhân LV.Ngân NP.Nga DTT.Nga NV.Nga NT.Nguyệt HD.Ngọc NTT.Nhung
 -----
 O VK.Oanh
 -----
@@ -575,13 +577,13 @@ Q TH.Quang
 -----
 S Shaine
 -----
-T NV.Tuấn HT.Thảo TT.Trang NTH.Trang NT.Thu HTT.Thủy NTT.Thuỷ LH.Trang PH.Trang NTP.Thảo NT.Tuyết CT.Thúy NP.Thảo NC.Trung BM.Thủy HT.Toan ĐTT.Toàn
+T NV.Tuấn HT.Thảo TT.Trang NTH.Trang NT.Thu HTT.Thủy NTT.Thuỷ LH.Trang NTP.Thảo NT.Tuyết CT.Thúy NT.Thuý NP.Thảo NC.Trung BM.Thủy HT.Toan ĐTT.Toàn
 -----
 V NH.Vân PH.Vân NT.Vân TTB.Vân NĐ.Vang LT.Vui
 -----
 X TH.Xuân
 -----
-Y (NT.Yến (đ)) (TT.Yến) (NT.Yến (nn))
+Y (NT.Yến (đ)) (NT.Yến (nn))
 
 Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm nha...`
   },
@@ -591,26 +593,26 @@ Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính n�
     '12t', '12l', '12h', '12si', '12ti', '12v', '12su', '12d', '12c1', '12c2', '12a1', '12a2'
   ],
   "teachersCheckArray": [
-    'PN.An',       'NT.Bình',  'NV.Bảo',    'PT.Bằng',    'NV.Bình',
-    'NTT.Dung',    'NT.Dịu',   'NT.Dung',   'LT.Giang',   'NT.Giang',
-    'NTT.Huyền',   'HT.Hà',    'VT.Huyến',  'NK.Hoàn',    'NT.Hương',
-    'BT.Hưng',     'ĐT.Hường', 'NT.Huế',    'ĐT.Hương',   'NT.Hà(h)',
-    'VTT.Hằng',    'HL.Hương', 'ĐT.Hiền',   'NT.Hường',   'NT.Hà(su)',
-    'NT.Hòa',      'LTT.Hiền', 'PĐ.Hiệp',   'VT.Huê',     'NT.Hoa',
-    'VB.Huy',      'LN.Hân',   'TV.Kỷ',     'NH.Khánh',   'TT.Khanh',
-    'TK.Linh',     'LT.Loan',  'NT.Linh',   'VT.Len',     'ND.Liễu',
-    'NTM.Loan',    'NT.Loan',  'NTH.Liên',  'NT.Lê',      'NT.Lệ',
-    'VT.Lợi',      'NM.Lan',   'NP.Ly Ly',  'LT.Mùi',     'NQ.Minh',
-    'NV.Mạnh',     'NT.Nga',   'TB.Ngọc',   'TTB.Ngọc',   'NT.Nhung',
-    'HT.Nhân',     'LV.Ngân',  'NP.Nga',    'DTT.Nga',    'NV.Nga',
-    'NT.Nguyệt',   'HD.Ngọc',  'NTT.Nhung', 'NV.Phán',    'NTT.Phương',
-    'TH.Quang',    'NV.Tuấn',  'HT.Thảo',   'TT.Trang',   'NTH.Trang',
-    'NT.Thu',      'HTT.Thủy', 'NTT.Thuỷ',  'LH.Trang',   'PH.Trang',
-    'NTP.Thảo',    'NT.Tuyết', 'CT.Thúy',   'NP.Thảo',    'NC.Trung',
-    'BM.Thủy',     'ĐTT.Toàn', 'NH.Vân',    'PH.Vân',     'NT.Vân',
-    'TTB.Vân',     'NĐ.Vang',  'TH.Xuân',   'NT.Yến (đ)', 'TT.Yến',
-    'NT.Yến (nn)', 'HTN.Ánh',  'TN.Điệp',   'LĐ.Điển',    'NT.Đức',
-    'TV.Điệp',     'NT.Đô',    'Shaine',    'VD.Khanh',   'VK.Oanh',
-    'HT.Toan',     'LX.Cường', 'NQ.Huy',    'LT.Vui'
+    'LT.Giang',  'NT.Bình',   'VT.Huyến',  'TN.Điệp',   'NV.Tuấn',
+  'NT.Đô',     'NT.Hoa',    'NT.Vân',    'TT.Trang',  'NT.Yến (đ)',
+  'NK.Hoàn',   'NTT.Huyền', 'PH.Vân',    'HT.Hà',     'TK.Linh',
+  'Shaine',    'NH.Vân',    'TH.Quang',  'LT.Mùi',    'NTH.Trang',
+  'NTT.Dung',  'TV.Kỷ',     'LT.Loan',   'NV.Phán',   'NT.Hương',
+  'NT.Thu',    'NT.Linh',   'NT.Giang',  'ĐT.Hường',  'BT.Hưng',
+  'TH.Xuân',   'TTB.Vân',   'NT.Huế',    'HTT.Thủy',  'NQ.Minh',
+  'NTT.Thuỷ',  'ĐT.Hương',  'HTN.Ánh',   'NT.Nga',    'LH.Trang',
+  'NT.Dịu',    'ND.Liễu',   'NT.Hà(h)',  'VD.Khanh',  'HT.Thảo',
+  'PN.An',     'NTP.Thảo',  'NP.Nga',    'VT.Len',    'NTM.Loan',
+  'NV.Mạnh',   'TTB.Ngọc',  'NT.Dung',   'LĐ.Điển',   'VTT.Hằng',
+  'NT.Thúy',   'NT.Tuyết',  'NT.Nhung',  'HL.Hương',  'LV.Ngân',
+  'Ngân/Nhân', 'NT.Hòa',    'NP.Thảo',   'HT.Nhân',   'NTT.Phương',
+  'VK.Oanh',   'CT.Thúy',   'NC.Trung',  'ĐT.Hiền',   'NT.Đức',
+  'NT.Hường',  'NT.Loan',   'BM.Thủy',   'NV.Bảo',    'NT.Lê',
+  'NTH.Liên',  'NT.Lệ',     'NT.Hà(su)', 'NH.Khánh',  'TT.Khanh',
+  'HT.Toan',   'LTT.Hiền',  'ĐTT.Toàn',  'DTT.Nga',   'LX.Cường',
+  'PĐ.Hiệp',   'VT.Lợi',    'PT.Bằng',   'NT.Nguyệt', 'NT.Yến (nn)',
+  'NV.Nga',    'NĐ.Vang',   'NQ.Huy',    'VT.Huê',    'NV.Bình',
+  'NTT.Nhung', 'HD.Ngọc',   'VB.Huy',    'LT.Vui',    'NM.Lan',
+  'LN.Hân',    'NP.Ly Ly'
   ]
 }
