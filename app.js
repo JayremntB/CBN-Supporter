@@ -26,12 +26,12 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const listUnblockCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'tkb', 'dạy', 'covid', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listUnblockCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'covid', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonUnblockCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
-  res.send("ok");
+  res.send("deployed successfully");
 });
 
 app.get('/webhook', (req, res) => {
@@ -78,6 +78,7 @@ app.post('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message, userData) {
   let response = stuff.defaultResponse;
+  response.text = "🐧";
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
     let text = received_message.text.toLowerCase();
@@ -178,6 +179,7 @@ function handleMessage(sender_psid, received_message, userData) {
     else if(userData.search_classes_block) {
       searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
+    else sendResponse(sender_psid, response);
   }
 }
 
@@ -255,6 +257,8 @@ function initUserData(sender_psid) {
 function unblockAll(sender_psid) {
   client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
     $set: {
+      main_schedule: [],
+      main_teach_schedule: [],
       search_schedule_block: false,
       search_classes_block: false,
       search_schedule_other_group: {

@@ -22,33 +22,13 @@ function handleMessage(client, sender_psid, text, userData) {
     sendClasses(sender_psid, text, userData);
   }
   else if(checkTeacherName(sender_psid, text)) {
-    updateOtherTeacherData(client, sender_psid, text);
+    updateData(client, sender_psid, text, userData.search_classes_other_teacher.block);
   }
 }
 
 function init(client, sender_psid, userData) {
   if(userData.teacher) { // init search_classes_block
-    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-      $set: {
-        search_classes_block: true
-      }
-    }, (err) => {
-      if(err) {
-        console.log("could not init search_classes block: " + err);
-        const response = {
-          "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
-        };
-        sendResponse(sender_psid, response);
-      }
-      else {
-        console.log('init search_classes_block successfully');
-        let response = stuff.askDay;
-        response.quick_replies[0].title = "Tra giáo viên khác";
-        response.quick_replies[0].payload = "overwriteTeacher";
-        response.text = `Cập nhật lịch dạy của giáo viên ${userData.teacher} thành công!\nBạn muốn tra thứ mấy?`;
-        sendResponse(sender_psid, response);
-      }
-    });
+    updateData(client, sender_psid, userData.teacher, userData.search_classes_other_teacher.block);
   }
   else { // init both search_classes_block & search_classes_other_teacher block
     client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
@@ -98,7 +78,7 @@ function clearOtherTeacherData(client, sender_psid) {
   });
 }
 
-function updateOtherTeacherData(client, sender_psid, teacherName) {
+function updateData(client, sender_psid, teacherName, other_teacher_block) {
   client.db(dbName).collection('schedule').find({
     $or: [
       { "schedule.morning.teacher": teacherName },
@@ -146,14 +126,25 @@ function updateOtherTeacherData(client, sender_psid, teacherName) {
           });
         }
       }
-      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-        $set: {
+      //
+      let update;
+      if(other_teacher_block) {
+        update = {
           search_classes_other_teacher: {
             block: true,
             teacher: teacherName,
             teaches: teaches
           }
         }
+      }
+      else {
+        update = {
+          search_classes_block: true,
+          main_teach_schedule: teaches
+        }
+      }
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+        $set: update
       }, (err) => {
         if (err) {
           console.log("Could not update teacher data: " + err);
