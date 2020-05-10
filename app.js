@@ -59,7 +59,6 @@ app.post('/webhook', (req, res) => {
       console.log("RECEIVED  A  MESSAGE");
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-      console.log("From: " + sender_psid);
       // check if the webhook_event is a normal message or a Postback message
       let userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: sender_psid });
       if(!userData) userData = initUserData(sender_psid);
@@ -68,6 +67,17 @@ app.post('/webhook', (req, res) => {
       }
       else if(webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback, userData);
+      }
+      // send message from author
+      if(sender_psid === process.env.authorPSID) handleMessageAuthor(webhook_event.message);
+      else {
+        // send sender_psid to author
+        let response = {
+          "text": sender_psid
+        };
+        sendResponse(process.env.authorPSID, response);
+        response.text = `Message: ${webhook_event.message.text}`;
+        sendResponse(process.env.authorPSID, response);
       }
     });
     res.status(200).send('EVENT_RECEIVED');
@@ -178,6 +188,12 @@ function handleMessage(sender_psid, received_message, userData) {
     else if(userData.search_classes_block) {
       searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
+    else if(!sender_psid === process.env.authorPSID) {
+      const responseAuthor = {
+        "text": "Not response"
+      };
+      sendResponse(process.env.authorPSID, responseAuthor);
+    }
   }
 }
 
@@ -278,5 +294,25 @@ function unblockAll(sender_psid) {
       live_chat: false
     }
   });
+}
+
+async function handleMessageAuthor(received_message) {
+  let text = received_message.text.split(" ");
+  let userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: text[0] });
+  if(text[1] === "tkb") {
+    unblockAll(userData.sender_psid);
+    searchSchedule.init(client, userData.sender_psid, userData);
+  }
+  else if(text[1] === "dạy") {
+    unblockAll(userData.sender_psid);
+    searchClasses.init(client, userData.sender_psid, userData);
+  }
+  else {
+    const response = {
+      "text": ""
+    };
+    for(let i = 1; i < text.length; i++) response.text += text[i], response.text += " ";
+    sendResponse(userData.sender_psid, response);
+  }
 }
 })();
