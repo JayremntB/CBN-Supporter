@@ -188,7 +188,7 @@ function handleMessage(sender_psid, received_message, userData) {
     else if(userData.search_classes_block) {
       searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
-    else if(!sender_psid === process.env.authorPSID) {
+    else if(sender_psid !== process.env.authorPSID) {
       const responseAuthor = {
         "text": "Not response"
       };
