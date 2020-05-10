@@ -78,7 +78,6 @@ app.post('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message, userData) {
   let response = stuff.defaultResponse;
-  response.text = "🐧";
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
     let text = received_message.text.toLowerCase();
@@ -179,7 +178,6 @@ function handleMessage(sender_psid, received_message, userData) {
     else if(userData.search_classes_block) {
       searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
-    else sendResponse(sender_psid, response);
   }
 }
 
