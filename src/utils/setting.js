@@ -26,8 +26,7 @@ function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
   else if(textSplit[0] === 'xoalop') {
     client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
-        group: "",
-        main_schedule: []
+        group: ""
       }
     }, (err) => {
       if(err) {
@@ -46,33 +45,18 @@ function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
       sendResponse(sender_psid, response);
     }
     else if(validateInput.checkGroup(sender_psid, textSplit[1])) {
-      client.db(dbName).collection('schedule').findOne({ group: textSplit[1] }, (err, scheduleData) => {
-        if (err) {
-          const response = {
-            "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
-          };
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+        $set: {
+          group: textSplit[1]
+        }
+      }, (err) => {
+        if(err) {
+          response.text = "Ủa không cài đặt được, bạn hãy thử lại sau nhé T.T";
           sendResponse(sender_psid, response);
         }
-        else if(scheduleData) {
-          client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-            $set: {
-              group: textSplit[1],
-              main_schedule: scheduleData.schedule
-            }
-          }, (err) => {
-            if(err) {
-              response.text = "Ủa không cài đặt được, bạn hãy thử lại sau nhé T.T";
-              sendResponse(sender_psid, response);
-            }
-            else {
-              response = stuff.lopResponse;
-              response.text = `Cập nhật thời khoá biểu lớp ${textSplit[1]} thành công!`;
-              sendResponse(sender_psid, response);
-            }
-          });
-        }
         else {
-          response.text = "Thời khoá biểu lớp bạn chưa được cập nhật do thiếu sót bên kĩ thuật, hãy liên hệ thằng dev qua phần Thông tin và cài đặt nhé!";
+          response = stuff.lopResponse;
+          response.text = `Lưu tên lớp thành công! (${textSplit[1]})`;
           sendResponse(sender_psid, response);
         }
       });
@@ -96,8 +80,7 @@ function handleSetTeacherMessage(client, sender_psid, textSplit, userData) {
   else if(textSplit[0] === 'xoagv') {
     client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
       $set: {
-        teacher: "",
-        main_teach_schedule: []
+        teacher: ""
       }
     }, (err) => {
       if(err) {
@@ -116,69 +99,19 @@ function handleSetTeacherMessage(client, sender_psid, textSplit, userData) {
       sendResponse(sender_psid, response);
     }
     else if(validateInput.checkTeacherName(sender_psid, textSplit[1])) {
-      client.db(dbName).collection('schedule').find({
-        $or: [
-          { "schedule.morning.teacher": textSplit[1] },
-          { "schedule.afternoon.teacher": textSplit[1] }
-        ]
-      }).toArray((err, docs) => {
-        if (err) {
-          console.log(err);
-          const response = {
-            "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
-          };
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+        $set: {
+          teacher: textSplit[1],
+        }
+      }, (err) => {
+        if(err) {
+          response.text = "Ủa không cài đặt được, bạn hãy thử lại sau nhé T.T";
           sendResponse(sender_psid, response);
         }
-        else if(docs) {
-          let teaches = [];
-          for(let i = 0; i < 6; i ++) { // loop days
-            teaches.push({
-              "morning": [],
-              "afternoon": []
-            });
-            if(textSplit[1] === "LV.Ngân" || textSplit[1] === "HT.Nhân")
-              if(i === 0) teaches[i].afternoon.push({
-                class: 1,
-                group: '11t'
-              })
-            for(let j = 0; j < 5; j ++) { // loop classes
-              // loop groups
-              docs.forEach((doc) => {
-                if(doc.schedule[i].morning[j] && doc.schedule[i].morning[j].teacher === textSplit[1]){
-                  teaches[i].morning.push({
-                    class: j + 1,
-                    group: doc.group
-                  });
-                  return; // If found, immediately return cause teacher teaches one class per group
-                }
-              });
-              docs.forEach((doc) => {
-                if(doc.schedule[i].afternoon[j] && doc.schedule[i].afternoon[j].teacher === textSplit[1]){
-                  teaches[i].afternoon.push({
-                    class: j + 1,
-                    group: doc.group
-                  });
-                  return;
-                }
-              });
-            }
-          }
-          client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-            $set: {
-              teacher: textSplit[1],
-              main_teach_schedule: teaches
-            }
-          }, (err) => {
-            if(err) {
-              response.text = "Ủa không cài đặt được, bạn hãy thử lại sau nhé T.T";
-              sendResponse(sender_psid, response);
-            }
-            else {
-              response = stuff.gvResponse;
-              response.text = `Cập nhật lịch dạy giáo viên ${textSplit[1]} thành công!`;
-              sendResponse(sender_psid, response);
-            }
-          });
+        else {
+          response = stuff.gvResponse;
+          response.text = `Lưu giáo viên thành công! (${textSplit[1]})`;
+          sendResponse(sender_psid, response);
         }
       });
     }

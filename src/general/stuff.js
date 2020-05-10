@@ -233,6 +233,12 @@ module.exports = {
     "quick_replies": [
       {
         "content_type": "text",
+        "title": "tkb",
+        "payload": "tkb",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
         "title": "xemlop",
         "payload": "xemlop",
         "image_url": ""
@@ -254,6 +260,12 @@ module.exports = {
   "gvResponse": {
     "text": "",
     "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "dạy",
+        "payload": "dạy",
+        "image_url": ""
+      },
       {
         "content_type": "text",
         "title": "xemgv",
@@ -302,6 +314,12 @@ module.exports = {
     "quick_replies": [
       {
         "content_type": "text",
+        "title": "tkb",
+        "payload": "tkb",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
         "title": "xoalop",
         "payload": "xoalop",
         "image_url": ""
@@ -317,6 +335,12 @@ module.exports = {
   "xemgvResponse": {
     "text": "",
     "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "dạy",
+        "payload": "dạy",
+        "image_url": ""
+      },
       {
         "content_type": "text",
         "title": "xoagv",
@@ -542,50 +566,50 @@ module.exports = {
 
 + Lớp 12: 12t, 12l, 12h, 12si, 12ti, 12v, 12su, 12d, 12c1, 12c2, 12a1, 12a2.
 
-Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm nha...`
+Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm...`
   },
   "teacherList": {
     "text": `
 Danh sách giáo viên bạn có thể tra:
-A PN.An HTN.Ánh
+( A ) PN.An HTN.Ánh
 -----
-B NT.Bình NV.Bảo PT.Bằng NV.Bình
+( B ) NT.Bình NV.Bảo PT.Bằng NV.Bình
 -----
-C LX.Cường
+( C ) LX.Cường
 -----
-D NTT.Dung NT.Dịu NT.Dung
+( D ) NTT.Dung NT.Dịu NT.Dung
 -----
-Đ TN.Điệp LĐ.Điển NT.Đô NT.Đức
+( Đ ) TN.Điệp LĐ.Điển NT.Đô NT.Đức
 -----
-G LT.Giang NT.Giang
+( G ) LT.Giang NT.Giang
 -----
-H NTT.Huyền HT.Hà VT.Huyến NK.Hoàn NT.Hương BT.Hưng ĐT.Hường NT.Huế ĐT.Hương NT.Hà(h) VTT.Hằng HL.Hương ĐT.Hiền NT.Hường NT.Hà(su) NT.Hòa LTT.Hiền PĐ.Hiệp VT.Huê NT.Hoa NQ.Huy VB.Huy LN.Hân
+( H ) NTT.Huyền HT.Hà VT.Huyến NK.Hoàn NT.Hương BT.Hưng ĐT.Hường NT.Huế ĐT.Hương NT.Hà(h) VTT.Hằng HL.Hương ĐT.Hiền NT.Hường NT.Hà(su) NT.Hòa LTT.Hiền PĐ.Hiệp VT.Huê NT.Hoa NQ.Huy VB.Huy LN.Hân
 -----
-K TV.Kỷ NH.Khánh TT.Khanh VD.Khanh
+( K ) TV.Kỷ NH.Khánh TT.Khanh VD.Khanh
 -----
-L TK.Linh LT.Loan NT.Linh VT.Len D.Liễu NTM.Loan NT.Loan NTH.Liên NT.Lê NT.Lệ VT.Lợi NM.Lan (NP.Ly Ly)
+( L ) TK.Linh LT.Loan NT.Linh VT.Len D.Liễu NTM.Loan NT.Loan NTH.Liên NT.Lê NT.Lệ VT.Lợi NM.Lan (NP.Ly Ly)
 -----
-M LT.Mùi NQ.Minh NV.Mạnh
+( M ) LT.Mùi NQ.Minh NV.Mạnh
 -----
-N NT.Nga TTB.Ngọc NT.Nhung HT.Nhân LV.Ngân NP.Nga DTT.Nga NV.Nga NT.Nguyệt HD.Ngọc NTT.Nhung
+( N ) NT.Nga TTB.Ngọc NT.Nhung HT.Nhân LV.Ngân NP.Nga DTT.Nga NV.Nga NT.Nguyệt HD.Ngọc NTT.Nhung
 -----
-O VK.Oanh
+( O ) VK.Oanh
 -----
-P NV.Phán NTT.Phương
+( P ) NV.Phán NTT.Phương
 -----
-Q TH.Quang
+( Q ) TH.Quang
 -----
-S Shaine
+( S ) Shaine
 -----
-T NV.Tuấn HT.Thảo TT.Trang NTH.Trang NT.Thu HTT.Thủy NTT.Thuỷ LH.Trang NTP.Thảo NT.Tuyết CT.Thúy NT.Thuý NP.Thảo NC.Trung BM.Thủy HT.Toan ĐTT.Toàn
+( T ) NV.Tuấn HT.Thảo TT.Trang NTH.Trang NT.Thu HTT.Thủy NTT.Thuỷ LH.Trang NTP.Thảo NT.Tuyết CT.Thúy NT.Thuý NP.Thảo NC.Trung BM.Thủy HT.Toan ĐTT.Toàn
 -----
-V NH.Vân PH.Vân NT.Vân TTB.Vân NĐ.Vang LT.Vui
+( V ) NH.Vân PH.Vân NT.Vân TTB.Vân NĐ.Vang LT.Vui
 -----
-X TH.Xuân
+( X ) TH.Xuân
 -----
-Y (NT.Yến (đ)) (NT.Yến (nn))
+( Y ) (NT.Yến (đ)) (NT.Yến (nn))
 
-Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm nha...`
+Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm...`
   },
   "groupsCheckArray": [
     '10t1', '10t2', '10l', '10h', '10si', '10ti', '10v1', '10v2', '10su', '10d','10a1', '10a2',

@@ -4,7 +4,8 @@ const stuff = require('./stuff');
 module.exports = {
   checkTeacherName: checkTeacherName,
   checkGroup: checkGroup,
-  checkWindDownTime: checkWindDownTime
+  checkWindDownTime: checkWindDownTime,
+  handleDayInput: handleDayInput
 }
 
 function checkTeacherName(sender_psid, teacherName) {
@@ -43,4 +44,34 @@ function checkWindDownTime(sender_psid, time) {
     return 0;
   }
   return 1;
+}
+
+function handleDayInput(day) {
+  const date = new Date();
+  date.setHours(date.getHours() + 7); // App is deployed in heroku US
+  let dayNow = Number(date.getDay()) + 1;
+  switch (day) {
+    case 'tất cả':
+      return 'Tất cả';
+      break;
+    case 'hôm nay':
+      if(dayNow === 1) return 8;
+      return dayNow;
+      break;
+    case 'hôm qua':
+      if(dayNow === 2) return 8;
+      if(dayNow === 1) return 7;
+      dayNow --;
+      return dayNow;
+      break;
+    case 'ngày mai':
+      dayNow ++;
+      return dayNow;
+      break;
+    case 'chủ nhật':
+      return 8;
+      break;
+    default:
+      return day;
+  }
 }
