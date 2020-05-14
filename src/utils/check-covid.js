@@ -2,10 +2,10 @@
 const request = require('request');
 const sendResponse = require('../general/sendResponse');
 const typingOn = require('../general/typing')
-const stuff = require('../general/stuff');
+const textResponse = require('../general/textResponse');
 
 module.exports = function (sender_psid) {
-  let response = stuff.defaultResponse;
+  let response = textResponse.defaultResponse;
   // Fetch http://covid-rest.herokuapp.com/vietnam
   typingOn(sender_psid);
   request({

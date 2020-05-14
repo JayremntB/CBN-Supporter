@@ -15,7 +15,7 @@ const searchClasses = require('./src/utils/search-classes');
 const liveChat = require('./src/utils/live-chat');
 // general
 const sendResponse = require('./src/general/sendResponse');
-const stuff = require('./src/general/stuff');
+const textResponse = require('./src/general/textResponse');
 const port = (process.env.PORT) || 5000;
 const app = express().use(bodyParser.json());
 // prepare
@@ -69,16 +69,16 @@ app.post('/webhook', (req, res) => {
         handlePostback(sender_psid, webhook_event.postback, userData);
       }
       // send message from author
-      if(sender_psid === process.env.authorPSID) handleMessageAuthor(webhook_event.message);
-      else {
-        // send sender_psid to author
-        let response = {
-          "text": sender_psid
-        };
-        sendResponse(process.env.authorPSID, response);
-        response.text = `Message: ${webhook_event.message.text}`;
-        sendResponse(process.env.authorPSID, response);
-      }
+      // if(sender_psid === process.env.authorPSID) handleMessageAuthor(webhook_event.message);
+      // else {
+      //   // send sender_psid to author
+      //   let response = {
+      //     "text": sender_psid
+      //   };
+      //   sendResponse(process.env.authorPSID, response);
+      //   response.text = `Message: ${webhook_event.message.text}`;
+      //   sendResponse(process.env.authorPSID, response);
+      // }
     });
     res.status(200).send('EVENT_RECEIVED');
   } else {
@@ -87,7 +87,7 @@ app.post('/webhook', (req, res) => {
 });
 
 function handleMessage(sender_psid, received_message, userData) {
-  let response = stuff.defaultResponse;
+  let response = textResponse.defaultResponse;
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
     let text = received_message.text.toLowerCase();
@@ -97,7 +97,7 @@ function handleMessage(sender_psid, received_message, userData) {
     //
     if(text === 'exit') {
       unblockAll(sender_psid);
-      response = stuff.exitResponse;
+      response = textResponse.exitResponse;
       sendResponse(sender_psid, response);
     }
     else if(listNonUnblockCommands.includes(text)) {
@@ -108,24 +108,24 @@ function handleMessage(sender_psid, received_message, userData) {
         switch (text) {
           case 'danh sách lớp':
           case 'dsl':
-            response = stuff.groupList;
+            response = textResponse.groupList;
             sendResponse(sender_psid, response);
             break;
           case 'danh sách giáo viên':
           case 'dsgv':
-            response = stuff.teacherList;
+            response = textResponse.teacherList;
             sendResponse(sender_psid, response);
             break;
           case 'đặt lớp mặc định':
-            response = stuff.recommendedSetGroup;
+            response = textResponse.recommendedSetGroup;
             sendResponse(sender_psid, response);
             break;
           case 'đặt gv mặc định':
-            response = stuff.recommendedSetTeacher;
+            response = textResponse.recommendedSetTeacher;
             sendResponse(sender_psid, response);
             break;
           case 'đổi thời gian tb':
-            response = stuff.recommendedSetWindDown;
+            response = textResponse.recommendedSetWindDown;
             sendResponse(sender_psid, response);
             break;
         }
@@ -139,7 +139,7 @@ function handleMessage(sender_psid, received_message, userData) {
         unblockAll(sender_psid);
         switch (textSplit[0]) {
           case 'lệnh':
-            response.text = `${stuff.listGeneralCommands.text}\n${stuff.listInitFeatureCommands.text}\n${stuff.listSettingCommands.text}`;
+            response.text = `${textResponse.listGeneralCommands.text}\n${textResponse.listInitFeatureCommands.text}\n${textResponse.listSettingCommands.text}`;
             sendResponse(sender_psid, response);
             break;
           case 'help':
@@ -188,51 +188,68 @@ function handleMessage(sender_psid, received_message, userData) {
     else if(userData.search_classes_block) {
       searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
-    else if(sender_psid !== process.env.authorPSID) {
-      const responseAuthor = {
-        "text": "Not response"
-      };
-      sendResponse(process.env.authorPSID, responseAuthor);
-    }
+    // else if(sender_psid !== process.env.authorPSID) {
+    //   const responseAuthor = {
+    //     "text": "Not response"
+    //   };
+    //   sendResponse(process.env.authorPSID, responseAuthor);
+    // }
   }
 }
 
 function handlePostback(sender_psid, received_postback, userData) {
   // Get the payload of receive postback
-  let text = JSON.parse(received_postback.payload).__button_text__.toLowerCase();
-  const textSplit = text.split(" ");
-  console.log('postback: ' + text + "\n---------------------------------");
-  // Set response based on payload
+  // let text = JSON.parse(received_postback.payload).__button_text__.toLowerCase();
+  // const textSplit = text.split(" ");
+  // console.log('postback: ' + text + "\n---------------------------------");
+  // // Set response based on payload
+  // let response;
+  // unblockAll(sender_psid);
+  // switch (text) {
+  //   case 'tra thời khoá biểu':
+  //     searchSchedule.init(client, sender_psid, userData);
+  //     break;
+  //   case 'tra lịch dạy':
+  //     searchClasses.init(client, sender_psid, userData);
+  //     break;
+  //   case 'tính giờ dậy':
+  //     calcWakeUpTime(sender_psid);
+  //     break;
+  //   case 'tình hình covid-19':
+  //     checkCovid(sender_psid);
+  //     break;
+  //   case 'hỗ trợ':
+  //     liveChat.startLiveChat(client, sender_psid);
+  //     break;
+  //   case 'chung':
+  //     response = textResponse.listGeneralCommands;
+  //     sendResponse(sender_psid, response);
+  //     break;
+  //   case 'kích hoạt tính năng':
+  //     response = textResponse.listInitFeatureCommands;
+  //     sendResponse(sender_psid, response);
+  //     break;
+  //   case 'cài đặt và đi kèm':
+  //     response = textResponse.listSettingCommands;
+  //     sendResponse(sender_psid, response);
+  //     break;
+  // }
+  let payload = received_postback.payload;
   let response;
-  unblockAll(sender_psid);
-  switch (text) {
-    case 'tra thời khoá biểu':
-      searchSchedule.init(client, sender_psid, userData);
-      break;
-    case 'tra lịch dạy':
-      searchClasses.init(client, sender_psid, userData);
-      break;
-    case 'tính giờ dậy':
-      calcWakeUpTime(sender_psid);
-      break;
-    case 'tình hình covid-19':
-      checkCovid(sender_psid);
-      break;
-    case 'hỗ trợ':
-      liveChat.startLiveChat(client, sender_psid);
-      break;
-    case 'chung':
-      response = stuff.listGeneralCommands;
+  switch (payload) {
+    case 'menu':
+      response = payloadResponse.menu;
       sendResponse(sender_psid, response);
       break;
-    case 'kích hoạt tính năng':
-      response = stuff.listInitFeatureCommands;
+    case 'features':
+      response = payloadResponse.features;
       sendResponse(sender_psid, response);
       break;
-    case 'cài đặt và đi kèm':
-      response = stuff.listSettingCommands;
-      sendResponse(sender_psid, response);
+    case 'expression':
+
       break;
+    default:
+
   }
 }
 
@@ -296,23 +313,23 @@ function unblockAll(sender_psid) {
   });
 }
 
-async function handleMessageAuthor(received_message) {
-  let text = received_message.text.split(" ");
-  let userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: text[0] });
-  if(text[1] === "tkb") {
-    unblockAll(userData.sender_psid);
-    searchSchedule.init(client, userData.sender_psid, userData);
-  }
-  else if(text[1] === "dạy") {
-    unblockAll(userData.sender_psid);
-    searchClasses.init(client, userData.sender_psid, userData);
-  }
-  else {
-    const response = {
-      "text": ""
-    };
-    for(let i = 1; i < text.length; i++) response.text += text[i], response.text += " ";
-    sendResponse(userData.sender_psid, response);
-  }
-}
+// async function handleMessageAuthor(received_message) {
+//   let text = received_message.text.split(" ");
+//   let userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: text[0] });
+//   if(text[1] === "tkb") {
+//     unblockAll(userData.sender_psid);
+//     searchSchedule.init(client, userData.sender_psid, userData);
+//   }
+//   else if(text[1] === "dạy") {
+//     unblockAll(userData.sender_psid);
+//     searchClasses.init(client, userData.sender_psid, userData);
+//   }
+//   else {
+//     const response = {
+//       "text": ""
+//     };
+//     for(let i = 1; i < text.length; i++) response.text += text[i], response.text += " ";
+//     sendResponse(userData.sender_psid, response);
+//   }
+// }
 })();
