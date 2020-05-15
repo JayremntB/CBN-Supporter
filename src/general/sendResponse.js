@@ -17,7 +17,7 @@ module.exports = function (sender_psid, response) {
     if(err) {
       console.error("Unable to send message:" + err);
     } else {
-      console.log(`+ Message sent: ${response.text} \n=================================`);
+      console.log(`+ successfully sent message \n=================================`);
     }
   });
 }

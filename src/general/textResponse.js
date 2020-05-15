@@ -24,7 +24,7 @@ module.exports = {
     ]
   },
   "liveChatExitResponse": {
-    "text": "Không muốn tiếp tục trò chuyện nữa thì nhập Exit nha :(",
+    "text": "Không muốn tiếp tục trò chuyện nữa thì nhập Exit nha 🐧",
     "quick_replies": [
       {
         "content_type": "text",
@@ -41,7 +41,7 @@ module.exports = {
         "template_type": "button",
         "text": `- Nhập ngủ + thời điểm ngủ để xác định thời điểm nên thức dậy.
 VÍ DỤ: ngủ 21h30
-(Mẹo: Nếu bạn bỏ trống thời điểm ngủ, tớ sẽ lấy thời điểm hiện tại)
+(Nếu bạn bỏ trống thời điểm ngủ, tớ sẽ lấy thời điểm hiện tại)
 - Nhập dậy + thời điểm dậy để xác định thời điểm nên ngủ.
 VÍ DỤ: dậy 6h15
 (Nếu bạn bỏ trống thời điểm dậy, tớ sẽ lấy mặc định 6h)`,

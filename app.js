@@ -16,6 +16,7 @@ const liveChat = require('./src/utils/live-chat');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const textResponse = require('./src/general/textResponse');
+const templateResponse = require('./src/general/templateResponse');
 const port = (process.env.PORT) || 5000;
 const app = express().use(bodyParser.json());
 // prepare
@@ -68,17 +69,6 @@ app.post('/webhook', (req, res) => {
       else if(webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback, userData);
       }
-      // send message from author
-      // if(sender_psid === process.env.authorPSID) handleMessageAuthor(webhook_event.message);
-      // else {
-      //   // send sender_psid to author
-      //   let response = {
-      //     "text": sender_psid
-      //   };
-      //   sendResponse(process.env.authorPSID, response);
-      //   response.text = `Message: ${webhook_event.message.text}`;
-      //   sendResponse(process.env.authorPSID, response);
-      // }
     });
     res.status(200).send('EVENT_RECEIVED');
   } else {
@@ -87,7 +77,9 @@ app.post('/webhook', (req, res) => {
 });
 
 function handleMessage(sender_psid, received_message, userData) {
-  let response = textResponse.defaultResponse;
+  let response = {
+    "text": ""
+  };
   if(received_message.text) {
     const textNotLowerCase = received_message.text;
     let text = received_message.text.toLowerCase();
@@ -98,7 +90,6 @@ function handleMessage(sender_psid, received_message, userData) {
     if(text === 'exit') {
       unblockAll(sender_psid);
       response = textResponse.exitResponse;
-      sendResponse(sender_psid, response);
     }
     else if(listNonUnblockCommands.includes(text)) {
       if(userData.live_chat) {
@@ -109,24 +100,19 @@ function handleMessage(sender_psid, received_message, userData) {
           case 'danh sách lớp':
           case 'dsl':
             response = textResponse.groupList;
-            sendResponse(sender_psid, response);
             break;
           case 'danh sách giáo viên':
           case 'dsgv':
             response = textResponse.teacherList;
-            sendResponse(sender_psid, response);
             break;
           case 'đặt lớp mặc định':
             response = textResponse.recommendedSetGroup;
-            sendResponse(sender_psid, response);
             break;
           case 'đặt gv mặc định':
             response = textResponse.recommendedSetTeacher;
-            sendResponse(sender_psid, response);
             break;
           case 'đổi thời gian tb':
             response = textResponse.recommendedSetWindDown;
-            sendResponse(sender_psid, response);
             break;
         }
       }
@@ -138,16 +124,19 @@ function handleMessage(sender_psid, received_message, userData) {
       else {
         unblockAll(sender_psid);
         switch (textSplit[0]) {
+          case 'menu':
+            response = templateResponse.menu;
+            break;
           case 'lệnh':
+            response = textResponse.defaultResponse;
             response.text = `${textResponse.listGeneralCommands.text}\n${textResponse.listInitFeatureCommands.text}\n${textResponse.listSettingCommands.text}`;
-            sendResponse(sender_psid, response);
             break;
           case 'help':
             liveChat.startLiveChat(client, sender_psid);
             break;
           case 'hd':
+            response = textResponse.defaultResponse;
             response.text = "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md";
-            sendResponse(sender_psid, response);
             break;
           case 'lop':
           case 'xemlop':
@@ -188,135 +177,105 @@ function handleMessage(sender_psid, received_message, userData) {
     else if(userData.search_classes_block) {
       searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
-    // else if(sender_psid !== process.env.authorPSID) {
-    //   const responseAuthor = {
-    //     "text": "Not response"
-    //   };
-    //   sendResponse(process.env.authorPSID, responseAuthor);
-    // }
   }
+  sendResponse(sender_psid, response);
 }
 
 function handlePostback(sender_psid, received_postback, userData) {
   // Get the payload of receive postback
-  // let text = JSON.parse(received_postback.payload).__button_text__.toLowerCase();
-  // const textSplit = text.split(" ");
-  // console.log('postback: ' + text + "\n---------------------------------");
-  // // Set response based on payload
-  // let response;
-  // unblockAll(sender_psid);
-  // switch (text) {
-  //   case 'tra thời khoá biểu':
-  //     searchSchedule.init(client, sender_psid, userData);
-  //     break;
-  //   case 'tra lịch dạy':
-  //     searchClasses.init(client, sender_psid, userData);
-  //     break;
-  //   case 'tính giờ dậy':
-  //     calcWakeUpTime(sender_psid);
-  //     break;
-  //   case 'tình hình covid-19':
-  //     checkCovid(sender_psid);
-  //     break;
-  //   case 'hỗ trợ':
-  //     liveChat.startLiveChat(client, sender_psid);
-  //     liveChat.startLiveChat(client, sender_psid);
-  //     break;
-  //   case 'chung':
-  //     response = textResponse.listGeneralCommands;
-  //     sendResponse(sender_psid, response);
-  //     break;
-  //   case 'kích hoạt tính năng':
-  //     response = textResponse.listInitFeatureCommands;
-  //     sendResponse(sender_psid, response);
-  //     break;
-  //   case 'cài đặt và đi kèm':
-  //     response = textResponse.listSettingCommands;
-  //     sendResponse(sender_psid, response);
-  //     break;
-  // }
   let payload = received_postback.payload;
-  let response;
-  switch (payload) {
-    // Menu possess
-    case 'menu':
-      response = templateResponse.menu;
-      break;
-    // features
-    case 'features':
-      response = templateResponse.features;
-      break;
-    case 'searchSchedule':
-      searchSchedule.init(client, sender_psid, userData);
-      break;
-    case 'searchClasses':
-      searchClasses.init(client, sender_psid, userData);
-      break;
-    case 'otherFeatures':
-      
-      break;
-    // chatRoom
-    case 'chatRoom':
-      response = templateResponse.chatRoom;
-      break;
-    case 'generalRoom':
-
-      break;
-    case 'subRoom':
-
-      break;
-    case 'oldRoom':
-
-      break;
-    // setting
-    case 'setting':
-      response = templateResponse.setting;
-      break;
-    case 'settingFeatures':
-
-      break;
-    case 'settingDefaultGroup':
-
-      break;
-    case 'settingDefaultTeacher':
-
-      break;
-    case 'settingWd':
-
-      break;
-    //
-    case 'settingProfile':
-
-      break;
-    case 'settingName':
-
-      break;
-    case 'settingAvatar':
-
-      break;
-    // listCommands possess
-    case 'listCommands':
-      response = templateResponse.listCommands;
-      break;
-    case 'generalCommands':
-
-      break;
-    case 'initFeatureCommands':
-
-      break;
-    case 'settingCommands':
-
-      break;
-    //
-    case 'chatbotInformation':
-      response = templateResponse.chatbotInformation;
-      break;
-    case 'help':
-      liveChat.startLiveChat(client, sender_psid);
-      break;
-    case ''
+  let response = {
+    "text": ""
+  };
+  console.log('postback: ' + payload + "\n---------------------------------");
+  if(userData.live_chat) {
+    liveChat.deniedUsingOtherFeatures(sender_psid);
   }
-  if(response) sendResponse(sender_psid, response);
+  else {
+    switch (payload) {
+      // Menu possess
+      case 'menu':
+        response = templateResponse.menu;
+        break;
+      // features
+      case 'features':
+        response = templateResponse.features;
+        break;
+      case 'searchSchedule':
+        searchSchedule.init(client, sender_psid, userData);
+        break;
+      case 'searchClasses':
+        searchClasses.init(client, sender_psid, userData);
+        break;
+      //
+      case 'otherFeatures':
+        response = textResponse.payload_otherFeaturesResponse;
+        break;
+      case 'checkCovid':
+        checkCovid(sender_psid);
+        break;
+      // chatRoom
+      case 'chatRoom':
+        response = templateResponse.chatRoom;
+        break;
+      case 'generalRoom':
+
+        break;
+      case 'subRoom':
+
+        break;
+      case 'oldRoom':
+
+        break;
+      // setting
+      case 'setting':
+        response = templateResponse.setting;
+        break;
+      case 'settingFeatures':
+
+        break;
+      case 'settingDefaultGroup':
+
+        break;
+      case 'settingDefaultTeacher':
+
+        break;
+      case 'settingWd':
+
+        break;
+      //
+      case 'settingProfile':
+
+        break;
+      case 'settingName':
+
+        break;
+      case 'settingAvatar':
+
+        break;
+      // listCommands possess
+      case 'listCommands':
+        response = templateResponse.listCommands;
+        break;
+      case 'generalCommands':
+        response = textResponse.listGeneralCommands;
+        break;
+      case 'initFeatureCommands':
+        response = textResponse.listInitFeatureCommands;
+        break;
+      case 'settingCommands':
+        response = textResponse.listSettingCommands;
+        break;
+      //
+      case 'chatbotInformation':
+        response = templateResponse.chatbotInformation;
+        break;
+      case 'help':
+        liveChat.startLiveChat(client, sender_psid);
+        break;
+    }
+  }
+  sendResponse(sender_psid, response);
 }
 
 function initUserData(sender_psid) {
@@ -378,24 +337,4 @@ function unblockAll(sender_psid) {
     }
   });
 }
-
-// async function handleMessageAuthor(received_message) {
-//   let text = received_message.text.split(" ");
-//   let userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: text[0] });
-//   if(text[1] === "tkb") {
-//     unblockAll(userData.sender_psid);
-//     searchSchedule.init(client, userData.sender_psid, userData);
-//   }
-//   else if(text[1] === "dạy") {
-//     unblockAll(userData.sender_psid);
-//     searchClasses.init(client, userData.sender_psid, userData);
-//   }
-//   else {
-//     const response = {
-//       "text": ""
-//     };
-//     for(let i = 1; i < text.length; i++) response.text += text[i], response.text += " ";
-//     sendResponse(userData.sender_psid, response);
-//   }
-// }
 })();
