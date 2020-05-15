@@ -35,25 +35,12 @@ module.exports = {
     ]
   },
   "payload_otherFeaturesResponse": {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "button",
-        "text": `- Nhập ngủ + thời điểm ngủ để xác định thời điểm nên thức dậy.
+    "text": `- Nhập ngủ + thời điểm ngủ để xác định thời điểm nên thức dậy.
 VÍ DỤ: ngủ 21h30
 (Nếu bạn bỏ trống thời điểm ngủ, tớ sẽ lấy thời điểm hiện tại)
 - Nhập dậy + thời điểm dậy để xác định thời điểm nên ngủ.
 VÍ DỤ: dậy 6h15
-(Nếu bạn bỏ trống thời điểm dậy, tớ sẽ lấy mặc định 6h)`,
-        "buttons": [
-          {
-            "type": "postback",
-            "title": "Tình hình Covid",
-            "payload": "checkCovid"
-          }
-        ]
-      }
-    }
+(Nếu bạn bỏ trống thời điểm dậy, tớ sẽ lấy mặc định 6h)`
   },
   "listGeneralCommands": {
     "text": `
