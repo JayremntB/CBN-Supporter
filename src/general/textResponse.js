@@ -44,6 +44,7 @@ VÍ DỤ: dậy 6h15
   },
   "listGeneralCommands": {
     "text": `
+- menu: Menu
 - lệnh: Danh sách tất cả các lệnh
 - hd: Hướng dẫn sử dụng
 - help: Gọi người hỗ trợ (Live chat)
@@ -51,6 +52,12 @@ VÍ DỤ: dậy 6h15
 - dsl:  Danh sách các lớp
 - dsgv: Danh sách giáo viên`,
     "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "menu",
+        "payload": "menu",
+        "image_url": ""
+      },
       {
         "content_type": "text",
         "title": "lệnh",
@@ -87,7 +94,6 @@ VÍ DỤ: dậy 6h15
     "text": `
 - tkb: Tra thời khoá biểu
 - dạy: Tra lịch dạy học
-- covid: Tình hình dịch bệnh hiện tại
 - dậy + thời điểm dậy: Xác định thời điểm nên ngủ (ví dụ: dậy 6h15)
 - ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 21h15)`,
     "quick_replies": [
@@ -101,12 +107,6 @@ VÍ DỤ: dậy 6h15
         "content_type": "text",
         "title": "dạy",
         "payload": "searchClasses",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "covid",
-        "payload": "checkCovid",
         "image_url": ""
       },
       {
