@@ -42,7 +42,7 @@ await request({
           },
           {
             "type": "postback",
-            "title": "Danh sách các lệnh",
+            "title": "Sử dụng lệnh",
             "payload": "listCommands"
           },
           {
@@ -84,7 +84,7 @@ await request({
   "json": {
     "greeting":[{
       "locale":"default",
-      "text":"Chào {{user_first_name}} nha :> Bấm GET STARTED/BẮT ĐẦU để khám phá những tính năng dành riêng cho CBNer nhé!"
+      "text":"Chào {{user_first_name}} nha :> Bấm GET STARTED/BẮT ĐẦU để khám phá những tính năng dành riêng cho CBNers nhé!"
     }]
   }
 }, (err, res, body) => {

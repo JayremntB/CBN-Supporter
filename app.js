@@ -220,6 +220,7 @@ function handlePostback(sender_psid, received_postback, userData) {
   //     break;
   //   case 'hỗ trợ':
   //     liveChat.startLiveChat(client, sender_psid);
+  //     liveChat.startLiveChat(client, sender_psid);
   //     break;
   //   case 'chung':
   //     response = textResponse.listGeneralCommands;
@@ -237,20 +238,85 @@ function handlePostback(sender_psid, received_postback, userData) {
   let payload = received_postback.payload;
   let response;
   switch (payload) {
+    // Menu possess
     case 'menu':
-      response = payloadResponse.menu;
-      sendResponse(sender_psid, response);
+      response = templateResponse.menu;
       break;
+    // features
     case 'features':
-      response = payloadResponse.features;
-      sendResponse(sender_psid, response);
+      response = templateResponse.features;
       break;
-    case 'expression':
+    case 'searchSchedule':
+      searchSchedule.init(client, sender_psid, userData);
+      break;
+    case 'searchClasses':
+      searchClasses.init(client, sender_psid, userData);
+      break;
+    case 'otherFeatures':
+      
+      break;
+    // chatRoom
+    case 'chatRoom':
+      response = templateResponse.chatRoom;
+      break;
+    case 'generalRoom':
 
       break;
-    default:
+    case 'subRoom':
 
+      break;
+    case 'oldRoom':
+
+      break;
+    // setting
+    case 'setting':
+      response = templateResponse.setting;
+      break;
+    case 'settingFeatures':
+
+      break;
+    case 'settingDefaultGroup':
+
+      break;
+    case 'settingDefaultTeacher':
+
+      break;
+    case 'settingWd':
+
+      break;
+    //
+    case 'settingProfile':
+
+      break;
+    case 'settingName':
+
+      break;
+    case 'settingAvatar':
+
+      break;
+    // listCommands possess
+    case 'listCommands':
+      response = templateResponse.listCommands;
+      break;
+    case 'generalCommands':
+
+      break;
+    case 'initFeatureCommands':
+
+      break;
+    case 'settingCommands':
+
+      break;
+    //
+    case 'chatbotInformation':
+      response = templateResponse.chatbotInformation;
+      break;
+    case 'help':
+      liveChat.startLiveChat(client, sender_psid);
+      break;
+    case ''
   }
+  if(response) sendResponse(sender_psid, response);
 }
 
 function initUserData(sender_psid) {

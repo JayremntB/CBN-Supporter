@@ -1,0 +1,174 @@
+{
+  "menu": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Bạn cần gì nào :3",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Tính năng",
+            "payload": "features"
+          },
+          {
+            "type": "postback",
+            "title": "Vào phòng chat",
+            "payload": "joinChatRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Thiết lập",
+            "payload": "setting"
+          }
+        ]
+      }
+    }
+  },
+  "chatRoom": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Chọn phòng",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Phòng chat chung",
+            "payload": "generalRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Phòng chat riêng",
+            "payload": "subRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Phòng chat cũ",
+            "payload": "oldRoom"
+          }
+        ]
+      }
+    }
+  },
+  "setting": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Chọn thiết lập",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Tính năng",
+            "payload": "settingFeatures"
+          },
+          {
+            "type": "postback",
+            "title": "Profile (Chat nhóm)",
+            "payload": "settingProfile"
+          }
+        ]
+      }
+    }
+  },
+  "settingProfile": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Chọn thiết lập",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Tên",
+            "payload": "settingName"
+          },
+          {
+            "type": "postback",
+            "title": "Ảnh đại diện",
+            "payload": "settingAvatar"
+          }
+        ]
+      }
+    }
+  },
+  "settingFeatures": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Chọn thiết lập",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Lớp mặc định",
+            "payload": "settingDefaultGroup"
+          },
+          {
+            "type": "postback",
+            "title": "Giáo viên mặc định",
+            "payload": "settingDefaultTeacher"
+          },
+          {
+            "type": "postback",
+            "title": "Thời gian wind-down",
+            "payload": "settingWd"
+          }
+        ]
+      }
+    }
+  },
+  "listCommands": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Bạn cần tìm loại lệnh nào 🤔",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Chung",
+            "payload": "generalCommands"
+          },
+          {
+            "type": "postback",
+            "title": "Kích hoạt tính năng",
+            "payload": "initFeatureCommands"
+          },
+          {
+            "type": "postback",
+            "title": "Thiết lập",
+            "payload": "settingCommands"
+          }
+        ]
+      }
+    }
+  },
+  "features": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Chọn cái bạn cần đi 🐧",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Tra thời khoá biểu",
+            "payload": "searchSchedule"
+          },
+          {
+            "type": "postback",
+            "title": "Tra lịch dạy",
+            "payload": "searchClasses"
+          },
+          {
+            "type": "postback",
+            "title": "Các tính năng khác",
+            "payload": "otherFeatures"
+          }
+        ]
+      }
+    }
+  }
+}
