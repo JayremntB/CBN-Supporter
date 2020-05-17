@@ -13,6 +13,7 @@ const checkCovid = require('./src/utils/check-covid');
 const searchSchedule = require('./src/utils/search-schedule');
 const searchClasses = require('./src/utils/search-classes');
 const liveChat = require('./src/utils/live-chat');
+const chatRoom = require('./src/utils/chat-room');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const textResponse = require('./src/general/textResponse');
@@ -192,7 +193,6 @@ function handlePostback(sender_psid, received_postback, userData) {
     liveChat.deniedUsingOtherFeatures(sender_psid);
   }
   else {
-    
     switch (payload) {
       // Menu possess
       case 'menu':
@@ -221,24 +221,26 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'joinChatRoom':
         response = templateResponse.joinChatRoom;
         break;
+        //
       case 'generalRoom':
-
+        chatRoom.joinGeneralRoom(client, sender_psid, userData);
         break;
       case 'subRoom':
-
+        chatRoom.joinSubRoom(client, sender_psid);
         break;
       case 'selectRoom':
-
+        chatRoom.selectRoom(client, sender_psid);
         break;
       //
       case 'settingProfile':
         response = templateResponse.settingProfile;
         break;
+        //
       case 'settingName':
-
+        chatRoom.settingName(client, sender_psid);
         break;
       case 'settingAvatar':
-
+        chatRoom.settingAvatar(client, sender_psid);
         break;
       // listCommands possess
       case 'listCommands':
@@ -254,7 +256,7 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'settingCommands':
         response = textResponse.listSettingCommands;
         break;
-      //
+      // Information and help possess
       case 'chatbotInformation':
         response = textResponse.chatbotInformationResponse;
         break;
@@ -269,6 +271,7 @@ function handlePostback(sender_psid, received_postback, userData) {
 function initUserData(sender_psid) {
   const insert = {
     sender_psid: sender_psid,
+    persona_id: "249248646315258",
     group: "",
     teacher: "",
     wind_down_time: 14,
@@ -285,12 +288,6 @@ function initUserData(sender_psid) {
       block: false,
       teacher: "",
       teaches: []
-    },
-    search_groups: {
-      block: false,
-      subject: "",
-      day: "",
-      time: ""
     },
     live_chat: false
   };
@@ -314,12 +311,6 @@ function unblockAll(sender_psid) {
         block: false,
         teacher: "",
         teaches: []
-      },
-      search_groups: {
-        block: false,
-        subject: "",
-        day: "",
-        time: ""
       },
       live_chat: false
     }
