@@ -8,18 +8,44 @@
         "buttons": [
           {
             "type": "postback",
-            "title": "Tính năng",
-            "payload": "features"
+            "title": "Tìm kiếm",
+            "payload": "searchFeatures"
           },
           {
             "type": "postback",
-            "title": "Vào phòng chat",
-            "payload": "joinChatRoom"
+            "title": "Các tính năng khác",
+            "payload": "otherFeatures"
           },
           {
             "type": "postback",
-            "title": "Thiết lập",
-            "payload": "setting"
+            "title": "Tìm bạn bốn phương",
+            "payload": "chatRoom"
+          }
+        ]
+      }
+    }
+  },
+  "joinChatRoom": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Chọn phòng chat",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Phòng chat tổng",
+            "payload": "generalRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Tìm phòng riêng",
+            "payload": "subRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Nhập ID phòng",
+            "payload": "selectRoom"
           }
         ]
       }
@@ -30,42 +56,16 @@
       "type": "template",
       "payload": {
         "template_type": "button",
-        "text": "Chọn phòng",
+        "text": "Bạn sẽ chat ẩn danh với những người được kết nối...",
         "buttons": [
           {
             "type": "postback",
-            "title": "Phòng chat chung",
-            "payload": "generalRoom"
+            "title": "Tìm phòng chat",
+            "payload": "joinChatRoom"
           },
           {
             "type": "postback",
-            "title": "Phòng chat riêng",
-            "payload": "subRoom"
-          },
-          {
-            "type": "postback",
-            "title": "Phòng chat cũ",
-            "payload": "oldRoom"
-          }
-        ]
-      }
-    }
-  },
-  "setting": {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "button",
-        "text": "Chọn thiết lập",
-        "buttons": [
-          {
-            "type": "postback",
-            "title": "Tính năng",
-            "payload": "settingFeatures"
-          },
-          {
-            "type": "postback",
-            "title": "Profile (Chat nhóm)",
+            "title": "Thiết lập",
             "payload": "settingProfile"
           }
         ]
@@ -88,32 +88,6 @@
             "type": "postback",
             "title": "Ảnh đại diện",
             "payload": "settingAvatar"
-          }
-        ]
-      }
-    }
-  },
-  "settingFeatures": {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "button",
-        "text": "Chọn thiết lập",
-        "buttons": [
-          {
-            "type": "postback",
-            "title": "Lớp mặc định",
-            "payload": "settingDefaultGroup"
-          },
-          {
-            "type": "postback",
-            "title": "Giáo viên mặc định",
-            "payload": "settingDefaultTeacher"
-          },
-          {
-            "type": "postback",
-            "title": "Thời gian wind-down",
-            "payload": "settingWd"
           }
         ]
       }
@@ -150,22 +124,17 @@
       "type": "template",
       "payload": {
         "template_type": "button",
-        "text": "Chọn cái bạn cần đi 🐧",
+        "text": "Bạn cần tìm kiếm gì 🐧",
         "buttons": [
           {
             "type": "postback",
-            "title": "Tra thời khoá biểu",
+            "title": "Thời khoá biểu",
             "payload": "searchSchedule"
           },
           {
             "type": "postback",
-            "title": "Tra lịch dạy",
+            "title": "Lịch dạy",
             "payload": "searchClasses"
-          },
-          {
-            "type": "postback",
-            "title": "Các tính năng khác",
-            "payload": "otherFeatures"
           }
         ]
       }

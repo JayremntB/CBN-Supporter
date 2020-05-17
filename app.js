@@ -192,15 +192,17 @@ function handlePostback(sender_psid, received_postback, userData) {
     liveChat.deniedUsingOtherFeatures(sender_psid);
   }
   else {
+    
     switch (payload) {
       // Menu possess
       case 'menu':
         response = templateResponse.menu;
         break;
-      // features
-      case 'features':
+      //
+      case 'searchFeatures':
         response = templateResponse.features;
         break;
+      //
       case 'searchSchedule':
         searchSchedule.init(client, sender_psid, userData);
         break;
@@ -209,14 +211,15 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
       //
       case 'otherFeatures':
-        response = textResponse.payload_otherFeaturesResponse;
-        break;
-      case 'checkCovid':
-        checkCovid(sender_psid);
+        response = textResponse.otherFeaturesResponse;
         break;
       // chatRoom
       case 'chatRoom':
         response = templateResponse.chatRoom;
+        break;
+      //
+      case 'joinChatRoom':
+        response = templateResponse.joinChatRoom;
         break;
       case 'generalRoom':
 
@@ -224,28 +227,12 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'subRoom':
 
         break;
-      case 'oldRoom':
-
-        break;
-      // setting
-      case 'setting':
-        response = templateResponse.setting;
-        break;
-      case 'settingFeatures':
-
-        break;
-      case 'settingDefaultGroup':
-
-        break;
-      case 'settingDefaultTeacher':
-
-        break;
-      case 'settingWd':
+      case 'selectRoom':
 
         break;
       //
       case 'settingProfile':
-
+        response = templateResponse.settingProfile;
         break;
       case 'settingName':
 
@@ -257,6 +244,7 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'listCommands':
         response = templateResponse.listCommands;
         break;
+      //
       case 'generalCommands':
         response = textResponse.listGeneralCommands;
         break;
@@ -268,7 +256,7 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
       //
       case 'chatbotInformation':
-        response = templateResponse.chatbotInformation;
+        response = textResponse.chatbotInformationResponse;
         break;
       case 'help':
         liveChat.startLiveChat(client, sender_psid);
