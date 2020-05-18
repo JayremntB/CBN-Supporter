@@ -231,6 +231,13 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'subRoom':
         chatRoom.joinSubRoom(client);
         break;
+          //
+      case 'createSubRoom':
+        chatRoom.createSubRoom(client, userData);
+        break;
+      case 'randomSubRoom':
+        chatRoom.joinRandomRoom(client, userData);
+        //
       case 'selectRoom':
         chatRoom.selectRoom(client);
         break;
@@ -294,7 +301,7 @@ function initUserData(sender_psid) {
     },
     room_chatting: {
       block: false,
-      joined: false,
+      has_joined: false,
       type: "",
       room_id: "",
       member_psid: [],

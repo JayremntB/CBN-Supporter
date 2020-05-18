@@ -8,37 +8,85 @@ module.exports = {
   joinSubRoom: joinSubRoom,
   selectRoom: selectRoom,
   settingName: settingName,
-  settingAvatar: settingAvatar
+  settingAvatar: settingAvatar,
+  createSubRoom: createSubRoom,
+  joinRandomRoom: joinRandomRoom
 }
 
 function handleMessage(client, text, userData) {
-  if(userData.room_chatting.joined) {
+  if(userData.room_chatting.has_joined) {
     const room_id = userData.room_chatting.room_id;
     client.db(dbName).collection('room_chatting').findOne({ room_id: room_id }, (err, res) => {
-      if(err) {
-        const response = {
-          "text": "Không tìm thấy phòng, vui lòng thử lại sau..."
+      if(err) console.log(err);
+      else {
+        const message = {
+          "text": `${userData.room_chatting.name.toUpperCase()} đã vào phòng chat!`
         };
-        sendResponse(userData.sender_psid, response);
+        sendNewPersonaMessage(res.list_users, text, userData);
       }
-      else sendNewPersonaMessage(res.list_users, text, userData.room_chatting.persona_id);
-    })
+    });
   }
   else {
     const type = userData.room_chatting.type;
-    // NOT have generalRoom type cause if there had, it would already have "joined" attribute = true
+    // NOT have generalRoom type cause if there had, it would already have "has_joined" attribute = true
     if(type === "subRoom") {
-
+      const totalMembers = text.split(" ")[0];
+      if(!NaN(totalMembers) && totalMembers <= 6) { // max members = 6
+        client.db(dbName).collection('room_chatting').findOne({
+          list_users: {
+            $gt: 0
+          },
+          $where: {
+            `this.list_users.length < ${totalMembers}`
+          }
+        }, (err, res) => {
+          if(err) console.log(err);
+          else if(res) {
+            setRoomID(res.room_id, userData);
+            const message = {
+              "text": `${userData.room_chatting.name.toUpperCase()} đã vào phòng chat!`
+            };
+            sendNewPersonaMessage(res.list_users, message, userData);
+          }
+          else {
+            const response = "Không tìm thấy phòng. Hãy thử lại hoặc tạo phòng chat mới...";
+            sendResponse(userData.sender_psid, response);
+          }
+        });
+      }
     }
     else if(type === "selectRoom") {
-
+      client.db(dbName).collection('room-chatting').findOne({ room_id: text }, (err, res) => {
+        let response = {
+          "text": ""
+        }
+        if(err) console.log(err);
+        else if(!res) {
+          response.text = "Không tìm thấy phòng.\nHãy nhập lại số phòng...";
+          sendResponse(userData.sender_psid, response);
+        }
+        else if(res.list_users.length === res.limit_users) {
+          response.text = `Phòng đã đủ người, hãy vào lại sau...`;
+          sendResponse(userData.sender_psid, response);
+        }
+        else {
+          response.text = `Đã vào phòng chat ${res.room_id}. Phòng hiện có ${res.list_users.length}, hãy chào mọi người đi :3`;
+          sendResponse(userData.sender_psid, response);
+          // send announcement for people in room
+          const message = {
+            "text": `${userData.room_chatting.name.toUpperCase()} đã vào phòng chat!`
+          };
+          sendNewPersonaMessage(res.list_users, message, userData);
+          setRoomID(res.room_id, userData);
+        }
+      });
     }
   }
 }
 
 function joinGeneralRoom(client, userData) {
   initBlock("generalRoom", userData);
-  setRoomID()
+  setRoomID(1, userData);
   let response = {
     "text": ""
   };
@@ -56,14 +104,14 @@ function joinGeneralRoom(client, userData) {
       const message = {
         "text": `${userData.room_chatting.name.toUpperCase()} đã vào phòng chat!`
       };
-      sendNewPersonaMessage(res.list_users, message, userData.room_chatting.persona_id);
+      sendNewPersonaMessage(res.list_users, message, userData);
     }
   });
 }
 
 function joinSubRoom(client, userData) {
   initBlock("subRoom", userData);
-  let response = textResponse.subRoomResponse;
+  const response = templateResponse.subRoomResponse;
   sendResponse(userData.sender_psid, response);
 }
 
@@ -83,6 +131,46 @@ function settingAvatar(client, sender_psid) {
 
 }
 
+function createNewSubRoom(client, userData, limit_users) {
+  client.db(dbName).collection('room-chatting').insertOne({
+    "room_id": client.db(dbName).collection('room-chatting').count() + 1;
+    "list_users": [userData.sender_psid],
+    "limit_users": limit_users
+  }, (err) => {
+    if(err) console.log(err);
+    else {
+      const response = {
+        "text": `Đã tạo phòng. ID phòng của bạn là ${client.db(dbName).collection('room-chatting').count()}. Tớ sẽ thông báo khi có người vào phòng nhé`
+      }
+      sendResponse(userData.sender_psid, response);
+    }
+  });
+}
+
+function createSubRoom(client, userData) {
+  initBlock("subRoom", userData);
+  const response = templateResponse.subRoomResponse;
+  sendResponse(userData.sender_psid, response);
+}
+
+function joinRandomRoom(client, userData) {
+  client.db(dbName).collection('room-chatting').findOne({
+    room_id: {
+      $gt: 1
+    },
+    $where: "this.list_users.length > 0"
+  }, (err, res) => {
+    if(err) console.log(err);
+    else {
+      setRoomID(res.room_id, userData);
+      const message = {
+        "text": `${userData.room_chatting.name.toUpperCase()} đã vào phòng chat!`
+      };
+      sendNewPersonaMessage(res.list_users, message, userData);
+    }
+  })
+}
+
 function initBlock(type, userData) {
   while(!userData.room_chatting.block) {
     client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
@@ -96,20 +184,27 @@ function initBlock(type, userData) {
 }
 
 function setRoomID(room_id, userData) {
-  while(!userData.room_chatting.joined) {
+  while(!userData.room_chatting.has_joined) {
     client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
       $set: {
-        room_chatting.joined: true,
+        room_chatting.has_joined: true,
         room_chatting.room_id: room_id
       }
     });
     userData = client.db(dbName).collection('user-data').findOne({ sender_psid: userData.sender_psid });
   }
+  while(!client.db(dbName).collection('room_chatting').findOne({ room_id: room_id }).list_users.include(userData.sender_psid)) {
+    client.db(dbName).collection('users-data').updateOne({ room_id: room_id }, {
+      $push: {
+        list_users: userData.sender_psid
+      }
+    });
+  }
 }
 
-function sendNewPersonaMessage(list_users, message, persona_id) {
+function sendNewPersonaMessage(list_users, message, userData) {
   list_users.forEach((userPsid) => {
-    sendPersonaMessage(userPsid, message, persona_id);
+    if(userPsid !== userData.sender_psid) sendPersonaMessage(userPsid, message, userData.room_chatting.persona_id);
   });
 }
 

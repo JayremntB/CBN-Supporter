@@ -34,47 +34,6 @@ module.exports = {
       }
     ]
   },
-  "subRoomResponse": {
-    "text": "Bạn muốn tham gia phòng bao nhiêu người?",
-    "quick_replies": {
-      {
-        "content_type": "text",
-        "title": "Ngẫu nhiên",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "2 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "3 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "4 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "5 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "6 người",
-        "payload": "menu",
-        "image_url": ""
-      }
-    }
-  },
   "chatbotInformationResponse": {
     "text": "CBN Supporter - Chatbot for supporting CBNers\nDeveloped in 2020, by JayremntB"
   },
