@@ -88,7 +88,10 @@ function handleMessage(sender_psid, received_message, userData) {
     textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
     //
-    if(text === 'exit') {
+    if(userData.room_chatting.block) {
+      chatRoom.handleMessage(client, text, userData);
+    }
+    else if(text === 'exit') {
       unblockAll(sender_psid);
       response = textResponse.exitResponse;
     }
@@ -223,13 +226,13 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
         //
       case 'generalRoom':
-        chatRoom.joinGeneralRoom(client, sender_psid, userData);
+        chatRoom.joinGeneralRoom(client, userData);
         break;
       case 'subRoom':
-        chatRoom.joinSubRoom(client, sender_psid);
+        chatRoom.joinSubRoom(client);
         break;
       case 'selectRoom':
-        chatRoom.selectRoom(client, sender_psid);
+        chatRoom.selectRoom(client);
         break;
       //
       case 'settingProfile':
@@ -237,10 +240,10 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
         //
       case 'settingName':
-        chatRoom.settingName(client, sender_psid);
+        chatRoom.settingName(client);
         break;
       case 'settingAvatar':
-        chatRoom.settingAvatar(client, sender_psid);
+        chatRoom.settingAvatar(client);
         break;
       // listCommands possess
       case 'listCommands':
@@ -288,6 +291,15 @@ function initUserData(sender_psid) {
       block: false,
       teacher: "",
       teaches: []
+    },
+    room_chatting: {
+      block: false,
+      joined: false,
+      type: "",
+      room_id: "",
+      member_psid: [],
+      persona_id: "249248646315258",
+      name: "User"
     },
     live_chat: false
   };
