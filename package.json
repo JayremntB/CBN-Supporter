@@ -4,10 +4,11 @@
   "description": "Chatbot for supporting CBNer",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node app",
     "dev": "npx nodemon",
-    "setpart": "node src/general/set-single-part.js",
-    "getteachers": "node test/getteachers.js"
+    "setpart": "node src/general/set-single-part",
+    "getteachers": "node test/getteachers",
+    "getpersona": "node test/get-persona"
   },
   "repository": {
     "type": "git",

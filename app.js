@@ -13,6 +13,7 @@ const checkCovid = require('./src/utils/check-covid');
 const searchSchedule = require('./src/utils/search-schedule');
 const searchClasses = require('./src/utils/search-classes');
 const liveChat = require('./src/utils/live-chat');
+const chatRoom = require('./src/utils/chat-room');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const textResponse = require('./src/general/textResponse');
@@ -87,7 +88,10 @@ function handleMessage(sender_psid, received_message, userData) {
     textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
     //
-    if(text === 'exit') {
+    if(userData.room_chatting.block) {
+      chatRoom.handleMessage(client, text, userData);
+    }
+    else if(text === 'exit') {
       unblockAll(sender_psid);
       response = textResponse.exitResponse;
     }
@@ -192,7 +196,6 @@ function handlePostback(sender_psid, received_postback, userData) {
     liveChat.deniedUsingOtherFeatures(sender_psid);
   }
   else {
-    
     switch (payload) {
       // Menu possess
       case 'menu':
@@ -221,24 +224,33 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'joinChatRoom':
         response = templateResponse.joinChatRoom;
         break;
+        //
       case 'generalRoom':
-
+        chatRoom.joinGeneralRoom(client, userData);
         break;
       case 'subRoom':
-
+        chatRoom.joinSubRoom(client);
         break;
+          //
+      case 'createSubRoom':
+        chatRoom.createSubRoom(client, userData);
+        break;
+      case 'randomSubRoom':
+        chatRoom.joinRandomRoom(client, userData);
+        //
       case 'selectRoom':
-
+        chatRoom.selectRoom(client);
         break;
       //
       case 'settingProfile':
         response = templateResponse.settingProfile;
         break;
+        //
       case 'settingName':
-
+        chatRoom.settingName(client);
         break;
       case 'settingAvatar':
-
+        chatRoom.settingAvatar(client);
         break;
       // listCommands possess
       case 'listCommands':
@@ -254,7 +266,7 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'settingCommands':
         response = textResponse.listSettingCommands;
         break;
-      //
+      // Information and help possess
       case 'chatbotInformation':
         response = textResponse.chatbotInformationResponse;
         break;
@@ -269,6 +281,7 @@ function handlePostback(sender_psid, received_postback, userData) {
 function initUserData(sender_psid) {
   const insert = {
     sender_psid: sender_psid,
+    persona_id: "249248646315258",
     group: "",
     teacher: "",
     wind_down_time: 14,
@@ -286,11 +299,14 @@ function initUserData(sender_psid) {
       teacher: "",
       teaches: []
     },
-    search_groups: {
+    room_chatting: {
       block: false,
-      subject: "",
-      day: "",
-      time: ""
+      has_joined: false,
+      type: "",
+      room_id: "",
+      member_psid: [],
+      persona_id: "249248646315258",
+      name: "User"
     },
     live_chat: false
   };
@@ -314,12 +330,6 @@ function unblockAll(sender_psid) {
         block: false,
         teacher: "",
         teaches: []
-      },
-      search_groups: {
-        block: false,
-        subject: "",
-        day: "",
-        time: ""
       },
       live_chat: false
     }
