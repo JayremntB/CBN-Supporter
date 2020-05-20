@@ -37,6 +37,41 @@ module.exports = {
   "chatbotInformationResponse": {
     "text": "CBN Supporter - Chatbot for supporting CBNers\nDeveloped in 2020, by JayremntB"
   },
+  "createSubRoomResponse": {
+    "text": "Chọn giới hạn số người...",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "2 người",
+        "payload": "menu",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "3 người",
+        "payload": "menu",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "4 người",
+        "payload": "menu",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "5 người",
+        "payload": "menu",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "6 người",
+        "payload": "menu",
+        "image_url": ""
+      }
+    ]
+  },
   "otherFeaturesResponse": {
     "text": `- Nhập ngủ + thời điểm ngủ để xác định thời điểm nên thức dậy.
 VÍ DỤ: ngủ 21h30

@@ -1,4 +1,20 @@
 {
+  "personaSendAttachmentMessage": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "",
+        "buttons": [
+          {
+            "type": "web_url",
+            "url": "",
+            "title": ""
+          }
+        ]
+      }
+    }
+  },
   "menu": {
     "attachment": {
       "type": "template",
@@ -18,8 +34,24 @@
           },
           {
             "type": "postback",
-            "title": "Tìm bạn bốn phương",
+            "title": "Vào phòng chat",
             "payload": "chatRoom"
+          }
+        ]
+      }
+    }
+  },
+  "roomChattingMenu": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Bạn cần gì nào :3",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Rời nhóm",
+            "payload": "leaveRoom"
           }
         ]
       }
