@@ -24,8 +24,8 @@ const app = express().use(bodyParser.json());
 app.listen(port, () => {
   console.log('webhook is listening on port ' + port);
 });
-const connectionUrl = process.env.DATABASE_URI;
-// const connectionUrl = "mongodb://127.0.0.1:27017";
+// const connectionUrl = process.env.DATABASE_URI;
+const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
 const listUnblockCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
@@ -182,6 +182,11 @@ function handleMessage(sender_psid, received_message, userData) {
       searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
     }
   }
+  else if (received_message.attachments) {
+    // Gets the URL of the message attachment
+    let attachment_url = received_message.attachments[0].payload.url;
+    chatRoom.handleMessage(client, "", userData, attachment_url);
+  }
   sendResponse(sender_psid, response);
 }
 
@@ -192,20 +197,32 @@ function handlePostback(sender_psid, received_postback, userData) {
     "text": ""
   };
   console.log('postback: ' + payload + "\n---------------------------------");
-  if(userData.live_chat) {
+  if(userData.room_chatting.has_joined && userData.room_chatting.block) {
+    if(payload === 'menu') response = templateResponse.roomChattingMenu;
+    else if(payload === 'help') {
+      chatRoom.leaveRoom(client, userData);
+      liveChat.startLiveChat(client, sender_psid);
+    }
+    else if(payload === 'leaveRoom') chatRoom.leaveRoom(client, userData);
+  }
+  else if(userData.live_chat) {
     liveChat.deniedUsingOtherFeatures(sender_psid);
   }
   else {
+    unblockAll(sender_psid);
     switch (payload) {
       // Menu possess
       case 'menu':
         response = templateResponse.menu;
         break;
       //
+      case 'leaveRoom':
+        response.text = "Bạn hiện không ở trong nhóm nào...";
+        break;
       case 'searchFeatures':
         response = templateResponse.features;
         break;
-      //
+        //
       case 'searchSchedule':
         searchSchedule.init(client, sender_psid, userData);
         break;
@@ -229,7 +246,7 @@ function handlePostback(sender_psid, received_postback, userData) {
         chatRoom.joinGeneralRoom(client, userData);
         break;
       case 'subRoom':
-        chatRoom.joinSubRoom(client);
+        chatRoom.joinSubRoom(client, userData);
         break;
           //
       case 'createSubRoom':
@@ -238,8 +255,9 @@ function handlePostback(sender_psid, received_postback, userData) {
       case 'randomSubRoom':
         chatRoom.joinRandomRoom(client, userData);
         //
+        break;
       case 'selectRoom':
-        chatRoom.selectRoom(client);
+        chatRoom.selectRoom(client, userData);
         break;
       //
       case 'settingProfile':
@@ -303,8 +321,8 @@ function initUserData(sender_psid) {
       block: false,
       has_joined: false,
       type: "",
+      create_new_subroom: false,
       room_id: "",
-      member_psid: [],
       persona_id: "249248646315258",
       name: "User"
     },
@@ -330,6 +348,15 @@ function unblockAll(sender_psid) {
         block: false,
         teacher: "",
         teaches: []
+      },
+      room_chatting: {
+        block: false,
+        has_joined: false,
+        type: "",
+        create_new_subroom: false,
+        room_id: "",
+        persona_id: "249248646315258",
+        name: "User"
       },
       live_chat: false
     }
