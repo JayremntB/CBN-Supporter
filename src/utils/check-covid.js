@@ -2,31 +2,37 @@
 const request = require('request');
 const sendResponse = require('../general/sendResponse');
 const typingOn = require('../general/typing')
-const stuff = require('../general/stuff');
+const textResponse = require('../general/textResponse');
 
 module.exports = function (sender_psid) {
-  let response = stuff.defaultResponse;
+  let response = textResponse.defaultResponse;
   // Fetch http://covid-rest.herokuapp.com/vietnam
   typingOn(sender_psid);
   request({
-    "uri": "http://covid-rest.herokuapp.com/vietnam",
+    "uri": "https://api.covid19api.com/summary",
     "method": "GET",
   }, (err, res, body) => {
-    if(err) {
-      response.text = "Đang có trục trặc, tớ không lấy được dữ liệu rồi :( Hãy quay lại sau nha T.T";
-      sendResponse(sender_psid, response);
-    }
-    else {
-      const data = JSON.parse(body).data[0];
-      if(data.total_death === "") data.total_death = "0";
-      if(data.new_cases === "") data.new_cases = "0";
-      response.text = `Tình hình dịch bệnh hiện tại:
-- Tổng ca nhiễm: ${data.total_cases}
-- Số ca nhiễm mới: ${data.new_cases}
-- Số ca tử vong: ${data.total_death}
-- Số ca hồi phục: ${data.total_recovered}
+    const data = JSON.parse(body);
+    if(data.Global.TotalDeaths === "") data.Global.TotalDeaths = "0";
+    if(data.Countries[data.Countries.length - 4].TotalDeaths === "") data.Countries[data.Countries.length - 4].TotalDeaths = "0";
+    if(data.Global.NewConfirmed === "") data.Global.NewConfirmed = "0";
+    if(data.Countries[data.Countries.length - 4].NewConfirmed === "") data.Countries[data.Countries.length - 4].NewConfirmed = "0";
+    response.text = `Tình hình dịch bệnh trên thế giới:
+- Tổng ca nhiễm: ${data.Global.TotalConfirmed}
+- Tổng ca tử vong: ${data.Global.TotalDeaths}
+- Tổng ca hồi phục: ${data.Global.TotalRecovered}
+- Số ca nhiễm mới: ${data.Global.NewConfirmed}
+- Số ca tử vong mới: ${data.Global.NewDeaths}
+- Số ca hồi phục mới: ${data.Global.NewRecovered}
+------
+Tình hình dịch bệnh trong nước:
+- Tổng ca nhiễm: ${data.Countries[data.Countries.length - 5].TotalConfirmed}
+- Tổng ca tử vong: ${data.Countries[data.Countries.length - 5].TotalDeaths}
+- Tổng ca hồi phục: ${data.Countries[data.Countries.length - 5].TotalRecovered}
+- Số ca nhiễm mới: ${data.Countries[data.Countries.length - 5].NewConfirmed}
+- Số ca tử vong mới: ${data.Countries[data.Countries.length - 5].NewDeaths}
+- Số ca hồi phục mới: ${data.Countries[data.Countries.length - 5].NewRecovered}
 Giữ cho mình một sức khoẻ dẻo dai, luyện tập thể dục và rửa tay thường xuyên nha <3`
-      sendResponse(sender_psid, response);
-    }
+    sendResponse(sender_psid, response);
   });
 }

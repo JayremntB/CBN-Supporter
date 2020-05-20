@@ -1,6 +1,6 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
-const stuff = require('../general/stuff');
+const textResponse = require('../general/textResponse');
 const { checkTeacherName } = require('../general/validate-input');
 const dbName = 'database-for-cbner';
 
@@ -11,7 +11,7 @@ module.exports = {
 
 function handleMessage(client, sender_psid, text, userData) {
   if(text.toLowerCase() === "tra giáo viên khác") {
-    const response = stuff.searchClassesAskTeacher;
+    const response = textResponse.searchClassesAskTeacher;
     clearOtherTeacherData(client, sender_psid);
     sendResponse(sender_psid, response);
   }
@@ -50,7 +50,7 @@ function init(client, sender_psid, userData) {
       }
       else {
         console.log('init search search_classes_other_teacher successfully');
-        const response = stuff.searchClassesAskTeacher;
+        const response = textResponse.searchClassesAskTeacher;
         sendResponse(sender_psid, response);
       }
     });
@@ -154,7 +154,7 @@ function updateData(client, sender_psid, teacherName, other_teacher_block) {
           sendResponse(sender_psid, response);
         } else {
           console.log("Update teacher data successfully");
-          let response = stuff.askDay;
+          let response = textResponse.askDay;
           response.quick_replies[0].title = "Tra giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
           response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nBạn muốn tra thứ mấy?`;
@@ -166,7 +166,7 @@ function updateData(client, sender_psid, teacherName, other_teacher_block) {
 }
 
 function sendClasses(sender_psid, dayInput, userData) {
-  let response = stuff.askDay;
+  let response = textResponse.askDay;
   response.quick_replies[0].title = "Tra giáo viên khác";
   response.quick_replies[0].payload = "overwriteTeacher";
   let day = handleDayInput(dayInput.toLowerCase());

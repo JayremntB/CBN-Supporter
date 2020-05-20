@@ -1,7 +1,7 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
 const typingOn = require('../general/typing');
-const stuff = require('../general/stuff');
+const textResponse = require('../general/textResponse');
 
 module.exports = function(sender_psid, textSplit, userData) {
   const responseDefault = [
@@ -32,7 +32,7 @@ module.exports = function(sender_psid, textSplit, userData) {
       typingOn(sender_psid);
       setTimeout(() => {
         typingOn(sender_psid);
-        response = stuff.estimateTimeResponse;
+        response = textResponse.estimateTimeResponse;
         response.text = responseDefault[1];
         sendResponse(sender_psid, response);
       }, 3500);
@@ -42,7 +42,7 @@ module.exports = function(sender_psid, textSplit, userData) {
 
 function checkTime(sender_psid, time) {
   if(isNaN(time[0]) || isNaN(time[1]) || time[0] < 0 || time[0] > 24 || time[1] < 0 || time[1] > 60) {
-    let response = stuff.defaultResponse;
+    let response = textResponse.defaultResponse;
     response.text = "Xin lỗi, tớ không hiểu thời gian bạn vừa nhập :(";
     sendResponse(sender_psid, response);
     return 0;

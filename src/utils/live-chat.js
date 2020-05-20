@@ -1,6 +1,6 @@
 const request = require('request');
 const sendResponse = require('../general/sendResponse');
-const stuff = require('../general/stuff');
+const textResponse = require('../general/textResponse');
 
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
@@ -38,7 +38,7 @@ async function startLiveChat(client, sender_psid) {
 }
 
 function deniedUsingOtherFeatures(sender_psid) {
-  let response = stuff.liveChatExitResponse;
+  let response = textResponse.liveChatExitResponse;
   response.text = "Nhập Exit để thoát hỗ trợ và sử dụng các tính năng khác nhé :3";
   sendResponse(sender_psid, response);
 }
@@ -58,7 +58,7 @@ function onLiveChat(client, sender_psid) {
     }
     else {
       setTimeout(() => {
-        const response = stuff.liveChatExitResponse;
+        const response = textResponse.liveChatExitResponse;
         sendResponse(sender_psid, response);
       }, 500);
     }

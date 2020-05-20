@@ -1,0 +1,143 @@
+{
+  "menu": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Bạn cần gì nào :3",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Tìm kiếm",
+            "payload": "searchFeatures"
+          },
+          {
+            "type": "postback",
+            "title": "Các tính năng khác",
+            "payload": "otherFeatures"
+          },
+          {
+            "type": "postback",
+            "title": "Tìm bạn bốn phương",
+            "payload": "chatRoom"
+          }
+        ]
+      }
+    }
+  },
+  "joinChatRoom": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Chọn phòng chat",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Phòng chat tổng",
+            "payload": "generalRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Tìm phòng riêng",
+            "payload": "subRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Nhập ID phòng",
+            "payload": "selectRoom"
+          }
+        ]
+      }
+    }
+  },
+  "chatRoom": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Bạn sẽ chat ẩn danh với những người được kết nối...",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Tìm phòng chat",
+            "payload": "joinChatRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Thiết lập",
+            "payload": "settingProfile"
+          }
+        ]
+      }
+    }
+  },
+  "settingProfile": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Chọn thiết lập",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Tên",
+            "payload": "settingName"
+          },
+          {
+            "type": "postback",
+            "title": "Ảnh đại diện",
+            "payload": "settingAvatar"
+          }
+        ]
+      }
+    }
+  },
+  "listCommands": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Bạn cần tìm loại lệnh nào 🤔",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Chung",
+            "payload": "generalCommands"
+          },
+          {
+            "type": "postback",
+            "title": "Kích hoạt tính năng",
+            "payload": "initFeatureCommands"
+          },
+          {
+            "type": "postback",
+            "title": "Thiết lập",
+            "payload": "settingCommands"
+          }
+        ]
+      }
+    }
+  },
+  "features": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Bạn cần tìm kiếm gì 🐧",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Thời khoá biểu",
+            "payload": "searchSchedule"
+          },
+          {
+            "type": "postback",
+            "title": "Lịch dạy",
+            "payload": "searchClasses"
+          }
+        ]
+      }
+    }
+  }
+}

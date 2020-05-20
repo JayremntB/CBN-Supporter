@@ -1,5 +1,5 @@
 const sendResponse = require('../general/sendResponse');
-const stuff = require('../general/stuff');
+const textResponse = require('../general/textResponse');
 const validateInput = require('../general/validate-input');
 
 const dbName = 'database-for-cbner';
@@ -11,10 +11,10 @@ module.exports = {
 }
 
 function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
-  let response = stuff.defaultResponse;
+  let response = textResponse.defaultResponse;
   if(textSplit[0] === 'xemlop') {
     if(userData.group) {
-      response = stuff.xemlopResponse;
+      response = textResponse.xemlopResponse;
       response.text = `${userData.group}`;
       sendResponse(sender_psid, response);
     }
@@ -55,7 +55,7 @@ function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
           sendResponse(sender_psid, response);
         }
         else {
-          response = stuff.lopResponse;
+          response = textResponse.lopResponse;
           response.text = `Lưu tên lớp thành công! (${textSplit[1]})`;
           sendResponse(sender_psid, response);
         }
@@ -65,10 +65,10 @@ function handleSetGroupMessage(client, sender_psid, textSplit, userData) {
 }
 
 function handleSetTeacherMessage(client, sender_psid, textSplit, userData) {
-  let response = stuff.defaultResponse;
+  let response = textResponse.defaultResponse;
   if(textSplit[0] === 'xemgv') {
     if(userData.teacher) {
-      response = stuff.xemgvResponse;
+      response = textResponse.xemgvResponse;
       response.text = `${userData.teacher}`;
       sendResponse(sender_psid, response);
     }
@@ -109,7 +109,7 @@ function handleSetTeacherMessage(client, sender_psid, textSplit, userData) {
           sendResponse(sender_psid, response);
         }
         else {
-          response = stuff.gvResponse;
+          response = textResponse.gvResponse;
           response.text = `Lưu giáo viên thành công! (${textSplit[1]})`;
           sendResponse(sender_psid, response);
         }
@@ -119,9 +119,9 @@ function handleSetTeacherMessage(client, sender_psid, textSplit, userData) {
 }
 
 function handleWindDownMessage(client, sender_psid, textSplit, userData) {
-  let response = stuff.defaultResponse;
+  let response = textResponse.defaultResponse;
   if(textSplit[0] === 'xemwd') {
-    response = stuff.xemwdResponse;
+    response = textResponse.xemwdResponse;
     response.text = `${userData.wind_down_time}'`;
     sendResponse(sender_psid, response);
   }
@@ -157,7 +157,7 @@ function handleWindDownMessage(client, sender_psid, textSplit, userData) {
           sendResponse(sender_psid, response);
         }
         else {
-          response = stuff.wdResponse;
+          response = textResponse.wdResponse;
           response.text = `Cài đặt thành công! Thời gian trung bình để chìm vào giấc ngủ của bạn là ${textSplit[1]}'.`;
           sendResponse(sender_psid, response);
         }

@@ -1,3 +1,5 @@
+// This file is just for structure TEXT response, and just like JSON file
+
 module.exports = {
   "defaultResponse": {
     "text": "",
@@ -22,7 +24,7 @@ module.exports = {
     ]
   },
   "liveChatExitResponse": {
-    "text": "Không muốn tiếp tục trò chuyện nữa thì nhập Exit nha :(",
+    "text": "Không muốn tiếp tục trò chuyện nữa thì nhập Exit nha 🐧",
     "quick_replies": [
       {
         "content_type": "text",
@@ -32,8 +34,20 @@ module.exports = {
       }
     ]
   },
+  "chatbotInformationResponse": {
+    "text": "CBN Supporter - Chatbot for supporting CBNers\nDeveloped in 2020, by JayremntB"
+  },
+  "otherFeaturesResponse": {
+    "text": `- Nhập ngủ + thời điểm ngủ để xác định thời điểm nên thức dậy.
+VÍ DỤ: ngủ 21h30
+(Nếu bạn bỏ trống thời điểm ngủ, tớ sẽ lấy thời điểm hiện tại)
+- Nhập dậy + thời điểm dậy để xác định thời điểm nên ngủ.
+VÍ DỤ: dậy 6h15
+(Nếu bạn bỏ trống thời điểm dậy, tớ sẽ lấy mặc định 6h)`
+  },
   "listGeneralCommands": {
     "text": `
+- menu: Menu
 - lệnh: Danh sách tất cả các lệnh
 - hd: Hướng dẫn sử dụng
 - help: Gọi người hỗ trợ (Live chat)
@@ -41,6 +55,12 @@ module.exports = {
 - dsl:  Danh sách các lớp
 - dsgv: Danh sách giáo viên`,
     "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "menu",
+        "payload": "menu",
+        "image_url": ""
+      },
       {
         "content_type": "text",
         "title": "lệnh",
@@ -77,7 +97,6 @@ module.exports = {
     "text": `
 - tkb: Tra thời khoá biểu
 - dạy: Tra lịch dạy học
-- covid: Tình hình dịch bệnh hiện tại
 - dậy + thời điểm dậy: Xác định thời điểm nên ngủ (ví dụ: dậy 6h15)
 - ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 21h15)`,
     "quick_replies": [
@@ -91,12 +110,6 @@ module.exports = {
         "content_type": "text",
         "title": "dạy",
         "payload": "searchClasses",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "covid",
-        "payload": "checkCovid",
         "image_url": ""
       },
       {

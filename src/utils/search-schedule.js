@@ -1,6 +1,6 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
-const stuff = require('../general/stuff');
+const textResponse = require('../general/textResponse');
 const { checkGroup, handleDayInput } = require('../general/validate-input');
 const dbName = 'database-for-cbner';
 
@@ -11,7 +11,7 @@ module.exports = {
 
 function handleMessage(client, sender_psid, text, userData) {
   if(text === "tra lớp khác") {
-    const response = stuff.searchScheduleAskGroup;
+    const response = textResponse.searchScheduleAskGroup;
     clearOtherGroupData(client, sender_psid);
     sendResponse(sender_psid, response);
   }
@@ -50,7 +50,7 @@ function init(client, sender_psid, userData) {
       }
       else {
         console.log('init search_schedule_other_group block successfully');
-        const response = stuff.searchScheduleAskGroup;
+        const response = textResponse.searchScheduleAskGroup;
         sendResponse(sender_psid, response);
       }
     });
@@ -116,7 +116,7 @@ function updateData(client, sender_psid, groupInput, other_group_block) {
           sendResponse(sender_psid, response);
         } else {
           console.log("Update other group data successfully!");
-          let response = stuff.askDay;
+          let response = textResponse.askDay;
           response.quick_replies[0].title = "Tra lớp khác";
           response.quick_replies[0].payload = "overwriteClass";
           response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nBạn muốn tra thứ mấy?`;
@@ -128,7 +128,7 @@ function updateData(client, sender_psid, groupInput, other_group_block) {
 }
 
 function sendSchedule(sender_psid, dayInput, userData) {
-  let response = stuff.askDay;
+  let response = textResponse.askDay;
   response.quick_replies[0].title = "Tra lớp khác";
   response.quick_replies[0].payload = "overwriteClass";
   let day = handleDayInput(dayInput);
