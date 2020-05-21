@@ -37,8 +37,8 @@ module.exports = {
   "chatbotInformationResponse": {
     "text": "CBN Supporter - Chatbot for supporting CBNers\nDeveloped in 2020, by JayremntB"
   },
-  "createSubRoomResponse": {
-    "text": "Chọn giới hạn số người...",
+  "subRoomResponse": {
+    "text": "",
     "quick_replies": [
       {
         "content_type": "text",

@@ -18,6 +18,7 @@ module.exports = {
 }
 
 async function handleMessage(client, text, userData, attachment_url) {
+  // if has joined an exist room, send message
   if(userData.room_chatting.has_joined) {
     const room_id = userData.room_chatting.room_id;
     client.db(dbName).collection('room-chatting').findOne({ room_id: room_id }, (err, res) => {
@@ -37,92 +38,78 @@ async function handleMessage(client, text, userData, attachment_url) {
     // NOT have generalRoom type cause if there had, it would already have "has_joined" attribute = true
     // SUBROOM
     if(type === "subRoom") {
-      if(!userData.room_chatting.create_new_subroom) {
-        const limitUsers = text.split(" ")[0];
-        if(!isNaN(limitUsers) && limitUsers <= 6) { // max members = 6
-          client.db(dbName).collection('room-chatting').findOne({
-            list_users: {
-              $gt: 0
-            },
-            $where: `this.list_users.length < ${limitUsers} && this.room_id != 1`
-          }, (err, res) => {
-            if(err) console.log(err);
-            else if(res) {
-              setRoomID(client, res.room_id, userData);
-              const message = {
-                "text": `${userData.room_chatting.name.toUpperCase()} đã vào phòng chat!`
-              };
-              sendNewPersonaMessage(res.list_users, message, userData);
-            }
-            else {
-              const response = "Không tìm thấy phòng. Hãy thử lại hoặc tạo phòng chat mới...";
-              sendResponse(userData.sender_psid, response);
-            }
-          });
-        }
-        else {
-          const response = {
-            "text": "Giới hạn người không hợp lệ, hãy nhập lại..."
-          };
-          sendResponse(userData.sender_psid, response);
-        }
+      const limitUsers = text.split(" ")[0];
+      if(!isNaN(limitUsers) && limitUsers <= 6) { // max users = 6
+         if(!userData.room_chatting.create_new_subroom) {
+           findValidRoom(client, userData, limitUsers);
+         }
+         else createNewSubRoom(client, userData, limitUsers);
       }
       else {
-        const limitUsers = text.split(" ")[0];
-        if(!isNaN(limitUsers) && limitUsers <= 6) { // max members = 6
-          const room_id = await client.db(dbName).collection('room-chatting').countDocuments() + 1;
-          client.db(dbName).collection('room-chatting').insertOne({
-            room_id: room_id,
-            list_users: [userData.sender_psid],
-            limit_users: limitUsers
-          }, (err, res) => {
-            if(err) console.log(err);
-            else {
-              console.log(res.ops);
-              setRoomID(client, res.ops[0].room_id, userData);
-              const response = {
-                "text": `Tạo phòng thành công! ID phòng của bạn là ${res.ops[0].room_id}.\nTớ sẽ thông báo khi có người vào phòng nhé!`
-              };
-              sendResponse(userData.sender_psid, response);
-            }
-          });
-        }
-        else {
-          const response = {
-            "text": "Giới hạn người không hợp lệ, hãy nhập lại..."
-          };
-          sendResponse(userData.sender_psid, response);
-        }
+        const response = {
+          "text": "Giới hạn người không hợp lệ, hãy nhập lại..."
+        };
+        sendResponse(userData.sender_psid, response);
       }
     }
     // SELECT ROOM
-    else if(type === "selectRoom") {
-      client.db(dbName).collection('room-chatting').findOne({ room_id: Number(text) }, (err, res) => {
-        let response = {
-          "text": ""
-        }
-        if(err) console.log(err);
-        else if(!res) {
-          response.text = "Không tìm thấy phòng.\nHãy nhập lại số phòng...";
-          sendResponse(userData.sender_psid, response);
-        }
-        else if(res.list_users.length >= res.limit_users) {
-          response.text = `Phòng đã đủ người, hãy vào lại sau...`;
-          sendResponse(userData.sender_psid, response);
-        }
-        else {
-          response.text = `Đã vào phòng chat ${res.room_id}.\nPhòng hiện có ${res.list_users.length} người, hãy chào mọi người đi :3`;
-          sendResponse(userData.sender_psid, response);
-          // send announcement for people in room
-          const message = {
-            "text": `${userData.room_chatting.name.toUpperCase()} đã vào phòng chat!`
-          };
-          sendNewPersonaMessage(res.list_users, message, userData);
-          setRoomID(client, res.room_id, userData);
-        }
-      });
-    }
+    else if(type === "selectRoom") findRoomByID(client, userData, Number(text));
   }
+}
+
+function findRoomByID(client, userData, room_id) {
+  client.db(dbName).collection('room-chatting').findOne({ room_id: room_id }, (err, res) => {
+    let response = {
+      "text": ""
+    }
+    if(err) console.log(err);
+    else if(!res) {
+      response.text = "Không tìm thấy phòng.\nHãy nhập lại số phòng...";
+      sendResponse(userData.sender_psid, response);
+    }
+    else if(res.list_users.length >= res.limit_users) {
+      response.text = `Phòng đã đủ người, hãy vào lại sau...`;
+      sendResponse(userData.sender_psid, response);
+    }
+    else {
+      response.text = `Đã vào phòng chat ${res.room_id}.\nPhòng hiện có ${res.list_users.length} người, hãy chào mọi người đi :3`;
+      sendResponse(userData.sender_psid, response);
+      // send announcement for people in room
+      const message = {
+        "text": `${userData.room_chatting.name.toUpperCase()} đã vào phòng chat!`
+      };
+      sendNewPersonaMessage(res.list_users, message, userData);
+      setRoomID(client, res.room_id, userData);
+    }
+  });
+}
+
+function findValidRoom(client, userData, limitUsers) {
+  let response = {
+    "text": ""
+  };
+  client.db(dbName).collection('room-chatting').findOne({
+    $where: `this.limit_users == ${limitUsers}
+    && this.list_users.length < this.limit_users
+    && this.list_users.length > 0
+    && this.room_id > 1`
+  }, (err, res) => {
+    if(err) console.log(err);
+    else if(res) {
+      setRoomID(client, res.room_id, userData);
+      const message = {
+        "text": `${userData.room_chatting.name.toUpperCase()} đã vào phòng chat!`
+      };
+      sendNewPersonaMessage(res.list_users, message, userData);
+      response.text = `Đã vào phòng chat ${res.room_id}.\nPhòng hiện có ${res.list_users.length} người, hãy chào mọi người đi :3`;
+      sendResponse(userData.sender_psid, response);
+    }
+    else {
+      response = textResponse.subRoomResponse;
+      response.text = "Không tìm thấy phòng. Hãy tìm phòng khác hoặc tạo phòng mới...";
+      sendResponse(userData.sender_psid, response);
+    }
+  });
 }
 
 function joinGeneralRoom(client, userData) {
@@ -172,18 +159,20 @@ function settingAvatar(client, sender_psid) {
 
 }
 
-function createNewSubRoom(client, userData, limit_users) {
-
+async function createNewSubRoom(client, userData, limitUsers) {
+  const room_id = await client.db(dbName).collection('room-chatting').countDocuments() + 1;
   client.db(dbName).collection('room-chatting').insertOne({
-    "room_id": client.db(dbName).collection('room-chatting').count() + 1,
-    "list_users": [userData.sender_psid],
-    "limit_users": limit_users
-  }, (err) => {
+    room_id: room_id,
+    list_users: [userData.sender_psid],
+    limit_users: limitUsers
+  }, (err, res) => {
     if(err) console.log(err);
     else {
+      console.log(res.ops);
+      setRoomID(client, res.ops[0].room_id, userData);
       const response = {
-        "text": `Đã tạo phòng. ID phòng của bạn là ${client.db(dbName).collection('room-chatting').count()}. Tớ sẽ thông báo khi có người vào phòng nhé`
-      }
+        "text": `Tạo phòng thành công!\nID phòng của bạn là ${res.ops[0].room_id}\nTớ sẽ thông báo khi có người vào phòng nhé!`
+      };
       sendResponse(userData.sender_psid, response);
     }
   });
@@ -191,7 +180,8 @@ function createNewSubRoom(client, userData, limit_users) {
 
 function createSubRoom(client, userData) {
   initBlock(client, "subRoom", userData, true);
-  const response = textResponse.createSubRoomResponse;
+  let response = textResponse.subRoomResponse;
+  response.text = "Chọn giới hạn số người...";
   sendResponse(userData.sender_psid, response);
 }
 
@@ -233,12 +223,12 @@ async function leaveRoom(client, userData) {
         "text": "Đã rời khỏi nhóm..."
       };
       sendResponse(userData.sender_psid, response);
-
+      // send announcement to users in current room
       const message = {
         "text": `${userData.room_chatting.name} đã rời khỏi nhóm...`
       };
       sendNewPersonaMessage(roomData.list_users, message, userData);
-
+      // leave current room
       while(roomData.list_users.includes(userData.sender_psid)) {
         await client.db(dbName).collection('room-chatting').updateOne({ room_id: userData.room_chatting.room_id }, {
           $pull: {
@@ -247,20 +237,21 @@ async function leaveRoom(client, userData) {
         });
         roomData = await client.db(dbName).collection('room-chatting').findOne({ room_id: userData.room_chatting.room_id });
       }
+      // set all attributes of user's data to default
+      while(userData.room_chatting.block) {
+        await client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+          $set: {
+            "room_chatting.block": false,
+            "room_chatting.type": "",
+            "room_chatting.has_joined": false,
+            "room_chatting.room_id": "",
+            "room_chatting.create_new_subroom": false
+          }
+        });
+        userData = await client.db(dbName).collection('users-data').findOne({ sender_psid: userData.sender_psid });
+      }
     }
   });
-  // set all attributes of user's data to default
-  while(userData.room_chatting.block) {
-    await client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-      $set: {
-        "room_chatting.block": false,
-        "room_chatting.type": "",
-        "room_chatting.has_joined": false,
-        "room_chatting.room_id": ""
-      }
-    });
-    userData = await client.db(dbName).collection('users-data').findOne({ sender_psid: userData.sender_psid });
-  }
 }
 
 async function initBlock(client, type, userData, createSubRoom) {

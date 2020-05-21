@@ -78,6 +78,13 @@ app.post('/webhook', (req, res) => {
 });
 
 function handleMessage(sender_psid, received_message, userData) {
+  // setTimeout(() => {
+  //   const response = {
+  //     "text": "test1"
+  //   };
+  //   sendResponse(sender_psid, response);
+  //   console.log("ok");
+  // }, 1000 * 60);
   let response = {
     "text": ""
   };
