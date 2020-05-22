@@ -15,6 +15,22 @@
       }
     }
   },
+  "userChatRoomInfo": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Sửa đổi thông tin",
+            "payload": "settingProfile"
+          }
+        ]
+      }
+    }
+  },
   "menu": {
     "attachment": {
       "type": "template",
@@ -50,8 +66,18 @@
         "buttons": [
           {
             "type": "postback",
-            "title": "Rời nhóm",
+            "title": "Rời phòng",
             "payload": "leaveRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Thông tin phòng",
+            "payload": "roomInfo"
+          },
+          {
+            "type": "postback",
+            "title": "Thông tin bạn",
+            "payload": "userInfo"
           }
         ]
       }

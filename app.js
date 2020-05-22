@@ -89,18 +89,18 @@ function handleMessage(sender_psid, received_message, userData) {
     "text": ""
   };
   if(received_message.text) {
-    const textNotLowerCase = received_message.text;
+    const defaultText = received_message.text;
     let text = received_message.text.toLowerCase();
-    const textSplit = textNotLowerCase.split(" ");
+    const textSplit = defaultText.split(" ");
     textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
     //
-    if(userData.room_chatting.block) {
-      chatRoom.handleMessage(client, text, userData);
-    }
-    else if(text === 'exit') {
-      unblockAll(sender_psid);
+    if(text === 'exit') {
+      unblockAll(userData);
       response = textResponse.exitResponse;
+    }
+    else if(userData.room_chatting.block) {
+      chatRoom.handleMessage(client, defaultText, userData);
     }
     else if(listNonUnblockCommands.includes(text)) {
       if(userData.live_chat) {
@@ -133,7 +133,7 @@ function handleMessage(sender_psid, received_message, userData) {
         liveChat.deniedUsingOtherFeatures(sender_psid);
       }
       else {
-        unblockAll(sender_psid);
+        unblockAll(userData);
         switch (textSplit[0]) {
           case 'menu':
             response = templateResponse.menu;
@@ -186,10 +186,10 @@ function handleMessage(sender_psid, received_message, userData) {
       searchSchedule.handleMessage(client, sender_psid, text, userData);
     }
     else if(userData.search_classes_block) {
-      searchClasses.handleMessage(client, sender_psid, textNotLowerCase, userData);
+      searchClasses.handleMessage(client, sender_psid, defaultText, userData);
     }
   }
-  else if (received_message.attachments) {
+  else if(received_message.attachments) {
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
     chatRoom.handleMessage(client, "", userData, attachment_url);
@@ -197,7 +197,7 @@ function handleMessage(sender_psid, received_message, userData) {
   sendResponse(sender_psid, response);
 }
 
-function handlePostback(sender_psid, received_postback, userData) {
+async function handlePostback(sender_psid, received_postback, userData) {
   // Get the payload of receive postback
   let payload = received_postback.payload;
   let response = {
@@ -207,6 +207,7 @@ function handlePostback(sender_psid, received_postback, userData) {
   if(userData.room_chatting.has_joined && userData.room_chatting.block) {
     if(payload === 'menu') response = templateResponse.roomChattingMenu;
     else if(payload === 'help') {
+      unblockAll(userData);
       chatRoom.leaveRoom(client, userData);
       liveChat.startLiveChat(client, sender_psid);
     }
@@ -216,15 +217,19 @@ function handlePostback(sender_psid, received_postback, userData) {
     liveChat.deniedUsingOtherFeatures(sender_psid);
   }
   else {
-    unblockAll(sender_psid);
+    await unblockAll(userData);
     switch (payload) {
       // Menu possess
       case 'menu':
         response = templateResponse.menu;
         break;
       //
+      case 'roomInfo':
       case 'leaveRoom':
-        response.text = "Bạn hiện không ở trong nhóm nào...";
+        response.text = "Bạn hiện không ở trong phòng nào...";
+        break;
+      case 'userInfo':
+        chatRoom.userInfo(userData);
         break;
       case 'searchFeatures':
         response = templateResponse.features;
@@ -272,10 +277,13 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
         //
       case 'settingName':
-        chatRoom.settingName(client);
+        chatRoom.settingName(client, userData);
         break;
       case 'settingAvatar':
-        chatRoom.settingAvatar(client);
+        chatRoom.settingAvatar(client, userData);
+        break;
+      case 'userInfo':
+        chatRoom.userInfo(userData);
         break;
       // listCommands possess
       case 'listCommands':
@@ -331,7 +339,8 @@ function initUserData(sender_psid) {
       create_new_subroom: false,
       room_id: "",
       persona_id: "249248646315258",
-      name: "User"
+      name: "Người lạ",
+      img_url: "https://i.imgur.com/187Y4u3.png"
     },
     live_chat: false
   };
@@ -339,8 +348,8 @@ function initUserData(sender_psid) {
   return insert;
 }
 
-function unblockAll(sender_psid) {
-  client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+function unblockAll(userData) {
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
     $set: {
       main_schedule: [],
       main_teach_schedule: [],
@@ -362,8 +371,9 @@ function unblockAll(sender_psid) {
         type: "",
         create_new_subroom: false,
         room_id: "",
-        persona_id: "249248646315258",
-        name: "User"
+        persona_id: userData.room_chatting.persona_id,
+        name: userData.room_chatting.name,
+        img_url: userData.room_chatting.img_url
       },
       live_chat: false
     }
