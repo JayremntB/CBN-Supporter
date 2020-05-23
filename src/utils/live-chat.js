@@ -1,6 +1,7 @@
 const request = require('request');
 const sendResponse = require('../general/sendResponse');
 const textResponse = require('../general/textResponse');
+const template = require('../general/template');
 
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
@@ -10,15 +11,15 @@ module.exports = {
   deniedUsingOtherFeatures: deniedUsingOtherFeatures
 }
 
-async function startLiveChat(client, sender_psid) {
+async function startLiveChat(client, userData) {
   let response = {
     "text": "Đợi tý, tớ đang gọi thằng coder..."
   };
-  sendResponse(sender_psid, response);
-  onLiveChat(client, sender_psid);
+  sendResponse(userData.sender_psid, response);
+  onLiveChat(client, userData);
   // send notification to author with user's info
   request({
-    "uri": `https://graph.facebook.com/${sender_psid}`,
+    "uri": `https://graph.facebook.com/${userData.sender_psid}`,
     "qs": {
       "fields": "first_name,last_name",
       "access_token": process.env.PAGE_ACCESS_TOKEN
@@ -37,14 +38,15 @@ async function startLiveChat(client, sender_psid) {
   });
 }
 
-function deniedUsingOtherFeatures(sender_psid) {
+function deniedUsingOtherFeatures(userData) {
   let response = textResponse.liveChatExitResponse;
   response.text = "Nhập Exit để thoát hỗ trợ và sử dụng các tính năng khác nhé :3";
-  sendResponse(sender_psid, response);
+  sendResponse(userData.sender_psid, response);
 }
 
-function onLiveChat(client, sender_psid) {
-  client.db(dbName).collection(collectionName).updateOne({ sender_psid: sender_psid }, {
+function onLiveChat(client, userData) {
+  client.db(dbName).collection(collectionName).updateOne({ sender_psid: userData.sender_psid }, {
+    $set: userDataUnblockSchema(userData),
     $set: {
       live_chat: true
     }
@@ -54,12 +56,12 @@ function onLiveChat(client, sender_psid) {
       const response = {
         "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
       };
-      sendResponse(sender_psid, response);
+      sendResponse(userData.sender_psid, response);
     }
     else {
       setTimeout(() => {
         const response = textResponse.liveChatExitResponse;
-        sendResponse(sender_psid, response);
+        sendResponse(userData.sender_psid, response);
       }, 500);
     }
   });

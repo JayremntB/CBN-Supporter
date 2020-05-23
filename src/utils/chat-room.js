@@ -3,6 +3,7 @@ const sendResponse = require('../general/sendResponse');
 const templateResponse = require('../general/templateResponse');
 const textResponse = require('../general/textResponse');
 const { extractHostname } = require('../general/validate-input');
+const { userDataUnblockSchema } = require('../general/template');
 
 const dbName = 'database-for-cbner';
 
@@ -23,8 +24,7 @@ module.exports = {
 async function handleMessage(client, text, userData, attachment_url) {
   // if has joined an exist room, send message
   if(userData.room_chatting.has_joined) {
-    const room_id = userData.room_chatting.room_id;
-    client.db(dbName).collection('room-chatting').findOne({ room_id: room_id }, (err, res) => {
+    client.db(dbName).collection('room-chatting').findOne({ room_id: userData.room_chatting.room_id }, (err, res) => {
       if(err) console.log(err);
       else {
         let message = {
@@ -225,13 +225,7 @@ async function leaveRoom(client, userData) {
       // set all attributes of user's data to default
       while(userData.room_chatting.block) {
         await client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-          $set: {
-            "room_chatting.block": false,
-            "room_chatting.type": "",
-            "room_chatting.has_joined": false,
-            "room_chatting.room_id": "",
-            "room_chatting.create_new_subroom": false
-          }
+          $set: userDataUnblockSchema(userData)
         });
         userData = await client.db(dbName).collection('users-data').findOne({ sender_psid: userData.sender_psid });
       }
@@ -262,6 +256,7 @@ Giới hạn phòng: ${res.limit_users} người`
 async function initBlock(client, type, userData, createSubRoom) {
   while(!userData.room_chatting.block) {
     await client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+      $set: userDataUnblockSchema(userData),
       $set: {
         "room_chatting.block": true,
         "room_chatting.type": type,

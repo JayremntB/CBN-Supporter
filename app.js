@@ -28,8 +28,8 @@ app.listen(port, () => {
 const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
-const listUnblockCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
-const listNonUnblockCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
+const listSingleWordCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
@@ -107,9 +107,9 @@ function handleMessage(sender_psid, received_message, userData) {
       unblockAll(userData);
       response = textResponse.exitResponse;
     }
-    else if(listNonUnblockCommands.includes(text)) {
+    else if(listNonSingleWordCommands.includes(text)) {
       if(userData.live_chat) {
-        liveChat.deniedUsingOtherFeatures(sender_psid);
+        liveChat.deniedUsingOtherFeatures(userData);
       }
       else {
         switch (text) {
@@ -133,12 +133,11 @@ function handleMessage(sender_psid, received_message, userData) {
         }
       }
     }
-    else if(listUnblockCommands.includes(textSplit[0])) {
+    else if(listSingleWordCommands.includes(textSplit[0])) {
       if(userData.live_chat) {
-        liveChat.deniedUsingOtherFeatures(sender_psid);
+        liveChat.deniedUsingOtherFeatures(userData);
       }
       else {
-        unblockAll(userData);
         switch (textSplit[0]) {
           case 'menu':
             response = templateResponse.menu;
@@ -148,7 +147,7 @@ function handleMessage(sender_psid, received_message, userData) {
             response.text = `${textResponse.listGeneralCommands.text}\n${textResponse.listInitFeatureCommands.text}\n${textResponse.listSettingCommands.text}`;
             break;
           case 'help':
-            liveChat.startLiveChat(client, sender_psid);
+            liveChat.startLiveChat(client, userData);
             break;
           case 'hd':
             response = textResponse.defaultResponse;
@@ -157,23 +156,23 @@ function handleMessage(sender_psid, received_message, userData) {
           case 'lop':
           case 'xemlop':
           case 'xoalop':
-            setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
+            // setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
             break;
           case 'gv':
           case 'xemgv':
           case 'xoagv':
-            setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
+            // setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
             break;
           case 'wd':
           case 'xemwd':
           case 'xoawd':
-            setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
+            // setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
             break;
           case 'tkb':
-            searchSchedule.init(client, sender_psid, userData);
+            // searchSchedule.init(client, sender_psid, userData);
             break;
           case 'dạy':
-            searchClasses.init(client, sender_psid, userData);
+            // searchClasses.init(client, sender_psid, userData);
             break;
           case 'covid':
             checkCovid(sender_psid);
@@ -202,7 +201,7 @@ function handleMessage(sender_psid, received_message, userData) {
   sendResponse(sender_psid, response);
 }
 
-async function handlePostback(sender_psid, received_postback, userData) {
+function handlePostback(sender_psid, received_postback, userData) {
   // Get the payload of receive postback
   let payload = received_postback.payload;
   let response = {
@@ -216,9 +215,8 @@ async function handlePostback(sender_psid, received_postback, userData) {
         response = templateResponse.roomChattingMenu;
         break;
       case 'help':
-        unblockAll(userData);
         chatRoom.leaveRoom(client, userData);
-        liveChat.startLiveChat(client, sender_psid);
+        liveChat.startLiveChat(client, userData);
         break;
       case 'leaveRoom':
         chatRoom.leaveRoom(client, userData);
@@ -242,10 +240,9 @@ async function handlePostback(sender_psid, received_postback, userData) {
     }
   }
   else if(userData.live_chat) {
-    liveChat.deniedUsingOtherFeatures(sender_psid);
+    liveChat.deniedUsingOtherFeatures(userData);
   }
   else {
-    await unblockAll(userData);
     switch (payload) {
       // Menu possess
       case 'menu':
@@ -264,10 +261,10 @@ async function handlePostback(sender_psid, received_postback, userData) {
         break;
         //
       case 'searchSchedule':
-        searchSchedule.init(client, sender_psid, userData);
+        // searchSchedule.init(client, sender_psid, userData);
         break;
       case 'searchClasses':
-        searchClasses.init(client, sender_psid, userData);
+        // searchClasses.init(client, sender_psid, userData);
         break;
       //
       case 'otherFeatures':
@@ -329,7 +326,7 @@ async function handlePostback(sender_psid, received_postback, userData) {
         response = textResponse.chatbotInformationResponse;
         break;
       case 'help':
-        liveChat.startLiveChat(client, sender_psid);
+        liveChat.startLiveChat(client, userData);
         break;
     }
   }
@@ -339,7 +336,6 @@ async function handlePostback(sender_psid, received_postback, userData) {
 function initUserData(sender_psid) {
   const insert = {
     sender_psid: sender_psid,
-    persona_id: "249248646315258",
     group: "",
     teacher: "",
     wind_down_time: 14,
@@ -373,8 +369,8 @@ function initUserData(sender_psid) {
   return insert;
 }
 
-async function unblockAll(userData) {
-  await client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+function unblockAll(userData) {
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
     $set: {
       main_schedule: [],
       main_teach_schedule: [],
