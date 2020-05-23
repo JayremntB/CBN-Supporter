@@ -95,12 +95,17 @@ function handleMessage(sender_psid, received_message, userData) {
     textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
     //
-    if(text === 'exit') {
+    if(userData.room_chatting.block) {
+      if(text === 'exit' && userData.room_chatting.has_joined) chatRoom.leaveRoom(client, userData);
+      else if(text === 'exit') {
+        unblockAll(userData);
+        response = textResponse.exitResponse;
+      }
+      else chatRoom.handleMessage(client, defaultText, userData);
+    }
+    else if(text === 'exit') {
       unblockAll(userData);
       response = textResponse.exitResponse;
-    }
-    else if(userData.room_chatting.block) {
-      chatRoom.handleMessage(client, defaultText, userData);
     }
     else if(listNonUnblockCommands.includes(text)) {
       if(userData.live_chat) {
@@ -204,14 +209,37 @@ async function handlePostback(sender_psid, received_postback, userData) {
     "text": ""
   };
   console.log('postback: ' + payload + "\n---------------------------------");
+  //
   if(userData.room_chatting.has_joined && userData.room_chatting.block) {
-    if(payload === 'menu') response = templateResponse.roomChattingMenu;
-    else if(payload === 'help') {
-      unblockAll(userData);
-      chatRoom.leaveRoom(client, userData);
-      liveChat.startLiveChat(client, sender_psid);
+    switch (payload) {
+      case 'menu':
+        response = templateResponse.roomChattingMenu;
+        break;
+      case 'help':
+        unblockAll(userData);
+        chatRoom.leaveRoom(client, userData);
+        liveChat.startLiveChat(client, sender_psid);
+        break;
+      case 'leaveRoom':
+        chatRoom.leaveRoom(client, userData);
+        break;
+      case 'roomInfo':
+        chatRoom.roomInfo(client, userData);
+        break;
+      case 'userInfo':
+        chatRoom.userInfo(userData);
+        break;
+      case 'settingProfile':
+        const response1 = {
+          "text": "Đã thoát phòng để bảo vệ quyền riêng tư :<"
+        };
+        sendResponse(userData.sender_psid, response1);
+        chatRoom.leaveRoom(client, userData);
+        response = templateResponse.settingProfile;
+        break;
+      default:
+        response.text = 'Thoát phòng để sử dụng các tính năng...'
     }
-    else if(payload === 'leaveRoom') chatRoom.leaveRoom(client, userData);
   }
   else if(userData.live_chat) {
     liveChat.deniedUsingOtherFeatures(sender_psid);
@@ -282,9 +310,6 @@ async function handlePostback(sender_psid, received_postback, userData) {
       case 'settingAvatar':
         chatRoom.settingAvatar(client, userData);
         break;
-      case 'userInfo':
-        chatRoom.userInfo(userData);
-        break;
       // listCommands possess
       case 'listCommands':
         response = templateResponse.listCommands;
@@ -348,8 +373,8 @@ function initUserData(sender_psid) {
   return insert;
 }
 
-function unblockAll(userData) {
-  client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+async function unblockAll(userData) {
+  await client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
     $set: {
       main_schedule: [],
       main_teach_schedule: [],

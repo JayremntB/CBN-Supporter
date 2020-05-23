@@ -5,6 +5,7 @@ const textResponse = require('../general/textResponse');
 const { extractHostname } = require('../general/validate-input');
 
 const dbName = 'database-for-cbner';
+
 module.exports = {
   handleMessage: handleMessage,
   joinGeneralRoom: joinGeneralRoom,
@@ -15,7 +16,8 @@ module.exports = {
   createSubRoom: createSubRoom,
   joinRandomRoom: joinRandomRoom,
   leaveRoom: leaveRoom,
-  userInfo: userInfo
+  userInfo: userInfo,
+  roomInfo: roomInfo
 }
 
 async function handleMessage(client, text, userData, attachment_url) {
@@ -129,7 +131,7 @@ function selectRoom(client, userData) {
 function settingName(client, userData) {
   initBlock(client, "settingName", userData);
   const response = {
-    "text": "Nhập tên hiển thị khi chat..."
+    "text": "Nhập tên bạn muốn hiển thị khi chat..."
   };
   sendResponse(userData.sender_psid, response);
 }
@@ -203,13 +205,12 @@ async function leaveRoom(client, userData) {
   await client.db(dbName).collection('room-chatting').findOne({ room_id: userData.room_chatting.room_id }, async (err, roomData) => {
     if(err) console.log(err);
     else {
-      const response = {
-        "text": "Đã rời khỏi nhóm..."
-      };
+      const response = textResponse.defaultResponse;
+      response.text = "Đã rời khỏi phòng...";
       sendResponse(userData.sender_psid, response);
       // send announcement to users in current room
       const message = {
-        "text": `${userData.room_chatting.name.toUpperCase()} đã rời khỏi nhóm...`
+        "text": `${userData.room_chatting.name.toUpperCase()} đã rời khỏi phòng...`
       };
       sendNewPersonaMessage(roomData.list_users, message, userData, 1);
       // leave current room
@@ -239,7 +240,23 @@ async function leaveRoom(client, userData) {
 }
 
 function userInfo(userData) {
-  response = 
+  let response = templateResponse.userChatRoomInfo;
+  response.attachment.payload.text = `
+Tên hiển thị: ${userData.room_chatting.name}
+Ảnh hiển thị: ${userData.room_chatting.img_url}`
+  sendResponse(userData.sender_psid, response);
+}
+
+function roomInfo(client, userData) {
+  client.db(dbName).collection('room-chatting').findOne({ room_id: userData.room_chatting.room_id }, (err, res) => {
+    const response = {
+      "text": `
+ID phòng: ${res.room_id}
+Số người trong phòng: ${res.list_users.length}
+Giới hạn phòng: ${res.limit_users} người`
+    }
+    sendResponse(userData.sender_psid, response);
+  });
 }
 
 async function initBlock(client, type, userData, createSubRoom) {
@@ -348,7 +365,7 @@ function getPersonaID(client, name, imgUrl, userData) {
 
 function sendNewPersonaMessage(list_users, message, userData, adminAction) {
   list_users.forEach((userPsid) => {
-    sendPersonaMessage(userPsid, message, userData.room_chatting.persona_id, adminAction);
+    if(userPsid !== userData.sender_psid) sendPersonaMessage(userPsid, message, userData.room_chatting.persona_id, adminAction);
   });
 }
 

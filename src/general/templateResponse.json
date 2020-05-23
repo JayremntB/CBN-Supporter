@@ -24,7 +24,7 @@
         "buttons": [
           {
             "type": "postback",
-            "title": "Sửa đổi thông tin",
+            "title": "Thay đổi",
             "payload": "settingProfile"
           }
         ]
@@ -76,7 +76,7 @@
           },
           {
             "type": "postback",
-            "title": "Thông tin bạn",
+            "title": "Thông tin cá nhân",
             "payload": "userInfo"
           }
         ]
@@ -139,13 +139,18 @@
         "buttons": [
           {
             "type": "postback",
-            "title": "Tên",
+            "title": "Tên hiển thị",
             "payload": "settingName"
           },
           {
             "type": "postback",
-            "title": "Ảnh đại diện",
+            "title": "Ảnh hiển thị",
             "payload": "settingAvatar"
+          },
+          {
+            "type": "postback",
+            "title": "Thông tin cá nhân",
+            "payload": "userInfo"
           }
         ]
       }
@@ -215,6 +220,11 @@
             "type": "postback",
             "title": "Ngẫu nhiên",
             "payload": "randomSubRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Vào phòng trước",
+            "payload": "joinPreChatRoom"
           }
         ]
       }
