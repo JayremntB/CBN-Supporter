@@ -78,13 +78,27 @@ app.post('/webhook', (req, res) => {
 });
 
 function handleMessage(sender_psid, received_message, userData) {
-  // setTimeout(() => {
-  //   const response = {
-  //     "text": "test1"
-  //   };
-  //   sendResponse(sender_psid, response);
-  //   console.log("ok");
-  // }, 1000 * 60);
+  setTimeout(() => {
+    const response = {
+      "text": "test1"
+    };
+    sendResponse(sender_psid, response);
+    console.log("60s");
+  }, 1000 * 60);
+  setTimeout(() => {
+    const response = {
+      "text": "test1"
+    };
+    sendResponse(sender_psid, response);
+    console.log("60p");
+  }, 1000 * 60 * 60);
+  setTimeout(() => {
+    const response = {
+      "text": "test1"
+    };
+    sendResponse(sender_psid, response);
+    console.log("180p");
+  }, 1000 * 60 * 60 * 3);
   let response = {
     "text": ""
   };
