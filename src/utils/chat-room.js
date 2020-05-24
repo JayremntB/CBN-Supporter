@@ -107,6 +107,7 @@ function joinGeneralRoom(client, userData) {
   client.db(dbName).collection('room-chatting').findOne({ room_id: 1 }, (err, res) => {
     const totalMembers = res.list_users.length;
     if(totalMembers === 0) {
+      sendAnnouncement(client, userData, res);
       response.text = "Trong phòng hiện không có người nào...\nTớ sẽ thông báo khi có người vào phòng nhé!";
       sendResponse(userData.sender_psid, response);
     }
@@ -200,9 +201,9 @@ function joinRandomRoom(client, userData) {
   })
 }
 
-async function leaveRoom(client, userData) {
+function leaveRoom(client, userData) {
   // remove user from current room
-  await client.db(dbName).collection('room-chatting').findOne({ room_id: userData.room_chatting.room_id }, async (err, roomData) => {
+  client.db(dbName).collection('room-chatting').findOne({ room_id: userData.room_chatting.room_id }, async (err, roomData) => {
     if(err) console.log(err);
     else {
       const response = textResponse.defaultResponse;
@@ -254,14 +255,13 @@ Giới hạn phòng: ${res.limit_users} người`
 }
 
 async function initBlock(client, type, userData, createSubRoom) {
-  while(!userData.room_chatting.block) {
+  let update = userDataUnblockSchema(userData);
+  update.room_chatting.block = true;
+  update.room_chatting.type = type,
+  update.room_chatting.create_new_subroom = createSubRoom === undefined ? false : true;
+  while(userData.room_chatting.type !== type) {
     await client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-      $set: userDataUnblockSchema(userData),
-      $set: {
-        "room_chatting.block": true,
-        "room_chatting.type": type,
-        "room_chatting.create_new_subroom": createSubRoom === undefined ? false : true
-      }
+      $set: update
     });
     userData = await client.db(dbName).collection('users-data').findOne({ sender_psid: userData.sender_psid });
   }

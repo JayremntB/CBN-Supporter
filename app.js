@@ -78,27 +78,27 @@ app.post('/webhook', (req, res) => {
 });
 
 function handleMessage(sender_psid, received_message, userData) {
-  setTimeout(() => {
-    const response = {
-      "text": "test1"
-    };
-    sendResponse(sender_psid, response);
-    console.log("60s");
-  }, 1000 * 60);
-  setTimeout(() => {
-    const response = {
-      "text": "test1"
-    };
-    sendResponse(sender_psid, response);
-    console.log("60p");
-  }, 1000 * 60 * 60);
-  setTimeout(() => {
-    const response = {
-      "text": "test1"
-    };
-    sendResponse(sender_psid, response);
-    console.log("180p");
-  }, 1000 * 60 * 60 * 3);
+  // setTimeout(() => {
+  //   const response = {
+  //     "text": "test1"
+  //   };
+  //   sendResponse(sender_psid, response);
+  //   console.log("60s");
+  // }, 1000 * 60);
+  // setTimeout(() => {
+  //   const response = {
+  //     "text": "test1"
+  //   };
+  //   sendResponse(sender_psid, response);
+  //   console.log("60p");
+  // }, 1000 * 60 * 60);
+  // setTimeout(() => {
+  //   const response = {
+  //     "text": "test1"
+  //   };
+  //   sendResponse(sender_psid, response);
+  //   console.log("180p");
+  // }, 1000 * 60 * 60 * 3);
   let response = {
     "text": ""
   };
@@ -154,9 +154,11 @@ function handleMessage(sender_psid, received_message, userData) {
       else {
         switch (textSplit[0]) {
           case 'menu':
+						unblockAll(userData);
             response = templateResponse.menu;
             break;
           case 'lệnh':
+						unblockAll(userData);
             response = textResponse.defaultResponse;
             response.text = `${textResponse.listGeneralCommands.text}\n${textResponse.listInitFeatureCommands.text}\n${textResponse.listSettingCommands.text}`;
             break;
@@ -164,6 +166,7 @@ function handleMessage(sender_psid, received_message, userData) {
             liveChat.startLiveChat(client, userData);
             break;
           case 'hd':
+						unblockAll(userData);
             response = textResponse.defaultResponse;
             response.text = "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md";
             break;
@@ -188,13 +191,12 @@ function handleMessage(sender_psid, received_message, userData) {
           case 'dạy':
             // searchClasses.init(client, sender_psid, userData);
             break;
-          case 'covid':
-            checkCovid(sender_psid);
-            break;
           case 'dậy':
+						unblockAll(userData);
             estimateSleepTime(sender_psid, textSplit, userData);
             break;
           case 'ngủ':
+						unblockAll(userData);
             estimateWakeUpTime(sender_psid, textSplit, userData);
             break;
         }
@@ -260,36 +262,44 @@ function handlePostback(sender_psid, received_postback, userData) {
     switch (payload) {
       // Menu possess
       case 'menu':
+        unblockAll(userData);
         response = templateResponse.menu;
         break;
       //
       case 'roomInfo':
       case 'leaveRoom':
+        unblockAll(userData);
         response.text = "Bạn hiện không ở trong phòng nào...";
         break;
       case 'userInfo':
         chatRoom.userInfo(userData);
         break;
       case 'searchFeatures':
+        unblockAll(userData);
         response = templateResponse.features;
         break;
         //
       case 'searchSchedule':
+        unblockAll(userData);
         // searchSchedule.init(client, sender_psid, userData);
         break;
       case 'searchClasses':
+        unblockAll(userData);
         // searchClasses.init(client, sender_psid, userData);
         break;
       //
       case 'otherFeatures':
+        unblockAll(userData);
         response = textResponse.otherFeaturesResponse;
         break;
       // chatRoom
       case 'chatRoom':
+        unblockAll(userData);
         response = templateResponse.chatRoom;
         break;
       //
       case 'joinChatRoom':
+        unblockAll(userData);
         response = templateResponse.joinChatRoom;
         break;
         //
@@ -312,6 +322,7 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
       //
       case 'settingProfile':
+        unblockAll(userData);
         response = templateResponse.settingProfile;
         break;
         //
@@ -323,20 +334,25 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
       // listCommands possess
       case 'listCommands':
+        unblockAll(userData);
         response = templateResponse.listCommands;
         break;
       //
       case 'generalCommands':
+        unblockAll(userData);
         response = textResponse.listGeneralCommands;
         break;
       case 'initFeatureCommands':
+        unblockAll(userData);
         response = textResponse.listInitFeatureCommands;
         break;
       case 'settingCommands':
+        unblockAll(userData);
         response = textResponse.listSettingCommands;
         break;
       // Information and help possess
       case 'chatbotInformation':
+        unblockAll(userData);
         response = textResponse.chatbotInformationResponse;
         break;
       case 'help':

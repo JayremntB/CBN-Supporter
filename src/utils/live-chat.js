@@ -1,7 +1,7 @@
 const request = require('request');
 const sendResponse = require('../general/sendResponse');
 const textResponse = require('../general/textResponse');
-const template = require('../general/template');
+const { userDataUnblockSchema } = require('../general/template');
 
 const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
@@ -45,11 +45,10 @@ function deniedUsingOtherFeatures(userData) {
 }
 
 function onLiveChat(client, userData) {
+  let update = userDataUnblockSchema(userData);
+  update.live_chat = true;
   client.db(dbName).collection(collectionName).updateOne({ sender_psid: userData.sender_psid }, {
-    $set: userDataUnblockSchema(userData),
-    $set: {
-      live_chat: true
-    }
+    $set: update
   }, (err) => {
     if(err) {
       console.error(err);
