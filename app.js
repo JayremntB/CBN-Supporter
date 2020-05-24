@@ -115,6 +115,10 @@ function handleMessage(received_message, userData) {
         unblockAll(userData);
         response = textResponse.exitResponse;
       }
+			else if(text === 'help') {
+				chatRoom.leaveRoom(client, userData);
+        liveChat.startLiveChat(client, userData);
+			}
       else chatRoom.handleMessage(client, defaultText, userData);
     }
     else if(text === 'exit') {
@@ -388,7 +392,7 @@ function initUserData(sender_psid) {
       type: "",
       create_new_subroom: false,
       room_id: "",
-      persona_id: "249248646315258",
+      persona_id: "3363745553659185",
       name: "Người lạ",
       img_url: "https://i.imgur.com/187Y4u3.png"
     },

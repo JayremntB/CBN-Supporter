@@ -23,6 +23,11 @@
         "text": "",
         "buttons": [
           {
+            "type": "web_url",
+            "url": "",
+            "title": "Xem ảnh hiển thị"
+          },
+          {
             "type": "postback",
             "title": "Thay đổi",
             "payload": "settingProfile"
@@ -258,6 +263,12 @@
         "content_type": "text",
         "title": "6 người",
         "payload": "menu",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
         "image_url": ""
       }
     ]

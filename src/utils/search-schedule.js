@@ -18,10 +18,10 @@ function handleMessage(client, text, userData) {
     sendResponse(userData.sender_psid, response);
   }
   else if(!userData.search_schedule_other_group.block) {
-    sendSchedule(userData.sender_psid, text, userData);
+    sendSchedule(text, userData);
   }
   else if(userData.search_schedule_other_group.group) {
-    sendSchedule(userData.sender_psid, text, userData);
+    sendSchedule(text, userData);
   }
   else if(checkGroup(userData.sender_psid, text)) {
     updateData(client, userData, text, userData.search_schedule_other_group.block);

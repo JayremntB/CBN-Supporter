@@ -129,9 +129,10 @@ function updateData(client, userData, teacherName, other_teacher_block) {
       //
       let update = userDataUnblockSchema(userData);
       if(other_teacher_block) {
-        update.search_schedule_other_teacher.block = true;
-        update.search_schedule_other_teacher.teacher = teacherName;
-        update.search_schedule_other_teaches.teaches = teaches;
+        update.search_classes_block = true;
+        update.search_classes_other_teacher.block = true;
+        update.search_classes_other_teacher.teacher = teacherName;
+        update.search_classes_other_teacher.teaches = teaches;
       }
       else {
         update.search_classes_block = true,
