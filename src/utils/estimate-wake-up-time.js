@@ -3,7 +3,7 @@ const sendResponse = require('../general/sendResponse');
 const typingOn = require('../general/typing');
 const textResponse = require('../general/textResponse');
 
-module.exports = function(sender_psid, textSplit, userData) {
+module.exports = function(textSplit, userData) {
   const responseDefault = [
     `Trung bình bạn mất ${userData.wind_down_time} phút để chìm vào giấc ngủ, một giấc ngủ đủ giấc sẽ kéo dài từ 3 đến 6 chu kỳ. Thời điểm tốt nhất bạn nên thức dậy chính là lúc giao thoa giữa 2 chu kỳ.`,
     "Nếu có thể thức dậy vào lúc đó, đảm bảo bạn sẽ có một ngày tuyệt vời tràn đầy năng lượng!"
@@ -21,21 +21,21 @@ module.exports = function(sender_psid, textSplit, userData) {
       date.setMinutes(date.getMinutes() + 90);
       response.text += `+ ${date.getHours()} giờ ${date.getMinutes()} phút\n`;
     }
-    sendResponse(sender_psid, response);
-    typingOn(sender_psid);
+    sendResponse(userData.sender_psid, response);
+    typingOn(userData.sender_psid);
     setTimeout(() => {
       response.text = responseDefault[0];
-      sendResponse(sender_psid, response);
-      typingOn(sender_psid);
+      sendResponse(userData.sender_psid, response);
+      typingOn(userData.sender_psid);
       setTimeout(() => {
-        typingOn(sender_psid);
+        typingOn(userData.sender_psid);
         response = textResponse.estimateTimeResponse;
         response.text = responseDefault[1];
-        sendResponse(sender_psid, response);
+        sendResponse(userData.sender_psid, response);
       }, 3500);
     }, 3000);
   }
-  else if(checkTime(sender_psid, textSplit[1].split("h"))) {
+  else if(checkTime(userData.sender_psid, textSplit[1].split("h"))) {
     const time = textSplit[1].split("h");
     const date = new Date();
     date.setHours(time[0]);
@@ -47,17 +47,17 @@ module.exports = function(sender_psid, textSplit, userData) {
       date.setMinutes(date.getMinutes() + 90);
       response.text += `+ ${date.getHours()} giờ ${date.getMinutes()} phút\n`;
     }
-    sendResponse(sender_psid, response);
-    typingOn(sender_psid);
+    sendResponse(userData.sender_psid, response);
+    typingOn(userData.sender_psid);
     setTimeout(() => {
       response.text = responseDefault[0];
-      sendResponse(sender_psid, response);
-      typingOn(sender_psid);
+      sendResponse(userData.sender_psid, response);
+      typingOn(userData.sender_psid);
       setTimeout(() => {
-        typingOn(sender_psid);
+        typingOn(userData.sender_psid);
         response = textResponse.estimateTimeResponse;
         response.text = responseDefault[1];
-        sendResponse(sender_psid, response);
+        sendResponse(userData.sender_psid, response);
       }, 3500);
     }, 3000);
   }

@@ -2,6 +2,8 @@
 const sendResponse = require('../general/sendResponse');
 const textResponse = require('../general/textResponse');
 const { checkTeacherName } = require('../general/validate-input');
+const { userDataUnblockSchema } = require('../general/template');
+
 const dbName = 'database-for-cbner';
 
 module.exports = {
@@ -9,49 +11,47 @@ module.exports = {
   handleMessage: handleMessage
 };
 
-function handleMessage(client, sender_psid, text, userData) {
+function handleMessage(client, text, userData) {
   if(text.toLowerCase() === "tra giáo viên khác") {
     const response = textResponse.searchClassesAskTeacher;
-    clearOtherTeacherData(client, sender_psid);
-    sendResponse(sender_psid, response);
+    clearOtherTeacherData(client, userData.sender_psid);
+    sendResponse(userData.sender_psid, response);
   }
   else if(!userData.search_classes_other_teacher.block) {
-    sendClasses(sender_psid, text, userData);
+    sendClasses(text, userData);
   }
   else if(userData.search_classes_other_teacher.teacher) {
-    sendClasses(sender_psid, text, userData);
+    sendClasses(text, userData);
   }
-  else if(checkTeacherName(sender_psid, text)) {
-    updateData(client, sender_psid, text, userData.search_classes_other_teacher.block);
+  else if(checkTeacherName(userData.sender_psid, text)) {
+    updateData(client, userData, text, userData.search_classes_other_teacher.block);
   }
 }
 
-function init(client, sender_psid, userData) {
+function init(client, userData) {
   if(userData.teacher) { // init search_classes_block
-    updateData(client, sender_psid, userData.teacher, userData.search_classes_other_teacher.block);
+    updateData(client, userData, userData.teacher, userData.search_classes_other_teacher.block);
   }
   else { // init both search_classes_block & search_classes_other_teacher block
-    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-      $set: {
-        search_classes_block: true,
-        search_classes_other_teacher: {
-          block: true,
-          teacher: "",
-          teaches: []
-        }
-      }
+    let update = userDataUnblockSchema(userData);
+    update.search_classes_block = true;
+    update.search_classes_other_teacher.block = true;
+    update.search_classes_other_teacher.teacher = "";
+    update.search_classes_other_teacher.teaches = [];
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+      $set: update
     }, (err) => {
       if(err) {
         console.log("could not init search_classes_other_teacher block");
         const response = {
           "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
         };
-        sendResponse(sender_psid, response);
+        sendResponse(userData.sender_psid, response);
       }
       else {
         console.log('init search search_classes_other_teacher successfully');
         const response = textResponse.searchClassesAskTeacher;
-        sendResponse(sender_psid, response);
+        sendResponse(userData.sender_psid, response);
       }
     });
   }
@@ -78,7 +78,7 @@ function clearOtherTeacherData(client, sender_psid) {
   });
 }
 
-function updateData(client, sender_psid, teacherName, other_teacher_block) {
+function updateData(client, userData, teacherName, other_teacher_block) {
   client.db(dbName).collection('schedule').find({
     $or: [
       { "schedule.morning.teacher": teacherName },
@@ -90,7 +90,7 @@ function updateData(client, sender_psid, teacherName, other_teacher_block) {
       const response = {
         "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
       };
-      sendResponse(sender_psid, response);
+      sendResponse(userData.sender_psid, response);
     }
     else {
       let teaches = [];
@@ -127,23 +127,18 @@ function updateData(client, sender_psid, teacherName, other_teacher_block) {
         }
       }
       //
-      let update;
+      let update = userDataUnblockSchema(userData);
       if(other_teacher_block) {
-        update = {
-          search_classes_other_teacher: {
-            block: true,
-            teacher: teacherName,
-            teaches: teaches
-          }
-        }
+        update.search_classes_block = true;
+        update.search_classes_other_teacher.block = true;
+        update.search_classes_other_teacher.teacher = teacherName;
+        update.search_classes_other_teacher.teaches = teaches;
       }
       else {
-        update = {
-          search_classes_block: true,
-          main_teach_schedule: teaches
-        }
+        update.search_classes_block = true,
+        update.main_teach_schedule = teaches
       }
-      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
         $set: update
       }, (err) => {
         if (err) {
@@ -151,21 +146,21 @@ function updateData(client, sender_psid, teacherName, other_teacher_block) {
           const response = {
             "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
           };
-          sendResponse(sender_psid, response);
+          sendResponse(userData.sender_psid, response);
         } else {
           console.log("Update teacher data successfully");
           let response = textResponse.askDay;
           response.quick_replies[0].title = "Tra giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
           response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nBạn muốn tra thứ mấy?`;
-          sendResponse(sender_psid, response);
+          sendResponse(userData.sender_psid, response);
         }
       });
     }
   });
 }
 
-function sendClasses(sender_psid, dayInput, userData) {
+function sendClasses(dayInput, userData) {
   let response = textResponse.askDay;
   response.quick_replies[0].title = "Tra giáo viên khác";
   response.quick_replies[0].payload = "overwriteTeacher";
@@ -203,16 +198,16 @@ Thứ ${days + 2}:
     });
     text += `\nVì Tổ quốc xã hội chủ nghĩa. Vì lý tưởng của Bác Hồ vĩ đại: Sẵn sàng!`;
     response.text = text;
-    sendResponse(sender_psid, response);
+    sendResponse(userData.sender_psid, response);
   }
   else if(!isNaN(day)){
     if(day == 8) {
       response.text = "Chủ nhật thì ai chẳng ở nhà bận yêu gia đình :3";
-      sendResponse(sender_psid, response);
+      sendResponse(userData.sender_psid, response);
     }
     else if(day - 1 > teaches.length || day - 2 < 0) {
       response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới 🥺\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
-      sendResponse(sender_psid, response);
+      sendResponse(userData.sender_psid, response);
     }
     else {
       const data = teaches[day - 2];
@@ -238,12 +233,12 @@ Thứ ${days + 2}:
       }
       text += `\n-----------\nVì Tổ quốc xã hội chủ nghĩa. Vì lý tưởng của Bác Hồ vĩ đại: Sẵn sàng!`;
       response.text = text;
-      sendResponse(sender_psid, response);
+      sendResponse(userData.sender_psid, response);
     }
   }
   else {
     response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới 🥺\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
-    sendResponse(sender_psid, response);
+    sendResponse(userData.sender_psid, response);
   }
 }
 

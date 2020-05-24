@@ -5,7 +5,7 @@ request({
   "qs": { access_token: process.env.PAGE_ACCESS_TOKEN },
   "method": "POST",
   "json": {
-  	"name": "User",
+  	"name": "Người lạ",
   	"profile_picture_url": "https://i.imgur.com/187Y4u3.png",
   }
 }, (err, res, body) => {

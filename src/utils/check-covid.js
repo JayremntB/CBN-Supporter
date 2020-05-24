@@ -1,3 +1,4 @@
+// This feature was deprecated
 'use strict'
 const request = require('request');
 const sendResponse = require('../general/sendResponse');

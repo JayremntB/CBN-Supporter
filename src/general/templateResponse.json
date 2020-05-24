@@ -15,6 +15,27 @@
       }
     }
   },
+  "userChatRoomInfo": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "",
+        "buttons": [
+          {
+            "type": "web_url",
+            "url": "",
+            "title": "Xem ảnh hiển thị"
+          },
+          {
+            "type": "postback",
+            "title": "Thay đổi",
+            "payload": "settingProfile"
+          }
+        ]
+      }
+    }
+  },
   "menu": {
     "attachment": {
       "type": "template",
@@ -50,8 +71,18 @@
         "buttons": [
           {
             "type": "postback",
-            "title": "Rời nhóm",
+            "title": "Rời phòng",
             "payload": "leaveRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Thông tin phòng",
+            "payload": "roomInfo"
+          },
+          {
+            "type": "postback",
+            "title": "Thông tin cá nhân",
+            "payload": "userInfo"
           }
         ]
       }
@@ -113,13 +144,18 @@
         "buttons": [
           {
             "type": "postback",
-            "title": "Tên",
+            "title": "Tên hiển thị",
             "payload": "settingName"
           },
           {
             "type": "postback",
-            "title": "Ảnh đại diện",
+            "title": "Ảnh hiển thị",
             "payload": "settingAvatar"
+          },
+          {
+            "type": "postback",
+            "title": "Thông tin cá nhân",
+            "payload": "userInfo"
           }
         ]
       }
@@ -189,6 +225,11 @@
             "type": "postback",
             "title": "Ngẫu nhiên",
             "payload": "randomSubRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Vào phòng trước",
+            "payload": "joinPreChatRoom"
           }
         ]
       }
@@ -222,6 +263,12 @@
         "content_type": "text",
         "title": "6 người",
         "payload": "menu",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
         "image_url": ""
       }
     ]
