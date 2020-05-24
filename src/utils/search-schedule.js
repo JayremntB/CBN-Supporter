@@ -11,24 +11,24 @@ module.exports = {
   init: init
 }
 
-function handleMessage(client, sender_psid, text, userData) {
+function handleMessage(client, text, userData) {
   if(text === "tra lớp khác") {
     const response = textResponse.searchScheduleAskGroup;
-    clearOtherGroupData(client, sender_psid);
-    sendResponse(sender_psid, response);
+    clearOtherGroupData(client, userData.sender_psid);
+    sendResponse(userData.sender_psid, response);
   }
   else if(!userData.search_schedule_other_group.block) {
-    sendSchedule(sender_psid, text, userData);
+    sendSchedule(userData.sender_psid, text, userData);
   }
   else if(userData.search_schedule_other_group.group) {
-    sendSchedule(sender_psid, text, userData);
+    sendSchedule(userData.sender_psid, text, userData);
   }
-  else if(checkGroup(sender_psid, text)) {
+  else if(checkGroup(userData.sender_psid, text)) {
     updateData(client, userData, text, userData.search_schedule_other_group.block);
   }
 }
 
-function init(client, sender_psid, userData) {
+function init(client, userData) {
   if(userData.group) { // init search_schedule_block, add schedule of that group
     updateData(client, userData, userData.group, userData.search_schedule_other_group.block);
   }
@@ -38,7 +38,7 @@ function init(client, sender_psid, userData) {
     update.search_schedule_other_group.block = true;
     update.search_schedule_other_group.group = "";
     update.search_schedule_other_group.schedule = [];
-    client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
       $set: update
     }, (err) => {
       if(err) {
@@ -46,12 +46,12 @@ function init(client, sender_psid, userData) {
         const response = {
           "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
         };
-        sendResponse(sender_psid, response);
+        sendResponse(userData.sender_psid, response);
       }
       else {
         console.log('init search_schedule_other_group block successfully');
         const response = textResponse.searchScheduleAskGroup;
-        sendResponse(sender_psid, response);
+        sendResponse(userData.sender_psid, response);
       }
     });
   }
@@ -122,7 +122,7 @@ function updateData(client, userData, groupInput, other_group_block) {
   });
 }
 
-function sendSchedule(sender_psid, dayInput, userData) {
+function sendSchedule(dayInput, userData) {
   let response = textResponse.askDay;
   response.quick_replies[0].title = "Tra lớp khác";
   response.quick_replies[0].payload = "overwriteClass";
@@ -162,16 +162,16 @@ Thứ ${data.day}:
     });
     text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
     response.text = text;
-    sendResponse(sender_psid, response);
+    sendResponse(userData.sender_psid, response);
   }
   else if(!isNaN(day)){
     if(day == 8) {
       response.text = "Chủ nhật mà vẫn muốn tìm thời khoá biểu để học ư 🥺";
-      sendResponse(sender_psid, response);
+      sendResponse(userData.sender_psid, response);
     }
     else if(day - 1 > schedule.length || day - 2 < 0) {
       response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới 🥺\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
-      sendResponse(sender_psid, response);
+      sendResponse(userData.sender_psid, response);
     }
     else {
       const data = schedule[day - 2];
@@ -199,11 +199,11 @@ Thứ ${data.day}:
       else text += subText;
       text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
       response.text = text;
-      sendResponse(sender_psid, response);
+      sendResponse(userData.sender_psid, response);
     }
   }
   else {
     response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới 🥺\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
-    sendResponse(sender_psid, response);
+    sendResponse(userData.sender_psid, response);
   }
 }

@@ -65,10 +65,10 @@ app.post('/webhook', (req, res) => {
       let userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: sender_psid });
       if(!userData) userData = initUserData(sender_psid);
       if(webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message, userData);
+        handleMessage(webhook_event.message, userData);
       }
       else if(webhook_event.postback) {
-        handlePostback(sender_psid, webhook_event.postback, userData);
+        handlePostback(webhook_event.postback, userData);
       }
     });
     res.status(200).send('EVENT_RECEIVED');
@@ -77,7 +77,7 @@ app.post('/webhook', (req, res) => {
   }
 });
 
-function handleMessage(sender_psid, received_message, userData) {
+function handleMessage(received_message, userData) {
   // setTimeout(() => {
   //   const response = {
   //     "text": "test1"
@@ -173,40 +173,40 @@ function handleMessage(sender_psid, received_message, userData) {
           case 'lop':
           case 'xemlop':
           case 'xoalop':
-            setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
+            setting.handleSetGroupMessage(client, textSplit, userData);
             break;
           case 'gv':
           case 'xemgv':
           case 'xoagv':
-            setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
+            setting.handleSetTeacherMessage(client, textSplit, userData);
             break;
           case 'wd':
           case 'xemwd':
           case 'xoawd':
-            setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
+            setting.handleWindDownMessage(client, textSplit, userData);
             break;
           case 'tkb':
-            searchSchedule.init(client, sender_psid, userData);
+            searchSchedule.init(client, userData);
             break;
           case 'dạy':
-            searchClasses.init(client, sender_psid, userData);
+            searchClasses.init(client, userData);
             break;
           case 'dậy':
 						unblockAll(userData);
-            estimateSleepTime(sender_psid, textSplit, userData);
+            estimateSleepTime(textSplit, userData);
             break;
           case 'ngủ':
 						unblockAll(userData);
-            estimateWakeUpTime(sender_psid, textSplit, userData);
+            estimateWakeUpTime(textSplit, userData);
             break;
         }
       }
     }
     else if(userData.search_schedule_block) {
-      searchSchedule.handleMessage(client, sender_psid, text, userData);
+      searchSchedule.handleMessage(client, text, userData);
     }
     else if(userData.search_classes_block) {
-      searchClasses.handleMessage(client, sender_psid, defaultText, userData);
+      searchClasses.handleMessage(client, defaultText, userData);
     }
   }
   else if(received_message.attachments) {
@@ -214,10 +214,10 @@ function handleMessage(sender_psid, received_message, userData) {
     let attachment_url = received_message.attachments[0].payload.url;
     chatRoom.handleMessage(client, "", userData, attachment_url);
   }
-  sendResponse(sender_psid, response);
+  sendResponse(userData.sender_psid, response);
 }
 
-function handlePostback(sender_psid, received_postback, userData) {
+function handlePostback(received_postback, userData) {
   // Get the payload of receive postback
   let payload = received_postback.payload;
   let response = {
@@ -281,10 +281,10 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
         //
       case 'searchSchedule':
-        searchSchedule.init(client, sender_psid, userData);
+        searchSchedule.init(client, userData);
         break;
       case 'searchClasses':
-        searchClasses.init(client, sender_psid, userData);
+        searchClasses.init(client, userData);
         break;
       //
       case 'otherFeatures':
@@ -359,7 +359,7 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
     }
   }
-  sendResponse(sender_psid, response);
+  sendResponse(userData.sender_psid, response);
 }
 
 function initUserData(sender_psid) {
