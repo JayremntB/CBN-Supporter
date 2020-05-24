@@ -173,23 +173,23 @@ function handleMessage(sender_psid, received_message, userData) {
           case 'lop':
           case 'xemlop':
           case 'xoalop':
-            // setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
+            setting.handleSetGroupMessage(client, sender_psid, textSplit, userData);
             break;
           case 'gv':
           case 'xemgv':
           case 'xoagv':
-            // setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
+            setting.handleSetTeacherMessage(client, sender_psid, textSplit, userData);
             break;
           case 'wd':
           case 'xemwd':
           case 'xoawd':
-            // setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
+            setting.handleWindDownMessage(client, sender_psid, textSplit, userData);
             break;
           case 'tkb':
-            // searchSchedule.init(client, sender_psid, userData);
+            searchSchedule.init(client, sender_psid, userData);
             break;
           case 'dạy':
-            // searchClasses.init(client, sender_psid, userData);
+            searchClasses.init(client, sender_psid, userData);
             break;
           case 'dậy':
 						unblockAll(userData);
@@ -272,6 +272,7 @@ function handlePostback(sender_psid, received_postback, userData) {
         response.text = "Bạn hiện không ở trong phòng nào...";
         break;
       case 'userInfo':
+        unblockAll(userData);
         chatRoom.userInfo(userData);
         break;
       case 'searchFeatures':
@@ -280,12 +281,10 @@ function handlePostback(sender_psid, received_postback, userData) {
         break;
         //
       case 'searchSchedule':
-        unblockAll(userData);
-        // searchSchedule.init(client, sender_psid, userData);
+        searchSchedule.init(client, sender_psid, userData);
         break;
       case 'searchClasses':
-        unblockAll(userData);
-        // searchClasses.init(client, sender_psid, userData);
+        searchClasses.init(client, sender_psid, userData);
         break;
       //
       case 'otherFeatures':

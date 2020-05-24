@@ -2,6 +2,8 @@
 const sendResponse = require('../general/sendResponse');
 const textResponse = require('../general/textResponse');
 const { checkTeacherName } = require('../general/validate-input');
+const { userDataUnblockSchema } = require('../general/template');
+
 const dbName = 'database-for-cbner';
 
 module.exports = {
@@ -22,24 +24,22 @@ function handleMessage(client, sender_psid, text, userData) {
     sendClasses(sender_psid, text, userData);
   }
   else if(checkTeacherName(sender_psid, text)) {
-    updateData(client, sender_psid, text, userData.search_classes_other_teacher.block);
+    updateData(client, userData, text, userData.search_classes_other_teacher.block);
   }
 }
 
 function init(client, sender_psid, userData) {
   if(userData.teacher) { // init search_classes_block
-    updateData(client, sender_psid, userData.teacher, userData.search_classes_other_teacher.block);
+    updateData(client, userData, userData.teacher, userData.search_classes_other_teacher.block);
   }
   else { // init both search_classes_block & search_classes_other_teacher block
+    let update = userDataUnblockSchema(userData);
+    update.search_classes_block = true;
+    update.search_classes_other_teacher.block = true;
+    update.search_classes_other_teacher.teacher = "";
+    update.search_classes_other_teacher.teaches = [];
     client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
-      $set: {
-        search_classes_block: true,
-        search_classes_other_teacher: {
-          block: true,
-          teacher: "",
-          teaches: []
-        }
-      }
+      $set: update
     }, (err) => {
       if(err) {
         console.log("could not init search_classes_other_teacher block");
@@ -78,7 +78,7 @@ function clearOtherTeacherData(client, sender_psid) {
   });
 }
 
-function updateData(client, sender_psid, teacherName, other_teacher_block) {
+function updateData(client, userData, teacherName, other_teacher_block) {
   client.db(dbName).collection('schedule').find({
     $or: [
       { "schedule.morning.teacher": teacherName },
@@ -90,7 +90,7 @@ function updateData(client, sender_psid, teacherName, other_teacher_block) {
       const response = {
         "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
       };
-      sendResponse(sender_psid, response);
+      sendResponse(userData.sender_psid, response);
     }
     else {
       let teaches = [];
@@ -127,23 +127,17 @@ function updateData(client, sender_psid, teacherName, other_teacher_block) {
         }
       }
       //
-      let update;
+      let update = userDataUnblockSchema(userData);
       if(other_teacher_block) {
-        update = {
-          search_classes_other_teacher: {
-            block: true,
-            teacher: teacherName,
-            teaches: teaches
-          }
-        }
+        update.search_schedule_other_teacher.block = true;
+        update.search_schedule_other_teacher.teacher = teacherName;
+        update.search_schedule_other_teaches.teaches = teaches;
       }
       else {
-        update = {
-          search_classes_block: true,
-          main_teach_schedule: teaches
-        }
+        update.search_classes_block = true,
+        update.main_teach_schedule = teaches
       }
-      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
         $set: update
       }, (err) => {
         if (err) {
@@ -151,14 +145,14 @@ function updateData(client, sender_psid, teacherName, other_teacher_block) {
           const response = {
             "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
           };
-          sendResponse(sender_psid, response);
+          sendResponse(userData.sender_psid, response);
         } else {
           console.log("Update teacher data successfully");
           let response = textResponse.askDay;
           response.quick_replies[0].title = "Tra giáo viên khác";
           response.quick_replies[0].payload = "overwriteTeacher";
           response.text = `Cập nhật lịch dạy của giáo viên ${teacherName} thành công!\nBạn muốn tra thứ mấy?`;
-          sendResponse(sender_psid, response);
+          sendResponse(userData.sender_psid, response);
         }
       });
     }

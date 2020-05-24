@@ -1,5 +1,6 @@
 const sendResponse = require('./sendResponse');
 const textResponse = require('./textResponse');
+const { groupsCheckArray, teachersCheckArray } = require('./template');
 
 module.exports = {
   checkTeacherName: checkTeacherName,
@@ -10,7 +11,7 @@ module.exports = {
 }
 
 function checkTeacherName(sender_psid, teacherName) {
-  const checkArray = textResponse.teachersCheckArray;
+  const checkArray = teachersCheckArray;
   if(checkArray.includes(teacherName)) return true;
   else {
     let response = textResponse.checkTeacherNameResponse;
@@ -21,7 +22,7 @@ function checkTeacherName(sender_psid, teacherName) {
 }
 
 function checkGroup(sender_psid, group) {
-  const checkArray = textResponse.groupsCheckArray;
+  const checkArray = groupsCheckArray;
   if(checkArray.includes(group)) return true;
   else {
     let response = textResponse.checkGroupResponse;
