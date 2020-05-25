@@ -50,6 +50,7 @@ function userDataUnblockSchema(userData) {
       type: "",
       create_new_subroom: false,
       room_id: "",
+      pre_room: userData.room_chatting.pre_room,
       persona_id: userData.room_chatting.persona_id,
       name: userData.room_chatting.name,
       img_url: userData.room_chatting.img_url

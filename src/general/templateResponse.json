@@ -228,8 +228,8 @@
           },
           {
             "type": "postback",
-            "title": "Vào phòng trước",
-            "payload": "joinPreChatRoom"
+            "title": "Phòng cũ gần nhất",
+            "payload": "joinPreRoom"
           }
         ]
       }

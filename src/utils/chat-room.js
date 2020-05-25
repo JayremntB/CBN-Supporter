@@ -16,6 +16,7 @@ module.exports = {
   settingAvatar: settingAvatar,
   createSubRoom: createSubRoom,
   joinRandomRoom: joinRandomRoom,
+  joinPreRoom: joinPreRoom,
   leaveRoom: leaveRoom,
   userInfo: userInfo,
   roomInfo: roomInfo
@@ -92,7 +93,7 @@ function findValidRoom(client, userData, limitUsers) {
     else if(res) sendAnnouncement(client, userData, res);
     else {
       response = textResponse.subRoomResponse;
-      response.text = "Không tìm thấy phòng. Hãy tìm phòng khác hoặc tạo phòng mới...";
+      response.text = "Không tìm thấy phòng trống hoặc phòng có người. Hãy tìm phòng khác hoặc tạo phòng mới...";
       sendResponse(userData.sender_psid, response);
     }
   });
@@ -195,12 +196,22 @@ function joinRandomRoom(client, userData) {
     }
     else {
       const response = {
-        "text": "Không tìm thấy phòng. Hãy tạo phòng mới và chờ, tớ sẽ thông báo cho bạn khi có người vào phòng nhé :>"
+        "text": "Không tìm thấy phòng trống hoặc phòng có người. Hãy tạo phòng mới và chờ, tớ sẽ thông báo cho bạn khi có người vào phòng nhé :>"
       };
       sendResponse(userData.sender_psid, response);
       client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
         $set: userDataUnblockSchema(userData)
       });
+    }
+  })
+}
+
+function joinPreRoom(client, userData) {
+  client.db(dbName).collection('room-chatting').findOne({ room_id: userData.room_chatting.pre_room }, (err, room) => {
+    if(err) console.log(err);
+    else {
+      initBlock(client, "subRoom", userData);
+      sendAnnouncement(client, userData, room);
     }
   })
 }
@@ -225,8 +236,10 @@ function leaveRoom(client, userData) {
         }
       });
       // set all attributes of user's data to default
+      let update = userDataUnblockSchema(userData);
+      update.room_chatting.pre_room = roomData.room_id;
       client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-        $set: userDataUnblockSchema(userData)
+        $set: update
       });
     }
   });

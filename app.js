@@ -318,8 +318,11 @@ function handlePostback(received_postback, userData) {
         break;
       case 'randomSubRoom':
         chatRoom.joinRandomRoom(client, userData);
+				break;
+			case 'joinPreRoom':
+				chatRoom.joinPreRoom(client, userData);
+				break;
         //
-        break;
       case 'selectRoom':
         chatRoom.selectRoom(client, userData);
         break;
@@ -392,6 +395,7 @@ function initUserData(sender_psid) {
       type: "",
       create_new_subroom: false,
       room_id: "",
+			pre_room: 1,
       persona_id: "3363745553659185",
       name: "Người lạ",
       img_url: "https://i.imgur.com/187Y4u3.png"
@@ -425,6 +429,7 @@ function unblockAll(userData) {
         type: "",
         create_new_subroom: false,
         room_id: "",
+				pre_room: 1,
         persona_id: userData.room_chatting.persona_id,
         name: userData.room_chatting.name,
         img_url: userData.room_chatting.img_url
