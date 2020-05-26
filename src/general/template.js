@@ -28,6 +28,41 @@ const teachersCheckArray = [
 'LN.Hân',    'NP.Ly Ly'
 ]
 
+function userDataFrame(sender_psid) {
+  return {
+    sender_psid: sender_psid,
+    group: "",
+    teacher: "",
+    wind_down_time: 14,
+    main_schedule: [],
+    main_teach_schedule: [],
+    search_schedule_block: false,
+    search_classes_block: false,
+    search_schedule_other_group: {
+      block: false,
+      group: "",
+      schedule: []
+    },
+    search_classes_other_teacher: {
+      block: false,
+      teacher: "",
+      teaches: []
+    },
+    room_chatting: {
+      block: false,
+      has_joined: false,
+      type: "",
+      create_new_subroom: false,
+      room_id: "",
+      pre_room: 1,
+      persona_id: "3363745553659185",
+      name: "Người lạ",
+      img_url: "https://i.imgur.com/187Y4u3.png"
+    },
+    live_chat: false
+  }
+}
+
 function userDataUnblockSchema(userData) {
   return {
     main_schedule: [],
@@ -50,6 +85,7 @@ function userDataUnblockSchema(userData) {
       type: "",
       create_new_subroom: false,
       room_id: "",
+      pre_room: userData.room_chatting.pre_room,
       persona_id: userData.room_chatting.persona_id,
       name: userData.room_chatting.name,
       img_url: userData.room_chatting.img_url
@@ -61,5 +97,6 @@ function userDataUnblockSchema(userData) {
 module.exports = {
   groupsCheckArray: groupsCheckArray,
   teachersCheckArray: teachersCheckArray,
+  userDataFrame: userDataFrame,
   userDataUnblockSchema: userDataUnblockSchema
 };

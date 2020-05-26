@@ -243,7 +243,7 @@ VÍ DỤ: dậy 6h15
     ]
   },
   "recommendedSetTeacher": {
-    "text": "Để mỗi lần sử dụng tính năng tra tiết dạy bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập gv + tên giáo viên.\nVí dụ: gv NT.A",
+    "text": "Để mỗi lần sử dụng tính năng tra tiết dạy (tìm giáo viên) bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập gv + tên giáo viên.\nVí dụ: gv NT.A",
     "quick_replies": [
       {
         "content_type": "text",
