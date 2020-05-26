@@ -196,12 +196,12 @@
         "buttons": [
           {
             "type": "postback",
-            "title": "Thời khoá biểu",
+            "title": "Tra thời khoá biểu",
             "payload": "searchSchedule"
           },
           {
             "type": "postback",
-            "title": "Lịch dạy",
+            "title": "Tìm giáo viên",
             "payload": "searchClasses"
           }
         ]

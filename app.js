@@ -30,6 +30,7 @@ const dbName = 'database-for-cbner';
 const collectionName = 'users-data';
 const listSingleWordCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
+const { userDataUnblockSchema, userDataFrame } = require('./src/general/template');
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
@@ -140,12 +141,15 @@ function handleMessage(received_message, userData) {
             response = textResponse.teacherList;
             break;
           case 'đặt lớp mặc định':
+            unblockAll(userData);
             response = textResponse.recommendedSetGroup;
             break;
           case 'đặt gv mặc định':
+            unblockAll(userData);
             response = textResponse.recommendedSetTeacher;
             break;
           case 'đổi thời gian tb':
+            unblockAll(userData);
             response = textResponse.recommendedSetWindDown;
             break;
         }
@@ -370,72 +374,13 @@ function handlePostback(received_postback, userData) {
 }
 
 function initUserData(sender_psid) {
-  const insert = {
-    sender_psid: sender_psid,
-    group: "",
-    teacher: "",
-    wind_down_time: 14,
-    main_schedule: [],
-    main_teach_schedule: [],
-    search_schedule_block: false,
-    search_classes_block: false,
-    search_schedule_other_group: {
-      block: false,
-      group: "",
-      schedule: []
-    },
-    search_classes_other_teacher: {
-      block: false,
-      teacher: "",
-      teaches: []
-    },
-    room_chatting: {
-      block: false,
-      has_joined: false,
-      type: "",
-      create_new_subroom: false,
-      room_id: "",
-			pre_room: 1,
-      persona_id: "3363745553659185",
-      name: "Người lạ",
-      img_url: "https://i.imgur.com/187Y4u3.png"
-    },
-    live_chat: false
-  };
-  client.db(dbName).collection(collectionName).insertOne(insert);
-  return insert;
+  client.db(dbName).collection(collectionName).insertOne(userDataFrame);
+  return userDataFrame;
 }
 
 function unblockAll(userData) {
   client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-    $set: {
-      main_schedule: [],
-      main_teach_schedule: [],
-      search_schedule_block: false,
-      search_classes_block: false,
-      search_schedule_other_group: {
-        block: false,
-        group: "",
-        schedule: []
-      },
-      search_classes_other_teacher: {
-        block: false,
-        teacher: "",
-        teaches: []
-      },
-      room_chatting: {
-        block: false,
-        has_joined: false,
-        type: "",
-        create_new_subroom: false,
-        room_id: "",
-				pre_room: 1,
-        persona_id: userData.room_chatting.persona_id,
-        name: userData.room_chatting.name,
-        img_url: userData.room_chatting.img_url
-      },
-      live_chat: false
-    }
+    $set: userDataUnblockSchema(userData)
   });
 }
 })();

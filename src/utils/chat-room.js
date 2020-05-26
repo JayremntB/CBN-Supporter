@@ -68,11 +68,11 @@ function findRoomByID(client, userData, room_id) {
     }
     if(err) console.log(err);
     else if(!res) {
-      response.text = "Không tìm thấy phòng.\nHãy nhập lại số phòng...";
+      response.text = "Không tìm thấy phòng.\nHãy nhập lại ID phòng...";
       sendResponse(userData.sender_psid, response);
     }
     else if(res.list_users.length >= res.limit_users) {
-      response.text = `Phòng đã đủ người, hãy vào lại sau...`;
+      response.text = `Phòng đã đủ người, hãy vào lại sau.\nNhập phòng khác đi...`;
       sendResponse(userData.sender_psid, response);
     }
     else sendAnnouncement(client, userData, res);
@@ -93,7 +93,7 @@ function findValidRoom(client, userData, limitUsers) {
     else if(res) sendAnnouncement(client, userData, res);
     else {
       response = textResponse.subRoomResponse;
-      response.text = "Không tìm thấy phòng trống hoặc phòng có người. Hãy tìm phòng khác hoặc tạo phòng mới...";
+      response.text = "Không tìm thấy phòng trống hoặc có người. Hãy tìm phòng khác hoặc tạo phòng mới...";
       sendResponse(userData.sender_psid, response);
     }
   });
@@ -196,7 +196,7 @@ function joinRandomRoom(client, userData) {
     }
     else {
       const response = {
-        "text": "Không tìm thấy phòng trống hoặc phòng có người. Hãy tạo phòng mới và chờ, tớ sẽ thông báo cho bạn khi có người vào phòng nhé :>"
+        "text": "Không tìm thấy phòng trống hoặc có người. Hãy tạo phòng mới và chờ, tớ sẽ thông báo cho bạn khi có người vào phòng nhé :>"
       };
       sendResponse(userData.sender_psid, response);
       client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
@@ -207,11 +207,23 @@ function joinRandomRoom(client, userData) {
 }
 
 function joinPreRoom(client, userData) {
-  client.db(dbName).collection('room-chatting').findOne({ room_id: userData.room_chatting.pre_room }, (err, room) => {
+  client.db(dbName).collection('room-chatting').findOne({
+    room_id: userData.room_chatting.pre_room,
+    $where: "this.list_users.length < this.limit_users"
+  }, (err, room) => {
     if(err) console.log(err);
-    else {
+    else if(room) {
       initBlock(client, "subRoom", userData);
       sendAnnouncement(client, userData, room);
+    }
+    else {
+      const response = {
+        "text": `Phòng đã đủ người, hãy vào lại sau.`
+      };
+      sendResponse(userData.sender_psid, response);
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+        $set: userDataUnblockSchema(userData)
+      });
     }
   })
 }
