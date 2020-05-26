@@ -26,8 +26,8 @@ app.listen(port, () => {
   console.log('webhook is listening on port ' + port);
 });
 const { userDataUnblockSchema, userDataFrame } = require('./src/general/template');
-// const connectionUrl = process.env.DATABASE_URI;
-const connectionUrl = "mongodb://127.0.0.1:27017";
+const connectionUrl = process.env.DATABASE_URI;
+// const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const listSingleWordCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
@@ -35,7 +35,7 @@ const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo 
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
-  res.send("deployed successfully");
+  res.send("ok");
 });
 
 app.get('/webhook', (req, res) => {
