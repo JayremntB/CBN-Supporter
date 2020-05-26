@@ -55,7 +55,7 @@
           },
           {
             "type": "postback",
-            "title": "Vào phòng chat",
+            "title": "Tìm bạn bốn phương",
             "payload": "chatRoom"
           }
         ]
@@ -102,7 +102,7 @@
           },
           {
             "type": "postback",
-            "title": "Tìm phòng riêng",
+            "title": "Phòng chat riêng",
             "payload": "subRoom"
           },
           {
@@ -128,7 +128,7 @@
           },
           {
             "type": "postback",
-            "title": "Thiết lập",
+            "title": "Thiết lập danh tính",
             "payload": "settingProfile"
           }
         ]
