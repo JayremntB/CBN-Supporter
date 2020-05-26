@@ -84,7 +84,7 @@ function findValidRoom(client, userData, limitUsers) {
     "text": ""
   };
   client.db(dbName).collection('room-chatting').findOne({
-    "limit_users": limitUsers,
+    "limit_users": Number(limitUsers),
     "list_users.0": {
       $exists: true
     },
