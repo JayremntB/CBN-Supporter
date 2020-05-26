@@ -84,11 +84,15 @@ function findValidRoom(client, userData, limitUsers) {
     "text": ""
   };
   client.db(dbName).collection('room-chatting').findOne({
-    $where: function() {
-      return this.limit_users == limitUsers
-      && this.list_users.length < this.limit_users
-      && this.list_users.length > 0
-      && this.room_id > 1
+    "limit_users": limitUsers,
+    "list_users.0": {
+      $exists: true
+    },
+    "list_users.'$limit_users'": {
+      $exists: false
+    },
+    "room_id": {
+      $gt: 1
     }
   }, (err, res) => {
     if(err) console.log(err);
@@ -164,7 +168,7 @@ async function createNewSubRoom(client, userData, limitUsers) {
   const room_id = await client.db(dbName).collection('room-chatting').countDocuments() + 1;
   client.db(dbName).collection('room-chatting').insertOne({
     room_id: room_id,
-    limit_users: limitUsers
+    limit_users: Number(limitUsers)
   }, (err, res) => {
     if(err) console.log(err);
     else {
@@ -189,8 +193,11 @@ function joinRandomRoom(client, userData) {
     room_id: {
       $gt: 1
     },
-    $where: function() {
-      return this.list_users.length > 0 && this.list_users.length < this.limit_users;
+    "list_users.0": {
+      $exists: true
+    },
+    "list_users.`$limit_users`": {
+      $exists: false
     }
   }, (err, res) => {
     if(err) console.log(err);
@@ -213,8 +220,8 @@ function joinRandomRoom(client, userData) {
 function joinPreRoom(client, userData) {
   client.db(dbName).collection('room-chatting').findOne({
     room_id: userData.room_chatting.pre_room,
-    $where: function() {
-      return this.list_users.length < this.limit_users;
+    "list_users.'$limit_users'": {
+      $exists: false
     }
   }, (err, room) => {
     if(err) console.log(err);
