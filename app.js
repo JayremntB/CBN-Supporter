@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const { MongoClient } = require('mongodb');
 // features
+const getStarted = require('./src/utils/get-started');
 const setting = require('./src/utils/setting');
 const estimateWakeUpTime = require('./src/utils/estimate-wake-up-time');
 const estimateSleepTime = require('./src/utils/estimate-sleep-time');
@@ -24,13 +25,13 @@ const app = express().use(bodyParser.json());
 app.listen(port, () => {
   console.log('webhook is listening on port ' + port);
 });
+const { userDataUnblockSchema, userDataFrame } = require('./src/general/template');
 // const connectionUrl = process.env.DATABASE_URI;
 const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
-const collectionName = 'users-data';
 const listSingleWordCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
-const { userDataUnblockSchema, userDataFrame } = require('./src/general/template');
+// connect to database
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
 app.get('/', (req, res) => {
@@ -56,21 +57,22 @@ app.get('/webhook', (req, res) => {
 app.post('/webhook', (req, res) => {
   let body = req.body;
   if(body.object === 'page') {
-    body.entry.forEach(async (entry) => {
+    body.entry.forEach((entry) => {
       // Get "body" of webhook event
       let webhook_event = entry.messaging[0];
       console.log("RECEIVED  A  MESSAGE");
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       // check if the webhook_event is a normal message or a Postback message
-      let userData = await client.db(dbName).collection(collectionName).findOne({ sender_psid: sender_psid });
-      if(!userData) userData = initUserData(sender_psid);
-      if(webhook_event.message) {
-        handleMessage(webhook_event.message, userData);
-      }
-      else if(webhook_event.postback) {
-        handlePostback(webhook_event.postback, userData);
-      }
+      let userData = client.db(dbName).collection('users-data').findOne({ sender_psid: sender_psid }, (err, userData) => {
+        if(!userData) userData = initUserData(sender_psid);
+        if(webhook_event.message) {
+          handleMessage(webhook_event.message, userData);
+        }
+        else if(webhook_event.postback) {
+          handlePostback(webhook_event.postback, userData);
+        }
+      });
     });
     res.status(200).send('EVENT_RECEIVED');
   } else {
@@ -268,6 +270,9 @@ function handlePostback(received_postback, userData) {
   }
   else {
     switch (payload) {
+      case 'getStarted':
+        getStarted(userData.sender_psid);
+        break;
       // Menu possess
       case 'menu':
         unblockAll(userData);
@@ -374,8 +379,8 @@ function handlePostback(received_postback, userData) {
 }
 
 function initUserData(sender_psid) {
-  client.db(dbName).collection(collectionName).insertOne(userDataFrame);
-  return userDataFrame;
+  client.db(dbName).collection('users-data').insertOne(userDataFrame(sender_psid));
+  return userDataFrame(sender_psid);
 }
 
 function unblockAll(userData) {
