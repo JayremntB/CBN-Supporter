@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app",
     "dev": "npx nodemon",
-    "setpart": "node src/general/set-single-part",
+    "setpart": "node test/set-single-part",
     "getteachers": "node test/getteachers",
     "getpersona": "node test/get-persona"
   },
