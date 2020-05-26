@@ -88,9 +88,7 @@ function findValidRoom(client, userData, limitUsers) {
     "list_users.0": {
       $exists: true
     },
-    "list_users.'$limit_users'": {
-      $exists: false
-    },
+    $expr: {$gt: ["$limit_users", {$size: "$list_users"}]},
     "room_id": {
       $gt: 1
     }
@@ -196,9 +194,7 @@ function joinRandomRoom(client, userData) {
     "list_users.0": {
       $exists: true
     },
-    "list_users.`$limit_users`": {
-      $exists: false
-    }
+    $expr: {$gt: ["$limit_users", {$size: "$list_users"}]}
   }, (err, res) => {
     if(err) console.log(err);
     else if(res) {
@@ -220,9 +216,7 @@ function joinRandomRoom(client, userData) {
 function joinPreRoom(client, userData) {
   client.db(dbName).collection('room-chatting').findOne({
     room_id: userData.room_chatting.pre_room,
-    "list_users.'$limit_users'": {
-      $exists: false
-    }
+    $expr: {$gt: ["$limit_users", {$size: "$list_users"}]}
   }, (err, room) => {
     if(err) console.log(err);
     else if(room) {
