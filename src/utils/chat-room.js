@@ -187,7 +187,7 @@ function createSubRoom(client, userData) {
 }
 
 function joinRandomRoom(client, userData) {
-  client.db(dbName).collection('room-chatting').findOne({
+  client.db(dbName).collection('room-chatting').find({
     room_id: {
       $gt: 1
     },
@@ -195,11 +195,11 @@ function joinRandomRoom(client, userData) {
       $exists: true
     },
     $expr: {$gt: ["$limit_users", {$size: "$list_users"}]}
-  }, (err, res) => {
+  }).toArray((err, res) => {
     if(err) console.log(err);
     else if(res) {
       initBlock(client, "subRoom", userData);
-      sendAnnouncement(client, userData, res);
+      sendAnnouncement(client, userData, res[Math.floor(Math.random() * res.length)]);
     }
     else {
       const response = {
