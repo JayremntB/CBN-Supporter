@@ -101,7 +101,12 @@ function findValidRoom(client, userData, limitUsers) {
       res.forEach((room) => {
         if(room.list_users.length < Number(room.limit_users)) validRoom.push(room);
       });
-      sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
+      if(validRoom.length != 0) sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
+      else {
+        response = textResponse.subRoomResponse;
+        response.text = "Không tìm thấy phòng trống hoặc có người. Hãy tìm phòng khác hoặc tạo phòng mới...";
+        sendResponse(userData.sender_psid, response);
+      }
     }
     else {
       response = textResponse.subRoomResponse;
@@ -217,7 +222,16 @@ function joinRandomRoom(client, userData) {
       res.forEach((room) => {
         if(room.list_users.length < Number(room.limit_users)) validRoom.push(room);
       });
-      sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
+      if(validRoom.length != 0) sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
+      else {
+        const response = {
+          "text": "Không tìm thấy phòng trống hoặc có người. Hãy tạo phòng mới và chờ, tớ sẽ thông báo cho bạn khi có người vào phòng nhé :>"
+        };
+        sendResponse(userData.sender_psid, response);
+        client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+          $set: userDataUnblockSchema(userData)
+        });
+      }
     }
     else {
       const response = {

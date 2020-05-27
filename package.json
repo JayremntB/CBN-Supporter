@@ -8,7 +8,8 @@
     "dev": "npx nodemon",
     "setpart": "node test/set-single-part",
     "getteachers": "node test/getteachers",
-    "getpersona": "node test/get-persona"
+    "getpersona": "node test/get-persona",
+    "allserver": "node src/utils/sendMessageToAllServer"
   },
   "repository": {
     "type": "git",
