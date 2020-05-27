@@ -102,13 +102,13 @@
           },
           {
             "type": "postback",
-            "title": "Phòng chat riêng",
-            "payload": "subRoom"
+            "title": "Tạo phòng",
+            "payload": "createSubRoom"
           },
           {
             "type": "postback",
-            "title": "Nhập ID phòng",
-            "payload": "selectRoom"
+            "title": "Tìm phòng",
+            "payload": "subRoom"
           }
         ]
       }
@@ -218,8 +218,8 @@
         "buttons": [
           {
             "type": "postback",
-            "title": "Tạo phòng",
-            "payload": "createSubRoom"
+            "title": "Nhập ID phòng",
+            "payload": "selectRoom"
           },
           {
             "type": "postback",

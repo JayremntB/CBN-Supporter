@@ -322,7 +322,7 @@ function handlePostback(received_postback, userData) {
         chatRoom.joinGeneralRoom(client, userData);
         break;
       case 'subRoom':
-        chatRoom.joinSubRoom(client, userData);
+        response = chatRoom.joinSubRoom(client, userData);
         break;
           //
       case 'createSubRoom':
