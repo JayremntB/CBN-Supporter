@@ -153,7 +153,15 @@ function settingAvatar(client, userData) {
 
 function sendAnnouncement(client, userData, room) {
   const response = {
-    "text": `Đã vào phòng chat ${room.room_id}.\n${room.list_users.length} người đang chờ tin nhắn từ bạn, hãy chào mọi người đi :3`
+    "text": `Đã vào phòng chat ${room.room_id}.\n${room.list_users.length} người đang chờ tin nhắn từ bạn, hãy chào mọi người đi :3`,
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
+      }
+    ]
   };
   sendResponse(userData.sender_psid, response);
   // send announcement for people in room
