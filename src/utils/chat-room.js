@@ -91,13 +91,18 @@ function findValidRoom(client, userData, limitUsers) {
     "list_users.0": {
       $exists: true
     },
-    $expr: {$gt: ["$limit_users", {$size: "$list_users"}]},
     "room_id": {
       $gt: 1
     }
   }).toArray((err, res) => {
     if(err) console.log(err);
-    else if(res.length != 0) sendAnnouncement(client, userData, res[Math.floor(Math.random() * res.length)]);
+    else if(res.length != 0) {
+      let validRoom = [];
+      res.forEach((room) => {
+        if(room.list_users.length < Number(room.limit_users)) validRoom.push(room);
+      });
+      sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
+    }
     else {
       response = textResponse.subRoomResponse;
       response.text = "Không tìm thấy phòng trống hoặc có người. Hãy tìm phòng khác hoặc tạo phòng mới...";
@@ -204,12 +209,15 @@ function joinRandomRoom(client, userData) {
     "list_users.0": {
       $exists: true
     },
-    $expr: {$gt: ["$limit_users", {$size: "$list_users"}]}
   }).toArray((err, res) => {
     if(err) console.log(err);
     else if(res.length != 0) {
       initBlock(client, "subRoom", userData);
-      sendAnnouncement(client, userData, res[Math.floor(Math.random() * res.length)]);
+      let validRoom = [];
+      res.forEach((room) => {
+        if(room.list_users.length < Number(room.limit_users)) validRoom.push(room);
+      });
+      sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
     }
     else {
       const response = {
