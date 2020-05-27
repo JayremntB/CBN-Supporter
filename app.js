@@ -118,6 +118,9 @@ function handleMessage(received_message, userData) {
         unblockAll(userData);
         response = textResponse.exitResponse;
       }
+      else if(text === 'menu') {
+        response = templateResponse.roomChattingMenu;
+      }
 			else if(text === 'help') {
 				chatRoom.leaveRoom(client, userData);
         liveChat.startLiveChat(client, userData);
@@ -319,7 +322,7 @@ function handlePostback(received_postback, userData) {
         chatRoom.joinGeneralRoom(client, userData);
         break;
       case 'subRoom':
-        chatRoom.joinSubRoom(client, userData);
+        response = chatRoom.joinSubRoom(client, userData);
         break;
           //
       case 'createSubRoom':

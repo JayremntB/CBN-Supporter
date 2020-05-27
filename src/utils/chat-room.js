@@ -75,7 +75,10 @@ function findRoomByID(client, userData, room_id) {
       response.text = `Phòng đã đủ người, hãy vào lại sau.\nNhập phòng khác đi...`;
       sendResponse(userData.sender_psid, response);
     }
-    else sendAnnouncement(client, userData, res);
+    else {
+      initBlock(client, "subRoom", userData);
+      sendAnnouncement(client, userData, res);
+    }
   });
 }
 
@@ -83,7 +86,7 @@ function findValidRoom(client, userData, limitUsers) {
   let response = {
     "text": ""
   };
-  client.db(dbName).collection('room-chatting').findOne({
+  client.db(dbName).collection('room-chatting').find({
     "limit_users": Number(limitUsers),
     "list_users.0": {
       $exists: true
@@ -92,9 +95,9 @@ function findValidRoom(client, userData, limitUsers) {
     "room_id": {
       $gt: 1
     }
-  }, (err, res) => {
+  }).toArray((err, res) => {
     if(err) console.log(err);
-    else if(res) sendAnnouncement(client, userData, res);
+    else if(res.length != 0) sendAnnouncement(client, userData, res[Math.floor(Math.random() * res.length)]);
     else {
       response = textResponse.subRoomResponse;
       response.text = "Không tìm thấy phòng trống hoặc có người. Hãy tìm phòng khác hoặc tạo phòng mới...";
@@ -121,8 +124,7 @@ function joinGeneralRoom(client, userData) {
 
 function joinSubRoom(client, userData) {
   initBlock(client, "subRoom", userData);
-  const response = templateResponse.subRoomResponse;
-  sendResponse(userData.sender_psid, response);
+  return templateResponse.subRoomResponse;
 }
 
 function selectRoom(client, userData) {
@@ -151,7 +153,15 @@ function settingAvatar(client, userData) {
 
 function sendAnnouncement(client, userData, room) {
   const response = {
-    "text": `Đã vào phòng chat ${room.room_id}.\n${room.list_users.length} người đang chờ tin nhắn từ bạn, hãy chào mọi người đi :3`
+    "text": `Đã vào phòng chat ${room.room_id}.\n${room.list_users.length} người đang chờ tin nhắn từ bạn, hãy chào mọi người đi :3`,
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
+      }
+    ]
   };
   sendResponse(userData.sender_psid, response);
   // send announcement for people in room
@@ -187,7 +197,7 @@ function createSubRoom(client, userData) {
 }
 
 function joinRandomRoom(client, userData) {
-  client.db(dbName).collection('room-chatting').findOne({
+  client.db(dbName).collection('room-chatting').find({
     room_id: {
       $gt: 1
     },
@@ -195,11 +205,11 @@ function joinRandomRoom(client, userData) {
       $exists: true
     },
     $expr: {$gt: ["$limit_users", {$size: "$list_users"}]}
-  }, (err, res) => {
+  }).toArray((err, res) => {
     if(err) console.log(err);
-    else if(res) {
+    else if(res.length != 0) {
       initBlock(client, "subRoom", userData);
-      sendAnnouncement(client, userData, res);
+      sendAnnouncement(client, userData, res[Math.floor(Math.random() * res.length)]);
     }
     else {
       const response = {
@@ -215,11 +225,10 @@ function joinRandomRoom(client, userData) {
 
 function joinPreRoom(client, userData) {
   client.db(dbName).collection('room-chatting').findOne({
-    room_id: userData.room_chatting.pre_room,
-    $expr: {$gt: ["$limit_users", {$size: "$list_users"}]}
+    room_id: userData.room_chatting.pre_room
   }, (err, room) => {
     if(err) console.log(err);
-    else if(room) {
+    else if(room.limit_users > room.list_users.length) {
       initBlock(client, "subRoom", userData);
       sendAnnouncement(client, userData, room);
     }
