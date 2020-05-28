@@ -163,8 +163,16 @@ function settingAvatar(client, userData) {
 
 function sendAnnouncement(client, userData, room) {
   const response = {
-    "text": `Đã vào phòng chat ${room.room_id}.\n${room.list_users.length} người đang chờ tin nhắn từ bạn, hãy chào mọi người đi :3`,
+    "text": `Đã vào phòng chat ${room.room_id}.\n${room.list_users.length} người đang chờ tin nhắn từ bạn, hãy chào mọi người đi :3
+* Nhập Menu để xem thông tin phòng và thông tin cá nhân
+* Nhập Exit để thoát phòng và sử dụng các tính năng khác`,
     "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Menu",
+        "payload": "menu",
+        "image_url": ""
+      },
       {
         "content_type": "text",
         "title": "Exit",
