@@ -21,7 +21,8 @@ module.exports = function(sender_psid) {
             "payload": "menu",
             "image_url": ""
           }
-      }
+        ]
+      };
       sendResponse(sender_psid, response);
       typing(sender_psid);
     }, 2200);
