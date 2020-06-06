@@ -63,6 +63,7 @@ app.post('/webhook', (req, res) => {
       console.log("RECEIVED  A  MESSAGE");
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
+      console.log(sender_psid);
       // check if the webhook_event is a normal message or a Postback message
       let userData = client.db(dbName).collection('users-data').findOne({ sender_psid: sender_psid }, (err, userData) => {
         if(!userData) userData = initUserData(sender_psid);
@@ -81,27 +82,6 @@ app.post('/webhook', (req, res) => {
 });
 
 function handleMessage(received_message, userData) {
-  // setTimeout(() => {
-  //   const response = {
-  //     "text": "test1"
-  //   };
-  //   sendResponse(sender_psid, response);
-  //   console.log("60s");
-  // }, 1000 * 60);
-  // setTimeout(() => {
-  //   const response = {
-  //     "text": "test1"
-  //   };
-  //   sendResponse(sender_psid, response);
-  //   console.log("60p");
-  // }, 1000 * 60 * 60);
-  // setTimeout(() => {
-  //   const response = {
-  //     "text": "test1"
-  //   };
-  //   sendResponse(sender_psid, response);
-  //   console.log("180p");
-  // }, 1000 * 60 * 60 * 3);
   let response = {
     "text": ""
   };
@@ -112,15 +92,9 @@ function handleMessage(received_message, userData) {
     textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
     //
-    if(userData.room_chatting.block) {
-      if(text === 'exit' && userData.room_chatting.has_joined) chatRoom.leaveRoom(client, userData);
-      else if(text === 'exit') {
-        unblockAll(userData);
-        response = textResponse.exitResponse;
-      }
-      else if(text === 'menu') {
-        response = templateResponse.roomChattingMenu;
-      }
+    if(userData.room_chatting.has_joined) {
+      if(text === 'exit') chatRoom.leaveRoom(client, userData);
+      else if(text === 'menu') response = templateResponse.roomChattingMenu;
 			else if(text === 'help') {
 				chatRoom.leaveRoom(client, userData);
         liveChat.startLiveChat(client, userData);

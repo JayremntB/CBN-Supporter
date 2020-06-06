@@ -275,10 +275,18 @@ function joinPreRoom(client, userData) {
 }
 
 function leaveRoom(client, userData) {
-  // remove user from current room
-  client.db(dbName).collection('room-chatting').findOne({ room_id: userData.room_chatting.room_id }, (err, roomData) => {
+  // leave current room
+  client.db(dbName).collection('room-chatting').findOneAndUpdate({
+    room_id: userData.room_chatting.room_id
+    ? userData.room_chatting.room_id
+    : userData.room_chatting.pre_room
+  }, {
+    $pull: {
+      list_users: userData.sender_psid
+    }
+  }, (err, roomData) => {
     if(err) console.log(err);
-    else if(roomData) {
+    else {
       const response = textResponse.defaultResponse;
       response.text = "Đã rời khỏi phòng...";
       sendResponse(userData.sender_psid, response);
@@ -286,20 +294,14 @@ function leaveRoom(client, userData) {
       const message = {
         "text": `${userData.room_chatting.name.toUpperCase()} đã rời khỏi phòng...`
       };
-      sendNewPersonaMessage(roomData.list_users, message, userData, 1);
-      // leave current room
-      client.db(dbName).collection('room-chatting').updateOne({ room_id: userData.room_chatting.room_id }, {
-        $pull: {
-          list_users: userData.sender_psid
-        }
-      });
-      // set all attributes of user's data to default
-      let update = userDataUnblockSchema(userData);
-      update.room_chatting.pre_room = roomData.room_id;
-      client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-        $set: update
-      });
+      sendNewPersonaMessage(roomData.value.list_users, message, userData, 1);
     }
+  });
+  // set all attributes of user's data to default
+  let update = userDataUnblockSchema(userData);
+  update.room_chatting.pre_room = userData.room_chatting.room_id;
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+    $set: update
   });
 }
 
