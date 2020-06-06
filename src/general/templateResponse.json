@@ -40,23 +40,47 @@
     "attachment": {
       "type": "template",
       "payload": {
-        "template_type": "button",
-        "text": "Bạn cần gì nào :3",
-        "buttons": [
+        "template_type": "generic",
+        "elements": [
           {
-            "type": "postback",
-            "title": "Tìm kiếm",
-            "payload": "searchFeatures"
+            "title": "Bạn cần gì nào :3",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Tra thời khoá biểu",
+                "payload": "searchSchedule"
+              },
+              {
+                "type": "postback",
+                "title": "Tra lịch dạy",
+                "payload": "searchClasses"
+              },
+              {
+                "type": "postback",
+                "title": "Tìm bạn bốn phương",
+                "payload": "chatRoom"
+              }
+            ]
           },
           {
-            "type": "postback",
-            "title": "Các tính năng khác",
-            "payload": "otherFeatures"
-          },
-          {
-            "type": "postback",
-            "title": "Tìm bạn bốn phương",
-            "payload": "chatRoom"
+            "title": "Bạn cần gì nào :3",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Sử dụng lệnh",
+                "payload": "listCommands"
+              },
+              {
+                "type": "postback",
+                "title": "Các tính năng khác",
+                "payload": "otherFeatures"
+              },
+              {
+                "type": "postback",
+                "title": "Hỗ trợ",
+                "payload": "help"
+              }
+            ]
           }
         ]
       }
@@ -118,44 +142,67 @@
     "attachment": {
       "type": "template",
       "payload": {
-        "template_type": "button",
-        "text": "Bạn sẽ chat ẩn danh với những người được kết nối...",
-        "buttons": [
+        "template_type": "generic",
+        "elements": [
           {
-            "type": "postback",
-            "title": "Tìm phòng chat",
-            "payload": "joinChatRoom"
+            "title": "Bạn sẽ chat ẩn danh với những người được kết nối...",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Vào phòng chat tổng",
+                "payload": "generalRoom"
+              },
+              {
+                "type": "postback",
+                "title": "Vào phòng ngẫu nhiên",
+                "payload": "randomSubRoom"
+              },
+              {
+                "type": "postback",
+                "title": "Tìm phòng chat riêng",
+                "payload": "subRoom"
+              }
+            ]
           },
           {
-            "type": "postback",
-            "title": "Thiết lập danh tính",
-            "payload": "settingProfile"
-          }
-        ]
-      }
-    }
-  },
-  "settingProfile": {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "button",
-        "text": "Chọn thiết lập",
-        "buttons": [
-          {
-            "type": "postback",
-            "title": "Tên hiển thị",
-            "payload": "settingName"
+            "title": "Lựa chọn khác",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Tạo phòng",
+                "payload": "createSubRoom"
+              },
+              {
+                "type": "postback",
+                "title": "Nhập ID phòng",
+                "payload": "selectRoom"
+              },
+              {
+                "type": "postback",
+                "title": "Phòng cũ gần nhất",
+                "payload": "joinPreRoom"
+              }
+            ]
           },
           {
-            "type": "postback",
-            "title": "Ảnh hiển thị",
-            "payload": "settingAvatar"
-          },
-          {
-            "type": "postback",
-            "title": "Thông tin cá nhân",
-            "payload": "userInfo"
+            "title": "Thiết lập thông tin cá nhân",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Tên hiển thị",
+                "payload": "settingName"
+              },
+              {
+                "type": "postback",
+                "title": "Ảnh hiển thị",
+                "payload": "settingAvatar"
+              },
+              {
+                "type": "postback",
+                "title": "Thông tin của tôi",
+                "payload": "userInfo"
+              }
+            ]
           }
         ]
       }
@@ -187,90 +234,30 @@
       }
     }
   },
-  "features": {
+  "settingProfile": {
     "attachment": {
       "type": "template",
       "payload": {
         "template_type": "button",
-        "text": "Bạn cần tìm kiếm gì 🐧",
+        "text": "Chọn thiết lập",
         "buttons": [
           {
             "type": "postback",
-            "title": "Tra thời khoá biểu",
-            "payload": "searchSchedule"
+            "title": "Tên hiển thị",
+            "payload": "settingName"
           },
           {
             "type": "postback",
-            "title": "Tìm giáo viên",
-            "payload": "searchClasses"
+            "title": "Ảnh hiển thị",
+            "payload": "settingAvatar"
+          },
+          {
+            "type": "postback",
+            "title": "Thông tin của tôi",
+            "payload": "userInfo"
           }
         ]
       }
     }
-  },
-  "subRoomResponse": {
-    "text": "",
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "button",
-        "text": "Bạn muốn tham gia phòng bao nhiêu người?",
-        "buttons": [
-          {
-            "type": "postback",
-            "title": "Nhập ID phòng",
-            "payload": "selectRoom"
-          },
-          {
-            "type": "postback",
-            "title": "Ngẫu nhiên",
-            "payload": "randomSubRoom"
-          },
-          {
-            "type": "postback",
-            "title": "Phòng cũ gần nhất",
-            "payload": "joinPreRoom"
-          }
-        ]
-      }
-    },
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "2 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "3 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "4 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "5 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "6 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "Exit",
-        "payload": "exit",
-        "image_url": ""
-      }
-    ]
   }
 }

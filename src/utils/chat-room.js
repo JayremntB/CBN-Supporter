@@ -43,9 +43,7 @@ function handleMessage(client, text, userData, attachment_url) {
     if(type === "subRoom") {
       const limitUsers = text.split(" ")[0];
       if(!isNaN(limitUsers) && limitUsers <= 6) { // max users = 6
-         if(!userData.room_chatting.create_new_subroom) {
-           findValidRoom(client, userData, limitUsers);
-         }
+         if(!userData.room_chatting.create_new_subroom) findValidRoom(client, userData, limitUsers);
          else createNewSubRoom(client, userData, limitUsers);
       }
       else {
@@ -134,7 +132,9 @@ function joinGeneralRoom(client, userData) {
 
 function joinSubRoom(client, userData) {
   initBlock(client, "subRoom", userData);
-  return templateResponse.subRoomResponse;
+  let response = textResponse.subRoomResponse;
+  response.text = "Bạn muốn tham gia phòng bao nhiêu người?";
+  return response;
 }
 
 function selectRoom(client, userData) {
