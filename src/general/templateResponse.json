@@ -67,13 +67,13 @@
             "buttons": [
               {
                 "type": "postback",
-                "title": "Sử dụng lệnh",
-                "payload": "listCommands"
+                "title": "Các tính năng khác",
+                "payload": "otherFeatures"
               },
               {
                 "type": "postback",
-                "title": "Các tính năng khác",
-                "payload": "otherFeatures"
+                "title": "Danh sách lệnh",
+                "payload": "listCommands"
               },
               {
                 "type": "postback",
