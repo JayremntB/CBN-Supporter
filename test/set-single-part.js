@@ -5,29 +5,31 @@
 // another files in this repository
 
 const request = require('request');
+const TEST_PAGE_ACCESS_TOKEN = "EAAHUZB9Y5ZAYoBAKs55j6oJN7c9b8ugDWqhuXpzOFdRiU6R4utMX03nLLVa3VZCJXpYQJrJMoIJe0Fi7K2vkajsS3R22waFzCz4kI3CPNH7mxva1Ls1VOYGNGTUAqrBSZCUx0ZBpZAN8ZCZAZBn27s2z6rv7hBfElOn9tJsfwKAuiKuoLTHTErpWCPONNq45NDxAZD";
 //
-await request({
-  "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
-  // "uri": "https://graph.facebook.com/me/personas",
-  "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
-  "method": "POST",
-  "json": {
-    "setting-type":"call_to_actions",
-    "thread_state":"new_thread",
-    "get_started": {
-      "payload": "getStarted"
-    }
-  }
-}, (err, res, body) => {
-  console.log("getStarted: \n");
-  if(err) console.error(err);
-  else console.log(body);
-});
+// await request({
+//   "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
+//   // "uri": "https://graph.facebook.com/me/personas",
+//   "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+//   "method": "POST",
+//   "json": {
+//     "setting-type":"call_to_actions",
+//     "thread_state":"new_thread",
+//     "get_started": {
+//       "payload": "getStarted"
+//     }
+//   }
+// }, (err, res, body) => {
+//   console.log("getStarted: \n");
+//   if(err) console.error(err);
+//   else console.log(body);
+// });
 
 await request({
   "uri": "https://graph.facebook.com/v2.6/me/messenger_profile",
   // "uri": "https://graph.facebook.com/me/personas",
-  "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+  "qs": { "access_token": TEST_PAGE_ACCESS_TOKEN },
+  // "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
   "method": "POST",
   "json": {
     "persistent_menu": [
@@ -47,7 +49,7 @@ await request({
           },
           {
             "type": "postback",
-            "title": "Thông tin",
+            "title": "About",
             "payload": "chatbotInformation"
           }
         ]
@@ -60,21 +62,21 @@ await request({
   else console.log(body);
 });
 
-await request({
-  "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
-  "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
-  "method": "POST",
-  "json": {
-    "greeting":[{
-      "locale":"default",
-      "text":"Chào {{user_first_name}} nha :> Bấm GET STARTED/BẮT ĐẦU để khám phá những tính năng dành riêng cho CBNers nhé!"
-    }]
-  }
-}, (err, res, body) => {
-  console.log('greeting: \n');
-  if(err) console.error(err);
-  else console.log(body);
-});
+// await request({
+//   "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
+//   "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+//   "method": "POST",
+//   "json": {
+//     "greeting":[{
+//       "locale":"default",
+//       "text":"Chào {{user_first_name}} nha :> Bấm GET STARTED/BẮT ĐẦU để khám phá những tính năng dành riêng cho CBNers nhé!"
+//     }]
+//   }
+// }, (err, res, body) => {
+//   console.log('greeting: \n');
+//   if(err) console.error(err);
+//   else console.log(body);
+// });
 
 // request({
 //   "uri": "https://graph.facebook.com/v2.6/me/messenger_profile",
