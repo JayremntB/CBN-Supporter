@@ -7,6 +7,7 @@ module.exports = {
   checkGroup: checkGroup,
   checkWindDownTime: checkWindDownTime,
   handleDayInput: handleDayInput,
+  extractExtName: extractExtName,
   extractHostname: extractHostname
 }
 
@@ -76,6 +77,25 @@ function handleDayInput(day) {
     default:
       return day;
   }
+}
+
+function extractExtName(url) {
+    var extName;
+    //find & remove protocol (http, ftp, etc.) and get extName
+    // ex: https://cdn.fbsbx.com/v/t59.2708-21/71312832_535705970617099_1529285679119335424_n.gif
+    if (url.indexOf("//") > -1) {
+        extName = url.split('/')[5].split('.');
+        if(extName.length >= 2) extName = extName[1];
+    }
+    else {
+        extName = url.split('/')[0];
+    }
+    //find & remove port number
+    extName = extName.split(':')[0];
+    //find & remove "?"
+    extName = extName.split('?')[0];
+
+    return extName;
 }
 
 function extractHostname(url) {

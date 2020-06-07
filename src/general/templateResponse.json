@@ -1,20 +1,4 @@
 {
-  "personaSendAttachmentMessage": {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "button",
-        "text": "",
-        "buttons": [
-          {
-            "type": "web_url",
-            "url": "",
-            "title": ""
-          }
-        ]
-      }
-    }
-  },
   "userChatRoomInfo": {
     "attachment": {
       "type": "template",
@@ -255,6 +239,31 @@
             "type": "postback",
             "title": "Thông tin của tôi",
             "payload": "userInfo"
+          }
+        ]
+      }
+    }
+  },
+  "personaSendAttachmentMessage": {
+    "attachment": {
+      "type": "",
+      "payload": {
+        "url": "",
+        "is_reusable": false
+      }
+    }
+  },
+  "personaSendLocation": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "",
+        "buttons": [
+          {
+            "type": "web_url",
+            "url": "",
+            "title": "Xem"
           }
         ]
       }

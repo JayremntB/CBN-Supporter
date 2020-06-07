@@ -2,7 +2,7 @@ const request = require('request');
 const sendResponse = require('../general/sendResponse');
 const templateResponse = require('../general/templateResponse');
 const textResponse = require('../general/textResponse');
-const { extractHostname } = require('../general/validate-input');
+const { extractExtName, extractHostname } = require('../general/validate-input');
 const { userDataUnblockSchema } = require('../general/template');
 
 const dbName = 'database-for-cbner';
@@ -32,7 +32,7 @@ function handleMessage(client, text, userData, attachment_url) {
           "text": text
         };
         // if user send attachment
-        if(attachment_url) message = returnMessageBelongWithHostname(attachment_url);
+        if(attachment_url) message = returnMessageBelongWithExtName(attachment_url);
         sendNewPersonaMessage(res.list_users, message, userData);
       }
     });
@@ -349,33 +349,32 @@ function setRoomID(client, room_id, userData) {
   });
 }
 
-function returnMessageBelongWithHostname(url) {
+function returnMessageBelongWithExtName(url) {
+  const imgFileFormats = ['tif', 'tiff', 'jpg', 'jpeg', 'gif', 'png'];
+  const vidFileFormats = ['webm', 'mpg', 'mp2', 'mpeg', 'mpe', 'mpv', 'mp4', 'm4p', 'm4v', 'avi', 'wmv', 'mov', 'qt'];
+  console.log(url);
   // Forming message
   let message = templateResponse.personaSendAttachmentMessage;
-  message.attachment.payload.buttons[0].url = url;
-  // process hostname
-  const hostname = extractHostname(url);
-  let text = "";
-  // return right text response belong with each hostname
-  switch (hostname) {
-    case 'cdn.fbsbx.com':
-      text = "Đã gửi một file (audio, gif, excel, ...)\nLưu ý: Bạn sẽ cần tải về để xem";
-      message.attachment.payload.buttons[0].title = "Tải về";
-      break;
-    case 'scontent.xx.fbcdn.net':
-      text = "Đã gửi một ảnh";
-      message.attachment.payload.buttons[0].title = "Xem";
-      break;
-    case 'video.xx.fbcdn.net':
-      text = "Đã gửi một video";
-      message.attachment.payload.buttons[0].title = "Xem";
-      break;
-    case 'l.facebook.com':
-      text = "Đã gửi vị trí";
-      message.attachment.payload.buttons[0].title = "Xem";
-      break;
+  message.attachment.payload.url = url;
+  // process extName
+  const hostName = extractHostname(url);
+  console.log(hostName);
+  // return right text response belong with each extName & hostname
+  if(hostName === "scontent.xx.fbcdn.net") message.attachment.type = "image";
+  else if(hostName === "video.xx.fbcdn.net") message.attachment.type = "video";
+  else if(hostName === "cdn.fbsbx.com") {
+    const extName = extractExtName(url);
+    if(extName === "gif") message.attachment.type = "image";
+    else if(extName === "mp4") message.attachment.type = "audio";
+    else message.attachment.type = "file";
   }
-  message.attachment.payload.text = text;
+  else if(hostName === 'l.facebook.com') {
+    message = templateResponse.personaSendLocation;
+    message.attachment.payload.text = "Đã gửi vị trí";
+    message.attachment.payload.buttons[0].url = url;
+    message.attachment.payload.buttons[0].title = "Xem";
+  }
+  else message.attachment.type = "file";
   return message;
 }
 
