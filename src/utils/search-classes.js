@@ -81,8 +81,8 @@ function clearOtherTeacherData(client, sender_psid) {
 function updateData(client, userData, teacherName, other_teacher_block) {
   client.db(dbName).collection('schedule').find({
     $or: [
-      { "schedule.morning.teacher": { $regex: `/^${teacherName}$/i`}},
-      { "schedule.afternoon.teacher": { $regex: `/^${teacherName}$/i`}}
+      { "schedule.morning.teacher": teacherName },
+      { "schedule.afternoon.teacher": teacherName }
     ]
   }).toArray((err, docs) => {
     if (err) {
