@@ -10,16 +10,19 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
   console.log("Connect successfully");
   client.db(dbName).collection('users-data').updateMany({}, {
     $set: {
-      room_chatting: {
+      main_schedule: [],
+      main_teach_schedule: [],
+      search_schedule_block: false,
+      search_classes_block: false,
+      search_schedule_other_group: {
         block: false,
-        has_joined: false,
-        type: "",
-        create_new_subroom: false,
-        room_id: "",
-        pre_room: 1,
-        persona_id: "3363745553659185",
-        name: "Người lạ",
-        img_url: "https://i.imgur.com/187Y4u3.png"
+        group: "",
+        schedule: []
+      },
+      search_classes_other_teacher: {
+        block: false,
+        teacher: "",
+        teaches: []
       }
     }
   }, (err) => {
