@@ -30,7 +30,7 @@ const { userDataUnblockSchema, userDataFrame } = require('./src/general/template
 // const connectionUrl = process.env.DATABASE_URI;
 const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
-const listSingleWordCommands = ['4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listSingleWordCommands = ['chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 // connect to database
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -94,12 +94,15 @@ function handleMessage(received_message, userData) {
     console.log("message: " + text + "\n--------------------------------");
     //
     if(userData.room_chatting.has_joined || userData.room_chatting.block) {
-      if(text === 'exit') chatRoom.leaveRoom(client, userData);
-      else if(text === 'menu') response = templateResponse.roomChattingMenu;
-			else if(text === 'help') {
-				chatRoom.leaveRoom(client, userData);
-        liveChat.startLiveChat(client, userData);
-			}
+      if(userData.room_chatting.has_joined) {
+        if(text === 'exit') chatRoom.leaveRoom(client, userData);
+        else if(text === 'menu') response = templateResponse.roomChattingMenu;
+        else if(text === 'help') {
+          chatRoom.leaveRoom(client, userData);
+          liveChat.startLiveChat(client, userData);
+        }
+        else chatRoom.handleMessage(client, defaultText, userData);
+      }
       else chatRoom.handleMessage(client, defaultText, userData);
     }
     else if(text === 'exit') {
@@ -141,6 +144,24 @@ function handleMessage(received_message, userData) {
       }
       else {
         switch (textSplit[0]) {
+          case 'chattong':
+            chatRoom.joinGeneralRoom(client, userData);
+            break;
+          case 'chatnn':
+            chatRoom.joinRandomRoom(client, userData);
+            break;
+          case 'timphong':
+            response = chatRoom.joinSubRoom(client, userData);
+            break;
+          case 'taophong':
+            chatRoom.createSubRoom(client, userData);
+            break;
+          case 'nhapid':
+            chatRoom.selectRoom(client, userData);
+            break;
+          case 'phongcu':
+            chatRoom.joinPreRoom(client, userData);
+            break;
           case '4tiet':
             response = findGroupsHave4Or5Classes(client, userData, 4);
             break;
