@@ -13,6 +13,7 @@ const estimateSleepTime = require('./src/utils/estimate-sleep-time');
 const checkCovid = require('./src/utils/check-covid');
 const searchSchedule = require('./src/utils/search-schedule');
 const searchClasses = require('./src/utils/search-classes');
+const findGroupsHave4Or5Classes = require('./src/utils/find-groups-have-4-or-5-classes');
 const liveChat = require('./src/utils/live-chat');
 const chatRoom = require('./src/utils/chat-room');
 // general
@@ -29,7 +30,7 @@ const { userDataUnblockSchema, userDataFrame } = require('./src/general/template
 // const connectionUrl = process.env.DATABASE_URI;
 const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
-const listSingleWordCommands = ['menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listSingleWordCommands = ['4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 // connect to database
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -140,6 +141,12 @@ function handleMessage(received_message, userData) {
       }
       else {
         switch (textSplit[0]) {
+          case '4tiet':
+            response = findGroupsHave4Or5Classes(client, userData, 4);
+            break;
+          case '5tiet':
+            response = findGroupsHave4Or5Classes(client, userData, 5);
+            break;
           case 'menu':
 						unblockAll(userData);
             response = templateResponse.menu;
@@ -270,6 +277,12 @@ function handlePostback(received_postback, userData) {
         break;
       case 'searchClasses':
         searchClasses.init(client, userData);
+        break;
+      case 'findGroupsHave4Classes':
+        response = findGroupsHave4Or5Classes(client, userData, 4);
+        break;
+      case 'findGroupsHave5Classes':
+        response = findGroupsHave4Or5Classes(client, userData, 5);
         break;
       //
       case 'otherFeatures':

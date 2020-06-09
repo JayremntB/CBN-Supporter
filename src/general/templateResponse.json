@@ -51,6 +51,21 @@
             "buttons": [
               {
                 "type": "postback",
+                "title": "Tìm lớp 4 tiết",
+                "payload": "findGroupsHave4Classes"
+              },
+              {
+                "type": "postback",
+                "title": "Tìm lớp 5 tiết",
+                "payload": "findGroupsHave5Classes"
+              }
+            ]
+          },
+          {
+            "title": "Khác",
+            "buttons": [
+              {
+                "type": "postback",
                 "title": "Các tính năng khác",
                 "payload": "otherFeatures"
               },
@@ -58,6 +73,16 @@
                 "type": "postback",
                 "title": "Danh sách lệnh",
                 "payload": "listCommands"
+              }
+            ]
+          },
+          {
+            "title": "Liên hệ admin",
+            "buttons": [
+              {
+                "type": "web_url",
+                "url": "https://forms.gle/er53FLSRkVQyL3FF8",
+                "title": "Gửi phản hồi"
               },
               {
                 "type": "postback",
