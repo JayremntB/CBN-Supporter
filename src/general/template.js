@@ -48,6 +48,13 @@ function userDataFrame(sender_psid) {
       teacher: "",
       teaches: []
     },
+    find_images: {
+      block: false,
+      img_find: "",
+      img_now: 0,
+      page_now: 1,
+      list_images: []
+    },
     room_chatting: {
       block: false,
       has_joined: false,
@@ -78,6 +85,13 @@ function userDataUnblockSchema(userData) {
       block: false,
       teacher: "",
       teaches: []
+    },
+    find_images: {
+      block: false,
+      img_find: "",
+      img_now: 0,
+      page_now: 1,
+      list_images: []
     },
     room_chatting: {
       block: false,

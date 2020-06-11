@@ -10,10 +10,10 @@ const getStarted = require('./src/utils/get-started');
 const setting = require('./src/utils/setting');
 const estimateWakeUpTime = require('./src/utils/estimate-wake-up-time');
 const estimateSleepTime = require('./src/utils/estimate-sleep-time');
-const checkCovid = require('./src/utils/check-covid');
 const searchSchedule = require('./src/utils/search-schedule');
 const searchClasses = require('./src/utils/search-classes');
 const findGroupsHave4Or5Classes = require('./src/utils/find-groups-have-4-or-5-classes');
+const findImages = require('./src/utils/find-images');
 const liveChat = require('./src/utils/live-chat');
 const chatRoom = require('./src/utils/chat-room');
 // general
@@ -229,6 +229,9 @@ function handleMessage(received_message, userData) {
     else if(userData.search_classes_block) {
       searchClasses.handleMessage(client, defaultText, userData);
     }
+    else if(userData.find_images.block) {
+      findImages.handleMessage(client, text, userData);
+    }
   }
   else if(received_message.attachments) {
     // Gets the URL of the message attachment
@@ -310,6 +313,9 @@ function handlePostback(received_postback, userData) {
         break;
       case 'findGroupsHave5Classes':
         response = findGroupsHave4Or5Classes(client, userData, 5);
+        break;
+      case 'findImages':
+        findImages.init(client, userData);
         break;
       //
       case 'otherFeatures':

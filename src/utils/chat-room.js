@@ -19,7 +19,8 @@ module.exports = {
   joinPreRoom: joinPreRoom,
   leaveRoom: leaveRoom,
   userInfo: userInfo,
-  roomInfo: roomInfo
+  roomInfo: roomInfo,
+  getPersonaID: getPersonaID
 }
 
 function handleMessage(client, text, userData, attachment_url) {
@@ -354,7 +355,7 @@ function returnMessageBelongWithExtName(url) {
   const vidFileFormats = ['webm', 'mpg', 'mp2', 'mpeg', 'mpe', 'mpv', 'mp4', 'm4p', 'm4v', 'avi', 'wmv', 'mov', 'qt'];
   console.log(url);
   // Forming message
-  let message = templateResponse.personaSendAttachmentMessage;
+  let message = templateResponse.sendAttachment;
   message.attachment.payload.url = url;
   // process extName
   const hostName = extractHostname(url);
@@ -395,14 +396,14 @@ function getPersonaID(client, name, imgUrl, userData) {
       };
       sendResponse(userData.sender_psid, response);
       //
+      let update = userDataUnblockSchema(userData);
+      update.room_chatting.block = false;
+      update.room_chatting.type = "";
+      update.room_chatting.persona_id = body.id;
+      update.room_chatting.name = name;
+      update.room_chatting.img_url = imgUrl;
       client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-        $set: {
-          "room_chatting.block": false,
-          "room_chatting.type": "",
-          "room_chatting.persona_id": body.id,
-          "room_chatting.name": name,
-          "room_chatting.img_url": imgUrl
-        }
+        $set: update
       });
     }
     else {

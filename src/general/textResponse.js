@@ -1,4 +1,4 @@
-// This file is just for structure TEXT response, and just like JSON file
+// This file is just for structure TEXT responses, and just like JSON file
 
 module.exports = {
   "defaultResponse": {
@@ -450,7 +450,7 @@ VÍ DỤ: dậy 6h15
     ]
   },
   "searchClassesAskTeacher": {
-    "text": "Tên của giáo viên bạn tìm?\nVí dụ: NT.A",
+    "text": "Tên của giáo viên bạn tìm?\nVí dụ: NT.Anh",
     "quick_replies": [
       {
         "content_type": "text",
@@ -618,9 +618,7 @@ VÍ DỤ: dậy 6h15
 
 + Lớp 11: 11t, 11l, 11h, 11si, 11ti, 11v, 11su, 11d, 11c1, 11c2, 11a1, 11a2.
 
-+ Lớp 12: 12t, 12l, 12h, 12si, 12ti, 12v, 12su, 12d, 12c1, 12c2, 12a1, 12a2.
-
-Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm...`
++ Lớp 12: 12t, 12l, 12h, 12si, 12ti, 12v, 12su, 12d, 12c1, 12c2, 12a1, 12a2.`
   },
   "teacherList": {
     "text": `
@@ -661,8 +659,6 @@ Danh sách giáo viên bạn có thể tra:
 -----
 ( X ) TH.Xuân
 -----
-( Y ) (NT.Yến (đ)) (NT.Yến (nn))
-
-Bạn có thể tiếp tục nhập dữ liệu nếu ĐANG sử dụng tính năng tìm kiếm...`
+( Y ) (NT.Yến (đ)) (NT.Yến (nn))`
   }
 }

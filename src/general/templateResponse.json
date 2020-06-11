@@ -47,7 +47,7 @@
             ]
           },
           {
-            "title": "Bạn cần gì nào :3",
+            "title": "Bonus...",
             "buttons": [
               {
                 "type": "postback",
@@ -58,6 +58,11 @@
                 "type": "postback",
                 "title": "Tìm lớp 5 tiết",
                 "payload": "findGroupsHave5Classes"
+              },
+              {
+                "type": "postback",
+                "title": "Tìm ảnh",
+                "payload": "findImages"
               }
             ]
           },
@@ -82,11 +87,11 @@
               {
                 "type": "web_url",
                 "url": "https://forms.gle/er53FLSRkVQyL3FF8",
-                "title": "Gửi phản hồi"
+                "title": "Gửi phản hồi [cfs]"
               },
               {
                 "type": "postback",
-                "title": "Hỗ trợ",
+                "title": "Yêu cầu hỗ trợ",
                 "payload": "help"
               }
             ]
@@ -269,7 +274,7 @@
       }
     }
   },
-  "personaSendAttachmentMessage": {
+  "sendAttachment": {
     "attachment": {
       "type": "",
       "payload": {
@@ -277,6 +282,35 @@
         "is_reusable": false
       }
     }
+  },
+  "findImagesSendAttachment": {
+    "attachment": {
+      "type": "",
+      "payload": {
+        "url": "",
+        "is_reusable": false
+      }
+    },
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Ảnh khác",
+        "payload": "anotherImg",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Cập nhật",
+        "payload": "updateImg",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Đặt làm ảnh chat",
+        "payload": "settingAvatar",
+        "image_url": ""
+      }
+    ]
   },
   "personaSendLocation": {
     "attachment": {
