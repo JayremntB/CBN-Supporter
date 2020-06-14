@@ -2,7 +2,7 @@ const request = require('request');
 const sendResponse = require('../general/sendResponse');
 const templateResponse = require('../general/templateResponse');
 const textResponse = require('../general/textResponse');
-const { extractHostname } = require('../general/validate-input');
+const { extractExtName, extractHostname } = require('../general/validate-input');
 const { userDataUnblockSchema } = require('../general/template');
 
 const dbName = 'database-for-cbner';
@@ -19,7 +19,8 @@ module.exports = {
   joinPreRoom: joinPreRoom,
   leaveRoom: leaveRoom,
   userInfo: userInfo,
-  roomInfo: roomInfo
+  roomInfo: roomInfo,
+  getPersonaID: getPersonaID
 }
 
 function handleMessage(client, text, userData, attachment_url) {
@@ -32,7 +33,7 @@ function handleMessage(client, text, userData, attachment_url) {
           "text": text
         };
         // if user send attachment
-        if(attachment_url) message = returnMessageBelongWithHostname(attachment_url);
+        if(attachment_url) message = returnMessageBelongWithExtName(attachment_url);
         sendNewPersonaMessage(res.list_users, message, userData);
       }
     });
@@ -43,9 +44,7 @@ function handleMessage(client, text, userData, attachment_url) {
     if(type === "subRoom") {
       const limitUsers = text.split(" ")[0];
       if(!isNaN(limitUsers) && limitUsers <= 6) { // max users = 6
-         if(!userData.room_chatting.create_new_subroom) {
-           findValidRoom(client, userData, limitUsers);
-         }
+         if(!userData.room_chatting.create_new_subroom) findValidRoom(client, userData, limitUsers);
          else createNewSubRoom(client, userData, limitUsers);
       }
       else {
@@ -134,7 +133,9 @@ function joinGeneralRoom(client, userData) {
 
 function joinSubRoom(client, userData) {
   initBlock(client, "subRoom", userData);
-  return templateResponse.subRoomResponse;
+  let response = textResponse.subRoomResponse;
+  response.text = "Bạn muốn tham gia phòng bao nhiêu người?";
+  return response;
 }
 
 function selectRoom(client, userData) {
@@ -275,10 +276,18 @@ function joinPreRoom(client, userData) {
 }
 
 function leaveRoom(client, userData) {
-  // remove user from current room
-  client.db(dbName).collection('room-chatting').findOne({ room_id: userData.room_chatting.room_id }, (err, roomData) => {
+  // leave current room
+  client.db(dbName).collection('room-chatting').findOneAndUpdate({
+    room_id: userData.room_chatting.room_id
+    ? userData.room_chatting.room_id
+    : userData.room_chatting.pre_room
+  }, {
+    $pull: {
+      list_users: userData.sender_psid
+    }
+  }, (err, roomData) => {
     if(err) console.log(err);
-    else if(roomData) {
+    else {
       const response = textResponse.defaultResponse;
       response.text = "Đã rời khỏi phòng...";
       sendResponse(userData.sender_psid, response);
@@ -286,20 +295,14 @@ function leaveRoom(client, userData) {
       const message = {
         "text": `${userData.room_chatting.name.toUpperCase()} đã rời khỏi phòng...`
       };
-      sendNewPersonaMessage(roomData.list_users, message, userData, 1);
-      // leave current room
-      client.db(dbName).collection('room-chatting').updateOne({ room_id: userData.room_chatting.room_id }, {
-        $pull: {
-          list_users: userData.sender_psid
-        }
-      });
-      // set all attributes of user's data to default
-      let update = userDataUnblockSchema(userData);
-      update.room_chatting.pre_room = roomData.room_id;
-      client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-        $set: update
-      });
+      sendNewPersonaMessage(roomData.value.list_users, message, userData, 1);
     }
+  });
+  // set all attributes of user's data to default
+  let update = userDataUnblockSchema(userData);
+  update.room_chatting.pre_room = userData.room_chatting.room_id;
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+    $set: update
   });
 }
 
@@ -347,33 +350,32 @@ function setRoomID(client, room_id, userData) {
   });
 }
 
-function returnMessageBelongWithHostname(url) {
+function returnMessageBelongWithExtName(url) {
+  const imgFileFormats = ['tif', 'tiff', 'jpg', 'jpeg', 'gif', 'png'];
+  const vidFileFormats = ['webm', 'mpg', 'mp2', 'mpeg', 'mpe', 'mpv', 'mp4', 'm4p', 'm4v', 'avi', 'wmv', 'mov', 'qt'];
+  console.log(url);
   // Forming message
-  let message = templateResponse.personaSendAttachmentMessage;
-  message.attachment.payload.buttons[0].url = url;
-  // process hostname
-  const hostname = extractHostname(url);
-  let text = "";
-  // return right text response belong with each hostname
-  switch (hostname) {
-    case 'cdn.fbsbx.com':
-      text = "Đã gửi một file (audio, gif, excel, ...)\nLưu ý: Bạn sẽ cần tải về để xem";
-      message.attachment.payload.buttons[0].title = "Tải về";
-      break;
-    case 'scontent.xx.fbcdn.net':
-      text = "Đã gửi một ảnh";
-      message.attachment.payload.buttons[0].title = "Xem";
-      break;
-    case 'video.xx.fbcdn.net':
-      text = "Đã gửi một video";
-      message.attachment.payload.buttons[0].title = "Xem";
-      break;
-    case 'l.facebook.com':
-      text = "Đã gửi vị trí";
-      message.attachment.payload.buttons[0].title = "Xem";
-      break;
+  let message = templateResponse.sendAttachment;
+  message.attachment.payload.url = url;
+  // process extName
+  const hostName = extractHostname(url);
+  console.log(hostName);
+  // return right text response belong with each extName & hostname
+  if(hostName === "scontent.xx.fbcdn.net") message.attachment.type = "image";
+  else if(hostName === "video.xx.fbcdn.net") message.attachment.type = "video";
+  else if(hostName === "cdn.fbsbx.com") {
+    const extName = extractExtName(url);
+    if(extName === "gif") message.attachment.type = "image";
+    else if(extName === "mp4") message.attachment.type = "audio";
+    else message.attachment.type = "file";
   }
-  message.attachment.payload.text = text;
+  else if(hostName === 'l.facebook.com') {
+    message = templateResponse.personaSendLocation;
+    message.attachment.payload.text = "Đã gửi vị trí";
+    message.attachment.payload.buttons[0].url = url;
+    message.attachment.payload.buttons[0].title = "Xem";
+  }
+  else message.attachment.type = "file";
   return message;
 }
 
@@ -394,14 +396,14 @@ function getPersonaID(client, name, imgUrl, userData) {
       };
       sendResponse(userData.sender_psid, response);
       //
+      let update = userDataUnblockSchema(userData);
+      update.room_chatting.block = false;
+      update.room_chatting.type = "";
+      update.room_chatting.persona_id = body.id;
+      update.room_chatting.name = name;
+      update.room_chatting.img_url = imgUrl;
       client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-        $set: {
-          "room_chatting.block": false,
-          "room_chatting.type": "",
-          "room_chatting.persona_id": body.id,
-          "room_chatting.name": name,
-          "room_chatting.img_url": imgUrl
-        }
+        $set: update
       });
     }
     else {

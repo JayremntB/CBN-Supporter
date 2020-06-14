@@ -34,6 +34,7 @@ function userDataFrame(sender_psid) {
     group: "",
     teacher: "",
     wind_down_time: 14,
+    schedule_updated_time: "",
     main_schedule: [],
     main_teach_schedule: [],
     search_schedule_block: false,
@@ -47,6 +48,10 @@ function userDataFrame(sender_psid) {
       block: false,
       teacher: "",
       teaches: []
+    },
+    find_images: {
+      block: false,
+      list_images: []
     },
     room_chatting: {
       block: false,
@@ -78,6 +83,10 @@ function userDataUnblockSchema(userData) {
       block: false,
       teacher: "",
       teaches: []
+    },
+    find_images: {
+      block: false,
+      list_images: []
     },
     room_chatting: {
       block: false,

@@ -6,27 +6,28 @@
 
 const request = require('request');
 //
-await request({
-  "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
-  // "uri": "https://graph.facebook.com/me/personas",
-  "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
-  "method": "POST",
-  "json": {
-    "setting-type":"call_to_actions",
-    "thread_state":"new_thread",
-    "get_started": {
-      "payload": "getStarted"
-    }
-  }
-}, (err, res, body) => {
-  console.log("getStarted: \n");
-  if(err) console.error(err);
-  else console.log(body);
-});
+// await request({
+//   "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
+//   // "uri": "https://graph.facebook.com/me/personas",
+//   "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+//   "method": "POST",
+//   "json": {
+//     "setting-type":"call_to_actions",
+//     "thread_state":"new_thread",
+//     "get_started": {
+//       "payload": "getStarted"
+//     }
+//   }
+// }, (err, res, body) => {
+//   console.log("getStarted: \n");
+//   if(err) console.error(err);
+//   else console.log(body);
+// });
 
 await request({
   "uri": "https://graph.facebook.com/v2.6/me/messenger_profile",
   // "uri": "https://graph.facebook.com/me/personas",
+  // "qs": { "access_token": TEST_PAGE_ACCESS_TOKEN },
   "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
   "method": "POST",
   "json": {
@@ -41,13 +42,8 @@ await request({
             "payload": "menu"
           },
           {
-            "type": "postback",
-            "title": "Sử dụng lệnh",
-            "payload": "listCommands"
-          },
-          {
             "type": "nested",
-            "title": "Thông tin, hỗ trợ",
+            "title": "About",
             "call_to_actions": [
               {
                 "type": "postback",
@@ -56,16 +52,16 @@ await request({
               },
               {
                 "type": "web_url",
-                "title": "Hướng dẫn sử dụng",
-                "url": "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md",
+                "title": "Gửi phản hồi",
+                "url": "https://forms.gle/er53FLSRkVQyL3FF8",
                 "webview_height_ratio": "full"
-              },
-              {
-                "type": "postback",
-                "title": "Hỗ trợ",
-                "payload": "help"
               }
             ]
+          },
+          {
+            "type": "postback",
+            "title": "Yêu cầu hỗ trợ",
+            "payload": "help"
           }
         ]
       }
@@ -77,21 +73,21 @@ await request({
   else console.log(body);
 });
 
-await request({
-  "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
-  "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
-  "method": "POST",
-  "json": {
-    "greeting":[{
-      "locale":"default",
-      "text":"Chào {{user_first_name}} nha :> Bấm GET STARTED/BẮT ĐẦU để khám phá những tính năng dành riêng cho CBNers nhé!"
-    }]
-  }
-}, (err, res, body) => {
-  console.log('greeting: \n');
-  if(err) console.error(err);
-  else console.log(body);
-});
+// await request({
+//   "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
+//   "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+//   "method": "POST",
+//   "json": {
+//     "greeting":[{
+//       "locale":"default",
+//       "text":"Chào {{user_first_name}} nha :> Bấm GET STARTED/BẮT ĐẦU để khám phá những tính năng dành riêng cho CBNers nhé!"
+//     }]
+//   }
+// }, (err, res, body) => {
+//   console.log('greeting: \n');
+//   if(err) console.error(err);
+//   else console.log(body);
+// });
 
 // request({
 //   "uri": "https://graph.facebook.com/v2.6/me/messenger_profile",
