@@ -91,81 +91,35 @@ VÍ DỤ: dậy 6h15
 - menu: Menu
 - lệnh: Danh sách tất cả các lệnh
 - hd: Hướng dẫn sử dụng
-- help: Gọi người hỗ trợ (Live chat)
+- help: Yêu cầu hỗ trợ (Live chat)
 - exit: Thoát tính năng đang sử dụng
 - dsl:  Danh sách các lớp
-- dsgv: Danh sách giáo viên`,
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "menu",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "lệnh",
-        "payload": "allCommands",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "hd",
-        "payload": "ref",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "help",
-        "payload": "liveChat",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "dsl",
-        "payload": "listGroups",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "dsgv",
-        "payload": "listTeachers",
-        "image_url": ""
-      }
-    ]
+- dsgv: Danh sách giáo viên`
   },
-  "listInitFeatureCommands": {
+  "listSearchCommands": {
     "text": `
 - tkb: Tra thời khoá biểu
 - dạy: Tra lịch dạy học
+- 4tiet: Tìm lớp 4 tiết hôm nay
+- 5tiet: Tìm lớp 5 tiết hôm nay
+- timanh: Tìm ảnh theo từ khoá
+`
+  },
+  "listRoomChattingCommands": {
+    "text": `
+- chattong: Vào phòng chat tổng
+- chatnn: Vào phòng ngẫu nhiên
+- timphong: Tìm phòng chat
+- taophong: Tạo phòng chat
+- nhapid: Nhập ID phòng chat
+- phongcu: Vào phòng cũ gần nhất
+- doiten: Đổi tên hiển thị
+- doianh: Đổi ảnh hiển thị`
+  },
+  "listOtherFeaturesCommands": {
+    "text": `
 - dậy + thời điểm dậy: Xác định thời điểm nên ngủ (ví dụ: dậy 6h15)
-- ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 21h15)`,
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "tkb",
-        "payload": "searchSchedule",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "dạy",
-        "payload": "searchClasses",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "ngủ",
-        "payload": "estimateWakeUpTime",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "dậy",
-        "payload": "estimateSleepTime",
-        "image_url": ""
-      }
-    ]
+- ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 21h15)`
   },
   "listSettingCommands": {
     "text": `
@@ -177,47 +131,9 @@ VÍ DỤ: dậy 6h15
   + xemgv: Xem tên giáo viên đã cài đặt
   + xoagv: Xoá tên giáo viên đã cài đặt
 
-- wd + thời gian (phút): Cài đặt thời gian trung bình để chìm vào giấc ngủ để thuận tiện trong việc xác định thời gian dậy (ngủ) dựa trên thời gian đó của bạn khi sử dụng tính năng Tính giờ dậy hoặc Tính giờ ngủ (tạm gọi: wind down)
-  + xemwd: Xem thời gian trung bình để chìm vào giấc ngủ đã cài đặt
-  + xoawd: Đổi thời gian trung bình để chìm vào giấc ngủ về mặc định (14')`,
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "xemlop",
-        "payload": "xemlop",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xoalop",
-        "payload": "xoalop",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xemgv",
-        "payload": "xemgv",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xoagv",
-        "payload": "xoagv",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xemwd",
-        "payload": "xemwd",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xoawd",
-        "payload": "xoawd",
-        "image_url": ""
-      }
-    ]
+- wd + thời gian (phút): Cài đặt thời gian trung bình để chìm vào giấc ngủ để thuận tiện trong việc xác định thời gian dậy (ngủ) khi sử dụng tính năng Tính giờ dậy (ngủ) (tạm gọi: wind down)
+  + xemwd: Xem thời gian đã cài đặt
+  + xoawd: Đổi thời gian về mặc định (14')`
   },
   "recommendedSetGroup": {
     "text": "Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó thường xuyên (lớp bạn chẳng hạn), nhập lop + tên lớp.\nVí dụ: lop 11ti",

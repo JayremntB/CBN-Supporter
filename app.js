@@ -184,7 +184,7 @@ function handleMessage(received_message, userData) {
           case 'lệnh':
 						unblockAll(userData);
             response = textResponse.defaultResponse;
-            response.text = `${textResponse.listGeneralCommands.text}\n${textResponse.listInitFeatureCommands.text}\n${textResponse.listSettingCommands.text}`;
+            response.text = `${textResponse.listGeneralCommands.text}\n${textResponse.listSearchCommands.text}\n${textResponse.listOtherFeaturesCommands.text}\n${textResponse.listRoomChattingCommands.text}\n${textResponse.listSettingCommands.text}`;
             break;
           case 'help':
             liveChat.startLiveChat(client, userData);
@@ -371,13 +371,21 @@ function handlePostback(received_postback, userData) {
         unblockAll(userData);
         response = textResponse.listGeneralCommands;
         break;
-      case 'initFeatureCommands':
+      case 'searchCommands':
         unblockAll(userData);
-        response = textResponse.listInitFeatureCommands;
+        response = textResponse.listSearchCommands;
         break;
       case 'settingCommands':
         unblockAll(userData);
         response = textResponse.listSettingCommands;
+        break;
+      case 'roomChattingCommands':
+        unblockAll(userData);
+        response = textResponse.listRoomChattingCommands;
+        break;
+      case 'otherFeaturesCommands':
+        unblockAll(userData);
+        response = textResponse.listOtherFeaturesCommands;
         break;
       // Information and help possess
       case 'chatbotInformation':
