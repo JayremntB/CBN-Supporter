@@ -12,20 +12,35 @@ module.exports = {
 };
 
 function handleMessage(client, text, userData) {
-  if(text.toLowerCase() === "tra giáo viên khác") {
-    const response = textResponse.searchClassesAskTeacher;
-    clearOtherTeacherData(client, userData.sender_psid);
-    sendResponse(userData.sender_psid, response);
-  }
-  else if(!userData.search_classes_other_teacher.block) {
-    sendClasses(text, userData);
-  }
-  else if(userData.search_classes_other_teacher.teacher) {
-    sendClasses(text, userData);
-  }
-  else if(checkTeacherName(userData.sender_psid, text)) {
-    updateData(client, userData, text, userData.search_classes_other_teacher.block);
-  }
+  client.db(dbName).collection('schedule').findOne({ updated_time: {$gt: 0} }, (err, data) => {
+    if(err) console.log(err);
+    else if(userData.schedule_updated_time < data.updated_time) {
+      let teacherFind = userData.search_classes_other_teacher.block
+      ? userData.search_classes_other_teacher.teacher
+      : userData.teacher;
+      if(!userData.teacher && !userData.search_classes_other_teacher.teacher) {
+        if(!checkTeacherName(userData.sender_psid, text)) return;
+        else teacherFind = text;
+      }
+      updateData(client, userData, teacherFind, userData.search_classes_other_teacher.block);
+    }
+    else {
+      if(text.toLowerCase() === "tra giáo viên khác") {
+        const response = textResponse.searchClassesAskTeacher;
+        clearOtherTeacherData(client, userData.sender_psid);
+        sendResponse(userData.sender_psid, response);
+      }
+      else if(!userData.search_classes_other_teacher.block) {
+        sendClasses(text, userData, client);
+      }
+      else if(userData.search_classes_other_teacher.teacher) {
+        sendClasses(text, userData, client);
+      }
+      else if(checkTeacherName(userData.sender_psid, text)) {
+        updateData(client, userData, text, userData.search_classes_other_teacher.block);
+      }
+    }
+  });
 }
 
 function init(client, userData) {
@@ -78,8 +93,8 @@ function clearOtherTeacherData(client, sender_psid) {
   });
 }
 
-function updateData(client, userData, teacherName, other_teacher_block) {
-  client.db(dbName).collection('schedule').find({
+async function updateData(client, userData, teacherName, other_teacher_block) {
+  await client.db(dbName).collection('schedule').find({
     $or: [
       { "schedule.morning.teacher": teacherName },
       { "schedule.afternoon.teacher": teacherName }
@@ -138,6 +153,9 @@ function updateData(client, userData, teacherName, other_teacher_block) {
         update.search_classes_block = true,
         update.main_teach_schedule = teaches
       }
+      const date = new Date();
+      date.setHours(date.getHours() + 7); // deploy at US
+      update.schedule_updated_time = date.getTime();
       client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
         $set: update
       }, (err) => {
