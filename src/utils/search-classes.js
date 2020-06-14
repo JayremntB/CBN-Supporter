@@ -1,7 +1,7 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
 const textResponse = require('../general/textResponse');
-const { checkTeacherName } = require('../general/validate-input');
+const { checkTeacherName, handleDayInput } = require('../general/validate-input');
 const { userDataUnblockSchema } = require('../general/template');
 
 const dbName = 'database-for-cbner';
@@ -257,35 +257,5 @@ Thứ ${days + 2}:
   else {
     response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới 🥺\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
     sendResponse(userData.sender_psid, response);
-  }
-}
-
-function handleDayInput(day) {
-  const date = new Date();
-  date.setHours(date.getHours() + 7); // App is deployed in heroku US
-  let dayNow = Number(date.getDay()) + 1;
-  switch (day) {
-    case 'tất cả':
-      return 'Tất cả';
-      break;
-    case 'hôm nay':
-      if(dayNow === 1) return 8;
-      return dayNow;
-      break;
-    case 'hôm qua':
-      if(dayNow === 2) return 8;
-      if(dayNow === 1) return 7;
-      dayNow --;
-      return dayNow;
-      break;
-    case 'ngày mai':
-      dayNow ++;
-      return dayNow;
-      break;
-    case 'chủ nhật':
-      return 8;
-      break;
-    default:
-      return day;
   }
 }
