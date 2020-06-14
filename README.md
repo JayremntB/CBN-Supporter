@@ -1,5 +1,5 @@
 # CBN Supporter
-[*Chatbot for supporting CBNer*](https://m.me/107868430903710)
+[*Chatbot for supporting CBNers*](https://m.me/107868430903710)
 
 ## TÍNH NĂNG
 
