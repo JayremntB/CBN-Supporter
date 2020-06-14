@@ -15,6 +15,7 @@ function handleMessage(client, text, userData) {
   client.db(dbName).collection('schedule').findOne({ updated_time: {$gt: 0} }, (err, data) => {
     if(err) console.log(err);
     else if(userData.schedule_updated_time < data.updated_time) {
+      let subjectFind = "";
       if(!userData.search_groups_taught.subject) {
         if(!checkSubjectName(userData.sender_psid, text.toLowerCase())) return;
         else subjectFind = text;
