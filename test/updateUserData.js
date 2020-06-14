@@ -13,7 +13,10 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
   const timeNow = date.getTime();
   client.db(dbName).collection('users-data').updateMany({}, {
     $set: {
-      schedule_updated_time: timeNow
+      find_images: {
+        block: false,
+        list_images: []
+      }
     }
   }, (err) => {
     if(err) console.error(err);
