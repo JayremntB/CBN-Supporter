@@ -12,6 +12,7 @@ const estimateWakeUpTime = require('./src/utils/estimate-wake-up-time');
 const estimateSleepTime = require('./src/utils/estimate-sleep-time');
 const searchSchedule = require('./src/utils/search-schedule');
 const searchClasses = require('./src/utils/search-classes');
+const searchGroupsTaught = require('./src/utils/search-groups-taught');
 const findGroupsHave4Or5Classes = require('./src/utils/find-groups-have-4-or-5-classes');
 const findImages = require('./src/utils/find-images');
 const liveChat = require('./src/utils/live-chat');
@@ -27,10 +28,10 @@ app.listen(port, () => {
   console.log('webhook is listening on port ' + port);
 });
 const { userDataUnblockSchema, userDataFrame } = require('./src/general/template');
-// const connectionUrl = process.env.DATABASE_URI;
-const connectionUrl = "mongodb://127.0.0.1:27017";
+const connectionUrl = process.env.DATABASE_URI;
+// const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
-const listSingleWordCommands = ['timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listSingleWordCommands = ['lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 // connect to database
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -144,6 +145,9 @@ function handleMessage(received_message, userData) {
       }
       else {
         switch (textSplit[0]) {
+          case 'lớp':
+            searchGroupsTaught.init(client, userData);
+            break;
           case 'timanh':
             findImages.init(client, userData);
             break;
@@ -232,6 +236,9 @@ function handleMessage(received_message, userData) {
     else if(userData.search_classes_block) {
       searchClasses.handleMessage(client, defaultText, userData);
     }
+    else if(userData.search_groups_taught.block) {
+      searchGroupsTaught.handleMessage(client, defaultText, userData);
+    }
     else if(userData.find_images.block) {
       findImages.handleMessage(client, text, userData);
     }
@@ -310,6 +317,9 @@ function handlePostback(received_postback, userData) {
         break;
       case 'searchClasses':
         searchClasses.init(client, userData);
+        break;
+      case 'searchGroupsTaught':
+        searchGroupsTaught.init(client, userData);
         break;
       case 'findGroupsHave4Classes':
         response = findGroupsHave4Or5Classes(client, userData, 4);

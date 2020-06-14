@@ -41,14 +41,19 @@
               },
               {
                 "type": "postback",
-                "title": "Chat ẩn danh",
-                "payload": "chatRoom"
+                "title": "Tìm lớp học",
+                "payload": "searchGroupsTaught"
               }
             ]
           },
           {
-            "title": "Bonus...",
+            "title": "Khác",
             "buttons": [
+              {
+                "type": "postback",
+                "title": "Chat ẩn danh",
+                "payload": "chatRoom"
+              },
               {
                 "type": "postback",
                 "title": "Tìm lớp 4 tiết",
@@ -58,17 +63,17 @@
                 "type": "postback",
                 "title": "Tìm lớp 5 tiết",
                 "payload": "findGroupsHave5Classes"
-              },
-              {
-                "type": "postback",
-                "title": "Tìm ảnh",
-                "payload": "findImages"
               }
             ]
           },
           {
             "title": "Khác",
             "buttons": [
+              {
+                "type": "postback",
+                "title": "Tìm ảnh",
+                "payload": "findImages"
+              },
               {
                 "type": "postback",
                 "title": "Các tính năng khác",

@@ -50,6 +50,11 @@ function userDataFrame(sender_psid) {
       teacher: "",
       teaches: []
     },
+    search_groups_taught: {
+      block: false,
+      subject: "",
+      list_groups: []
+    },
     find_images: {
       block: false,
       img_now: 1,
@@ -85,6 +90,11 @@ function userDataUnblockSchema(userData) {
       block: false,
       teacher: "",
       teaches: []
+    },
+    search_groups_taught: {
+      block: false,
+      subject: "",
+      list_groups: []
     },
     find_images: {
       block: false,

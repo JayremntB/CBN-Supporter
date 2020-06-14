@@ -100,6 +100,7 @@ VÍ DỤ: dậy 6h15
     "text": `
 - tkb: Tra thời khoá biểu
 - dạy: Tra lịch dạy học
+- lớp: Tìm lớp được dạy môn nào đó
 - 4tiet: Tìm lớp 4 tiết hôm nay
 - 5tiet: Tìm lớp 5 tiết hôm nay
 - timanh: Tìm ảnh theo từ khoá`
@@ -387,6 +388,77 @@ VÍ DỤ: dậy 6h15
       }
     ]
   },
+  "searchClassesAskSubject": {
+    "text": "Nhập tên môn học mà bạn cần tìm lớp được dạy\n(Toán, Vật lý, Hoá học, Sinh học, Tin học, Ngữ văn, Ngoại ngữ, Lịch sử, Địa lý, GDCD, Thể dục)",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Toán",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Vật lý",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Hoá học",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Sinh học",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Tin học",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Ngữ văn",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Ngoại ngữ",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Lịch sử",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Địa lý",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "GDCD",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Thể dục",
+        "payload": "",
+        "image_url": ""
+      }
+    ]
+  },
   "checkGroupResponse": {
     "text": "",
     "quick_replies": [
@@ -516,6 +588,71 @@ VÍ DỤ: dậy 6h15
       {
         "content_type": "text",
         "title": "Chủ nhật",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
+      }
+    ]
+  },
+  "searchGroupsAskDay": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Tra môn học khác",
+        "payload": "overwriteSubject",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Hôm nay",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Ngày mai",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "2",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "3",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "4",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "5",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "6",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "7",
         "payload": "day",
         "image_url": ""
       },
