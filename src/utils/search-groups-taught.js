@@ -20,6 +20,7 @@ function handleMessage(client, text, userData) {
         if(!checkSubjectName(userData.sender_psid, text.toLowerCase())) return;
         else subjectFind = text;
       }
+      if(subjectFind === "Hoá học") subjectFind = "Hóa học";
       updateData(client, userData, subjectFind);
     }
     else {
@@ -32,6 +33,7 @@ function handleMessage(client, text, userData) {
         sendGroups(text, userData, client);
       }
       else if(checkSubjectName(userData.sender_psid, text.toLowerCase())) {
+        if(text === "Hoá học") text = "Hóa học";
         updateData(client, userData, text);
       }
     }
