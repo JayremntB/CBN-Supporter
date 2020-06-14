@@ -27,10 +27,10 @@ app.listen(port, () => {
   console.log('webhook is listening on port ' + port);
 });
 const { userDataUnblockSchema, userDataFrame } = require('./src/general/template');
-const connectionUrl = process.env.DATABASE_URI;
-// const connectionUrl = "mongodb://127.0.0.1:27017";
+// const connectionUrl = process.env.DATABASE_URI;
+const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
-const listSingleWordCommands = ['doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listSingleWordCommands = ['timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 // connect to database
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -83,30 +83,6 @@ app.post('/webhook', (req, res) => {
 });
 
 function handleMessage(received_message, userData) {
-  setTimeout(() => {
-    const response = {
-      "text": "test auto"
-    }
-    sendResponse(userData.sender_psid, response);
-  }, 6 * 60 * 60 * 1000);
-  setTimeout(() => {
-    const response = {
-      "text": "test auto"
-    }
-    sendResponse(userData.sender_psid, response);
-  }, 6 * 60 * 1000);
-  setTimeout(() => {
-    const response = {
-      "text": "test auto"
-    }
-    sendResponse(userData.sender_psid, response);
-  }, 60 * 1000);
-  setTimeout(() => {
-    const response = {
-      "text": "test auto"
-    }
-    sendResponse(userData.sender_psid, response);
-  }, 6 * 1000);
   let response = {
     "text": ""
   };
@@ -168,6 +144,9 @@ function handleMessage(received_message, userData) {
       }
       else {
         switch (textSplit[0]) {
+          case 'timanh':
+            findImages.init(client, userData);
+            break;
           case 'chattong':
             chatRoom.joinGeneralRoom(client, userData);
             break;

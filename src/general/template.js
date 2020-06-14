@@ -51,6 +51,7 @@ function userDataFrame(sender_psid) {
     },
     find_images: {
       block: false,
+      img_now: 1,
       list_images: []
     },
     room_chatting: {
@@ -86,6 +87,7 @@ function userDataUnblockSchema(userData) {
     },
     find_images: {
       block: false,
+      img_now: 1,
       list_images: []
     },
     room_chatting: {
