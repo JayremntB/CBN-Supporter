@@ -25,29 +25,28 @@ function init(client, userData) {
 }
 
 function handleMessage(client, text, userData) {
-  if(text !== "ảnh khác" || text !== "đặt làm ảnh chat" || text === "cập nhật") {
+  text = text.toLowerCase();
+  if(text !== "ảnh khác" || text !== "đặt làm ảnh chat") {
     let queryString = "";
     text.split(" ").forEach((component) => {
       queryString += component + "+"
     });
-    queryString = text === "cập nhật" ? userData.find_images.img_find : queryString;
     request({
       "uri": "https://pixabay.com/api/",
       "qs": {
         "key": process.env.PIXABAY_API_KEY,
         "q": queryString,
         "lang": "vi",
-        "per_page": 20,
-        "page": userData.find_images.page_now + 1
+        "per_page": 50
       },
       "method": "GET"
     }, (err, res, body) => {
       body = JSON.parse(body);
       if(parseInt(body.hits.length) > 0) {
+        // send message with first img
         let response = {
           "text": `Tìm thấy ${body.total} kết quả!`
         };
-        response.text = text === "cập nhật" ? "Cập nhật thành công"
         sendResponse(userData.sender_psid, response);
         setTimeout(() => {
           response = templateResponse.findImagesSendAttachment;
@@ -55,18 +54,15 @@ function handleMessage(client, text, userData) {
           response.attachment.type = "image";
           sendResponse(userData.sender_psid, response);
         }, 300);
+        // update imgs' url
         let listImgsURL = [];
         body.hits.forEach((img) => {
           listImgsURL.push(img.largeImageURL);
         });
-        let update = userDataUnblockSchema(userData);
-        update.find_images.block = true;
-        update.find_images.list_images = listImgsURL;
-        update.find_images.img_now = 0;
-        update.find_images.img_find = queryString;
-        update.find_images.page_now = text === "cập nhật" ? userData.find_images.page_now + 1 : 0;
         client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-          $set: update
+          $set: {
+            "find_images.list_images": listImgsURL
+          }
         });
       }
       else {
@@ -91,14 +87,8 @@ function handleMessage(client, text, userData) {
       return;
     }
     let response = templateResponse.findImagesSendAttachment;
-    if(userData.find_images.img_now > user.find_images.listImgsURL.length) userData.find_images.img_now = 0;
-    response.attachment.payload.url = userData.find_images.list_images[userData.img_now];
+    response.attachment.payload.url = userData.find_images.list_images[Math.floor(Math.random() * userData.find_images.list_images.length)];
     sendResponse(userData.sender_psid, response);
-    client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-      $set: {
-        "find_images.img_now": userData.find_images.img_now + 1
-      }
-    });
   }
-  else if(text.toLowerCase() === "đặt làm ảnh chat") getPersonaID(client, userData.room_chatting.name, userData.find_images.list_images[userData.find_images.img_now], userData);
+  else if(text.toLowerCase() === "đặt làm ảnh chat") getPersonaID(client, userData.room_chatting.name, userData.find_images.list_images[userData.find_images.img_now - 1], userData);
 }

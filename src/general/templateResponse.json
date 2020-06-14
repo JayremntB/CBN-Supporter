@@ -300,12 +300,6 @@
       },
       {
         "content_type": "text",
-        "title": "Cập nhật",
-        "payload": "updateImg",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
         "title": "Đặt làm ảnh chat",
         "payload": "settingAvatar",
         "image_url": ""

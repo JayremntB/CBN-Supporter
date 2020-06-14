@@ -8,22 +8,12 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
     return console.log('Failed to connect to database');
   }
   console.log("Connect successfully");
+  const date = new Date();
+  date.setHours(date.getHours() + 7); // deploy at US
+  const timeNow = date.getTime();
   client.db(dbName).collection('users-data').updateMany({}, {
     $set: {
-      main_schedule: [],
-      main_teach_schedule: [],
-      search_schedule_block: false,
-      search_classes_block: false,
-      search_schedule_other_group: {
-        block: false,
-        group: "",
-        schedule: []
-      },
-      search_classes_other_teacher: {
-        block: false,
-        teacher: "",
-        teaches: []
-      }
+      schedule_updated_time: timeNow
     }
   }, (err) => {
     if(err) console.error(err);

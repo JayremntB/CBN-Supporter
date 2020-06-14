@@ -17,13 +17,13 @@ function handleMessage(client, text, userData) {
     clearOtherGroupData(client, userData.sender_psid);
     sendResponse(userData.sender_psid, response);
   }
-  else if(!userData.search_schedule_other_group.block) {
+  else if(!userData.search_schedule_other_group.block) { // have group set
     sendSchedule(text, userData);
   }
-  else if(userData.search_schedule_other_group.group) {
+  else if(userData.search_schedule_other_group.group) { // not have group set, but being day searching
     sendSchedule(text, userData);
   }
-  else if(checkGroup(userData.sender_psid, text)) {
+  else if(checkGroup(userData.sender_psid, text)) { // not being day searching, but being group searching
     updateData(client, userData, text, userData.search_schedule_other_group.block);
   }
 }
@@ -78,7 +78,7 @@ function clearOtherGroupData(client, sender_psid) {
   });
 }
 
-function updateData(client, userData, groupInput, other_group_block) {
+function updateData(client, userData, groupInput, other_group_block, updateAnnoucement) {
   client.db(dbName).collection('schedule').findOne({ group: groupInput }, (err, scheduleData) => { // find schedule of groupInput
     if (err) {
       console.error("Could not update other group data: \n" + err);
@@ -100,6 +100,9 @@ function updateData(client, userData, groupInput, other_group_block) {
         update.search_schedule_block = true,
         update.main_schedule = scheduleData.schedule
       }
+      const date = new Date();
+      date.setHours(date.getHours() + 7); // deploy at US
+      update.updated_time = date.getTime();
       client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
         $set: update
       }, (err) => {
@@ -111,18 +114,29 @@ function updateData(client, userData, groupInput, other_group_block) {
           sendResponse(userData.sender_psid, response);
         } else {
           console.log("Update other group data successfully!");
-          let response = textResponse.askDay;
-          response.quick_replies[0].title = "Tra lớp khác";
-          response.quick_replies[0].payload = "overwriteClass";
-          response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nBạn muốn tra thứ mấy?`;
-          sendResponse(userData.sender_psid, response);
+          if(updateAnnoucement) {
+            let response = textResponse.askDay;
+            response.quick_replies[0].title = "Tra lớp khác";
+            response.quick_replies[0].payload = "overwriteClass";
+            response.text = `Cập nhật thời khoá biểu lớp ${groupInput} thành công!\nBạn muốn tra thứ mấy?`;
+            sendResponse(userData.sender_psid, response);
+          }
         }
       });
     }
   });
 }
 
-function sendSchedule(dayInput, userData) {
+async function sendSchedule(dayInput, userData) {
+  await client.db(dbName).collection('schedule').findOne({ updated_time: {$gt: 0} }, (err, data) => {
+    if(err) console.log(err);
+    else if(userData.schedule_updated_time < data.updated_time) {
+      const groupFind = userData.search_schedule_other_group.block
+      ? userData.search_schedule_other_group.group
+      : userData.group;
+      updateData(client, userData, groupFind, userData.search_schedule_other_group.block, false);
+    }
+  });
   let response = textResponse.askDay;
   response.quick_replies[0].title = "Tra lớp khác";
   response.quick_replies[0].payload = "overwriteClass";
