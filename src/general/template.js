@@ -25,7 +25,8 @@ const teachersCheckArray = [
 'PĐ.Hiệp',   'VT.Lợi',    'PT.Bằng',   'NT.Nguyệt', 'NT.Yến (nn)',
 'NV.Nga',    'NĐ.Vang',   'NQ.Huy',    'VT.Huê',    'NV.Bình',
 'NTT.Nhung', 'HD.Ngọc',   'VB.Huy',    'LT.Vui',    'NM.Lan',
-'LN.Hân',    'NP.Ly Ly'
+'LN.Hân',    'NP.Ly Ly',  'NT.Huyền',  'NT.Chinh',  'NT.Phương',
+'NT.Lương'
 ]
 
 function userDataFrame(sender_psid) {

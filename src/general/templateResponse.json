@@ -41,7 +41,7 @@
               },
               {
                 "type": "postback",
-                "title": "Tìm bạn bốn phương",
+                "title": "Chat ẩn danh",
                 "payload": "chatRoom"
               }
             ]

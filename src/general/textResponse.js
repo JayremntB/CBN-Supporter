@@ -102,8 +102,7 @@ VÍ DỤ: dậy 6h15
 - dạy: Tra lịch dạy học
 - 4tiet: Tìm lớp 4 tiết hôm nay
 - 5tiet: Tìm lớp 5 tiết hôm nay
-- timanh: Tìm ảnh theo từ khoá
-`
+- timanh: Tìm ảnh theo từ khoá`
   },
   "listRoomChattingCommands": {
     "text": `
@@ -543,7 +542,7 @@ Danh sách giáo viên bạn có thể tra:
 -----
 ( B ) NT.Bình NV.Bảo PT.Bằng NV.Bình
 -----
-( C ) LX.Cường
+( C ) NT.Chinh LX.Cường
 -----
 ( D ) NTT.Dung NT.Dịu NT.Dung
 -----
@@ -551,11 +550,11 @@ Danh sách giáo viên bạn có thể tra:
 -----
 ( G ) LT.Giang NT.Giang
 -----
-( H ) NTT.Huyền HT.Hà VT.Huyến NK.Hoàn NT.Hương BT.Hưng ĐT.Hường NT.Huế ĐT.Hương NT.Hà(h) VTT.Hằng HL.Hương ĐT.Hiền NT.Hường NT.Hà(su) NT.Hòa LTT.Hiền PĐ.Hiệp VT.Huê NT.Hoa NQ.Huy VB.Huy LN.Hân
+( H ) NT.Huyền NTT.Huyền HT.Hà VT.Huyến NK.Hoàn NT.Hương BT.Hưng ĐT.Hường NT.Huế ĐT.Hương NT.Hà(h) VTT.Hằng HL.Hương ĐT.Hiền NT.Hường NT.Hà(su) NT.Hòa LTT.Hiền PĐ.Hiệp VT.Huê NT.Hoa NQ.Huy VB.Huy LN.Hân
 -----
 ( K ) TV.Kỷ NH.Khánh TT.Khanh VD.Khanh
 -----
-( L ) TK.Linh LT.Loan NT.Linh VT.Len D.Liễu NTM.Loan NT.Loan NTH.Liên NT.Lê NT.Lệ VT.Lợi NM.Lan (NP.Ly Ly)
+( L ) TK.Linh LT.Loan NT.Linh VT.Len D.Liễu NTM.Loan NT.Loan NTH.Liên NT.Lê NT.Lệ VT.Lợi NM.Lan (NP.Ly Ly) NT.Lương
 -----
 ( M ) LT.Mùi NQ.Minh NV.Mạnh
 -----
@@ -563,7 +562,7 @@ Danh sách giáo viên bạn có thể tra:
 -----
 ( O ) VK.Oanh
 -----
-( P ) NV.Phán NTT.Phương
+( P ) NV.Phán NT.Phương NTT.Phương
 -----
 ( Q ) TH.Quang
 -----
