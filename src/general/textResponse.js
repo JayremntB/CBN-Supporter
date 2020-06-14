@@ -91,81 +91,35 @@ VÍ DỤ: dậy 6h15
 - menu: Menu
 - lệnh: Danh sách tất cả các lệnh
 - hd: Hướng dẫn sử dụng
-- help: Gọi người hỗ trợ (Live chat)
+- help: Yêu cầu hỗ trợ (Live chat)
 - exit: Thoát tính năng đang sử dụng
 - dsl:  Danh sách các lớp
-- dsgv: Danh sách giáo viên`,
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "menu",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "lệnh",
-        "payload": "allCommands",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "hd",
-        "payload": "ref",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "help",
-        "payload": "liveChat",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "dsl",
-        "payload": "listGroups",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "dsgv",
-        "payload": "listTeachers",
-        "image_url": ""
-      }
-    ]
+- dsgv: Danh sách giáo viên`
   },
-  "listInitFeatureCommands": {
+  "listSearchCommands": {
     "text": `
 - tkb: Tra thời khoá biểu
 - dạy: Tra lịch dạy học
+- lớp: Tìm lớp được dạy môn nào đó
+- 4tiet: Tìm lớp 4 tiết hôm nay
+- 5tiet: Tìm lớp 5 tiết hôm nay
+- timanh: Tìm ảnh theo từ khoá`
+  },
+  "listRoomChattingCommands": {
+    "text": `
+- chattong: Vào phòng chat tổng
+- chatnn: Vào phòng ngẫu nhiên
+- timphong: Tìm phòng chat
+- taophong: Tạo phòng chat
+- nhapid: Nhập ID phòng chat
+- phongcu: Vào phòng cũ gần nhất
+- doiten: Đổi tên hiển thị
+- doianh: Đổi ảnh hiển thị`
+  },
+  "listOtherFeaturesCommands": {
+    "text": `
 - dậy + thời điểm dậy: Xác định thời điểm nên ngủ (ví dụ: dậy 6h15)
-- ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 21h15)`,
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "tkb",
-        "payload": "searchSchedule",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "dạy",
-        "payload": "searchClasses",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "ngủ",
-        "payload": "estimateWakeUpTime",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "dậy",
-        "payload": "estimateSleepTime",
-        "image_url": ""
-      }
-    ]
+- ngủ + thời điểm ngủ: Xác định thời điểm nên thức dậy (ví dụ: ngủ 21h15)`
   },
   "listSettingCommands": {
     "text": `
@@ -177,47 +131,9 @@ VÍ DỤ: dậy 6h15
   + xemgv: Xem tên giáo viên đã cài đặt
   + xoagv: Xoá tên giáo viên đã cài đặt
 
-- wd + thời gian (phút): Cài đặt thời gian trung bình để chìm vào giấc ngủ để thuận tiện trong việc xác định thời gian dậy (ngủ) dựa trên thời gian đó của bạn khi sử dụng tính năng Tính giờ dậy hoặc Tính giờ ngủ (tạm gọi: wind down)
-  + xemwd: Xem thời gian trung bình để chìm vào giấc ngủ đã cài đặt
-  + xoawd: Đổi thời gian trung bình để chìm vào giấc ngủ về mặc định (14')`,
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "xemlop",
-        "payload": "xemlop",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xoalop",
-        "payload": "xoalop",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xemgv",
-        "payload": "xemgv",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xoagv",
-        "payload": "xoagv",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xemwd",
-        "payload": "xemwd",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "xoawd",
-        "payload": "xoawd",
-        "image_url": ""
-      }
-    ]
+- wd + thời gian (phút): Cài đặt thời gian trung bình để chìm vào giấc ngủ để thuận tiện trong việc xác định thời gian dậy (ngủ) khi sử dụng tính năng Tính giờ dậy (ngủ) (tạm gọi: wind down)
+  + xemwd: Xem thời gian đã cài đặt
+  + xoawd: Đổi thời gian về mặc định (14')`
   },
   "recommendedSetGroup": {
     "text": "Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó thường xuyên (lớp bạn chẳng hạn), nhập lop + tên lớp.\nVí dụ: lop 11ti",
@@ -472,6 +388,77 @@ VÍ DỤ: dậy 6h15
       }
     ]
   },
+  "searchClassesAskSubject": {
+    "text": "Nhập tên môn học mà bạn cần tìm lớp được dạy\n(Toán, Vật lý, Hoá học, Sinh học, Tin học, Ngữ văn, Ngoại ngữ, Lịch sử, Địa lý, GDCD, Thể dục)",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Toán",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Vật lý",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Hoá học",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Sinh học",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Tin học",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Ngữ văn",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Ngoại ngữ",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Lịch sử",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Địa lý",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "GDCD",
+        "payload": "",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Thể dục",
+        "payload": "",
+        "image_url": ""
+      }
+    ]
+  },
   "checkGroupResponse": {
     "text": "",
     "quick_replies": [
@@ -612,6 +599,71 @@ VÍ DỤ: dậy 6h15
       }
     ]
   },
+  "searchGroupsAskDay": {
+    "text": "",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Tra môn học khác",
+        "payload": "overwriteSubject",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Hôm nay",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Ngày mai",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "2",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "3",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "4",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "5",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "6",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "7",
+        "payload": "day",
+        "image_url": ""
+      },
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
+      }
+    ]
+  },
   'groupList': {
     "text": `
 + Lớp 10: 10t1, 10t2, 10l, 10h, 10si, 10ti, 10v1, 10v2, 10su, 10d, 10a1, 10a2.
@@ -627,7 +679,7 @@ Danh sách giáo viên bạn có thể tra:
 -----
 ( B ) NT.Bình NV.Bảo PT.Bằng NV.Bình
 -----
-( C ) LX.Cường
+( C ) NT.Chinh LX.Cường
 -----
 ( D ) NTT.Dung NT.Dịu NT.Dung
 -----
@@ -635,11 +687,11 @@ Danh sách giáo viên bạn có thể tra:
 -----
 ( G ) LT.Giang NT.Giang
 -----
-( H ) NTT.Huyền HT.Hà VT.Huyến NK.Hoàn NT.Hương BT.Hưng ĐT.Hường NT.Huế ĐT.Hương NT.Hà(h) VTT.Hằng HL.Hương ĐT.Hiền NT.Hường NT.Hà(su) NT.Hòa LTT.Hiền PĐ.Hiệp VT.Huê NT.Hoa NQ.Huy VB.Huy LN.Hân
+( H ) NT.Huyền NTT.Huyền HT.Hà VT.Huyến NK.Hoàn NT.Hương BT.Hưng ĐT.Hường NT.Huế ĐT.Hương NT.Hà(h) VTT.Hằng HL.Hương ĐT.Hiền NT.Hường NT.Hà(su) NT.Hòa LTT.Hiền PĐ.Hiệp VT.Huê NT.Hoa NQ.Huy VB.Huy LN.Hân
 -----
 ( K ) TV.Kỷ NH.Khánh TT.Khanh VD.Khanh
 -----
-( L ) TK.Linh LT.Loan NT.Linh VT.Len D.Liễu NTM.Loan NT.Loan NTH.Liên NT.Lê NT.Lệ VT.Lợi NM.Lan (NP.Ly Ly)
+( L ) TK.Linh LT.Loan NT.Linh VT.Len D.Liễu NTM.Loan NT.Loan NTH.Liên NT.Lê NT.Lệ VT.Lợi NM.Lan (NP.Ly Ly) NT.Lương
 -----
 ( M ) LT.Mùi NQ.Minh NV.Mạnh
 -----
@@ -647,7 +699,7 @@ Danh sách giáo viên bạn có thể tra:
 -----
 ( O ) VK.Oanh
 -----
-( P ) NV.Phán NTT.Phương
+( P ) NV.Phán NT.Phương NTT.Phương
 -----
 ( Q ) TH.Quang
 -----

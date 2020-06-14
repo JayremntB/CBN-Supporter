@@ -41,14 +41,19 @@
               },
               {
                 "type": "postback",
-                "title": "Tìm bạn bốn phương",
-                "payload": "chatRoom"
+                "title": "Tìm lớp học",
+                "payload": "searchGroupsTaught"
               }
             ]
           },
           {
-            "title": "Bonus...",
+            "title": "Khác",
             "buttons": [
+              {
+                "type": "postback",
+                "title": "Chat ẩn danh",
+                "payload": "chatRoom"
+              },
               {
                 "type": "postback",
                 "title": "Tìm lớp 4 tiết",
@@ -58,17 +63,17 @@
                 "type": "postback",
                 "title": "Tìm lớp 5 tiết",
                 "payload": "findGroupsHave5Classes"
-              },
-              {
-                "type": "postback",
-                "title": "Tìm ảnh",
-                "payload": "findImages"
               }
             ]
           },
           {
             "title": "Khác",
             "buttons": [
+              {
+                "type": "postback",
+                "title": "Tìm ảnh",
+                "payload": "findImages"
+              },
               {
                 "type": "postback",
                 "title": "Các tính năng khác",
@@ -226,23 +231,42 @@
     "attachment": {
       "type": "template",
       "payload": {
-        "template_type": "button",
-        "text": "Bạn cần tìm loại lệnh nào 🤔",
-        "buttons": [
+        "template_type": "generic",
+        "elements": [
           {
-            "type": "postback",
-            "title": "Chung",
-            "payload": "generalCommands"
+            "title": "Bạn cần tìm loại lệnh nào 🤔",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Lệnh chung",
+                "payload": "generalCommands"
+              },
+              {
+                "type": "postback",
+                "title": "Lệnh cài đặt",
+                "payload": "settingCommands"
+              }
+            ]
           },
           {
-            "type": "postback",
-            "title": "Kích hoạt tính năng",
-            "payload": "initFeatureCommands"
-          },
-          {
-            "type": "postback",
-            "title": "Thiết lập",
-            "payload": "settingCommands"
+            "title": "Lệnh kích hoạt tính năng",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Lệnh tìm kiếm",
+                "payload": "searchCommands"
+              },
+              {
+                "type": "postback",
+                "title": "Lệnh phòng chat",
+                "payload": "roomChattingCommands"
+              },
+              {
+                "type": "postback",
+                "title": "Lệnh tính năng khác",
+                "payload": "otherFeaturesCommands"
+              }
+            ]
           }
         ]
       }

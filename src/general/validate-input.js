@@ -5,10 +5,23 @@ const { groupsCheckArray, teachersCheckArray } = require('./template');
 module.exports = {
   checkTeacherName: checkTeacherName,
   checkGroup: checkGroup,
+  checkSubjectName: checkSubjectName,
   checkWindDownTime: checkWindDownTime,
   handleDayInput: handleDayInput,
   extractExtName: extractExtName,
   extractHostname: extractHostname
+}
+
+function checkSubjectName(sender_psid, subjectName) {
+  const checkArray = ["toán", "vật lý", "hoá học", "sinh học", "tin học", "ngữ văn", "ngoại ngữ", "lịch sử", "địa lý", "gdcd", "thể dục"];
+  if(checkArray.includes(subjectName)) return true;
+  else {
+    response = {
+      "text": "Tên môn học không hợp lệ. Kiểm tra lại xem bạn có viết nhầm hay không nhé.\nNhầm thì viết lại luôn nha :>"
+    };
+    sendResponse(sender_psid, response);
+    return false;
+  }
 }
 
 function checkTeacherName(sender_psid, teacherName) {

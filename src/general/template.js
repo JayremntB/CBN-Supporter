@@ -25,7 +25,8 @@ const teachersCheckArray = [
 'PĐ.Hiệp',   'VT.Lợi',    'PT.Bằng',   'NT.Nguyệt', 'NT.Yến (nn)',
 'NV.Nga',    'NĐ.Vang',   'NQ.Huy',    'VT.Huê',    'NV.Bình',
 'NTT.Nhung', 'HD.Ngọc',   'VB.Huy',    'LT.Vui',    'NM.Lan',
-'LN.Hân',    'NP.Ly Ly'
+'LN.Hân',    'NP.Ly Ly',  'NT.Huyền',  'NT.Chinh',  'NT.Phương',
+'NT.Lương'
 ]
 
 function userDataFrame(sender_psid) {
@@ -49,8 +50,14 @@ function userDataFrame(sender_psid) {
       teacher: "",
       teaches: []
     },
+    search_groups_taught: {
+      block: false,
+      subject: "",
+      list_groups: []
+    },
     find_images: {
       block: false,
+      img_now: 1,
       list_images: []
     },
     room_chatting: {
@@ -84,8 +91,14 @@ function userDataUnblockSchema(userData) {
       teacher: "",
       teaches: []
     },
+    search_groups_taught: {
+      block: false,
+      subject: "",
+      list_groups: []
+    },
     find_images: {
       block: false,
+      img_now: 1,
       list_images: []
     },
     room_chatting: {
