@@ -41,8 +41,8 @@
               },
               {
                 "type": "postback",
-                "title": "Tìm lớp học",
-                "payload": "searchGroupsTaught"
+                "title": "Chat ẩn danh",
+                "payload": "chatRoom"
               }
             ]
           },
@@ -51,8 +51,8 @@
             "buttons": [
               {
                 "type": "postback",
-                "title": "Chat ẩn danh",
-                "payload": "chatRoom"
+                "title": "Tìm lớp học",
+                "payload": "searchGroupsTaught"
               },
               {
                 "type": "postback",
