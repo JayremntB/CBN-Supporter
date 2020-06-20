@@ -711,6 +711,6 @@ Danh sách giáo viên bạn có thể tra:
 -----
 ( X ) TH.Xuân
 -----
-( Y ) (NT.Yến (đ)) (NT.Yến (nn))`
+( Y ) (NT.Yến (địa)) (NT.Yến (anh))`
   }
 }

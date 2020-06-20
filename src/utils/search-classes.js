@@ -1,7 +1,7 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
 const textResponse = require('../general/textResponse');
-const { checkTeacherName, handleDayInput } = require('../general/validate-input');
+const { checkTeacherName, handleDayInput, handleTeacherName } = require('../general/validate-input');
 const { userDataUnblockSchema } = require('../general/template');
 
 const dbName = 'database-for-cbner';
@@ -36,8 +36,8 @@ function handleMessage(client, text, userData) {
       else if(userData.search_classes_other_teacher.teacher) {
         sendClasses(text, userData, client);
       }
-      else if(checkTeacherName(userData.sender_psid, text)) {
-        updateData(client, userData, text, userData.search_classes_other_teacher.block);
+      else if(checkTeacherName(userData.sender_psid, handleTeacherName(text))) {
+        updateData(client, userData, handleTeacherName(text), userData.search_classes_other_teacher.block);
       }
     }
   });
