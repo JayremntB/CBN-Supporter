@@ -156,9 +156,7 @@ function settingName(client, userData) {
 
 function settingAvatar(client, userData) {
   initBlock(client, "settingAvatar", userData);
-  const response = {
-    "text": "Gửi hoặc nhập link ảnh của bạn..."
-  };
+  const response = templateResponse.chatRoomFindImages;
   sendResponse(userData.sender_psid, response);
 }
 

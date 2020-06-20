@@ -345,5 +345,21 @@
         ]
       }
     }
+  },
+  "chatRoomFindImages": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Gửi hoặc nhập link ảnh của bạn...",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Tìm ảnh trên Pixabay",
+            "payload": "findImages"
+          }
+        ]
+      }
+    }
   }
 }
