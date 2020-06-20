@@ -8,6 +8,7 @@ module.exports = {
   checkSubjectName: checkSubjectName,
   checkWindDownTime: checkWindDownTime,
   handleDayInput: handleDayInput,
+  handleTeacherName: handleTeacherName,
   extractExtName: extractExtName,
   extractHostname: extractHostname
 }
@@ -22,6 +23,21 @@ function checkSubjectName(sender_psid, subjectName) {
     sendResponse(sender_psid, response);
     return false;
   }
+}
+
+function handleTeacherName(teacherName) {
+  let teacherNameToSearch = "";
+  teacherNameSeparateByDot = teacherName.split(".");
+  if(teacherNameSeparateByDot.length === 1) {
+    teacherNameSeparateBySlash = teacherNameSeparateByDot[0].split("/");
+    teacherNameSeparateBySlash.forEach((perTeacher, i) => {
+      teacherNameToSearch += perTeacher.charAt(0).toUpperCase() + perTeacher.slice(1).toLowerCase();
+      if(i !== teacherNameSeparateBySlash.length - 1) teacherNameToSearch += "/";
+    });
+  }
+  else teacherNameToSearch = teacherNameSeparateByDot[0].toUpperCase() + "." + teacherNameSeparateByDot[1].charAt(0).toUpperCase() + teacherNameSeparateByDot[1].slice(1).toLowerCase();
+  console.log(teacherNameToSearch);
+  return teacherNameToSearch;
 }
 
 function checkTeacherName(sender_psid, teacherName) {
