@@ -62,21 +62,35 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
           });
         });
       });
-      console.log(teachersList);
       // teachersList.sort((a, b) => {
-      //   let nameA = a.toUpperCase().split(".")[1];
-      //   let nameB = b.toUpperCase().split(".")[1];
+      //   if(a.includes("/") || b.includes("/")) return 1;
+      //   let nameA = a.toUpperCase().split(".")[1].split("(")[0];
+      //   let nameB = b.toUpperCase().split(".")[1].split("(")[0];
       //   if(nameA < nameB) return -1;
       //   if(nameA > nameB) return 1;
       //   return 0;
       // });
-     console.log(teachersList.length);
+      teachersList.sort((a, b) => {
+        if(a.includes("/") || b.includes("/")) return 1;
+        return a.toUpperCase().split(".")[1].split("(")[0].localeCompare(b.toUpperCase().split(".")[1].split("(")[0]);
+      });
+      console.log(teachersList);
+      console.log(teachersList.length);
+      console.log("find teachers will teach: ");
       teachersList.forEach((teacher) => {
         let exist = false;
         template.teachersCheckArray.forEach((check) => {
           if(teacher === check) exist = true;
         });
-        if(!exist) console.log("'" + teacher + "'");
+        if(!exist) console.log("'" + teacher + "', ");
+      });
+      console.log("find teachers won't teach: ");
+      template.teachersCheckArray.forEach((teacher) => {
+        let exist = false;
+        teachersList.forEach((check) => {
+          if(teacher === check) exist = true;
+        });
+        if(!exist) console.log("'" + teacher + "', ");
       });
     }
   });

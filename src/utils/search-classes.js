@@ -114,11 +114,6 @@ async function updateData(client, userData, teacherName, other_teacher_block) {
           "morning": [],
           "afternoon": []
         });
-        if(teacherName === "LV.Ngân" || teacherName === "HT.Nhân")
-          if(i === 0) teaches[i].afternoon.push({
-            class: 1,
-            group: '11t'
-          })
         for(let j = 0; j < 5; j ++) { // loop classes
           // loop groups
           docs.forEach((doc) => {
