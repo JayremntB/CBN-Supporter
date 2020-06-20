@@ -324,10 +324,12 @@ function handlePostback(received_postback, userData) {
         searchGroupsTaught.init(client, userData);
         break;
       case 'findGroupsHave4Classes':
-        response = findGroupsHave4Or5Classes(client, userData, 4);
+        response.text = "Tất cả các lớp: thứ hai học 3 tiết, các ngày còn lại học 2 tiết...";
+        // response = findGroupsHave4Or5Classes(client, userData, 4);
         break;
       case 'findGroupsHave5Classes':
-        response = findGroupsHave4Or5Classes(client, userData, 5);
+        response.text = "Tất cả các lớp: thứ hai học 3 tiết, các ngày còn lại học 2 tiết...";
+        // response = findGroupsHave4Or5Classes(client, userData, 5);
         break;
       case 'findImages':
         findImages.init(client, userData);
