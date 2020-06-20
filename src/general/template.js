@@ -5,28 +5,24 @@ const groupsCheckArray = [
 ];
 
 const teachersCheckArray = [
-  'LT.Giang',  'NT.Bình',   'VT.Huyến',  'TN.Điệp',   'NV.Tuấn',
-'NT.Đô',     'NT.Hoa',    'NT.Vân',    'TT.Trang',  'NT.Yến (đ)',
-'NK.Hoàn',   'NTT.Huyền', 'PH.Vân',    'HT.Hà',     'TK.Linh',
-'Shaine',    'NH.Vân',    'TH.Quang',  'LT.Mùi',    'NTH.Trang',
-'NTT.Dung',  'TV.Kỷ',     'LT.Loan',   'NV.Phán',   'NT.Hương',
-'NT.Thu',    'NT.Linh',   'NT.Giang',  'ĐT.Hường',  'BT.Hưng',
-'TH.Xuân',   'TTB.Vân',   'NT.Huế',    'HTT.Thủy',  'NQ.Minh',
-'NTT.Thuỷ',  'ĐT.Hương',  'HTN.Ánh',   'NT.Nga',    'LH.Trang',
-'NT.Dịu',    'ND.Liễu',   'NT.Hà(h)',  'VD.Khanh',  'HT.Thảo',
-'PN.An',     'NTP.Thảo',  'NP.Nga',    'VT.Len',    'NTM.Loan',
-'NV.Mạnh',   'TTB.Ngọc',  'NT.Dung',   'LĐ.Điển',   'VTT.Hằng',
-'NT.Thúy',   'NT.Tuyết',  'NT.Nhung',  'HL.Hương',  'LV.Ngân',
-'Ngân/Nhân', 'NT.Hòa',    'NP.Thảo',   'HT.Nhân',   'NTT.Phương',
-'VK.Oanh',   'CT.Thúy',   'NC.Trung',  'ĐT.Hiền',   'NT.Đức',
-'NT.Hường',  'NT.Loan',   'BM.Thủy',   'NV.Bảo',    'NT.Lê',
-'NTH.Liên',  'NT.Lệ',     'NT.Hà(su)', 'NH.Khánh',  'TT.Khanh',
-'HT.Toan',   'LTT.Hiền',  'ĐTT.Toàn',  'DTT.Nga',   'LX.Cường',
-'PĐ.Hiệp',   'VT.Lợi',    'PT.Bằng',   'NT.Nguyệt', 'NT.Yến (nn)',
-'NV.Nga',    'NĐ.Vang',   'NQ.Huy',    'VT.Huê',    'NV.Bình',
-'NTT.Nhung', 'HD.Ngọc',   'VB.Huy',    'LT.Vui',    'NM.Lan',
-'LN.Hân',    'NP.Ly Ly',  'NT.Huyền',  'NT.Chinh',  'NT.Phương',
-'NT.Lương'
+  'PN.An',        'HTN.Ánh',   'LĐ.Điển',   'TN.Điệp',    'NT.Dịu',
+  'NT.Dung',      'LT.Giang',  'NK.Hoàn',   'NT.Huế',     'ĐT.Hương',
+  'NT.Hương',     'ĐT.Hường',  'VT.Huyến',  'TV.Kỷ',      'VT.Len',
+  'NT.Linh',      'LT.Loan',   'NTM.Loan',  'VT.Lợi',     'NV.Mạnh',
+  'NQ.Minh',      'LT.Mùi',    'NP.Nga',    'LV.Ngân',    'TTB.Ngọc',
+  'HT.Nhân',      'NT.Nhung',  'NV.Phán',   'NTT.Phương', 'NT.Phương',
+  'T.Quang',      'NTP.Thảo',  'HT.Thảo',   'NTT.Thuỷ',   'HTT.Thủy',
+  'NTH.Trang',    'LH.Trang',  'NV.Tuấn',   'NT.Tuyết',   'NT.Vân',
+  'TTB.Vân',      'NH.Vân',    'PH.Vân',    'TH.Xuân',    'NT.Yến (địa)',
+  'Ngân/Nhân',    'PT.Bằng',   'NV.Bảo',    'NV.Bình',    'NT.Bình',
+  'NT.Đức',       'NTT.Dung',  'NT.Hà(h)',  'NT.Hà(su)',  'LN.Hân',
+  'VTT.Hằng',     'ĐT.Hiền',   'LTT.Hiền',  'PĐ.Hiệp',    'NT.Hoa',
+  'NT.Hòa',       'VT.Huê',    'HL.Hương',  'VB.Huy',     'NH.Khánh',
+  'NM.Lan',       'NT.Lê',     'NTH.Liên',  'NT.Loan',    'BM.Thủy',
+  'NC.Trung',     'Trung/Vân', 'NT.Hường',  'Loan/Len',   'TK.Linh',
+  'NP.Ly Ly',     'DTT.Nga',   'NV.Nga',    'HD.Ngọc',    'NT.Nguyệt',
+  'NTT.Nhung',    'NP.Thảo',   'NT.Thu',    'ĐTT.Toàn',   'NĐ.Vang',
+  'NT.Yến (anh)', 'Điển/Vang', 'Hiệp/Toàn', 'Hiền/Hà'
 ]
 
 function userDataFrame(sender_psid) {
