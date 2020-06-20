@@ -41,8 +41,8 @@
               },
               {
                 "type": "postback",
-                "title": "Tìm lớp học",
-                "payload": "searchGroupsTaught"
+                "title": "Chat ẩn danh",
+                "payload": "chatRoom"
               }
             ]
           },
@@ -51,8 +51,8 @@
             "buttons": [
               {
                 "type": "postback",
-                "title": "Chat ẩn danh",
-                "payload": "chatRoom"
+                "title": "Tìm lớp học",
+                "payload": "searchGroupsTaught"
               },
               {
                 "type": "postback",
@@ -341,6 +341,22 @@
             "type": "web_url",
             "url": "",
             "title": "Xem"
+          }
+        ]
+      }
+    }
+  },
+  "chatRoomFindImages": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Gửi hoặc nhập link ảnh của bạn...",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Tìm ảnh trên Pixabay",
+            "payload": "findImages"
           }
         ]
       }

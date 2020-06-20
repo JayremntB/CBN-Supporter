@@ -94,15 +94,12 @@ function handleMessage(received_message, userData) {
     textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
     //
-    if(userData.room_chatting.has_joined || userData.room_chatting.block) {
-      if(userData.room_chatting.has_joined) {
-        if(text === 'exit') chatRoom.leaveRoom(client, userData);
-        else if(text === 'menu') response = templateResponse.roomChattingMenu;
-        else if(text === 'help') {
-          chatRoom.leaveRoom(client, userData);
-          liveChat.startLiveChat(client, userData);
-        }
-        else chatRoom.handleMessage(client, defaultText, userData);
+    if(userData.room_chatting.has_joined) {
+      if(text === 'exit') chatRoom.leaveRoom(client, userData);
+      else if(text === 'menu') response = templateResponse.roomChattingMenu;
+      else if(text === 'help') {
+        chatRoom.leaveRoom(client, userData);
+        liveChat.startLiveChat(client, userData);
       }
       else chatRoom.handleMessage(client, defaultText, userData);
     }
@@ -243,6 +240,9 @@ function handleMessage(received_message, userData) {
     }
     else if(userData.find_images.block) {
       findImages.handleMessage(client, text, userData);
+    }
+    else if(userData.room_chatting.block) {
+      chatRoom.handleMessage(client, defaultText, userData);
     }
   }
   else if(received_message.attachments) {
