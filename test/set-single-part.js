@@ -27,7 +27,7 @@ const request = require('request');
 await request({
   "uri": "https://graph.facebook.com/v2.6/me/messenger_profile",
   // "uri": "https://graph.facebook.com/me/personas",
-  // "qs": { "access_token": TEST_PAGE_ACCESS_TOKEN },
+  // "qs": { "access_token": process.env.TEST_PAGE_ACCESS_TOKEN },
   "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
   "method": "POST",
   "json": {
@@ -54,6 +54,12 @@ await request({
                 "type": "web_url",
                 "title": "Gửi phản hồi",
                 "url": "https://forms.gle/er53FLSRkVQyL3FF8",
+                "webview_height_ratio": "full"
+              },
+              {
+                "type": "web_url",
+                "title": "Hướng dẫn sử dụng",
+                "url": "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md",
                 "webview_height_ratio": "full"
               }
             ]
