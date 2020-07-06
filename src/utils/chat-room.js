@@ -102,7 +102,6 @@ function findValidRoom(client, userData, limitUsers) {
       });
       if(validRoom.length != 0) sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
       else {
-        response = textResponse.subRoomResponse;
         response.text = "Không tìm thấy phòng trống...";
         sendResponse(userData.sender_psid, response);
         createNewSubRoom(client, userData, limitUsers);
