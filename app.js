@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const { MongoClient } = require('mongodb');
 // features
-const getStarted = require('./src/utils/get-started');
+// const getStarted = require('./src/utils/get-started');
 const setting = require('./src/utils/setting');
 const estimateWakeUpTime = require('./src/utils/estimate-wake-up-time');
 const estimateSleepTime = require('./src/utils/estimate-sleep-time');
@@ -296,9 +296,9 @@ function handlePostback(received_postback, userData) {
   }
   else {
     switch (payload) {
-      case 'getStarted':
-        getStarted(userData.sender_psid);
-        break;
+      // case 'getStarted':
+      //   getStarted(userData.sender_psid);
+      //   break;
       // Menu possess
       case 'menu':
         unblockAll(userData);
