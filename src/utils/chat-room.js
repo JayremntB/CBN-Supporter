@@ -107,11 +107,7 @@ function findValidRoom(client, userData, limitUsers) {
         sendResponse(userData.sender_psid, response);
       }
     }
-    else {
-      response = textResponse.subRoomResponse;
-      response.text = "Không tìm thấy phòng trống hoặc có người. Hãy tìm phòng khác hoặc tạo phòng mới...";
-      sendResponse(userData.sender_psid, response);
-    }
+    else createNewSubRoom(client, userData, 6);
   });
 }
 
@@ -199,7 +195,7 @@ async function createNewSubRoom(client, userData, limitUsers) {
     else {
       setRoomID(client, res.ops[0].room_id, userData);
       const response = {
-        "text": `Tạo phòng thành công!\nID phòng của bạn là ${res.ops[0].room_id}\nTớ sẽ thông báo khi có người vào phòng nhé!`
+        "text": `Đã tạo phòng!\nID phòng của bạn là ${res.ops[0].room_id}\nTớ sẽ thông báo khi có người vào phòng nhé!`
       };
       sendResponse(userData.sender_psid, response);
     }
@@ -232,23 +228,13 @@ function joinRandomRoom(client, userData) {
       if(validRoom.length != 0) sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
       else {
         const response = {
-          "text": "Không tìm thấy phòng trống hoặc có người. Hãy tạo phòng mới và chờ, tớ sẽ thông báo cho bạn khi có người vào phòng nhé :>"
+          "text": "Không tìm thấy phòng trống..."
         };
         sendResponse(userData.sender_psid, response);
-        client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-          $set: userDataUnblockSchema(userData)
-        });
+        createNewSubRoom(client, userData, 6);
       }
     }
-    else {
-      const response = {
-        "text": "Không tìm thấy phòng trống hoặc có người. Hãy tạo phòng mới và chờ, tớ sẽ thông báo cho bạn khi có người vào phòng nhé :>"
-      };
-      sendResponse(userData.sender_psid, response);
-      client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-        $set: userDataUnblockSchema(userData)
-      });
-    }
+    else createNewSubRoom(client, userData, 6);
   })
 }
 
