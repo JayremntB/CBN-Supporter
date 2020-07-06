@@ -27,8 +27,8 @@ const request = require('request');
 await request({
   "uri": "https://graph.facebook.com/v2.6/me/messenger_profile",
   // "uri": "https://graph.facebook.com/me/personas",
-  "qs": { "access_token": process.env.TEST_PAGE_ACCESS_TOKEN },
-  // "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+  // "qs": { "access_token": process.env.TEST_PAGE_ACCESS_TOKEN },
+  "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
   "method": "POST",
   "json": {
     "persistent_menu": [
