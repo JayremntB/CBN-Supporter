@@ -244,6 +244,7 @@ function handleMessage(received_message, userData) {
     else if(userData.room_chatting.block) {
       chatRoom.handleMessage(client, defaultText, userData);
     }
+    else response.text = "🐧";
   }
   else if(received_message.attachments) {
     // Gets the URL of the message attachment
