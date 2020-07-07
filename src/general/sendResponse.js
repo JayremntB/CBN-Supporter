@@ -10,6 +10,7 @@ module.exports = function (sender_psid, response) {
   }
   request({
     "uri": "https://graph.facebook.com/v6.0/me/messages",
+    // "qs": { "access_token": process.env.TEST_PAGE_ACCESS_TOKEN },
     "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
     "method": "POST",
     "json": request_body

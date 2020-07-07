@@ -10,7 +10,8 @@
     "getteachers": "node test/getteachers",
     "getpersona": "node test/get-persona",
     "allserver": "node src/utils/sendMessageToAllServer",
-    "updateusersdata": "node test/updateUserData"
+    "updateusersdata": "node test/updateUserData",
+    "announce": "node test/announce-all-server"
   },
   "repository": {
     "type": "git",
