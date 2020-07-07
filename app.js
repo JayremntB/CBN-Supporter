@@ -33,6 +33,8 @@ const connectionUrl = process.env.DATABASE_URI;
 const dbName = 'database-for-cbner';
 const listSingleWordCommands = ['lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
+const userInputSearchScheduleKey = ["thời khoá biểu", "thời khoá", "thoi khoa bieu", "tkb"];
+const userInputSearchClassesKey = ["lịch dạy", "lich day", "giáo viên", "giao vien"];
 // connect to database
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 //
@@ -90,6 +92,21 @@ function handleMessage(received_message, userData) {
   if(received_message.text) {
     const defaultText = received_message.text;
     let text = received_message.text.toLowerCase();
+    // check if have keyword for search schedule/classes
+    let keySearchSchedule = false;
+    let keySearchClasses = false
+    userInputSearchScheduleKey.forEach((input) => {
+      if(text.includes(input)) {
+        keySearchSchedule = true; 
+        return;
+      }
+    });
+    userInputSearchClassesKey.forEach((input) => {
+      if(text.includes(input)) {
+        keySearchClasses = true; 
+        return;
+      }
+    });
     const textSplit = defaultText.split(" ");
     textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
@@ -106,6 +123,12 @@ function handleMessage(received_message, userData) {
     else if(text === 'exit') {
       unblockAll(userData);
       response = textResponse.exitResponse;
+    }
+    else if(keySearchSchedule) {
+      searchSchedule.init(client, userData);
+    }
+    else if(keySearchClasses) {
+      searchClasses.init(client, userData);
     }
     else if(listNonSingleWordCommands.includes(text)) {
       if(userData.live_chat) {
