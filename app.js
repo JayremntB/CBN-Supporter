@@ -124,12 +124,6 @@ function handleMessage(received_message, userData) {
       unblockAll(userData);
       response = textResponse.exitResponse;
     }
-    else if(keySearchSchedule) {
-      searchSchedule.init(client, userData);
-    }
-    else if(keySearchClasses) {
-      searchClasses.init(client, userData);
-    }
     else if(listNonSingleWordCommands.includes(text)) {
       if(userData.live_chat) {
         liveChat.deniedUsingOtherFeatures(userData);
@@ -266,6 +260,12 @@ function handleMessage(received_message, userData) {
     }
     else if(userData.room_chatting.block) {
       chatRoom.handleMessage(client, defaultText, userData);
+    }
+    else if(keySearchSchedule) {
+      searchSchedule.init(client, userData);
+    }
+    else if(keySearchClasses) {
+      searchClasses.init(client, userData);
     }
   }
   else if(received_message.attachments) {
