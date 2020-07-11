@@ -34,10 +34,10 @@ const dbName = 'database-for-cbner';
 const listSingleWordCommands = ['lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const userInputSearchScheduleKey = ["thời khoá biểu", "thời khoá", "thoi khoa bieu", "tkb"];
-const userInputSearchClassesKey = ["lịch dạy", "lich day", "giáo viên", "giao vien"];
+const userInputSearchClassesKey = ["lịch dạy", "lich day", "dạy"];
 // connect to database
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-//
+// 
 app.get('/', (req, res) => {
   res.send("ok");
 });
@@ -123,6 +123,12 @@ function handleMessage(received_message, userData) {
     else if(text === 'exit') {
       unblockAll(userData);
       response = textResponse.exitResponse;
+    }
+    else if(keySearchSchedule) {
+      searchSchedule.init(client, userData);
+    }
+    else if(keySearchClasses) {
+      searchClasses.init(client, userData);
     }
     else if(listNonSingleWordCommands.includes(text)) {
       if(userData.live_chat) {
@@ -260,12 +266,6 @@ function handleMessage(received_message, userData) {
     }
     else if(userData.room_chatting.block) {
       chatRoom.handleMessage(client, defaultText, userData);
-    }
-    else if(keySearchSchedule) {
-      searchSchedule.init(client, userData);
-    }
-    else if(keySearchClasses) {
-      searchClasses.init(client, userData);
     }
   }
   else if(received_message.attachments) {
