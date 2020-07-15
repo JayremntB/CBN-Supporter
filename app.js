@@ -17,7 +17,7 @@ const findGroupsHave4Or5Classes = require('./src/utils/find-groups-have-4-or-5-c
 const findImages = require('./src/utils/find-images');
 const liveChat = require('./src/utils/live-chat');
 const chatRoom = require('./src/utils/chat-room');
-const simsumiAPIResponse = require('./src/utils/simsumi');
+const simsimiAPIResponse = require('./src/utils/simsimi');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const textResponse = require('./src/general/textResponse');
@@ -35,7 +35,8 @@ const dbName = 'database-for-cbner';
 const listSingleWordCommands = ['lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const userInputSearchScheduleKey = ["thời khoá biểu", "thời khoá", "thoi khoa bieu", "tkb"];
-const userInputSearchClassesKey = ["lịch dạy", "lich day", "dạy"];
+const userInputSearchClassesKey = ["lịch dạy", "lich day"];
+const userInputChatRoomKey = ["ẩn danh", "an danh", "tìm bạn", "chat nhóm", "người lạ", "nguoi la"];
 // connect to database
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 // 
@@ -95,7 +96,8 @@ function handleMessage(received_message, userData) {
     let text = received_message.text.toLowerCase();
     // check if have keyword for search schedule/classes
     let keySearchSchedule = false;
-    let keySearchClasses = false
+    let keySearchClasses = false;
+    let keyChatRoom = false;
     userInputSearchScheduleKey.forEach((input) => {
       if(text.includes(input)) {
         keySearchSchedule = true; 
@@ -105,6 +107,12 @@ function handleMessage(received_message, userData) {
     userInputSearchClassesKey.forEach((input) => {
       if(text.includes(input)) {
         keySearchClasses = true; 
+        return;
+      }
+    });
+    userInputChatRoomKey.forEach((input) => {
+        if(text.includes(input)) {
+        keyChatRoom = true; 
         return;
       }
     });
@@ -130,6 +138,10 @@ function handleMessage(received_message, userData) {
     }
     else if(keySearchClasses) {
       searchClasses.init(client, userData);
+    }
+    else if(keyChatRoom) {
+      unblockAll(userData);
+      response = templateResponse.chatRoom;
     }
     else if(listNonSingleWordCommands.includes(text)) {
       if(userData.live_chat) {
@@ -266,7 +278,7 @@ function handleMessage(received_message, userData) {
     else if(userData.room_chatting.block) {
       chatRoom.handleMessage(client, defaultText, userData);
     }
-    else simsumiAPIResponse(userData.sender_psid, defaultText);
+    else simsimiAPIResponse(userData.sender_psid, defaultText);
   }
   else if(received_message.attachments) {
     // Gets the URL of the message attachment
