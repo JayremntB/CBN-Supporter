@@ -429,7 +429,7 @@ function handlePostback(received_postback, userData) {
       // Information and help possess
       case 'chatbotInformation':
         unblockAll(userData);
-        response = textResponse.chatbotInformationResponse;
+        response = templateResponse.chatbotInformationResponse;
         break;
       case 'help':
         liveChat.startLiveChat(client, userData);

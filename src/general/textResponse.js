@@ -34,9 +34,6 @@ module.exports = {
       }
     ]
   },
-  "chatbotInformationResponse": {
-    "text": "CBN Supporter - Chatbot for supporting CBNers\nDeveloped in 2020, by JayremntB"
-  },
   "subRoomResponse": {
     "text": "",
     "quick_replies": [

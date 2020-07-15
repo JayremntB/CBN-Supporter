@@ -20,6 +20,22 @@
       }
     }
   },
+  "chatbotInformationResponse": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "CBN Supporter - Chatbot for supporting CBNers\nDeveloped in 2020, by JayremntB",
+        "buttons": [
+          {
+            "type": "web_url",
+            "url": "https://www.facebook.com/jayremnt/",
+            "title": "Find me on Facebook"
+          }
+        ]
+      }
+    }
+  },
   "menu": {
     "attachment": {
       "type": "template",
