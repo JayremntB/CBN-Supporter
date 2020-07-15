@@ -12,64 +12,80 @@ module.exports = {
 }
 
 function handleMessage(client, text, userData) {
-  client.db(dbName).collection('schedule').findOne({ updated_time: {$gt: 0} }, (err, data) => {
-    if(err) console.log(err);
-    else if(userData.schedule_updated_time < data.updated_time) {
-      let groupFind = userData.search_schedule_other_group.block
-      ? userData.search_schedule_other_group.group
-      : userData.group;
-      if(!userData.group && !userData.search_schedule_other_group.group) {
-        if(!checkGroup(userData.sender_psid, text)) return;
-        else groupFind = text;
+  // client.db(dbName).collection('schedule').findOne({ updated_time: {$gt: 0} }, (err, data) => {
+  //   if(err) console.log(err);
+  //   else if(userData.schedule_updated_time < data.updated_time) {
+  //     let groupFind = userData.search_schedule_other_group.block
+  //     ? userData.search_schedule_other_group.group
+  //     : userData.group;
+  //     if(!userData.group && !userData.search_schedule_other_group.group) {
+  //       if(!checkGroup(userData.sender_psid, text)) return;
+  //       else groupFind = text;
+  //     }
+  //     updateData(client, userData, groupFind, userData.search_schedule_other_group.block);
+  //   }
+  //   else {
+  //     if(text === "tra lớp khác") {
+  //       const response = textResponse.searchScheduleAskGroup;
+  //       clearOtherGroupData(client, userData.sender_psid);
+  //       sendResponse(userData.sender_psid, response);
+  //     }
+  //     else if(!userData.search_schedule_other_group.block) { // have group set
+  //       sendSchedule(text, userData, client);
+  //     }
+  //     else if(userData.search_schedule_other_group.group) { // not have group set, but being day searching
+  //       sendSchedule(text, userData, client);
+  //     }
+  //     else if(checkGroup(userData.sender_psid, text)) { // not being day searching, but being group searching
+  //       updateData(client, userData, text, userData.search_schedule_other_group.block);
+  //     }
+  //   }
+  // });
+  const response = {
+    "text": "Nghỉ hè rồi, thấy cô đơn thì Exit rồi tâm sự với Jay hoặc tìm bạn qua chat ẩn danh nhé :>",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
       }
-      updateData(client, userData, groupFind, userData.search_schedule_other_group.block);
-    }
-    else {
-      if(text === "tra lớp khác") {
-        const response = textResponse.searchScheduleAskGroup;
-        clearOtherGroupData(client, userData.sender_psid);
-        sendResponse(userData.sender_psid, response);
-      }
-      else if(!userData.search_schedule_other_group.block) { // have group set
-        sendSchedule(text, userData, client);
-      }
-      else if(userData.search_schedule_other_group.group) { // not have group set, but being day searching
-        sendSchedule(text, userData, client);
-      }
-      else if(checkGroup(userData.sender_psid, text)) { // not being day searching, but being group searching
-        updateData(client, userData, text, userData.search_schedule_other_group.block);
-      }
-    }
-  });
+    ]
+  };
+  sendResponse(userData.sender_psid, response);
 }
 
 function init(client, userData) {
-  if(userData.group) { // init search_schedule_block, add schedule of that group
-    updateData(client, userData, userData.group, userData.search_schedule_other_group.block);
-  }
-  else { // init both search_schedule_block & search_schedule_other_group block
-    let update = userDataUnblockSchema(userData);
-    update.search_schedule_block = true;
-    update.search_schedule_other_group.block = true;
-    update.search_schedule_other_group.group = "";
-    update.search_schedule_other_group.schedule = [];
-    client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-      $set: update
-    }, (err) => {
-      if(err) {
-        console.log("could not init search_schedule_other_group block");
-        const response = {
-          "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
-        };
-        sendResponse(userData.sender_psid, response);
-      }
-      else {
-        console.log('init search_schedule_other_group block successfully');
-        const response = textResponse.searchScheduleAskGroup;
-        sendResponse(userData.sender_psid, response);
-      }
-    });
-  }
+  // if(userData.group) { // init search_schedule_block, add schedule of that group
+  //   updateData(client, userData, userData.group, userData.search_schedule_other_group.block);
+  // }
+  // else { // init both search_schedule_block & search_schedule_other_group block
+  //   let update = userDataUnblockSchema(userData);
+  //   update.search_schedule_block = true;
+  //   update.search_schedule_other_group.block = true;
+  //   update.search_schedule_other_group.group = "";
+  //   update.search_schedule_other_group.schedule = [];
+  //   client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+  //     $set: update
+  //   }, (err) => {
+  //     if(err) {
+  //       console.log("could not init search_schedule_other_group block");
+  //       const response = {
+  //         "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+  //       };
+  //       sendResponse(userData.sender_psid, response);
+  //     }
+  //     else {
+  //       console.log('init search_schedule_other_group block successfully');
+  //       const response = textResponse.searchScheduleAskGroup;
+  //       sendResponse(userData.sender_psid, response);
+  //     }
+  //   });
+  // }
+  const response = {
+    "text": "Nghỉ hè rồi, thấy cô đơn thì tâm sự với Jay hoặc tìm bạn qua chat ẩn danh nhé :>"
+  };
+  sendResponse(userData.sender_psid, response);
 }
 
 function clearOtherGroupData(client, sender_psid) {

@@ -12,53 +12,69 @@ module.exports = {
 };
 
 function handleMessage(client, text, userData) {
-  client.db(dbName).collection('schedule').findOne({ updated_time: {$gt: 0} }, (err, data) => {
-    if(err) console.log(err);
-    else if(userData.schedule_updated_time < data.updated_time) {
-      let subjectFind = "";
-      if(!userData.search_groups_taught.subject) {
-        if(!checkSubjectName(userData.sender_psid, text.toLowerCase())) return;
-        else subjectFind = text;
+  // client.db(dbName).collection('schedule').findOne({ updated_time: {$gt: 0} }, (err, data) => {
+  //   if(err) console.log(err);
+  //   else if(userData.schedule_updated_time < data.updated_time) {
+  //     let subjectFind = "";
+  //     if(!userData.search_groups_taught.subject) {
+  //       if(!checkSubjectName(userData.sender_psid, text.toLowerCase())) return;
+  //       else subjectFind = text;
+  //     }
+  //     if(subjectFind === "Hoá học") subjectFind = "Hóa học";
+  //     updateData(client, userData, subjectFind);
+  //   }
+  //   else {
+  //     if(text.toLowerCase() === "tra môn học khác") {
+  //       const response = textResponse.searchClassesAskSubject;
+  //       clearSubjectData(client, userData.sender_psid);
+  //       sendResponse(userData.sender_psid, response);
+  //     }
+  //     else if(userData.search_groups_taught.subject) {
+  //       sendGroups(text, userData, client);
+  //     }
+  //     else if(checkSubjectName(userData.sender_psid, text.toLowerCase())) {
+  //       if(text === "Hoá học") text = "Hóa học";
+  //       updateData(client, userData, text);
+  //     }
+  //   }
+  // });
+  const response = {
+    "text": "Nghỉ hè rồi, thấy cô đơn thì Exit rồi tâm sự với Jay hoặc tìm bạn qua chat ẩn danh nhé :>",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Exit",
+        "payload": "exit",
+        "image_url": ""
       }
-      if(subjectFind === "Hoá học") subjectFind = "Hóa học";
-      updateData(client, userData, subjectFind);
-    }
-    else {
-      if(text.toLowerCase() === "tra môn học khác") {
-        const response = textResponse.searchClassesAskSubject;
-        clearSubjectData(client, userData.sender_psid);
-        sendResponse(userData.sender_psid, response);
-      }
-      else if(userData.search_groups_taught.subject) {
-        sendGroups(text, userData, client);
-      }
-      else if(checkSubjectName(userData.sender_psid, text.toLowerCase())) {
-        if(text === "Hoá học") text = "Hóa học";
-        updateData(client, userData, text);
-      }
-    }
-  });
+    ]
+  };
+  sendResponse(userData.sender_psid, response);
 }
 
 function init(client, userData) {
-  let update = userDataUnblockSchema(userData);
-  update.search_groups_taught.block = true;
-  client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-    $set: update
-  }, (err) => {
-    if(err) {
-      console.log("could not init search_groups_taught block");
-      const response = {
-        "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
-      };
-      sendResponse(userData.sender_psid, response);
-    }
-    else {
-      console.log('init search search_groups_taught successfully');
-      const response = textResponse.searchClassesAskSubject;
-      sendResponse(userData.sender_psid, response);
-    }
-  });
+  // let update = userDataUnblockSchema(userData);
+  // update.search_groups_taught.block = true;
+  // client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+  //   $set: update
+  // }, (err) => {
+  //   if(err) {
+  //     console.log("could not init search_groups_taught block");
+  //     const response = {
+  //       "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+  //     };
+  //     sendResponse(userData.sender_psid, response);
+  //   }
+  //   else {
+  //     console.log('init search search_groups_taught successfully');
+  //     const response = textResponse.searchClassesAskSubject;
+  //     sendResponse(userData.sender_psid, response);
+  //   }
+  // });
+  const response = {
+    "text": "Nghỉ hè rồi, thấy cô đơn thì tâm sự với Jay hoặc tìm bạn qua chat ẩn danh nhé :>"
+  };
+  sendResponse(userData.sender_psid, response);
 }
 
 function clearSubjectData(client, sender_psid) {
