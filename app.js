@@ -17,6 +17,7 @@ const findGroupsHave4Or5Classes = require('./src/utils/find-groups-have-4-or-5-c
 const findImages = require('./src/utils/find-images');
 const liveChat = require('./src/utils/live-chat');
 const chatRoom = require('./src/utils/chat-room');
+const simsumiAPIResponse = require('./src/utils/simsumi');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const textResponse = require('./src/general/textResponse');
@@ -267,6 +268,7 @@ function handleMessage(received_message, userData) {
     else if(userData.room_chatting.block) {
       chatRoom.handleMessage(client, defaultText, userData);
     }
+    else simsumiAPIResponse(userData.sender_psid, defaultText);
   }
   else if(received_message.attachments) {
     // Gets the URL of the message attachment
