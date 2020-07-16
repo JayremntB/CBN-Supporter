@@ -375,7 +375,7 @@ function handlePostback(received_postback, userData) {
         break;
       //
       case 'otherFeatures':
-        unblockAll(userData);
+        unblockAll(userData); 
         response = textResponse.otherFeaturesResponse;
         break;
       // chatRoom
