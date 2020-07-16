@@ -39,7 +39,7 @@ function handleMessage(client, text, userData) {
   //   }
   // });
   const response = {
-    "text": "Nghỉ hè rồi, thấy cô đơn thì Exit rồi tâm sự với Jay hoặc tìm bạn qua chat ẩn danh nhé :>",
+    "text": "Nghỉ hè rồi, thấy cô đơn thì Exit rồi tâm sự với thằng Sim hoặc tìm bạn qua chat ẩn danh nhé :>",
     "quick_replies": [
       {
         "content_type": "text",
@@ -72,7 +72,7 @@ function init(client, userData) {
   //   }
   // });
   const response = {
-    "text": "Nghỉ hè rồi, thấy cô đơn thì tâm sự với Jay hoặc tìm bạn qua chat ẩn danh nhé :>"
+    "text": "Nghỉ hè rồi, thấy cô đơn thì tâm sự với thằng Sim hoặc tìm bạn qua chat ẩn danh nhé :>"
   };
   sendResponse(userData.sender_psid, response);
 }
