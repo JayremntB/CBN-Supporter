@@ -13,11 +13,7 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
   const timeNow = date.getTime();
   client.db(dbName).collection('users-data').updateMany({}, {
     $set: {
-      search_groups_taught: {
-        block: false,
-        subject: "",
-        list_groups: []
-      },
+      simsimi_lang: "vi"
     }
   }, (err) => {
     if(err) console.error(err);

@@ -1,15 +1,37 @@
 const request = require('request');
 
-module.exports = function(sender_psid, text) {
+const dbName = 'database-for-cbner';
+
+module.exports = {
+    response: response,
+    changeLang: changeLang,
+};
+
+function response(userData, text) {
     request({
         "uri": `https://simsumi.herokuapp.com/api`,
-        "qs": {"text": `${text}`, "lang": "vi"},
+        "qs": {"text": `${text}`, "lang": `${userData.simsimi_lang}`},
         "method": "GET"
     }, (err, res, body) => {
         const response = {
             "text": JSON.parse(body).success
         }
-        SimsimiResponse(sender_psid, response);
+        SimsimiResponse(userData.sender_psid, response);
+    });
+}
+
+function changeLang(client, userData, lang) {
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+        $set: {
+            simsimi_lang: lang
+        }
+    }, () => {
+        const response = {
+            "text": ""
+        };
+        if(lang === "vi") response.text = "Ok rồi đấy :>";
+        else response.text = "So you want me to speak English...\nGo ahead =)))";
+        SimsimiResponse(userData.sender_psid, response);
     });
 }
 

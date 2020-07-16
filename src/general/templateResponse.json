@@ -103,8 +103,13 @@
             ]
           },
           {
-            "title": "Liên hệ admin",
+            "title": "Khác",
             "buttons": [
+              {
+                "type": "postback",
+                "title": "Cài đặt SimSimi",
+                "payload": "SimSimiSetting"
+              },
               {
                 "type": "web_url",
                 "url": "https://forms.gle/er53FLSRkVQyL3FF8",
