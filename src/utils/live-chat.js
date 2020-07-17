@@ -8,10 +8,11 @@ const collectionName = 'users-data';
 
 module.exports = {
   startLiveChat: startLiveChat,
+  endLiveChat: endLiveChat,
   deniedUsingOtherFeatures: deniedUsingOtherFeatures
 }
 
-async function startLiveChat(client, userData) {
+function startLiveChat(client, userData) {
   let response = {
     "text": "Đợi tý, tớ đang gọi thằng coder..."
   };
@@ -32,6 +33,28 @@ async function startLiveChat(client, userData) {
       let userName = JSON.parse(body);
       response = {
         "text": `Hey boyyy, ${userName.first_name} ${userName.last_name} wants to have a conversation :^)`
+      };
+      sendResponse(process.env.authorPSID, response);
+    }
+  });
+}
+
+function endLiveChat(client, userData) {
+  // send notification to author with user's info
+  request({
+    "uri": `https://graph.facebook.com/${userData.sender_psid}`,
+    "qs": {
+      "fields": "first_name,last_name",
+      "access_token": process.env.PAGE_ACCESS_TOKEN
+    },
+    "method": "GET"
+  }, (err, res, body) => {
+    if(err) {
+      console.error("Unable to send message:" + err);
+    } else {
+      let userName = JSON.parse(body);
+      response = {
+        "text": `${userName.first_name} ${userName.last_name} has just typed Exit...`
       };
       sendResponse(process.env.authorPSID, response);
     }
