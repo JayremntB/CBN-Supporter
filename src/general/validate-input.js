@@ -15,11 +15,12 @@ module.exports = {
 }
 
 function filterWordSimsimi(text) {
-  const filterWords = ["địt", "lồn", "cặc", "cu", "liếm", "bú", "đái", "chym", "buồi"];
+  const filterWords = ["Địt", "địt", "Lồn", "lồn", "Cặc", "cặc", "Cu", "cu", "liếm", "bú", "đái", "chym", "Buồi", "buồi"];
   let textSplit = text.split(" ");
   let fullText = "";
   let filterWordsCount = 0;
   textSplit.forEach((textPart, i) => {
+    console.log(textPart);
     filterWords.forEach((word) => {
       if(textPart.includes(word)) {
         textSplit[i] = "***";
