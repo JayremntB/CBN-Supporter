@@ -14,12 +14,12 @@ function response(userData, text) {
         "qs": {"text": `${text}`, "lang": `${userData.simsimi_lang}`},
         "method": "GET"
     }, (err, res, body) => {
-		let word = JSON.parse(body).success;
-		console.log(word);
-		// const response = {
-		// 	"text": filterWordSimsimi(text)
-		// }
-        // SimsimiResponse(userData.sender_psid, response);
+        const response = {
+          "text": "Sim đang bị Jay cấm chat vì lỡ nói tục nhiều, quay lại với Sim sau nha :("
+        };
+        if(err) return SimsimiResponse(userData.sender_psid, response);
+        response.text = filterWordSimsimi(JSON.parse(body).success);
+        SimsimiResponse(userData.sender_psid, response);
     });
 }
 

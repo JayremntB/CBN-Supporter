@@ -15,29 +15,24 @@ module.exports = {
 }
 
 function filterWordSimsimi(text) {
-  // console.log(text);
-  // const filterWords = ["địt", "lồn", "cặc", "cu", "liếm", "bú", "chịch", "đái", "chym", "buồi"];
-  // let textSplit = text.split(" ");
-  // let fullText = "";
-  // let filterWordsCount = 0;
-  // console.log(textSplit);
-  // // textSplit.forEach((textPart) => {
-  // //   filterWords.forEach((word) => {
-  // //     if(textPart.includes(word)) {
-  // //       textPart = "***";
-  // //       filterWordsCount ++;
-  // //       return;
-  // //     }
-  // //   });
-  // // });
-  // // textSplit.forEach(textPart => {
-  // //   fullText += textPart + " ";
-  // // });
-  // // const textReturn = filterWordsCount >= 3 ? "*Sim vừa bị Jay vả vì định nói quá nhiều từ bậy*" : fullText;
-  // console.log(filterWordsCount);
-  // console.log(text);
-  // return textReturn;
-  return text;
+  const filterWords = ["địt", "lồn", "cặc", "cu", "liếm", "bú", "đái", "chym", "buồi"];
+  let textSplit = text.split(" ");
+  let fullText = "";
+  let filterWordsCount = 0;
+  textSplit.forEach((textPart, i) => {
+    filterWords.forEach((word) => {
+      if(textPart.includes(word)) {
+        textSplit[i] = "***";
+        filterWordsCount ++;
+        return;
+      }
+    });
+  });
+  textSplit.forEach(textPart => {
+    fullText += textPart + " ";
+  });
+  const textReturn = filterWordsCount >= 4 ? "*Sim vừa bị Jay vả vì định nói quá nhiều từ bậy*" : fullText;
+  return textReturn;
 }
 
 function checkSubjectName(sender_psid, subjectName) {
