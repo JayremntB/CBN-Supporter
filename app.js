@@ -17,7 +17,7 @@ const findGroupsHave4Or5Classes = require('./src/utils/find-groups-have-4-or-5-c
 const findImages = require('./src/utils/find-images');
 const liveChat = require('./src/utils/live-chat');
 const chatRoom = require('./src/utils/chat-room');
-const simsimi = require('./src/utils/simsimi');
+// const simsimi = require('./src/utils/simsimi');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const textResponse = require('./src/general/textResponse');
@@ -178,12 +178,12 @@ function handleMessage(received_message, userData) {
       }
       else {
         switch (textSplit[0]) {
-          case 'simvi': 
-            simsimi.changeLang(client, userData, 'vi');
-            break;
-          case 'simen': 
-            simsimi.changeLang(client, userData, 'en');
-            break;
+          // case 'simvi': 
+          //   simsimi.changeLang(client, userData, 'vi');
+          //   break;
+          // case 'simen': 
+          //   simsimi.changeLang(client, userData, 'en');
+          //   break;
           case 'lớp':
             searchGroupsTaught.init(client, userData);
             break;
@@ -284,7 +284,7 @@ function handleMessage(received_message, userData) {
     else if(userData.room_chatting.block) {
       chatRoom.handleMessage(client, defaultText, userData);
     }
-    else simsimi.response(userData, defaultText);
+    // else simsimi.response(userData, defaultText);
   }
   else if(received_message.attachments) {
     // Gets the URL of the message attachment
@@ -442,7 +442,8 @@ function handlePostback(received_postback, userData) {
         break;
       // SimSimi setting
       case 'SimSimiSetting':
-        response.text = "Nhập simvi/simen để chuyển ngôn ngữ sang tiếng Việt/tiếng Anh.\nĐể nói chuyện với Sim, cứ nhắn tin bình thường nhé!";
+        // response.text = "Nhập simvi/simen để chuyển ngôn ngữ sang tiếng Việt/tiếng Anh.\nĐể nói chuyện với Sim, cứ nhắn tin bình thường nhé!";
+        response.text = "SimSimi hiện đang dừng hoạt động, vui lòng thử lại sau..."
         break;
       // Information and help possess
       case 'chatbotInformation':

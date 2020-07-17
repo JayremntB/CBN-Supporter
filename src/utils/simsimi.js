@@ -1,6 +1,7 @@
 const request = require('request');
-
+const { filterWordSimsimi } = require('../general/validate-input');
 const dbName = 'database-for-cbner';
+
 
 module.exports = {
     response: response,
@@ -8,15 +9,17 @@ module.exports = {
 };
 
 function response(userData, text) {
-    request({
-        "uri": `https://simsumi.herokuapp.com/api`,
+	request({
+		"uri": `https://simsumi.herokuapp.com/api`,
         "qs": {"text": `${text}`, "lang": `${userData.simsimi_lang}`},
         "method": "GET"
     }, (err, res, body) => {
-        const response = {
-            "text": JSON.parse(body).success
-        }
-        SimsimiResponse(userData.sender_psid, response);
+		let word = JSON.parse(body).success;
+		console.log(word);
+		// const response = {
+		// 	"text": filterWordSimsimi(text)
+		// }
+        // SimsimiResponse(userData.sender_psid, response);
     });
 }
 
