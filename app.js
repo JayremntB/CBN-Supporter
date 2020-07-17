@@ -1,3 +1,5 @@
+const { endLiveChat } = require('./src/utils/live-chat');
+
 (async function () {
 'use strict'
 // node_modules
@@ -130,12 +132,7 @@ function handleMessage(received_message, userData) {
       else chatRoom.handleMessage(client, defaultText, userData);
     }
     else if(text === 'exit') {
-      if(userData.live_chat) {
-        response = {
-          "text": `${userName.first_name} ${userName.last_name} has just typed Exit...`
-        };
-        sendResponse(process.env.authorPSID, response);
-      }
+      if(userData.live_chat) endLiveChat(client, userData);
       unblockAll(userData);
       response = textResponse.exitResponse;
     }
