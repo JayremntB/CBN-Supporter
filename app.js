@@ -130,6 +130,12 @@ function handleMessage(received_message, userData) {
       else chatRoom.handleMessage(client, defaultText, userData);
     }
     else if(text === 'exit') {
+      if(userData.live_chat) {
+        response = {
+          "text": `${userName.first_name} ${userName.last_name} has just typed Exit...`
+        };
+        sendResponse(process.env.authorPSID, response);
+      }
       unblockAll(userData);
       response = textResponse.exitResponse;
     }
