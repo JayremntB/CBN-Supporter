@@ -287,7 +287,7 @@ function handleMessage(received_message, userData) {
     else if(userData.room_chatting.block) {
       chatRoom.handleMessage(client, defaultText, userData);
     }
-    else simsimi.response(userData, defaultText);
+    else if(!userData.live_chat) simsimi.response(userData, defaultText);
   }
   else if(received_message.attachments) {
     // Gets the URL of the message attachment
