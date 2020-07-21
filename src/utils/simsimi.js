@@ -11,16 +11,15 @@ module.exports = {
 function response(userData, text) {
 	request({
 		"uri": `https://simsumi.herokuapp.com/api`,
-        "qs": {"text": `${text}`, "lang": `${userData.simsimi_lang}`},
-        "method": "GET"
-    }, (err, res, body) => {
-        const response = {
-          "text": "Sim đang bị Jay cấm chat vì lỡ nói tục nhiều, quay lại với Sim sau nha :("
-        };
-        if(err) return SimsimiResponse(userData.sender_psid, response);
-        response.text = filterWordSimsimi(JSON.parse(body).success);
-        SimsimiResponse(userData.sender_psid, response);
-    });
+    "qs": {"text": `${text}`, "lang": `${userData.simsimi_lang}`},
+    "method": "GET"
+  }, (err, res, body) => {
+      const response = {
+        "text": ""
+      };
+      response.text = filterWordSimsimi(JSON.parse(body).success);
+      SimsimiResponse(userData.sender_psid, response);
+  });
 }
 
 function changeLang(client, userData, lang) {
