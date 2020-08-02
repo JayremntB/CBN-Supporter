@@ -32,7 +32,7 @@ const { userDataUnblockSchema, userDataFrame } = require('./src/general/template
 const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
-const listSingleWordCommands = ['simvi', 'simen', 'lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listSingleWordCommands = ['lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const userInputSearchScheduleKey = ["thời khoá biểu", "thời khoá", "thoi khoa bieu", "tkb"];
 const userInputSearchClassesKey = ["lịch dạy", "lich day"];
@@ -179,12 +179,6 @@ function handleMessage(received_message, userData) {
       }
       else {
         switch (textSplit[0]) {
-          case 'simvi': 
-            simsimi.changeLang(client, userData, 'vi');
-            break;
-          case 'simen': 
-            simsimi.changeLang(client, userData, 'en');
-            break;
           case 'lớp':
             searchGroupsTaught.init(client, userData);
             break;
@@ -285,7 +279,6 @@ function handleMessage(received_message, userData) {
     else if(userData.room_chatting.block) {
       chatRoom.handleMessage(client, defaultText, userData);
     }
-    else if(!userData.live_chat) simsimi.response(userData, defaultText);
   }
   else if(received_message.attachments) {
     // Gets the URL of the message attachment
@@ -415,6 +408,12 @@ function handlePostback(received_postback, userData) {
       case 'settingAvatar':
         chatRoom.settingAvatar(client, userData);
         break;
+      case 'ChatRoomChangeToRealInfor':
+        chatRoom.changeToRealInfor(client, userData);
+        break;
+      case 'ChatRoomChangeInforToDefault': 
+        chatRoom.changeInforToDefault(client, userData);
+        break;
       // listCommands possess
       case 'listCommands':
         unblockAll(userData);
@@ -443,8 +442,8 @@ function handlePostback(received_postback, userData) {
         break;
       // SimSimi setting
       case 'SimSimiSetting':
-        response.text = "Nhập simvi/simen để chuyển ngôn ngữ sang tiếng Việt/tiếng Anh.\nĐể nói chuyện với Sim, cứ nhắn tin bình thường nhé!";
-        // response.text = "SimSimi hiện đang dừng hoạt động, vui lòng thử lại sau..."
+        // response.text = "Nhập simvi/simen để chuyển ngôn ngữ sang tiếng Việt/tiếng Anh.\nĐể nói chuyện với Sim, cứ nhắn tin bình thường nhé!";
+        response.text = "SimSimi hiện đang dừng hoạt động, vui lòng thử lại sau...";
         break;
       // Information and help possess
       case 'chatbotInformation':
