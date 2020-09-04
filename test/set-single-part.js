@@ -7,7 +7,7 @@
 const request = require('request');
 //
 // await request({
-//   "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
+//   "uri": "https://graph.facebook.com/v8.0/me/messenger_profile",
 //   // "uri": "https://graph.facebook.com/me/personas",
 //   "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
 //   "method": "POST",
@@ -25,7 +25,7 @@ const request = require('request');
 // });
 
 await request({
-  "uri": "https://graph.facebook.com/v2.6/me/messenger_profile",
+  "uri": "https://graph.facebook.com/v8.0/me/messenger_profile",
   // "uri": "https://graph.facebook.com/me/personas",
   // "qs": { "access_token": process.env.TEST_PAGE_ACCESS_TOKEN },
   "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
@@ -42,27 +42,26 @@ await request({
             "payload": "menu"
           },
           {
-            "type": "nested",
-            "title": "About",
-            "call_to_actions": [
-              {
-                "type": "postback",
-                "title": "Thông tin chatbot",
-                "payload": "chatbotInformation"
-              },
-              {
-                "type": "web_url",
-                "title": "Gửi phản hồi",
-                "url": "https://forms.gle/er53FLSRkVQyL3FF8",
-                "webview_height_ratio": "full"
-              },
-              {
-                "type": "web_url",
-                "title": "Hướng dẫn sử dụng",
-                "url": "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md",
-                "webview_height_ratio": "full"
-              }
-            ]
+            "type": "postback",
+            "title": "Danh sách lệnh",
+            "payload": "listCommands"
+          },
+          {
+            "type": "postback",
+            "title": "Thông tin chatbot",
+            "payload": "chatbotInformation"
+          },
+          {
+            "type": "web_url",
+            "title": "Gửi phản hồi",
+            "url": "https://forms.gle/er53FLSRkVQyL3FF8",
+            "webview_height_ratio": "full"
+          },
+          {
+            "type": "web_url",
+            "title": "Hướng dẫn sử dụng",
+            "url": "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md",
+            "webview_height_ratio": "full"
           },
           {
             "type": "postback",
@@ -80,7 +79,7 @@ await request({
 });
 
 // await request({
-//   "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
+//   "uri": "https://graph.facebook.com/v8.0/me/messenger_profile",
 //   "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
 //   "method": "POST",
 //   "json": {

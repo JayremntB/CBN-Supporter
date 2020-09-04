@@ -29,7 +29,7 @@
         "buttons": [
           {
             "type": "web_url",
-            "url": "https://www.facebook.com/jayremnt/",
+            "url": "https://www.facebook.com/jayremnt13/",
             "title": "Find me on Facebook"
           }
         ]
@@ -47,6 +47,11 @@
             "buttons": [
               {
                 "type": "postback",
+                "title": "Chat ẩn danh",
+                "payload": "chatRoom"
+              },
+              {
+                "type": "postback",
                 "title": "Tra thời khoá biểu",
                 "payload": "searchSchedule"
               },
@@ -54,16 +59,11 @@
                 "type": "postback",
                 "title": "Tra lịch dạy",
                 "payload": "searchClasses"
-              },
-              {
-                "type": "postback",
-                "title": "Chat ẩn danh",
-                "payload": "chatRoom"
               }
             ]
           },
           {
-            "title": "Khác",
+            "title": "Bạn cần gì nào :3",
             "buttons": [
               {
                 "type": "postback",
@@ -72,55 +72,41 @@
               },
               {
                 "type": "postback",
-                "title": "Tìm lớp 4 tiết",
-                "payload": "findGroupsHave4Classes"
+                "title": "Tìm lớp 4, 5 tiết",
+                "payload": "findGroupsWithClassesCondition"
               },
               {
                 "type": "postback",
-                "title": "Tìm lớp 5 tiết",
-                "payload": "findGroupsHave5Classes"
-              }
-            ]
-          },
-          {
-            "title": "Khác",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Tìm ảnh",
-                "payload": "findImages"
-              },
-              {
-                "type": "postback",
-                "title": "Các tính năng khác",
+                "title": "Khác",
                 "payload": "otherFeatures"
-              },
-              {
-                "type": "postback",
-                "title": "Danh sách lệnh",
-                "payload": "listCommands"
               }
             ]
+          }
+        ]
+      }
+    }
+  },
+  "otherFeatures": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Các mục khác",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Tính giờ ngủ, dậy",
+            "payload": "countSleepTime"
           },
           {
-            "title": "Khác",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Cài đặt SimSimi",
-                "payload": "SimSimiSetting"
-              },
-              {
-                "type": "web_url",
-                "url": "https://forms.gle/er53FLSRkVQyL3FF8",
-                "title": "Gửi phản hồi [cfs]"
-              },
-              {
-                "type": "postback",
-                "title": "Yêu cầu hỗ trợ",
-                "payload": "help"
-              }
-            ]
+            "type": "postback",
+            "title": "Tình hình Covid",
+            "payload": "checkCovid"
+          },
+          {
+            "type": "postback",
+            "title": "Tìm ảnh",
+            "payload": "findImages"
           }
         ]
       }
@@ -152,32 +138,6 @@
       }
     }
   },
-  "joinChatRoom": {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "button",
-        "text": "Chọn phòng chat",
-        "buttons": [
-          {
-            "type": "postback",
-            "title": "Phòng chat tổng",
-            "payload": "generalRoom"
-          },
-          {
-            "type": "postback",
-            "title": "Tạo phòng",
-            "payload": "createSubRoom"
-          },
-          {
-            "type": "postback",
-            "title": "Tìm phòng",
-            "payload": "subRoom"
-          }
-        ]
-      }
-    }
-  },
   "chatRoom": {
     "attachment": {
       "type": "template",
@@ -185,21 +145,21 @@
         "template_type": "generic",
         "elements": [
           {
-            "title": "Bạn sẽ chat ẩn danh với những người được kết nối...",
+            "title": "Chọn phòng đi...",
             "buttons": [
               {
                 "type": "postback",
-                "title": "Vào phòng chat tổng",
+                "title": "Phòng chat tổng",
                 "payload": "generalRoom"
               },
               {
                 "type": "postback",
-                "title": "Vào phòng ngẫu nhiên",
+                "title": "Phòng ngẫu nhiên",
                 "payload": "randomSubRoom"
               },
               {
                 "type": "postback",
-                "title": "Tìm phòng chat riêng",
+                "title": "Tìm phòng",
                 "payload": "subRoom"
               }
             ]
@@ -214,13 +174,43 @@
               },
               {
                 "type": "postback",
-                "title": "Nhập ID phòng",
-                "payload": "selectRoom"
+                "title": "Khác",
+                "payload": "chatRoomOtherOptions"
               },
               {
                 "type": "postback",
-                "title": "Phòng cũ gần nhất",
-                "payload": "joinPreRoom"
+                "title": "Thiết lập",
+                "payload": "chatRoomSetting"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "chatRoomSetting": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": "Thiết lập thông tin cá nhân",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Đổi tên hiển thị",
+                "payload": "settingName"
+              },
+              {
+                "type": "postback",
+                "title": "Đổi ảnh hiển thị",
+                "payload": "settingAvatar"
+              },
+              {
+                "type": "postback",
+                "title": "Dùng tên, ảnh thật",
+                "payload": "ChatRoomChangeToRealInfor"
               }
             ]
           },
@@ -229,13 +219,8 @@
             "buttons": [
               {
                 "type": "postback",
-                "title": "Tên hiển thị",
-                "payload": "settingName"
-              },
-              {
-                "type": "postback",
-                "title": "Ảnh hiển thị",
-                "payload": "settingAvatar"
+                "title": "Đổi về mặc định",
+                "payload": "ChatRoomChangeInforToDefault"
               },
               {
                 "type": "postback",
@@ -243,6 +228,27 @@
                 "payload": "userInfo"
               }
             ]
+          }
+        ]
+      }
+    }
+  },
+  "chatRoomOtherOptions": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "Các mục khác",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Nhập ID phòng",
+            "payload": "selectRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Phòng cũ gần nhất",
+            "payload": "joinPreRoom"
           }
         ]
       }
@@ -288,32 +294,6 @@
                 "payload": "otherFeaturesCommands"
               }
             ]
-          }
-        ]
-      }
-    }
-  },
-  "settingProfile": {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "button",
-        "text": "Chọn thiết lập",
-        "buttons": [
-          {
-            "type": "postback",
-            "title": "Tên hiển thị",
-            "payload": "settingName"
-          },
-          {
-            "type": "postback",
-            "title": "Ảnh hiển thị",
-            "payload": "settingAvatar"
-          },
-          {
-            "type": "postback",
-            "title": "Thông tin của tôi",
-            "payload": "userInfo"
           }
         ]
       }

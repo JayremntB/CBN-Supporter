@@ -13,11 +13,11 @@ const estimateSleepTime = require('./src/utils/estimate-sleep-time');
 const searchSchedule = require('./src/utils/search-schedule');
 const searchClasses = require('./src/utils/search-classes');
 const searchGroupsTaught = require('./src/utils/search-groups-taught');
-const findGroupsHave4Or5Classes = require('./src/utils/find-groups-have-4-or-5-classes');
+const findGroupsWithClassesCondition = require('./src/utils/find-groups-have-4-or-5-classes');
 const findImages = require('./src/utils/find-images');
 const liveChat = require('./src/utils/live-chat');
 const chatRoom = require('./src/utils/chat-room');
-const simsimi = require('./src/utils/simsimi');
+// const simsimi = require('./src/utils/simsimi');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const textResponse = require('./src/general/textResponse');
@@ -358,19 +358,16 @@ function handlePostback(received_postback, userData) {
       case 'searchGroupsTaught':
         searchGroupsTaught.init(client, userData);
         break;
-      case 'findGroupsHave4Classes':
-        response = findGroupsHave4Or5Classes(client, userData, 4);
-        break;
-      case 'findGroupsHave5Classes':
-        response = findGroupsHave4Or5Classes(client, userData, 5);
+      case 'findGroupsWithClassesCondition':
+        response = findGroupsWithClassesCondition(client, userData, 4);
         break;
       case 'findImages':
         findImages.init(client, userData);
         break;
       //
       case 'otherFeatures':
-        unblockAll(userData); 
-        response = textResponse.otherFeaturesResponse;
+        unblockAll(userData);
+        response = templateResponse.otherFeatures;
         break;
       // chatRoom
       case 'chatRoom':
@@ -396,7 +393,13 @@ function handlePostback(received_postback, userData) {
       case 'selectRoom':
         chatRoom.selectRoom(client, userData);
         break;
+      case 'chatRoomOtherOptions':
+        response = templateResponse.chatRoomOtherOptions;
+        break;
       //
+      case 'chatRoomSetting':
+        response = templateResponse.chatRoomSetting;
+        break;
       case 'settingProfile':
         unblockAll(userData);
         response = templateResponse.settingProfile;
@@ -411,7 +414,7 @@ function handlePostback(received_postback, userData) {
       case 'ChatRoomChangeToRealInfor':
         chatRoom.changeToRealInfor(client, userData);
         break;
-      case 'ChatRoomChangeInforToDefault': 
+      case 'ChatRoomChangeInforToDefault':
         chatRoom.changeInforToDefault(client, userData);
         break;
       // listCommands possess
@@ -436,15 +439,15 @@ function handlePostback(received_postback, userData) {
         unblockAll(userData);
         response = textResponse.listRoomChattingCommands;
         break;
-      case 'otherFeaturesCommands':
+      case 'countSleepTime':
         unblockAll(userData);
-        response = textResponse.listOtherFeaturesCommands;
+        response = textResponse.countSleepTimeResponse;
         break;
       // SimSimi setting
-      case 'SimSimiSetting':
-        // response.text = "Nhập simvi/simen để chuyển ngôn ngữ sang tiếng Việt/tiếng Anh.\nĐể nói chuyện với Sim, cứ nhắn tin bình thường nhé!";
-        response.text = "SimSimi hiện đang dừng hoạt động, vui lòng thử lại sau...";
-        break;
+      // case 'SimSimiSetting':
+      //   // response.text = "Nhập simvi/simen để chuyển ngôn ngữ sang tiếng Việt/tiếng Anh.\nĐể nói chuyện với Sim, cứ nhắn tin bình thường nhé!";
+      //   response.text = "SimSimi hiện đang dừng hoạt động, vui lòng thử lại sau...";
+      //   break;
       // Information and help possess
       case 'chatbotInformation':
         unblockAll(userData);

@@ -75,7 +75,7 @@ module.exports = {
       }
     ]
   },
-  "otherFeaturesResponse": {
+  "countSleepTimeResponse": {
     "text": `- Nhập ngủ + thời điểm ngủ để xác định thời điểm nên thức dậy.
 VÍ DỤ: ngủ 21h30
 (Nếu bạn bỏ trống thời điểm ngủ, tớ sẽ lấy thời điểm hiện tại)
