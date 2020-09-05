@@ -12,80 +12,64 @@ module.exports = {
 };
 
 function handleMessage(client, text, userData) {
-  // client.db(dbName).collection('schedule').findOne({ updated_time: {$gt: 0} }, (err, data) => {
-  //   if(err) console.log(err);
-  //   else if(userData.schedule_updated_time < data.updated_time) {
-  //     let teacherFind = userData.search_classes_other_teacher.block
-  //     ? userData.search_classes_other_teacher.teacher
-  //     : userData.teacher;
-  //     if(!userData.teacher && !userData.search_classes_other_teacher.teacher) {
-  //       if(!checkTeacherName(userData.sender_psid, text)) return;
-  //       else teacherFind = text;
-  //     }
-  //     updateData(client, userData, teacherFind, userData.search_classes_other_teacher.block);
-  //   }
-  //   else {
-  //     if(text.toLowerCase() === "tra giáo viên khác") {
-  //       const response = textResponse.searchClassesAskTeacher;
-  //       clearOtherTeacherData(client, userData.sender_psid);
-  //       sendResponse(userData.sender_psid, response);
-  //     }
-  //     else if(!userData.search_classes_other_teacher.block) {
-  //       sendClasses(text, userData, client);
-  //     }
-  //     else if(userData.search_classes_other_teacher.teacher) {
-  //       sendClasses(text, userData, client);
-  //     }
-  //     else if(checkTeacherName(userData.sender_psid, handleTeacherName(text))) {
-  //       updateData(client, userData, handleTeacherName(text), userData.search_classes_other_teacher.block);
-  //     }
-  //   }
-  // });
-  const response = {
-    "text": "Nghỉ hè rồi, thấy cô đơn thì Exit rồi tâm sự với thằng Sim hoặc tìm bạn qua chat ẩn danh nhé :>",
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "Exit",
-        "payload": "exit",
-        "image_url": ""
+  client.db(dbName).collection('schedule').findOne({ updated_time: {$gt: 0} }, (err, data) => {
+    if(err) console.log(err);
+    else if(userData.schedule_updated_time < data.updated_time) {
+      let teacherFind = userData.search_classes_other_teacher.block
+      ? userData.search_classes_other_teacher.teacher
+      : userData.teacher;
+      if(!userData.teacher && !userData.search_classes_other_teacher.teacher) {
+        if(!checkTeacherName(userData.sender_psid, text)) return;
+        else teacherFind = text;
       }
-    ]
-  };
-  sendResponse(userData.sender_psid, response);
+      updateData(client, userData, teacherFind, userData.search_classes_other_teacher.block);
+    }
+    else {
+      if(text.toLowerCase() === "tra giáo viên khác") {
+        const response = textResponse.searchClassesAskTeacher;
+        clearOtherTeacherData(client, userData.sender_psid);
+        sendResponse(userData.sender_psid, response);
+      }
+      else if(!userData.search_classes_other_teacher.block) {
+        sendClasses(text, userData, client);
+      }
+      else if(userData.search_classes_other_teacher.teacher) {
+        sendClasses(text, userData, client);
+      }
+      else if(checkTeacherName(userData.sender_psid, handleTeacherName(text))) {
+        updateData(client, userData, handleTeacherName(text), userData.search_classes_other_teacher.block);
+      }
+    }
+  });
 }
 
 function init(client, userData) {
-  // if(userData.teacher) { // init search_classes_block
-  //   updateData(client, userData, userData.teacher, userData.search_classes_other_teacher.block);
-  // }
-  // else { // init both search_classes_block & search_classes_other_teacher block
-  //   let update = userDataUnblockSchema(userData);
-  //   update.search_classes_block = true;
-  //   update.search_classes_other_teacher.block = true;
-  //   update.search_classes_other_teacher.teacher = "";
-  //   update.search_classes_other_teacher.teaches = [];
-  //   client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-  //     $set: update
-  //   }, (err) => {
-  //     if(err) {
-  //       console.log("could not init search_classes_other_teacher block");
-  //       const response = {
-  //         "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
-  //       };
-  //       sendResponse(userData.sender_psid, response);
-  //     }
-  //     else {
-  //       console.log('init search search_classes_other_teacher successfully');
-  //       const response = textResponse.searchClassesAskTeacher;
-  //       sendResponse(userData.sender_psid, response);
-  //     }
-  //   });
-  // }
-  const response = {
-    "text": "Nghỉ hè rồi, thấy cô đơn thì tâm sự với thằng Sim hoặc tìm bạn qua chat ẩn danh nhé :>"
-  };
-  sendResponse(userData.sender_psid, response);
+  if(userData.teacher) { // init search_classes_block
+    updateData(client, userData, userData.teacher, userData.search_classes_other_teacher.block);
+  }
+  else { // init both search_classes_block & search_classes_other_teacher block
+    let update = userDataUnblockSchema(userData);
+    update.search_classes_block = true;
+    update.search_classes_other_teacher.block = true;
+    update.search_classes_other_teacher.teacher = "";
+    update.search_classes_other_teacher.teaches = [];
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+      $set: update
+    }, (err) => {
+      if(err) {
+        console.log("could not init search_classes_other_teacher block");
+        const response = {
+          "text": "Úi, tớ không kết nối với database được. Bạn hãy thử lại sau nha T.T"
+        };
+        sendResponse(userData.sender_psid, response);
+      }
+      else {
+        console.log('init search search_classes_other_teacher successfully');
+        const response = textResponse.searchClassesAskTeacher;
+        sendResponse(userData.sender_psid, response);
+      }
+    });
+  }
 }
 
 function clearOtherTeacherData(client, sender_psid) {
@@ -161,8 +145,8 @@ async function updateData(client, userData, teacherName, other_teacher_block) {
         update.search_classes_other_teacher.teaches = teaches;
       }
       else {
-        update.search_classes_block = true,
-        update.main_teach_schedule = teaches
+        update.search_classes_block = true;
+        update.main_teach_schedule = teaches;
       }
       const date = new Date();
       date.setHours(date.getHours() + 7); // deploy at US
