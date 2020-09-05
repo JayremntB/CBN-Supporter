@@ -131,7 +131,7 @@
           },
           {
             "type": "postback",
-            "title": "Thông tin cá nhân",
+            "title": "Xem tên, ảnh hiện tại",
             "payload": "userInfo"
           }
         ]
@@ -149,13 +149,13 @@
             "buttons": [
               {
                 "type": "postback",
-                "title": "Phòng chat tổng",
-                "payload": "generalRoom"
+                "title": "Ghép ngẫu nhiên",
+                "payload": "randomSubRoom"
               },
               {
                 "type": "postback",
-                "title": "Phòng ngẫu nhiên",
-                "payload": "randomSubRoom"
+                "title": "Vào phòng tổng",
+                "payload": "generalRoom"
               },
               {
                 "type": "postback",
@@ -169,18 +169,13 @@
             "buttons": [
               {
                 "type": "postback",
-                "title": "Tạo phòng",
-                "payload": "createSubRoom"
+                "title": "Thiết lập",
+                "payload": "chatRoomSetting"
               },
               {
                 "type": "postback",
                 "title": "Khác",
                 "payload": "chatRoomOtherOptions"
-              },
-              {
-                "type": "postback",
-                "title": "Thiết lập",
-                "payload": "chatRoomSetting"
               }
             ]
           }
@@ -224,7 +219,7 @@
               },
               {
                 "type": "postback",
-                "title": "Thông tin của tôi",
+                "title": "Xem tên, ảnh hiện tại",
                 "payload": "userInfo"
               }
             ]
@@ -242,12 +237,17 @@
         "buttons": [
           {
             "type": "postback",
-            "title": "Nhập ID phòng",
+            "title": "Tạo phòng",
+            "payload": "createSubRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Tìm phòng bằng ID",
             "payload": "selectRoom"
           },
           {
             "type": "postback",
-            "title": "Phòng cũ gần nhất",
+            "title": "Vào phòng vừa thoát",
             "payload": "joinPreRoom"
           }
         ]
