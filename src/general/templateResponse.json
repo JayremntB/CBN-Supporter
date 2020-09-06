@@ -9,7 +9,7 @@
           {
             "type": "web_url",
             "url": "",
-            "title": "Xem ảnh hiển thị"
+            "title": "Xem/tải ảnh hiển thị"
           },
           {
             "type": "postback",
@@ -57,7 +57,7 @@
               },
               {
                 "type": "postback",
-                "title": "Tra lịch dạy",
+                "title": "Tìm giáo viên",
                 "payload": "searchClasses"
               }
             ]
@@ -67,7 +67,7 @@
             "buttons": [
               {
                 "type": "postback",
-                "title": "Tìm lớp học",
+                "title": "Tra lịch dạy một môn",
                 "payload": "searchGroupsTaught"
               },
               {
@@ -214,7 +214,7 @@
             "buttons": [
               {
                 "type": "postback",
-                "title": "Đổi về mặc định",
+                "title": "Đổi thành người lạ",
                 "payload": "ChatRoomChangeInforToDefault"
               },
               {

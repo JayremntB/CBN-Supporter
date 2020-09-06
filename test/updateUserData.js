@@ -11,9 +11,10 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
   const date = new Date();
   date.setHours(date.getHours() + 7); // deploy at US
   const timeNow = date.getTime();
+  // update
   client.db(dbName).collection('users-data').updateMany({}, {
     $set: {
-      simsimi_lang: "vi"
+      // simsimi_lang: "vi" // simsimi update
     }
   }, (err) => {
     if(err) console.error(err);

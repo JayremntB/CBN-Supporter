@@ -20,7 +20,41 @@ module.exports = {
   leaveRoom: leaveRoom,
   userInfo: userInfo,
   roomInfo: roomInfo,
-  getPersonaID: getPersonaID
+  getPersonaID: getPersonaID,
+  changeToRealInfor: changeToRealInfor,
+  changeInforToDefault: changeInforToDefault
+}
+
+function changeToRealInfor(client, userData) {
+  request({
+    "uri": `https://graph.facebook.com/${userData.sender_psid}`,
+    // "qs": { "access_token": process.env.TEST_PAGE_ACCESS_TOKEN },
+    "qs": {
+      "access_token": process.env.PAGE_ACCESS_TOKEN,
+      "fields": "name,profile_pic"
+    },
+    "method": "GET"
+  }, (err, res, body) => {
+    console.log(body);
+    body = JSON.parse(body);
+    getPersonaID(client, body.name, body.profile_pic, userData);
+  })
+}
+
+function changeInforToDefault(client, userData) {
+  let update = userDataUnblockSchema(userData);
+  update.room_chatting.block = false;
+  update.room_chatting.type = "";
+  update.room_chatting.persona_id = "3363745553659185";
+  update.room_chatting.name = "Người lạ";
+  update.room_chatting.img_url = "https://i.imgur.com/187Y4u3.png";
+  client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+    $set: update
+  });
+  const response = {
+    "text": "Cài đặt thành công!"
+  };
+  sendResponse(userData.sender_psid, response);
 }
 
 function handleMessage(client, text, userData, attachment_url) {
@@ -43,7 +77,7 @@ function handleMessage(client, text, userData, attachment_url) {
     // NOT have generalRoom type cause if there had, it would already have "has_joined" attribute = true
     if(type === "subRoom") {
       const limitUsers = text.split(" ")[0];
-      if(!isNaN(limitUsers) && limitUsers <= 6) { // max users = 6
+      if(!isNaN(limitUsers) && limitUsers <= 4 && limitUsers >= 2) { // max users = 4
          if(!userData.room_chatting.create_new_subroom) findValidRoom(client, userData, limitUsers);
          else createNewSubRoom(client, userData, limitUsers);
       }

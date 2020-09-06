@@ -57,18 +57,6 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "5 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "6 người",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
         "title": "Exit",
         "payload": "exit",
         "image_url": ""
