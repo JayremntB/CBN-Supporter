@@ -123,10 +123,6 @@ function handleMessage(received_message, userData) {
     if(userData.room_chatting.has_joined) {
       if(text === 'exit') chatRoom.leaveRoom(client, userData);
       else if(text === 'menu') response = templateResponse.roomChattingMenu;
-      else if(text === 'help') {
-        chatRoom.leaveRoom(client, userData);
-        liveChat.startLiveChat(client, userData);
-      }
       else chatRoom.handleMessage(client, defaultText, userData);
     }
     else if(text === 'exit') {
@@ -300,10 +296,6 @@ function handlePostback(received_postback, userData) {
     switch (payload) {
       case 'menu':
         response = templateResponse.roomChattingMenu;
-        break;
-      case 'help':
-        chatRoom.leaveRoom(client, userData);
-        liveChat.startLiveChat(client, userData);
         break;
       case 'leaveRoom':
         chatRoom.leaveRoom(client, userData);
