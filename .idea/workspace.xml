@@ -19,10 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="full name detect live chat">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="add full name in database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/general/template.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/template.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/updateUserData.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/updateUserData.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,6 +40,11 @@
     <setting file="file://$PROJECT_DIR$/src/general/templateResponse.json" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/utils/chat-room.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/utils/search-schedule.js" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="JsbtTreeLayoutManager">
+    <layout place="tools.popupnpm">
+      <scroll-view-position x="0" y="0" />
+    </layout>
   </component>
   <component name="ProjectId" id="1gic6MRCmkwj3Z1QpJCibHuI2qj" />
   <component name="ProjectViewState">
@@ -80,7 +84,7 @@
       <workItem from="1599236381149" duration="2967000" />
       <workItem from="1599300397807" duration="6000" />
       <workItem from="1599303365182" duration="11314000" />
-      <workItem from="1599358423416" duration="9233000" />
+      <workItem from="1599358423416" duration="11139000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -117,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599369792139</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add full name in database">
+      <created>1599372191806</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1599372191806</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,7 +152,8 @@
     <MESSAGE value="add change i4 to default and to current profile" />
     <MESSAGE value="fix can't leave room" />
     <MESSAGE value="full name detect live chat" />
-    <option name="LAST_COMMIT_MESSAGE" value="full name detect live chat" />
+    <MESSAGE value="add full name in database" />
+    <option name="LAST_COMMIT_MESSAGE" value="add full name in database" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">
@@ -168,14 +180,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1598628938760" />
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1599366945665">
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1599372847445">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599366945665" />
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599372847445" />
     <state x="585" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599324105260">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="585" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1599324105260" />
+    <state x="635" y="279" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup" timestamp="1599372843256">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="635" y="279" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup/0.0.1536.824@0.0.1536.824" timestamp="1599372843256" />
     <state x="425" y="187" width="672" height="677" key="run.anything.popup" timestamp="1599369313468">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
