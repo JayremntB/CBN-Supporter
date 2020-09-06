@@ -207,9 +207,7 @@ Thứ ${days + 2}:
         });
       }
       //    ------------------------
-      text += `\n-----------`;
     });
-    text += `\nVì Tổ quốc xã hội chủ nghĩa. Vì lý tưởng của Bác Hồ vĩ đại: Sẵn sàng!`;
     response.text = text;
     sendResponse(userData.sender_psid, response);
   }
@@ -244,7 +242,7 @@ Thứ ${days + 2}:
    + Tiết ${subdata.class}: ${subdata.group}`;
         });
       }
-      text += `\n-----------\nVì Tổ quốc xã hội chủ nghĩa. Vì lý tưởng của Bác Hồ vĩ đại: Sẵn sàng!`;
+      text += `\n-----------\nHí hí, bị thu điện thoại đúng không =))`;
       response.text = text;
       sendResponse(userData.sender_psid, response);
     }

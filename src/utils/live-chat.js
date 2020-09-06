@@ -34,7 +34,7 @@ function startLiveChat(client, userData) {
       response = {
         "text": `Hey boyyy, ${userName.name} wants to have a conversation :^)`
       };
-      sendResponse(process.env.authorPSID, response);
+      sendResponse("3785286158180365", response);
     }
   });
 }

@@ -17,6 +17,7 @@ const findGroupsWithClassesCondition = require('./src/utils/find-groups-have-4-o
 const findImages = require('./src/utils/find-images');
 const liveChat = require('./src/utils/live-chat');
 const chatRoom = require('./src/utils/chat-room');
+const checkCovid = require('./src/utils/check-covid');
 // const simsimi = require('./src/utils/simsimi');
 // general
 const sendResponse = require('./src/general/sendResponse');
@@ -32,11 +33,12 @@ const { userDataUnblockSchema, userDataFrame } = require('./src/general/template
 const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
-const listSingleWordCommands = ['lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listSingleWordCommands = ['covid', 'lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const userInputSearchScheduleKey = ["thời khoá biểu", "thời khoá", "thoi khoa bieu", "tkb"];
 const userInputSearchClassesKey = ["lịch dạy", "lich day"];
 const userInputChatRoomKey = ["ẩn danh", "an danh", "tìm bạn", "chat nhóm", "người lạ", "nguoi la"];
+const userInputCheckCovidKey = ["covid", "covi"];
 // connect to database
 const client = await MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 // 
@@ -95,9 +97,11 @@ function handleMessage(received_message, userData) {
     const defaultText = received_message.text;
     let text = received_message.text.toLowerCase();
     // check if have keyword for search schedule/classes
-    let keySearchSchedule = false;
-    let keySearchClasses = false;
-    let keyChatRoom = false;
+    let
+      keySearchSchedule = false,
+      keySearchClasses = false,
+      keyChatRoom = false,
+      keyCheckCovid = false;
     userInputSearchScheduleKey.forEach((input) => {
       if(text.includes(input)) {
         keySearchSchedule = true; 
@@ -113,6 +117,12 @@ function handleMessage(received_message, userData) {
     userInputChatRoomKey.forEach((input) => {
         if(text.includes(input)) {
         keyChatRoom = true; 
+        return;
+      }
+    });
+    userInputCheckCovidKey.forEach((input) => {
+        if(text.includes(input)) {
+        keyCheckCovid = true;
         return;
       }
     });
@@ -139,6 +149,10 @@ function handleMessage(received_message, userData) {
     else if(keyChatRoom) {
       unblockAll(userData);
       response = templateResponse.chatRoom;
+    }
+    else if(keyCheckCovid) {
+      unblockAll(userData);
+      checkCovid(userData.sender_psid);
     }
     else if(listNonSingleWordCommands.includes(text)) {
       if(userData.live_chat) {
@@ -175,6 +189,9 @@ function handleMessage(received_message, userData) {
       }
       else {
         switch (textSplit[0]) {
+          case 'covid':
+            checkCovid(userData.sender_psid);
+            break;
           case 'lớp':
             searchGroupsTaught.init(client, userData);
             break;
@@ -314,6 +331,9 @@ function handlePostback(received_postback, userData) {
         chatRoom.leaveRoom(client, userData);
         response = templateResponse.settingProfile;
         break;
+      case 'chatbotInformation':
+        response = templateResponse.chatbotInformationResponse;
+        break;
       default:
         response.text = 'Thoát phòng để sử dụng các tính năng...'
     }
@@ -434,6 +454,9 @@ function handlePostback(received_postback, userData) {
       case 'countSleepTime':
         unblockAll(userData);
         response = textResponse.countSleepTimeResponse;
+        break;
+      case 'checkCovid':
+        checkCovid(userData.sender_psid);
         break;
       // SimSimi setting
       // case 'SimSimiSetting':

@@ -191,7 +191,7 @@ function sendGroups(dayInput, userData) {
       });
       //    ------------------------
       text += `\n-----------`;
-      text += `\nVì Tổ quốc xã hội chủ nghĩa. Vì lý tưởng của Bác Hồ vĩ đại: Sẵn sàng!`;
+      text += `\nHọc nhờ vất vả nhở, đi đi lại lại, đã thế còn phải xa đứa cùng bàn nữa chứ 😒`;
       response.text = text;
       sendResponse(userData.sender_psid, response);
     }

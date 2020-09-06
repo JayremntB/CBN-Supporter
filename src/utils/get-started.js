@@ -16,7 +16,7 @@ module.exports = function(sender_psid) {
       typing(sender_psid);
       setTimeout(() => {
         response = {
-          "text": "Ngoài ra, bạn có thể xả stress với bé SimSimi bằng cách nhắn tin trực tiếp cho tớ, Sim sẽ trả lời ngay lập tức nhé!\nĐược rồi, nhập Menu để bắt đầu sử dụng nha 😉",
+          "text": "Được rồi, nhập Menu để bắt đầu sử dụng nhé 😉",
           "quick_replies": [
             {
               "content_type": "text",

@@ -178,7 +178,7 @@ Thứ ${data.day}:
       subText = "";
       text += `\n-----------`;
     });
-    text += "\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
+    text += "\nHọc tập hẳn hoi không là bị véo tai suốt ngày như tôi đấy :(";
     response.text = text;
     sendResponse(userData.sender_psid, response);
   }
@@ -215,7 +215,7 @@ Thứ ${data.day}:
       });
       if(!subText) text += "Nghỉ";
       else text += subText;
-      text += "\n-----------\nHọc tập và làm theo tấm gương đạo đức Hồ Chí Minh!";
+      text += "\n-----------\nĐừng có ngủ gật trong giờ nhé 🥱";
       response.text = text;
       sendResponse(userData.sender_psid, response);
     }
