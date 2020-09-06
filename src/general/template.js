@@ -25,8 +25,9 @@ const teachersCheckArray = [
   'NT.Yến (anh)', 'Điển/Vang', 'Hiệp/Toàn', 'Hiền/Hà'
 ]
 
-function userDataFrame(sender_psid) {
+function userDataFrame(sender_psid, name) {
   return {
+    name: name,
     sender_psid: sender_psid,
     group: "",
     teacher: "",

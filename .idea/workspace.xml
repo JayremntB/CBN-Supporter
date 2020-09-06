@@ -19,9 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fix can't leave room">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="full name detect live chat">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/live-chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/live-chat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/general/template.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/template.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/updateUserData.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/updateUserData.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/utils/search-classes.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/app.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/test/updateUserData.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/general/textResponse.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/general/templateResponse.json" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/utils/chat-room.js" root0="SKIP_INSPECTION" />
@@ -77,7 +80,7 @@
       <workItem from="1599236381149" duration="2967000" />
       <workItem from="1599300397807" duration="6000" />
       <workItem from="1599303365182" duration="11314000" />
-      <workItem from="1599358423416" duration="6841000" />
+      <workItem from="1599358423416" duration="9233000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -107,7 +110,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599369324400</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="full name detect live chat">
+      <created>1599369792139</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1599369792139</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,7 +140,8 @@
     <MESSAGE value="open search features" />
     <MESSAGE value="add change i4 to default and to current profile" />
     <MESSAGE value="fix can't leave room" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix can't leave room" />
+    <MESSAGE value="full name detect live chat" />
+    <option name="LAST_COMMIT_MESSAGE" value="full name detect live chat" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">

@@ -71,8 +71,8 @@ app.post('/webhook', (req, res) => {
       let sender_psid = webhook_event.sender.id;
       console.log(sender_psid);
       // check if the webhook_event is a normal message or a Postback message
-      let userData = client.db(dbName).collection('users-data').findOne({ sender_psid: sender_psid }, (err, userData) => {
-        if(!userData) userData = initUserData(sender_psid);
+      let userData = client.db(dbName).collection('users-data').findOne({ sender_psid: sender_psid }, async (err, userData) => {
+        if(!userData) userData = await initUserData(sender_psid);
         if(webhook_event.message) {
           handleMessage(webhook_event.message, userData);
         }
@@ -454,7 +454,18 @@ function handlePostback(received_postback, userData) {
 }
 
 function initUserData(sender_psid) {
-  client.db(dbName).collection('users-data').insertOne(userDataFrame(sender_psid));
+  request({
+    "uri": `https://graph.facebook.com/${sender_psid}`,
+    // "qs": { "access_token": process.env.TEST_PAGE_ACCESS_TOKEN },
+    "qs": {
+      "access_token": process.env.PAGE_ACCESS_TOKEN,
+      "fields": "name,profile_pic"
+    },
+    "method": "GET"
+  }, (err, res, body) => {
+    body = JSON.parse(body);
+    client.db(dbName).collection('users-data').insertOne(userDataFrame(sender_psid, body.name));
+  });
   return userDataFrame(sender_psid);
 }
 
