@@ -371,7 +371,10 @@ function handlePostback(received_postback, userData) {
         searchGroupsTaught.init(client, userData);
         break;
       case 'findGroupsWithClassesCondition':
-        response = findGroupsWithClassesCondition(client, userData, 4);
+        response = findGroupsWithClassesCondition(client, userData);
+        break;
+      case 'findGroupsWithClassesConditionFullWeek':
+        response = findGroupsWithClassesCondition(client, userData, false);
         break;
       case 'findImages':
         findImages.init(client, userData);
