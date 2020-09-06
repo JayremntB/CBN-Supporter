@@ -22,7 +22,7 @@ function startLiveChat(client, userData) {
   request({
     "uri": `https://graph.facebook.com/${userData.sender_psid}`,
     "qs": {
-      "fields": "first_name,last_name",
+      "fields": "name",
       "access_token": process.env.PAGE_ACCESS_TOKEN
     },
     "method": "GET"
@@ -32,7 +32,7 @@ function startLiveChat(client, userData) {
     } else {
       let userName = JSON.parse(body);
       response = {
-        "text": `Hey boyyy, ${userName.first_name} ${userName.last_name} wants to have a conversation :^)`
+        "text": `Hey boyyy, ${userName.name} wants to have a conversation :^)`
       };
       sendResponse(process.env.authorPSID, response);
     }
@@ -44,7 +44,7 @@ function endLiveChat(client, userData) {
   request({
     "uri": `https://graph.facebook.com/${userData.sender_psid}`,
     "qs": {
-      "fields": "first_name,last_name",
+      "fields": "name",
       "access_token": process.env.PAGE_ACCESS_TOKEN
     },
     "method": "GET"
@@ -54,7 +54,7 @@ function endLiveChat(client, userData) {
     } else {
       let userName = JSON.parse(body);
       response = {
-        "text": `${userName.first_name} ${userName.last_name} has just typed Exit...`
+        "text": `${userName.name} has just typed Exit...`
       };
       sendResponse(process.env.authorPSID, response);
     }
