@@ -34,7 +34,7 @@ const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
 const listSingleWordCommands = ['covid', 'lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
-const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'danh sách giáo viên', 'dsgv', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
+const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const userInputSearchScheduleKey = ["thời khoá biểu", "thời khoá", "thoi khoa bieu", "tkb"];
 const userInputSearchClassesKey = ["lịch dạy", "lich day"];
 const userInputChatRoomKey = ["ẩn danh", "an danh", "tìm bạn", "chat nhóm", "người lạ", "nguoi la"];
@@ -164,10 +164,6 @@ function handleMessage(received_message, userData) {
           case 'dsl':
             response = textResponse.groupList;
             break;
-          case 'danh sách giáo viên':
-          case 'dsgv':
-            response = textResponse.teacherList;
-            break;
           case 'đặt lớp mặc định':
             unblockAll(userData);
             response = textResponse.recommendedSetGroup;
@@ -223,10 +219,10 @@ function handleMessage(received_message, userData) {
             chatRoom.settingAvatar(client, userData);
             break;
           case '4tiet':
-            response = findGroupsHave4Or5Classes(client, userData, 4);
+            response = findGroupsWithClassesCondition(client, userData);
             break;
           case '5tiet':
-            response = findGroupsHave4Or5Classes(client, userData, 5);
+            response = findGroupsWithClassesCondition(client, userData);
             break;
           case 'menu':
 						unblockAll(userData);

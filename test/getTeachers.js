@@ -1,8 +1,8 @@
 const { MongoClient } = require('mongodb');
 const template = require('../src/general/template');
 // const connectionUrl = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0-obtbe.mongodb.net/test`;
-const connectionUrl = "mongodb://127.0.0.1:27017"
-// const connectionUrl = process.env.DATABASE_URI;
+// const connectionUrl = "mongodb://127.0.0.1:27017"
+const connectionUrl = process.env.DATABASE_URI;
 const dbName = "database-for-cbner";
 const teacherName = "";
 MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
@@ -70,10 +70,10 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
       //   if(nameA > nameB) return 1;
       //   return 0;
       // });
-      teachersList.sort((a, b) => {
-        if(a.includes("/") || b.includes("/")) return 1;
-        return a.toUpperCase().split(".")[1].split("(")[0].localeCompare(b.toUpperCase().split(".")[1].split("(")[0]);
-      });
+      // teachersList.sort((a, b) => {
+      //   if(a.includes("/") || b.includes("/")) return 1;
+      //   return a.toUpperCase().split(".")[1].split("(")[0].localeCompare(b.toUpperCase().split(".")[1].split("(")[0]);
+      // });
       console.log(teachersList);
       console.log(teachersList.length);
       console.log("find teachers will teach: ");

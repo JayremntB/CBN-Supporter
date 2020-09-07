@@ -98,7 +98,7 @@ function handleSetTeacherMessage(client, textSplit, userData) {
       response.text = "Tên giáo viên bạn chưa ghi kìa :(";
       sendResponse(userData.sender_psid, response);
     }
-    else if(validateInput.checkTeacherName(userData.sender_psid, textSplit[1])) {
+    else if(validateInput.checkTeacherName(userData.sender_psid, validateInput.handleTeacherName(textSplit[1]))) {
       update.teacher = textSplit[1];
       client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
         $set: update

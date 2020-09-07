@@ -78,8 +78,7 @@ VÍ DỤ: dậy 6h15
 - hd: Hướng dẫn sử dụng
 - help: Yêu cầu hỗ trợ (Live chat)
 - exit: Thoát tính năng đang sử dụng
-- dsl:  Danh sách các lớp
-- dsgv: Danh sách giáo viên`
+- dsl:  Danh sách các lớp`
   },
   "listSearchCommands": {
     "text": `
@@ -146,12 +145,6 @@ VÍ DỤ: dậy 6h15
   "recommendedSetTeacher": {
     "text": "Để mỗi lần sử dụng tính năng tra tiết dạy (tìm giáo viên) bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập gv + tên giáo viên.\nVí dụ: gv NH.Khánh",
     "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "Danh sách giáo viên",
-        "payload": "teachersList",
-        "image_url": ""
-      },
       {
         "content_type": "text",
         "title": "xemgv",
@@ -351,14 +344,8 @@ VÍ DỤ: dậy 6h15
     ]
   },
   "searchClassesAskTeacher": {
-    "text": "Tên của giáo viên bạn tìm?\nVí dụ: NT.Anh",
+    "text": "Tên của giáo viên bạn tìm?\nVí dụ: NT.Anh\nMẹo: Bạn có thể gõ ví dụ chữ Anh hoặc A, tớ sẽ đề xuất những giáo viên có chữ Anh hoặc A trong tên nhé!",
     "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "Danh sách giáo viên",
-        "payload": "teachersList",
-        "image_url": ""
-      },
       {
         "content_type": "text",
         "title": "Đặt gv mặc định",
@@ -451,23 +438,6 @@ VÍ DỤ: dậy 6h15
         "content_type": "text",
         "title": "Danh sách lớp",
         "payload": "groupsList",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "Exit",
-        "payload": "exit",
-        "image_url": ""
-      }
-    ]
-  },
-  "checkTeacherNameResponse": {
-    "text": "",
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "Danh sách giáo viên",
-        "payload": "teachersList",
         "image_url": ""
       },
       {
@@ -653,7 +623,7 @@ VÍ DỤ: dậy 6h15
     "text": `
 + Lớp 10: 10t1, 10t2, 10l, 10h, 10si, 10ti, 10v1, 10v2, 10su, 10d, 10a1, 10a2.
 
-+ Lớp 11: 11t, 11l, 11h, 11si, 11ti, 11v, 11su, 11d, 11c1, 11c2, 11a1, 11a2.
++ Lớp 11: 11t1, 11t2, 11l, 11h, 11si, 11ti, 11v1, 11v2, 11su, 11d, 11a1, 11a2.
 
 + Lớp 12: 12t, 12l, 12h, 12si, 12ti, 12v, 12su, 12d, 12c1, 12c2, 12a1, 12a2.`
   },

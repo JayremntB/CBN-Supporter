@@ -64,11 +64,31 @@ function handleTeacherName(teacherName) {
 }
 
 function checkTeacherName(sender_psid, teacherName) {
+  console.log(teacherName);
   const checkArray = teachersCheckArray;
   if(checkArray.includes(teacherName)) return true;
   else {
-    let response = textResponse.checkTeacherNameResponse;
-    response.text = "Tên giáo viên không có trong danh sách hoặc không có tiết dạy nào. Kiểm tra lại xem bạn có viết nhầm hay không nhé.\nNhầm thì viết lại luôn nha :>";
+    // recommend teachers
+    let listRecommendedTeachers = [];
+    checkArray.forEach(teacher => {
+      teacherNameSplit = teacherName.split('.');
+      if(teacher.includes(teacherNameSplit[teacherNameSplit.length - 1])) {
+        listRecommendedTeachers.push(teacher);
+      }
+    });
+    // announce
+    let response = {
+      "text": ""
+    }
+    if(listRecommendedTeachers.length === 0) {
+      response.text = "Không có kết quả đề xuất giáo viên nào. Kiểm tra xem bạn có viết nhầm ở đâu không nhé :<";
+    }
+    else {
+      response.text = "Đây là một số đề xuất dành cho bạn, nếu có giáo viên bạn cần tìm hãy gõ lại ngay bên dưới nhé:";
+      listRecommendedTeachers.forEach(teacher => {
+        response.text += `\n${teacher}`;
+      });
+    }
     sendResponse(sender_psid, response);
     return false;
   }
