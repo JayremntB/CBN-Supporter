@@ -371,49 +371,49 @@ VÍ DỤ: dậy 6h15
       },
       {
         "content_type": "text",
-        "title": "Vật lý",
+        "title": "Lý",
         "payload": "",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "Hoá học",
+        "title": "Hoá",
         "payload": "",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "Sinh học",
+        "title": "Sinh",
         "payload": "",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "Tin học",
+        "title": "Tin",
         "payload": "",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "Ngữ văn",
+        "title": "Văn",
         "payload": "",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "Ngoại ngữ",
+        "title": "Anh",
         "payload": "",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "Lịch sử",
+        "title": "Sử",
         "payload": "",
         "image_url": ""
       },
       {
         "content_type": "text",
-        "title": "Địa lý",
+        "title": "Địa",
         "payload": "",
         "image_url": ""
       },
