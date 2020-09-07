@@ -1,8 +1,8 @@
 const { MongoClient } = require('mongodb');
 const request = require('request');
 // const connectionUrl = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0-obtbe.mongodb.net/test`;
-// const connectionUrl = "mongodb://127.0.0.1:27017"
-const connectionUrl = process.env.DATABASE_URI;
+const connectionUrl = "mongodb://127.0.0.1:27017"
+// const connectionUrl = process.env.DATABASE_URI;
 const dbName = "database-for-cbner";
 MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: true }, async (err, client) => {
   if(err) {
@@ -47,5 +47,36 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
   // });
 
   // kick all users
-  client.
+  const listRooms = await client.db(dbName).collection('room-chatting').find({
+    "list_users.0": {
+      $exists: true
+    }
+  }).toArray();
+  console.log("ok");
+  listRooms.forEach(room => {
+    room.list_users.forEach(sender_psid => {
+      client.db(dbName).collection('users-data').updateOne({ sender_psid: sender_psid }, {
+        $set: {
+          "room_chatting.block": false,
+          "room_chatting.has_joined": false,
+          "room_chatting.type": "",
+          "room_chatting.room_id": "",
+          "room_chatting.create_new_subroom": false
+        }
+      }, (err) => {
+        if(err) console.log(err);
+        else console.log(sender_psid + " ok");
+      });
+    });
+    client.db(dbName).collection("room-chatting").updateOne({
+      "room_id": room.room_id
+    }, {
+      $set: {
+        "list_users": []
+      }
+    }, (err) => {
+      if(err) console.log(err);
+      else console.log(room.room_id + " ok");
+    })
+  });
 });

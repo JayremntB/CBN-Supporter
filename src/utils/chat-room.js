@@ -110,7 +110,7 @@ function findRoomByID(client, userData, room_id) {
     }
     else {
       initBlock(client, "selectRoom", userData)
-      .then(status => {
+      .then(() => {
         sendAnnouncement(client, userData, res);
       })
       .catch((err) => {
@@ -152,7 +152,7 @@ function findValidRoom(client, userData, limitUsers) {
 
 function joinGeneralRoom(client, userData) {
   initBlock(client, "generalRoom", userData)
-  .then(res => {
+  .then(() => {
     let response = {
       "text": ""
     };
@@ -269,7 +269,7 @@ function joinRandomRoom(client, userData) {
     if(err) console.log(err);
     else if(res.length != 0) {
       initBlock(client, "subRoom", userData)
-      .then(res => {
+      .then(() => {
         let validRoom = [];
         res.forEach((room) => {
           if(room.list_users.length < Number(room.limit_users)) validRoom.push(room);
@@ -296,7 +296,7 @@ function joinPreRoom(client, userData) {
     if(err) console.log(err);
     else if(room.limit_users > room.list_users.length) {
       initBlock(client, "subRoom", userData)
-      .then(res => {
+      .then(() => {
         sendAnnouncement(client, userData, room);
       })
       .catch((err) => {
