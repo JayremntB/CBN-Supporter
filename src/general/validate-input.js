@@ -11,33 +11,13 @@ module.exports = {
   handleTeacherName: handleTeacherName,
   extractExtName: extractExtName,
   extractHostname: extractHostname,
-  filterWordSimsimi: filterWordSimsimi
-}
-
-function filterWordSimsimi(text) {
-  const filterWords = ["Địt", "địt", "Lồn", "lồn", "Cặc", "cặc", "Cu", "cu", "liếm", "bú", "đái", "chym", "Buồi", "buồi"];
-  let textSplit = text.split(" ");
-  let fullText = "";
-  let filterWordsCount = 0;
-  textSplit.forEach((textPart, i) => {
-    console.log(textPart);
-    filterWords.forEach((word) => {
-      if(textPart.includes(word)) {
-        textSplit[i] = "***";
-        filterWordsCount ++;
-        return;
-      }
-    });
-  });
-  textSplit.forEach(textPart => {
-    fullText += textPart + " ";
-  });
-  const textReturn = filterWordsCount >= 4 ? "*Sim vừa bị Jay vả vì định nói quá nhiều từ bậy*" : fullText;
-  return textReturn;
+  handleSubjectName: handleSubjectName
 }
 
 function checkSubjectName(sender_psid, subjectName) {
-  const checkArray = ["toán", "vật lý", "hoá học", "sinh học", "tin học", "ngữ văn", "ngoại ngữ", "lịch sử", "địa lý", "gdcd", "thể dục"];
+  subjectName = handleSubjectName(subjectName);
+  subjectName = subjectName.charAt(0).toUpperCase() + subjectName.slice(1).toLowerCase();
+  const checkArray = ["Toán", "Vật lý", "Hóa học", "Sinh học", "Tin học", "Ngữ văn", "Ngoại ngữ", "Lịch sử", "Địa lý", "Gdcd", "Thể dục"];
   if(checkArray.includes(subjectName)) return true;
   else {
     response = {
@@ -45,6 +25,65 @@ function checkSubjectName(sender_psid, subjectName) {
     };
     sendResponse(sender_psid, response);
     return false;
+  }
+}
+
+function handleSubjectName(subjectName) {
+  switch (subjectName) {
+    case 'math':
+    case 'toán học':
+      return "toán";
+      break;
+    case "lý":
+    case 'physic':
+    case 'physical':
+      return "vật lý";
+      break;
+    case 'hoá học':
+    case 'hoá':
+    case 'hóa':
+    case 'chemical':
+      return "hóa học";
+      break;
+    case 'sinh':
+    case 'biology':
+    case 'biologic':
+      return "sinh học";
+      break;
+    case 'tin':
+    case 'it':
+      return "tin học";
+      break;
+    case 'văn':
+    case 'văn học':
+    case 'literature':
+      return "ngữ văn";
+      break;
+    case 'anh':
+    case 'eng':
+    case 'english':
+    case 'engrisk':
+      return "ngoại ngữ";
+      break;
+    case 'sử':
+    case 'historic':
+    case 'history':
+      return "lịch sử";
+      break;
+    case 'địa':
+    case 'geography':
+      return 'địa lý';
+      break;
+    case 'giáo dục':
+    case 'giáo dục công dân':
+    case 'gd':
+      return 'GDCD';
+      break;
+    case 'td':
+      return "thể dục";
+      break;
+    default:
+      return subjectName;
   }
 }
 

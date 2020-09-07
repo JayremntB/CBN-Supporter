@@ -18,7 +18,6 @@ const findImages = require('./src/utils/find-images');
 const liveChat = require('./src/utils/live-chat');
 const chatRoom = require('./src/utils/chat-room');
 const checkCovid = require('./src/utils/check-covid');
-// const simsimi = require('./src/utils/simsimi');
 // general
 const sendResponse = require('./src/general/sendResponse');
 const textResponse = require('./src/general/textResponse');
@@ -458,11 +457,6 @@ function handlePostback(received_postback, userData) {
       case 'checkCovid':
         checkCovid(userData.sender_psid);
         break;
-      // SimSimi setting
-      // case 'SimSimiSetting':
-      //   // response.text = "Nhập simvi/simen để chuyển ngôn ngữ sang tiếng Việt/tiếng Anh.\nĐể nói chuyện với Sim, cứ nhắn tin bình thường nhé!";
-      //   response.text = "SimSimi hiện đang dừng hoạt động, vui lòng thử lại sau...";
-      //   break;
       // Information and help possess
       case 'chatbotInformation':
         response = templateResponse.chatbotInformationResponse;

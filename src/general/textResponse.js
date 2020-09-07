@@ -84,7 +84,7 @@ VÍ DỤ: dậy 6h15
     "text": `
 - tkb: Tra thời khoá biểu
 - dạy: Tra lịch dạy học
-- lớp: Tìm lớp được dạy môn nào đó
+- lớp: Tìm các lớp được dạy môn nào đó
 - 4tiet: Tìm lớp 4 tiết hôm nay
 - 5tiet: Tìm lớp 5 tiết hôm nay
 - timanh: Tìm ảnh theo từ khoá`

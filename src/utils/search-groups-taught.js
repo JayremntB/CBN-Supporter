@@ -1,7 +1,7 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
 const textResponse = require('../general/textResponse');
-const { handleDayInput, checkSubjectName } = require('../general/validate-input');
+const { handleDayInput, checkSubjectName, handleSubjectName } = require('../general/validate-input');
 const { userDataUnblockSchema } = require('../general/template');
 
 const dbName = 'database-for-cbner';
@@ -18,9 +18,12 @@ function handleMessage(client, text, userData) {
       let subjectFind = "";
       if(!userData.search_groups_taught.subject) {
         if(!checkSubjectName(userData.sender_psid, text.toLowerCase())) return;
-        else subjectFind = text;
+        else {
+          subjectName = handleSubjectName(text.toLowerCase());
+          subjectName = subjectName.charAt(0).toUpperCase() + subjectName.slice(1).toLowerCase();
+          if(subjectName === "Gdcd") subjectName = "GDCD";
+        }
       }
-      if(subjectFind === "Hoá học") subjectFind = "Hóa học";
       updateData(client, userData, subjectFind);
     }
     else {
@@ -33,7 +36,9 @@ function handleMessage(client, text, userData) {
         sendGroups(text, userData, client);
       }
       else if(checkSubjectName(userData.sender_psid, text.toLowerCase())) {
-        if(text === "Hoá học") text = "Hóa học";
+        text = handleSubjectName(text.toLowerCase());
+        text = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+        if(text === "Gdcd") text = "GDCD";
         updateData(client, userData, text);
       }
     }
