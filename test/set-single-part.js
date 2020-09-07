@@ -43,24 +43,18 @@ await request({
           },
           {
             "type": "postback",
-            "title": "Danh sách lệnh",
-            "payload": "listCommands"
+            "title": "Thông tin chatbot",
+            "payload": "chatbotInformation"
           },
           {
             "type": "postback",
-            "title": "Thông tin chatbot",
-            "payload": "chatbotInformation"
+            "title": "Danh sách lệnh",
+            "payload": "listCommands"
           },
           {
             "type": "web_url",
             "title": "Gửi phản hồi",
             "url": "https://forms.gle/er53FLSRkVQyL3FF8",
-            "webview_height_ratio": "full"
-          },
-          {
-            "type": "web_url",
-            "title": "Hướng dẫn sử dụng",
-            "url": "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md",
             "webview_height_ratio": "full"
           },
           {
