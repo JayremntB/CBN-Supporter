@@ -43,24 +43,19 @@ await request({
           },
           {
             "type": "postback",
-            "title": "Thông tin chatbot",
+            "title": "About",
             "payload": "chatbotInformation"
           },
           {
             "type": "postback",
-            "title": "Danh sách lệnh",
-            "payload": "listCommands"
+            "title": "Yêu cầu hỗ trợ",
+            "payload": "help"
           },
           {
             "type": "web_url",
             "title": "Gửi phản hồi",
             "url": "https://forms.gle/er53FLSRkVQyL3FF8",
             "webview_height_ratio": "full"
-          },
-          {
-            "type": "postback",
-            "title": "Yêu cầu hỗ trợ",
-            "payload": "help"
           }
         ]
       }

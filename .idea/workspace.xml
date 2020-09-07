@@ -19,8 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="shorten ask subject quick response">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="final">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/general/templateResponse.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/templateResponse.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/general/textResponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/textResponse.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/set-single-part.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/set-single-part.js" afterDir="false" />
     </list>
@@ -89,7 +91,7 @@
       <workItem from="1599406894216" duration="2326000" />
       <workItem from="1599412466067" duration="8417000" />
       <workItem from="1599436745131" duration="2091000" />
-      <workItem from="1599462337980" duration="30405000" />
+      <workItem from="1599462337980" duration="34227000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -203,7 +205,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599501680971</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="final">
+      <created>1599503617483</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1599503617483</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,7 +247,8 @@
     <MESSAGE value="add subject detect" />
     <MESSAGE value="fix shuffle messages send" />
     <MESSAGE value="shorten ask subject quick response" />
-    <option name="LAST_COMMIT_MESSAGE" value="shorten ask subject quick response" />
+    <MESSAGE value="final" />
+    <option name="LAST_COMMIT_MESSAGE" value="final" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">
@@ -265,10 +275,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1598628938760" />
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1599501684022">
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1599503623305">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599501684022" />
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599503623305" />
     <state x="585" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599324105260">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -277,10 +287,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="635" y="279" width="250" height="278" key="jetbrains.javascript.buildTools.run-task-popup/0.0.1536.824@0.0.1536.824" timestamp="1599372843256" />
-    <state x="425" y="187" width="672" height="677" key="run.anything.popup" timestamp="1599498594750">
+    <state x="425" y="187" width="672" height="677" key="run.anything.popup" timestamp="1599505943092">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="187" width="672" height="677" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1599498594750" />
+    <state x="425" y="187" width="672" height="677" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1599505943092" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1599434476716">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

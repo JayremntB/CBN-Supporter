@@ -32,7 +32,7 @@ const { userDataUnblockSchema, userDataFrame } = require('./src/general/template
 const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
-const listSingleWordCommands = ['covid', 'lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'lệnh', 'hd', 'help', 'ngủ', 'dậy', 'tkb', 'dạy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listSingleWordCommands = ['lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'hd', 'help', 'ngủ', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const userInputSearchScheduleKey = ["thời khoá biểu", "thời khoá", "thoi khoa bieu", "tkb"];
 const userInputSearchClassesKey = ["lịch dạy", "lich day"];
@@ -184,9 +184,6 @@ function handleMessage(received_message, userData) {
       }
       else {
         switch (textSplit[0]) {
-          case 'covid':
-            checkCovid(userData.sender_psid);
-            break;
           case 'lớp':
             searchGroupsTaught.init(client, userData);
             break;
@@ -226,11 +223,6 @@ function handleMessage(received_message, userData) {
           case 'menu':
 						unblockAll(userData);
             response = templateResponse.menu;
-            break;
-          case 'lệnh':
-						unblockAll(userData);
-            response = textResponse.defaultResponse;
-            response.text = `${textResponse.listGeneralCommands.text}\n${textResponse.listSearchCommands.text}\n${textResponse.listOtherFeaturesCommands.text}\n${textResponse.listRoomChattingCommands.text}\n${textResponse.listSettingCommands.text}`;
             break;
           case 'help':
             liveChat.startLiveChat(client, userData);
@@ -427,28 +419,6 @@ function handlePostback(received_postback, userData) {
         break;
       case 'ChatRoomChangeInforToDefault':
         chatRoom.changeInforToDefault(client, userData);
-        break;
-      // listCommands possess
-      case 'listCommands':
-        unblockAll(userData);
-        response = templateResponse.listCommands;
-        break;
-      //
-      case 'generalCommands':
-        unblockAll(userData);
-        response = textResponse.listGeneralCommands;
-        break;
-      case 'searchCommands':
-        unblockAll(userData);
-        response = textResponse.listSearchCommands;
-        break;
-      case 'settingCommands':
-        unblockAll(userData);
-        response = textResponse.listSettingCommands;
-        break;
-      case 'roomChattingCommands':
-        unblockAll(userData);
-        response = textResponse.listRoomChattingCommands;
         break;
       case 'countSleepTime':
         unblockAll(userData);
