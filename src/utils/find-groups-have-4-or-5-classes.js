@@ -17,8 +17,9 @@ let response = {
   }
 }
 module.exports = async function (client, userData, today = true) {
-  for(let i = 2; i < (today === false ) ? 8 : 2 ; i ++) {
-    response.attachment.payload.text += await getResults(client, 4, i, today) + "\n\n" + await getResults(client, 5, today);
+  const days = (today === false ) ? 8 : 3
+  for(let i = 2; i < days; i ++) {
+    response.attachment.payload.text = await getResults(client, 4, i, today) + "\n\n" + await getResults(client, 5, i, today);
     sendResponse(userData.sender_psid, response);
   }
 }
@@ -30,17 +31,17 @@ async function getResults(client, classesNumber, day, today) {
   dayNow = Number(date.getDay()) + 1;
   if(today) {
     if(dayNow === 1) {
-      result = `Không có lớp nào học ${classesNumber} tiết hôm nay...`;
+      result = `Không có lớp nào học ${classesNumber} tiết thứ ${dayNow}...`;
       return result;
     }
   }
   else dayNow = day;
   //
   const groups = await client.db('database-for-cbner').collection('schedule').find({ "schedule.0": {$exists: true} }).toArray();
-  result = `Các lớp ${classesNumber} tiết hôm nay:\n`
+  result = `Các lớp ${classesNumber} tiết thứ ${dayNow}:\n`;
   let numberOfGroups = 0;
   if(groups) {
-    for (let i = 0; i < groups.length - 1; i++) {
+    for (let i = 0; i < groups.length; i ++) {
       if (
         (classesNumber === 4 && groups[i].schedule[dayNow - 2].morning[4].subject === "") ||
         (classesNumber === 5 && groups[i].schedule[dayNow - 2].morning[4].subject !== "")
@@ -50,7 +51,7 @@ async function getResults(client, classesNumber, day, today) {
       }
     }
   }
-  if(numberOfGroups === 0) result = `Không có lớp nào học ${classesNumber} tiết hôm nay...`;
+  if(numberOfGroups === 0) result = `Không có lớp nào học ${classesNumber} tiết thứ ${day}...`;
   else {
     result = result.substring(0, result.length - 2);
     result += `\nTổng: ${numberOfGroups} lớp`

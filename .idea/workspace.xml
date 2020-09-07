@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="add check-covid feature">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/find-groups-have-4-or-5-classes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/find-groups-have-4-or-5-classes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,6 +87,8 @@
       <workItem from="1599405903885" duration="362000" />
       <workItem from="1599406894216" duration="2326000" />
       <workItem from="1599412466067" duration="8417000" />
+      <workItem from="1599436745131" duration="2091000" />
+      <workItem from="1599462337980" duration="1719000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
