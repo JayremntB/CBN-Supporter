@@ -417,7 +417,7 @@ function handlePostback(received_postback, userData) {
         break;
       case 'settingProfile':
         unblockAll(userData);
-        response = templateResponse.settingProfile;
+        response = templateResponse.chatRoomSetting;
         break;
         //
       case 'settingName':
@@ -468,7 +468,6 @@ function handlePostback(received_postback, userData) {
       //   break;
       // Information and help possess
       case 'chatbotInformation':
-        unblockAll(userData);
         response = templateResponse.chatbotInformationResponse;
         break;
       case 'help':

@@ -121,7 +121,7 @@ VÍ DỤ: dậy 6h15
   + xoawd: Đổi thời gian về mặc định (14')`
   },
   "recommendedSetGroup": {
-    "text": "Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó thường xuyên (lớp bạn chẳng hạn), nhập lop + tên lớp.\nVí dụ: lop 11ti",
+    "text": "Để mỗi lần sử dụng tính năng tra thời khoá biểu bạn không phải mất công ghi lại tên lớp nhiều lần nếu phải tra lớp đó thường xuyên (lớp bạn chẳng hạn), nhập lop + tên lớp.\nVí dụ: lop 12ti",
     "quick_replies": [
       {
         "content_type": "text",
@@ -144,7 +144,7 @@ VÍ DỤ: dậy 6h15
     ]
   },
   "recommendedSetTeacher": {
-    "text": "Để mỗi lần sử dụng tính năng tra tiết dạy (tìm giáo viên) bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập gv + tên giáo viên.\nVí dụ: gv NT.A",
+    "text": "Để mỗi lần sử dụng tính năng tra tiết dạy (tìm giáo viên) bạn không phải mất công ghi lại tên giáo viên nhiều lần nếu phải tra lịch dạy của giáo viên đó thường xuyên, nhập gv + tên giáo viên.\nVí dụ: gv NH.Khánh",
     "quick_replies": [
       {
         "content_type": "text",

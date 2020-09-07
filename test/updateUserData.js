@@ -21,27 +21,31 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
   //   if(err) console.error(err);
   //   else console.log("successfully updated!");
   // });
+
   // add name
-  let usersData = await client.db(dbName).collection('users-data').find({}).toArray();
-  usersData.forEach(userData => {
-    request({
-      "uri": `https://graph.facebook.com/${userData.sender_psid}`,
-      // "qs": { "access_token": process.env.TEST_PAGE_ACCESS_TOKEN },
-      "qs": {
-        "access_token": process.env.PAGE_ACCESS_TOKEN,
-        "fields": "name,profile_pic"
-      },
-      "method": "GET"
-    }, (err, res, body) => {
-      body = JSON.parse(body);
-      console.log(body.name);
-      client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-        $set: {
-          name: body.name
-        }
-      }, (err) => {
-        console.log(userData.sender_psid + " -> " + body.name);
-      });
-    });
-  })
+  // let usersData = await client.db(dbName).collection('users-data').find({}).toArray();
+  // usersData.forEach(userData => {
+  //   request({
+  //     "uri": `https://graph.facebook.com/${userData.sender_psid}`,
+  //     // "qs": { "access_token": process.env.TEST_PAGE_ACCESS_TOKEN },
+  //     "qs": {
+  //       "access_token": process.env.PAGE_ACCESS_TOKEN,
+  //       "fields": "name,profile_pic"
+  //     },
+  //     "method": "GET"
+  //   }, (err, res, body) => {
+  //     body = JSON.parse(body);
+  //     console.log(body.name);
+  //     client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+  //       $set: {
+  //         name: body.name
+  //       }
+  //     }, (err) => {
+  //       console.log(userData.sender_psid + " -> " + body.name);
+  //     });
+  //   });
+  // });
+
+  // kick all users
+  client.
 });

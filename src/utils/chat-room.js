@@ -109,8 +109,17 @@ function findRoomByID(client, userData, room_id) {
       sendResponse(userData.sender_psid, response);
     }
     else {
-      initBlock(client, "subRoom", userData);
-      sendAnnouncement(client, userData, res);
+      initBlock(client, "selectRoom", userData)
+      .then(status => {
+        sendAnnouncement(client, userData, res);
+      })
+      .catch((err) => {
+        console.log(err);
+        const response = {
+          "text": "Có lỗi xảy ra, bạn hãy thử lại sau nhé :("
+        };
+        sendResponse(userData.sender_psid, response);
+      });
     }
   });
 }
@@ -135,29 +144,34 @@ function findValidRoom(client, userData, limitUsers) {
         if(room.list_users.length < Number(room.limit_users)) validRoom.push(room);
       });
       if(validRoom.length != 0) sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
-      else {
-        response.text = "Không tìm thấy phòng trống...";
-        sendResponse(userData.sender_psid, response);
-        createNewSubRoom(client, userData, limitUsers);
-      }
+      else createNewSubRoom(client, userData, limitUsers);
     }
     else createNewSubRoom(client, userData, limitUsers);
   });
 }
 
 function joinGeneralRoom(client, userData) {
-  initBlock(client, "generalRoom", userData);
-  let response = {
-    "text": ""
-  };
-  // get room 01 (general room)
-  client.db(dbName).collection('room-chatting').findOne({ room_id: 1 }, (err, res) => {
-    const totalMembers = res.list_users.length;
-    if(totalMembers === 0) {
-      response.text = "Trong phòng hiện không có người nào...\nTớ sẽ thông báo khi có người vào phòng nhé!";
-      sendResponse(userData.sender_psid, response);
-    }
-    sendAnnouncement(client, userData, res);
+  initBlock(client, "generalRoom", userData)
+  .then(res => {
+    let response = {
+      "text": ""
+    };
+    // get room 01 (general room)
+    client.db(dbName).collection('room-chatting').findOne({ room_id: 1 }, (err, res) => {
+      const totalMembers = res.list_users.length;
+      if(totalMembers === 0) {
+        response.text = "Trong phòng hiện không có người nào...\nTớ sẽ thông báo khi có người vào phòng nhé!";
+        sendResponse(userData.sender_psid, response);
+      }
+      sendAnnouncement(client, userData, res);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+    const response = {
+      "text": "Có lỗi xảy ra, bạn hãy thử lại sau nhé :("
+    };
+    sendResponse(userData.sender_psid, response);
   });
 }
 
@@ -254,21 +268,24 @@ function joinRandomRoom(client, userData) {
   }).toArray((err, res) => {
     if(err) console.log(err);
     else if(res.length != 0) {
-      initBlock(client, "subRoom", userData);
-      let validRoom = [];
-      res.forEach((room) => {
-        if(room.list_users.length < Number(room.limit_users)) validRoom.push(room);
-      });
-      if(validRoom.length != 0) sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
-      else {
+      initBlock(client, "subRoom", userData)
+      .then(res => {
+        let validRoom = [];
+        res.forEach((room) => {
+          if(room.list_users.length < Number(room.limit_users)) validRoom.push(room);
+        });
+        if(validRoom.length != 0) sendAnnouncement(client, userData, validRoom[Math.floor(Math.random() * validRoom.length)]);
+        else createNewSubRoom(client, userData, 4);
+      })
+      .catch((err) => {
+        console.log(err);
         const response = {
-          "text": "Không tìm thấy phòng trống..."
+          "text": "Có lỗi xảy ra, bạn hãy thử lại sau nhé :("
         };
         sendResponse(userData.sender_psid, response);
-        createNewSubRoom(client, userData, 6);
-      }
+      });
     }
-    else createNewSubRoom(client, userData, 6);
+    else createNewSubRoom(client, userData, 4);
   })
 }
 
@@ -278,8 +295,17 @@ function joinPreRoom(client, userData) {
   }, (err, room) => {
     if(err) console.log(err);
     else if(room.limit_users > room.list_users.length) {
-      initBlock(client, "subRoom", userData);
-      sendAnnouncement(client, userData, room);
+      initBlock(client, "subRoom", userData)
+      .then(res => {
+        sendAnnouncement(client, userData, room);
+      })
+      .catch((err) => {
+        console.log(err);
+        const response = {
+          "text": "Có lỗi xảy ra, bạn hãy thử lại sau nhé :("
+        };
+        sendResponse(userData.sender_psid, response);
+      });;
     }
     else {
       const response = {
@@ -344,12 +370,17 @@ Giới hạn phòng: ${res.limit_users} người`
 }
 
 function initBlock(client, type, userData, createSubRoom) {
-  let update = userDataUnblockSchema(userData);
-  update.room_chatting.block = true;
-  update.room_chatting.type = type,
-  update.room_chatting.create_new_subroom = createSubRoom === undefined ? false : true;
-  client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
-    $set: update
+  return new Promise((resolve, reject) => {
+    let update = userDataUnblockSchema(userData);
+    update.room_chatting.block = true;
+    update.room_chatting.type = type,
+    update.room_chatting.create_new_subroom = createSubRoom === undefined ? false : true;
+    client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
+      $set: update
+    }, (err, res) => {
+      if(err) reject(err);
+      else resolve();
+    });
   });
 }
 
