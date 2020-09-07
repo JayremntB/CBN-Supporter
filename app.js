@@ -32,10 +32,10 @@ const { userDataUnblockSchema, userDataFrame } = require('./src/general/template
 const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 const dbName = 'database-for-cbner';
-const listSingleWordCommands = ['lớp', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'hd', 'help', 'ngủ', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+const listSingleWordCommands = ['timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'hd', 'help', 'ngủ', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 const userInputSearchScheduleKey = ["thời khoá biểu", "thời khoá", "thoi khoa bieu", "tkb"];
-const userInputSearchClassesKey = ["lịch dạy", "lich day"];
+const userInputSearchClassesKey = ["lịch dạy", "lich day", 'giáo viên', 'giao vien'];
 const userInputChatRoomKey = ["ẩn danh", "an danh", "tìm bạn", "chat nhóm", "người lạ", "nguoi la"];
 const userInputCheckCovidKey = ["covid", "covi"];
 // connect to database

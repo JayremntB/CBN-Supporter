@@ -120,7 +120,7 @@ function checkTeacherName(sender_psid, teacherName) {
       "text": ""
     }
     if(listRecommendedTeachers.length === 0) {
-      response.text = "Không có kết quả đề xuất giáo viên nào. Kiểm tra xem bạn có viết nhầm ở đâu không nhé :<";
+      response.text = "Không tìm thấy lịch dạy và không có kết quả đề xuất giáo viên nào. Kiểm tra xem bạn có viết nhầm ở đâu không nhé :<";
     }
     else {
       response.text = "Đây là một số đề xuất dành cho bạn, nếu có giáo viên bạn cần tìm hãy gõ lại ngay bên dưới nhé:";
