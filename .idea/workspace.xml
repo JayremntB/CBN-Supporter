@@ -19,13 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="production">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="add subject detect">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/general/textResponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/textResponse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/general/validate-input.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/validate-input.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/search-groups-taught.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-groups-taught.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/simsimi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/find-groups-have-4-or-5-classes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/find-groups-have-4-or-5-classes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +88,7 @@
       <workItem from="1599406894216" duration="2326000" />
       <workItem from="1599412466067" duration="8417000" />
       <workItem from="1599436745131" duration="2091000" />
-      <workItem from="1599462337980" duration="27288000" />
+      <workItem from="1599462337980" duration="28093000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -185,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599486929058</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="add subject detect">
+      <created>1599500543777</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1599500543777</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,7 +219,9 @@
     <MESSAGE value="kick all users (room chatting)" />
     <MESSAGE value="add recommend teachers" />
     <MESSAGE value="production" />
-    <option name="LAST_COMMIT_MESSAGE" value="production" />
+    <MESSAGE value="add subject name detect" />
+    <MESSAGE value="add subject detect" />
+    <option name="LAST_COMMIT_MESSAGE" value="add subject detect" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">

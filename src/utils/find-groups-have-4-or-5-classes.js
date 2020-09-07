@@ -16,12 +16,16 @@ let response = {
     }
   }
 }
-module.exports = async function (client, userData, today = true) {
-  const days = (today === false ) ? 8 : 3
-  for(let i = 2; i < days; i ++) {
-    response.attachment.payload.text = await getResults(client, 4, i, today) + "\n\n" + await getResults(client, 5, i, today);
+module.exports = function (client, userData, today = true) {
+  const days = (today === false ) ? 8 : 3;
+  let day = 2;
+  setTimeout(async function loop() {
+    if(day === days) return;
+    response.attachment.payload.text = await getResults(client, 4, day, today) + "\n\n" + await getResults(client, 5, day, today);
     sendResponse(userData.sender_psid, response);
-  }
+    day ++;
+    setTimeout(loop, 800);
+  }, 0);
 }
 
 async function getResults(client, classesNumber, day, today) {
