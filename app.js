@@ -331,7 +331,8 @@ function handlePostback(received_postback, userData) {
         response = templateResponse.chatbotInformationResponse;
         break;
       default:
-        response.text = 'Thoát phòng để sử dụng các tính năng...'
+        response = templateResponse.exitTemplate;
+        response.attachment.payload.text = 'Thoát phòng để sử dụng các tính năng...'
     }
   }
   else if(userData.live_chat) {

@@ -205,25 +205,8 @@ function settingAvatar(client, userData) {
 }
 
 function sendAnnouncement(client, userData, room) {
-  const response = {
-    "text": `Đã vào phòng chat ${room.room_id}.\n${room.list_users.length} người đang chờ tin nhắn từ bạn, hãy chào mọi người đi :3
-* Nhập Menu để xem thông tin phòng và thông tin cá nhân
-* Nhập Exit để thoát phòng và sử dụng các tính năng khác`,
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "Menu",
-        "payload": "menu",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
-        "title": "Exit",
-        "payload": "exit",
-        "image_url": ""
-      }
-    ]
-  };
+  let response = templateResponse.exitTemplate;
+  response.attachment.payload.text = `Đã vào phòng chat ${room.room_id}.\n${room.list_users.length} người đang chờ tin nhắn từ bạn, hãy chào mọi người đi :3\n* Nhập Menu để xem thông tin phòng và thông tin cá nhân`;
   sendResponse(userData.sender_psid, response);
   // send announcement for people in room
   const message = {
@@ -242,9 +225,8 @@ async function createNewSubRoom(client, userData, limitUsers) {
     if(err) console.log(err);
     else {
       setRoomID(client, res.ops[0].room_id, userData);
-      const response = {
-        "text": `Đã tạo phòng!\nID phòng của bạn là ${res.ops[0].room_id}\nTớ sẽ thông báo khi có người vào phòng nhé!`
-      };
+      let response = templateResponse.exitTemplate;
+      response.attachment.payload.text = `Đã tạo phòng!\nID phòng của bạn là ${res.ops[0].room_id}\nTớ sẽ thông báo khi có người vào phòng nhé!\n* Nhập Menu để xem thông tin phòng và thông tin cá nhân`
       sendResponse(userData.sender_psid, response);
     }
   });
@@ -332,8 +314,8 @@ function leaveRoom(client, userData) {
   }, (err, roomData) => {
     if(err) console.log(err);
     else {
-      const response = textResponse.defaultResponse;
-      response.text = "Đã rời khỏi phòng...";
+      const response = templateResponse.rejoinChatroom;
+      response.attachment.payload.text = "Đã rời khỏi phòng...";
       sendResponse(userData.sender_psid, response);
       // send announcement to users in current room
       const message = {

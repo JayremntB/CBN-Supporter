@@ -19,14 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="kick all users (room chatting)">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="add recommend teachers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/general/template.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/template.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/general/textResponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/textResponse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/general/validate-input.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/validate-input.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/setting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/setting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/getTeachers.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/getTeachers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/general/templateResponse.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/templateResponse.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +90,7 @@
       <workItem from="1599406894216" duration="2326000" />
       <workItem from="1599412466067" duration="8417000" />
       <workItem from="1599436745131" duration="2091000" />
-      <workItem from="1599462337980" duration="15435000" />
+      <workItem from="1599462337980" duration="17442000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -172,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599475137057</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add recommend teachers">
+      <created>1599480281039</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1599480281039</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +206,8 @@
     <MESSAGE value="production for check groups with classes condition" />
     <MESSAGE value="fix mongodb error duplicate change with Promise" />
     <MESSAGE value="kick all users (room chatting)" />
-    <option name="LAST_COMMIT_MESSAGE" value="kick all users (room chatting)" />
+    <MESSAGE value="add recommend teachers" />
+    <option name="LAST_COMMIT_MESSAGE" value="add recommend teachers" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">

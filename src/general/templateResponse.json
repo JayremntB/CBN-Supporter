@@ -1,4 +1,41 @@
 {
+  "rejoinChatroom": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Vào lại phòng",
+            "payload": "joinPreRoom"
+          },
+          {
+            "type": "postback",
+            "title": "Menu",
+            "payload": "menu"
+          }
+        ]
+      }
+    }
+  },
+  "exitTemplate": {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "button",
+        "text": "",
+        "buttons": [
+          {
+            "type": "postback",
+            "title": "Exit",
+            "payload": "leaveRoom"
+          }
+        ]
+      }
+    }
+  },
   "userChatRoomInfo": {
     "attachment": {
       "type": "template",
