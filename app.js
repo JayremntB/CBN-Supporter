@@ -316,7 +316,7 @@ function handlePostback(received_postback, userData) {
         };
         sendResponse(userData.sender_psid, response1);
         chatRoom.leaveRoom(client, userData);
-        response = templateResponse.settingProfile;
+        response = templateResponse.chatRoomSetting;
         break;
       case 'chatbotInformation':
         response = templateResponse.chatbotInformationResponse;
