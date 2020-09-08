@@ -19,9 +19,9 @@ function handleMessage(client, text, userData) {
       if(!userData.search_groups_taught.subject) {
         if(!checkSubjectName(userData.sender_psid, text.toLowerCase())) return;
         else {
-          subjectName = handleSubjectName(text.toLowerCase());
-          subjectName = subjectName.charAt(0).toUpperCase() + subjectName.slice(1).toLowerCase();
-          if(subjectName === "Gdcd") subjectName = "GDCD";
+          subjectFind = handleSubjectName(text.toLowerCase());
+          subjectFind = subjectFind.charAt(0).toUpperCase() + subjectFind.slice(1).toLowerCase();
+          if(subjectFind === "Gdcd") subjectFind = "GDCD";
         }
       }
       updateData(client, userData, subjectFind);
