@@ -184,9 +184,6 @@ function handleMessage(received_message, userData) {
       }
       else {
         switch (textSplit[0]) {
-          case 'lớp':
-            searchGroupsTaught.init(client, userData);
-            break;
           case 'timanh':
             findImages.init(client, userData);
             break;
@@ -249,9 +246,6 @@ function handleMessage(received_message, userData) {
             break;
           case 'tkb':
             searchSchedule.init(client, userData);
-            break;
-          case 'dạy':
-            searchClasses.init(client, userData);
             break;
           case 'dậy':
 						unblockAll(userData);
