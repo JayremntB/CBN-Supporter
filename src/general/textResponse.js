@@ -302,7 +302,7 @@ VÍ DỤ: dậy 6h15
     ]
   },
   "searchClassesAskSubject": {
-    "text": "Nhập tên môn học mà bạn cần tìm lớp được dạy\n(Toán, Vật lý, Hoá học, Sinh học, Tin học, Ngữ văn, Ngoại ngữ, Lịch sử, Địa lý, GDCD, Thể dục)",
+    "text": "Nhập tên môn học mà bạn cần tìm lớp được dạy\nVí dụ: Tin",
     "quick_replies": [
       {
         "content_type": "text",
