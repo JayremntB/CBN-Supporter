@@ -89,6 +89,7 @@ function handleSubjectName(subjectName) {
 
 function handleTeacherName(teacherName) {
   let teacherNameToSearch = "";
+  // console.log(teacherName);
   teacherNameSeparateByDot = teacherName.split(".");
   if(teacherNameSeparateByDot.length === 1) {
     teacherNameSeparateBySlash = teacherNameSeparateByDot[0].split("/");
@@ -98,11 +99,21 @@ function handleTeacherName(teacherName) {
     });
   }
   else teacherNameToSearch = teacherNameSeparateByDot[0].toUpperCase() + "." + teacherNameSeparateByDot[1].charAt(0).toUpperCase() + teacherNameSeparateByDot[1].slice(1).toLowerCase();
-  console.log(teacherNameToSearch);
+  // console.log(teacherNameToSearch);
+  // uppercase first letter of every word separated by space
+  teacherName = teacherNameToSearch;
+  teacherNameToSearch = "";
+  teacherNameSeparateBySpace = teacherName.split(" ").forEach((word, i) => {
+    // console.log(word);
+    teacherNameToSearch += word.charAt(0).toUpperCase() + word.slice(1);
+    if(i !== teacherName.split(" ").length - 1) teacherNameToSearch += " ";
+  });
+  // console.log(teacherNameToSearch);
   return teacherNameToSearch;
 }
 
 function checkTeacherName(sender_psid, teacherName) {
+  // console.log(teacherName.length);
   const checkArray = teachersCheckArray;
   if(checkArray.includes(teacherName)) return true;
   else {
