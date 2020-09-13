@@ -103,7 +103,6 @@ function handleTeacherName(teacherName) {
 }
 
 function checkTeacherName(sender_psid, teacherName) {
-  console.log(teacherName);
   const checkArray = teachersCheckArray;
   if(checkArray.includes(teacherName)) return true;
   else {

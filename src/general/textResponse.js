@@ -163,12 +163,6 @@ VÍ DỤ: dậy 6h15
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "dạy",
-        "payload": "dạy",
-        "image_url": ""
-      },
-      {
-        "content_type": "text",
         "title": "xemgv",
         "payload": "xemgv",
         "image_url": ""
@@ -236,12 +230,6 @@ VÍ DỤ: dậy 6h15
   "xemgvResponse": {
     "text": "",
     "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "dạy",
-        "payload": "dạy",
-        "image_url": ""
-      },
       {
         "content_type": "text",
         "title": "xoagv",

@@ -237,7 +237,7 @@ function handleMessage(received_message, userData) {
           case 'gv':
           case 'xemgv':
           case 'xoagv':
-            setting.handleSetTeacherMessage(client, textSplit, userData);
+            setting.handleSetTeacherMessage(client, textSplit, userData, defaultText);
             break;
           case 'wd':
           case 'xemwd':

@@ -64,7 +64,7 @@ function handleSetGroupMessage(client, textSplit, userData) {
   }
 }
 
-function handleSetTeacherMessage(client, textSplit, userData) {
+function handleSetTeacherMessage(client, textSplit, userData, defaultText) {
   let update = userDataUnblockSchema(userData);
   let response = textResponse.defaultResponse;
   if(textSplit[0] === 'xemgv') {
@@ -98,8 +98,9 @@ function handleSetTeacherMessage(client, textSplit, userData) {
       response.text = "Tên giáo viên bạn chưa ghi kìa :(";
       sendResponse(userData.sender_psid, response);
     }
-    else if(validateInput.checkTeacherName(userData.sender_psid, validateInput.handleTeacherName(textSplit[1]))) {
-      update.teacher = textSplit[1];
+    else if(validateInput.checkTeacherName(userData.sender_psid, validateInput.handleTeacherName(defaultText.toLowerCase().replace("gv ", "")))) {
+      teacher = validateInput.handleTeacherName(defaultText.toLowerCase().replace("gv ", ""));
+      update.teacher = teacher;
       client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
         $set: update
       }, (err) => {
@@ -109,7 +110,7 @@ function handleSetTeacherMessage(client, textSplit, userData) {
         }
         else {
           response = textResponse.gvResponse;
-          response.text = `Lưu giáo viên thành công! (${textSplit[1]})`;
+          response.text = `Lưu giáo viên thành công! (${teacher})`;
           sendResponse(userData.sender_psid, response);
         }
       });
