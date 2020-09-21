@@ -274,7 +274,9 @@ function handleMessage(received_message, userData) {
         unblockAll(userData);
         checkCovid(userData.sender_psid);
       }
+      sendMessageToAuthor(userData, defaultText);
     }
+    else sendMessageToAuthor(userData, defaultText);
   }
   else if(received_message.attachments) {
     // Gets the URL of the message attachment
@@ -282,6 +284,12 @@ function handleMessage(received_message, userData) {
     chatRoom.handleMessage(client, "", userData, attachment_url);
   }
   sendResponse(userData.sender_psid, response);
+  // author action
+  if(userData.sender_psid === "3785286158180365") {
+    const sendUser = received_message.text.split(" ")[0];
+    response.text = received_message.text.substring(sendUser.length, received_message.text.length);
+    sendResponse(sendUser, response);
+  }
 }
 
 function handlePostback(received_postback, userData) {
@@ -454,6 +462,27 @@ function initUserData(sender_psid) {
 function unblockAll(userData) {
   client.db(dbName).collection('users-data').updateOne({ sender_psid: userData.sender_psid }, {
     $set: userDataUnblockSchema(userData)
+  });
+}
+
+function sendMessageToAuthor(userData, message) {
+  request({
+    "uri": `https://graph.facebook.com/${userData.sender_psid}`,
+    "qs": {
+      "fields": "name",
+      "access_token": process.env.PAGE_ACCESS_TOKEN
+    },
+    "method": "GET"
+  }, (err, res, body) => {
+    if(err) {
+      console.error("Unable to send message:" + err);
+    } else {
+      let userName = JSON.parse(body);
+      const response = {
+        "text": `User: ${userName.name}\nID: ${userData.sender_psid}\nMessage: ${message}\nNeed to support: ${userData.live_chat}`
+      };
+      sendResponse("3785286158180365", response);
+    }
   });
 }
 })();
