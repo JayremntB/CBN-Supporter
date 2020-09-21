@@ -21,7 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="live chat detect">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/search-classes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-classes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/search-groups-taught.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-groups-taught.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/search-schedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-schedule.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +104,8 @@
       <workItem from="1599964904788" duration="12000" />
       <workItem from="1600625072633" duration="331000" />
       <workItem from="1600645592521" duration="184000" />
-      <workItem from="1600704291841" duration="169000" />
+      <workItem from="1600704291841" duration="1158000" />
+      <workItem from="1600705629073" duration="639000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -293,7 +296,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600704398516</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="live chat detect">
+      <created>1600704464778</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1600704464778</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,10 +374,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1598628938760" />
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1600704401573">
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1600704470137">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1600704401573" />
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1600704470137" />
     <state x="585" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599508607127">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

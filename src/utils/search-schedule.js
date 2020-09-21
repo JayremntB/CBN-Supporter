@@ -188,7 +188,7 @@ Thứ ${data.day}:
       sendResponse(userData.sender_psid, response);
     }
     else if(day - 1 > schedule.length || day - 2 < 0) {
-      response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới 🥺\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
+      response.text = `Eee, đừng nhắn gì ngoài phần gợi ý bên dưới nhé 😑`;
       sendResponse(userData.sender_psid, response);
     }
     else {
@@ -221,7 +221,7 @@ Thứ ${data.day}:
     }
   }
   else {
-    response.text = `Nào, đừng nhắn gì ngoài phần gợi ý bên dưới 🥺\nBạn có thể nhập Exit để sử dụng các tính năng khác...`;
+    response.text = `Eee, đừng nhắn gì ngoài phần gợi ý bên dưới nhé 😑`;
     sendResponse(userData.sender_psid, response);
   }
 }
