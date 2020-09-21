@@ -259,22 +259,21 @@ function handleMessage(received_message, userData) {
     else if(userData.room_chatting.block) {
       chatRoom.handleMessage(client, defaultText, userData);
     }
-    else if(userData.live_chat) {
-      liveChat.deniedUsingOtherFeatures(userData);
-    }
-    else if(keySearchSchedule) {
-      searchSchedule.init(client, userData);
-    }
-    else if(keySearchClasses) {
-      searchClasses.init(client, userData);
-    }
-    else if(keyChatRoom) {
-      unblockAll(userData);
-      response = templateResponse.chatRoom;
-    }
-    else if(keyCheckCovid) {
-      unblockAll(userData);
-      checkCovid(userData.sender_psid);
+    else if(!userData.live_chat) {
+      if(keySearchSchedule) {
+        searchSchedule.init(client, userData);
+      }
+      else if(keySearchClasses) {
+        searchClasses.init(client, userData);
+      }
+      else if(keyChatRoom) {
+        unblockAll(userData);
+        response = templateResponse.chatRoom;
+      }
+      else if(keyCheckCovid) {
+        unblockAll(userData);
+        checkCovid(userData.sender_psid);
+      }
     }
   }
   else if(received_message.attachments) {
