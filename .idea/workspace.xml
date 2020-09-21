@@ -19,9 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="handle teacher input fix">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fuck">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/general/textResponse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/textResponse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +98,11 @@
       <workItem from="1599907956308" duration="599000" />
       <workItem from="1599908908039" duration="112000" />
       <workItem from="1599960353420" duration="3296000" />
-      <workItem from="1599964751505" duration="43000" />
+      <workItem from="1599964751505" duration="139000" />
+      <workItem from="1599964904788" duration="12000" />
+      <workItem from="1600625072633" duration="331000" />
+      <workItem from="1600645592521" duration="184000" />
+      <workItem from="1600704291841" duration="90000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -275,7 +279,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599963566942</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="fuck">
+      <created>1599964810476</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1599964810476</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -317,17 +328,18 @@
     <MESSAGE value="fix check teacher name" />
     <MESSAGE value="fix detect feature error" />
     <MESSAGE value="handle teacher input fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="handle teacher input fix" />
+    <MESSAGE value="fuck" />
+    <option name="LAST_COMMIT_MESSAGE" value="fuck" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="394" y="90" key="#Inspections/0.0.1536.824@0.0.1536.824" timestamp="1598669968168" />
-    <state x="548" y="166" key="FileChooserDialogImpl" timestamp="1599909018099">
+    <state x="548" y="166" key="FileChooserDialogImpl" timestamp="1600645770552">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="548" y="166" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1599909018099" />
+    <state x="548" y="166" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1600645770552" />
     <state width="1535" height="209" key="GridCell.Tab.0.bottom" timestamp="1598628938760">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -344,10 +356,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1598628938760" />
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1599963575170">
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1599964814321">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599963575170" />
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1599964814321" />
     <state x="585" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599508607127">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

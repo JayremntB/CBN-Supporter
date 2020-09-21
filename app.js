@@ -259,6 +259,9 @@ function handleMessage(received_message, userData) {
     else if(userData.room_chatting.block) {
       chatRoom.handleMessage(client, defaultText, userData);
     }
+    else if(userData.live_chat) {
+      liveChat.deniedUsingOtherFeatures(userData);
+    }
     else if(keySearchSchedule) {
       searchSchedule.init(client, userData);
     }
