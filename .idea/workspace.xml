@@ -19,11 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="live chat detect">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="change text">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/search-classes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-classes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/search-groups-taught.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-groups-taught.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/search-schedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-schedule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +103,7 @@
       <workItem from="1600625072633" duration="331000" />
       <workItem from="1600645592521" duration="184000" />
       <workItem from="1600704291841" duration="1158000" />
-      <workItem from="1600705629073" duration="639000" />
+      <workItem from="1600705629073" duration="1279000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -303,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600704464778</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="change text">
+      <created>1600706298756</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1600706298756</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +327,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update frame" />
     <MESSAGE value="open search features" />
     <MESSAGE value="add change i4 to default and to current profile" />
     <MESSAGE value="fix can't leave room" />
@@ -347,7 +351,8 @@
     <MESSAGE value="handle teacher input fix" />
     <MESSAGE value="fuck" />
     <MESSAGE value="live chat detect" />
-    <option name="LAST_COMMIT_MESSAGE" value="live chat detect" />
+    <MESSAGE value="change text" />
+    <option name="LAST_COMMIT_MESSAGE" value="change text" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">
@@ -374,10 +379,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1598628938760" />
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1600704470137">
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1600706300079">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1600704470137" />
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1600706300079" />
     <state x="585" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599508607127">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
