@@ -31,12 +31,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/utils/search-classes.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/app.js" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/test/updateUserData.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/utils/search-classes.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/general/textResponse.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/general/templateResponse.json" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/utils/chat-room.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/test/updateUserData.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/utils/search-schedule.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="JsbtTreeLayoutManager">
@@ -105,6 +105,7 @@
       <workItem from="1600705629073" duration="3399000" />
       <workItem from="1600759199576" duration="41000" />
       <workItem from="1600779481473" duration="374000" />
+      <workItem from="1600796044269" duration="85000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -399,22 +400,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="166" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1600645770552" />
-    <state width="1535" height="209" key="GridCell.Tab.0.bottom" timestamp="1598628938760">
+    <state width="1535" height="209" key="GridCell.Tab.0.bottom" timestamp="1600796062927">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1535" height="209" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1598628938760" />
-    <state width="1535" height="209" key="GridCell.Tab.0.center" timestamp="1598628938760">
+    <state width="1535" height="209" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1600796062927" />
+    <state width="1535" height="209" key="GridCell.Tab.0.center" timestamp="1600796062927">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1535" height="209" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1598628938760" />
-    <state width="1535" height="209" key="GridCell.Tab.0.left" timestamp="1598628938760">
+    <state width="1535" height="209" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1600796062927" />
+    <state width="1535" height="209" key="GridCell.Tab.0.left" timestamp="1600796062926">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1535" height="209" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1598628938760" />
-    <state width="1535" height="209" key="GridCell.Tab.0.right" timestamp="1598628938760">
+    <state width="1535" height="209" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1600796062926" />
+    <state width="1535" height="209" key="GridCell.Tab.0.right" timestamp="1600796062927">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1598628938760" />
+    <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600796062927" />
     <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1600779725752">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

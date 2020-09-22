@@ -134,150 +134,149 @@ function handleMessage(received_message, userData) {
       else if(text === 'menu') response = templateResponse.roomChattingMenu;
       else chatRoom.handleMessage(client, defaultText, userData);
     }
-    else {
-      sendMessageToAuthor(userData, defaultText);
-      if(text === 'exit') {
-        if(userData.live_chat) liveChat.endLiveChat(client, userData);
-        unblockAll(userData);
-        response = textResponse.exitResponse;
+    else if(text === 'exit') {
+      if(userData.live_chat) liveChat.endLiveChat(client, userData);
+      unblockAll(userData);
+      response = textResponse.exitResponse;
+    }
+    else if(listNonSingleWordCommands.includes(text)) {
+      if(userData.live_chat) {
+        liveChat.deniedUsingOtherFeatures(userData);
       }
-      else if(listNonSingleWordCommands.includes(text)) {
-        if(userData.live_chat) {
-          liveChat.deniedUsingOtherFeatures(userData);
-        }
-        else {
-          switch (text) {
-            case 'danh sách lớp':
-            case 'dsl':
-              response = textResponse.groupList;
-              break;
-            case 'đặt lớp mặc định':
-              unblockAll(userData);
-              response = textResponse.recommendedSetGroup;
-              break;
-            case 'đặt gv mặc định':
-              unblockAll(userData);
-              response = textResponse.recommendedSetTeacher;
-              break;
-            case 'đổi thời gian tb':
-              unblockAll(userData);
-              response = textResponse.recommendedSetWindDown;
-              break;
-          }
-        }
-      }
-      else if(listSingleWordCommands.includes(textSplit[0])) {
-        if(userData.live_chat) {
-          liveChat.deniedUsingOtherFeatures(userData);
-        }
-        else {
-          switch (textSplit[0]) {
-            case 'timanh':
-              findImages.init(client, userData);
-              break;
-            case 'chattong':
-              chatRoom.joinGeneralRoom(client, userData);
-              break;
-            case 'chatnn':
-              chatRoom.joinRandomRoom(client, userData);
-              break;
-            case 'timphong':
-              response = chatRoom.joinSubRoom(client, userData);
-              break;
-            case 'taophong':
-              chatRoom.createSubRoom(client, userData);
-              break;
-            case 'nhapid':
-              chatRoom.selectRoom(client, userData);
-              break;
-            case 'phongcu':
-              chatRoom.joinPreRoom(client, userData);
-              break;
-            case 'doiten':
-              chatRoom.settingName(client, userData);
-              break;
-            case 'doianh':
-              chatRoom.settingAvatar(client, userData);
-              break;
-            case '4tiet':
-              response = findGroupsWithClassesCondition(client, userData);
-              break;
-            case '5tiet':
-              response = findGroupsWithClassesCondition(client, userData);
-              break;
-            case 'menu':
-                          unblockAll(userData);
-              response = templateResponse.menu;
-              break;
-            case 'help':
-              liveChat.startLiveChat(client, userData);
-              break;
-            case 'hd':
-                          unblockAll(userData);
-              response = textResponse.defaultResponse;
-              response.text = "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md";
-              break;
-            case 'lop':
-            case 'xemlop':
-            case 'xoalop':
-              setting.handleSetGroupMessage(client, textSplit, userData);
-              break;
-            case 'gv':
-            case 'xemgv':
-            case 'xoagv':
-              setting.handleSetTeacherMessage(client, textSplit, userData, defaultText);
-              break;
-            case 'wd':
-            case 'xemwd':
-            case 'xoawd':
-              setting.handleWindDownMessage(client, textSplit, userData);
-              break;
-            case 'tkb':
-              searchSchedule.init(client, userData);
-              break;
-            case 'dậy':
-                          unblockAll(userData);
-              estimateSleepTime(textSplit, userData);
-              break;
-            case 'ngủ':
-                          unblockAll(userData);
-              estimateWakeUpTime(textSplit, userData);
-              break;
-          }
-        }
-      }
-      else if(userData.search_schedule_block) {
-        searchSchedule.handleMessage(client, text, userData);
-      }
-      else if(userData.search_classes_block) {
-        searchClasses.handleMessage(client, defaultText, userData);
-      }
-      else if(userData.search_groups_taught.block) {
-        searchGroupsTaught.handleMessage(client, defaultText, userData);
-      }
-      else if(userData.find_images.block) {
-        findImages.handleMessage(client, text, userData);
-      }
-      else if(userData.room_chatting.block) {
-        chatRoom.handleMessage(client, defaultText, userData);
-      }
-      else if(!userData.live_chat) {
-        if(keySearchSchedule) {
-          searchSchedule.init(client, userData);
-        }
-        else if(keySearchClasses) {
-          searchClasses.init(client, userData);
-        }
-        else if(keyChatRoom) {
-          unblockAll(userData);
-          response = templateResponse.chatRoom;
-        }
-        else if(keyCheckCovid) {
-          unblockAll(userData);
-          checkCovid(userData.sender_psid);
+      else {
+        switch (text) {
+          case 'danh sách lớp':
+          case 'dsl':
+            response = textResponse.groupList;
+            break;
+          case 'đặt lớp mặc định':
+            unblockAll(userData);
+            response = textResponse.recommendedSetGroup;
+            break;
+          case 'đặt gv mặc định':
+            unblockAll(userData);
+            response = textResponse.recommendedSetTeacher;
+            break;
+          case 'đổi thời gian tb':
+            unblockAll(userData);
+            response = textResponse.recommendedSetWindDown;
+            break;
         }
       }
     }
+    else if(listSingleWordCommands.includes(textSplit[0])) {
+      if(userData.live_chat) {
+        liveChat.deniedUsingOtherFeatures(userData);
+      }
+      else {
+        switch (textSplit[0]) {
+          case 'timanh':
+            findImages.init(client, userData);
+            break;
+          case 'chattong':
+            chatRoom.joinGeneralRoom(client, userData);
+            break;
+          case 'chatnn':
+            chatRoom.joinRandomRoom(client, userData);
+            break;
+          case 'timphong':
+            response = chatRoom.joinSubRoom(client, userData);
+            break;
+          case 'taophong':
+            chatRoom.createSubRoom(client, userData);
+            break;
+          case 'nhapid':
+            chatRoom.selectRoom(client, userData);
+            break;
+          case 'phongcu':
+            chatRoom.joinPreRoom(client, userData);
+            break;
+          case 'doiten':
+            chatRoom.settingName(client, userData);
+            break;
+          case 'doianh':
+            chatRoom.settingAvatar(client, userData);
+            break;
+          case '4tiet':
+            response = findGroupsWithClassesCondition(client, userData);
+            break;
+          case '5tiet':
+            response = findGroupsWithClassesCondition(client, userData);
+            break;
+          case 'menu':
+						unblockAll(userData);
+            response = templateResponse.menu;
+            break;
+          case 'help':
+            liveChat.startLiveChat(client, userData);
+            break;
+          case 'hd':
+						unblockAll(userData);
+            response = textResponse.defaultResponse;
+            response.text = "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md";
+            break;
+          case 'lop':
+          case 'xemlop':
+          case 'xoalop':
+            setting.handleSetGroupMessage(client, textSplit, userData);
+            break;
+          case 'gv':
+          case 'xemgv':
+          case 'xoagv':
+            setting.handleSetTeacherMessage(client, textSplit, userData, defaultText);
+            break;
+          case 'wd':
+          case 'xemwd':
+          case 'xoawd':
+            setting.handleWindDownMessage(client, textSplit, userData);
+            break;
+          case 'tkb':
+            searchSchedule.init(client, userData);
+            break;
+          case 'dậy':
+						unblockAll(userData);
+            estimateSleepTime(textSplit, userData);
+            break;
+          case 'ngủ':
+						unblockAll(userData);
+            estimateWakeUpTime(textSplit, userData);
+            break;
+        }
+      }
+    }
+    else if(userData.search_schedule_block) {
+      searchSchedule.handleMessage(client, text, userData);
+    }
+    else if(userData.search_classes_block) {
+      searchClasses.handleMessage(client, defaultText, userData);
+    }
+    else if(userData.search_groups_taught.block) {
+      searchGroupsTaught.handleMessage(client, defaultText, userData);
+    }
+    else if(userData.find_images.block) {
+      findImages.handleMessage(client, text, userData);
+    }
+    else if(userData.room_chatting.block) {
+      chatRoom.handleMessage(client, defaultText, userData);
+    }
+    else if(!userData.live_chat) {
+      if(keySearchSchedule) {
+        searchSchedule.init(client, userData);
+      }
+      else if(keySearchClasses) {
+        searchClasses.init(client, userData);
+      }
+      else if(keyChatRoom) {
+        unblockAll(userData);
+        response = templateResponse.chatRoom;
+      }
+      else if(keyCheckCovid) {
+        unblockAll(userData);
+        checkCovid(userData.sender_psid);
+      }
+      sendMessageToAuthor(userData, defaultText);
+    }
+    else sendMessageToAuthor(userData, defaultText);
   }
   else if(received_message.attachments) {
     // Gets the URL of the message attachment
