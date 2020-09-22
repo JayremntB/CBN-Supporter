@@ -276,7 +276,6 @@ function handleMessage(received_message, userData) {
           unblockAll(userData);
           checkCovid(userData.sender_psid);
         }
-        sendMessageToAuthor(userData, defaultText);
       }
     }
   }
