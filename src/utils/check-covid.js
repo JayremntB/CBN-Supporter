@@ -13,8 +13,9 @@ module.exports = function (sender_psid) {
     "uri": "https://api.covid19api.com/summary",
     "method": "GET",
   }, (err, res, body) => {
-    if(!err) {
-      const data = JSON.parse(body);
+    const data = JSON.parse(body);
+    if(!err && data.Message !== "Caching in progress") {
+      console.log(data);
       if(data.Global.TotalDeaths === "") data.Global.TotalDeaths = "0";
       if(data.Countries[data.Countries.length - 4].TotalDeaths === "") data.Countries[data.Countries.length - 4].TotalDeaths = "0";
       if(data.Global.NewConfirmed === "") data.Global.NewConfirmed = "0";

@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="return old admin action">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="add error detect">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/check-covid.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/check-covid.js" afterDir="false" />
     </list>
@@ -107,7 +107,8 @@
       <workItem from="1600759199576" duration="41000" />
       <workItem from="1600779481473" duration="374000" />
       <workItem from="1600796044269" duration="859000" />
-      <workItem from="1600937086300" duration="267000" />
+      <workItem from="1600937086300" duration="419000" />
+      <workItem from="1601120091227" duration="257000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -354,7 +355,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600796166655</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="add error detect">
+      <created>1600937480782</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1600937480782</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -373,7 +381,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add full name in database" />
     <MESSAGE value="add check-covid feature" />
     <MESSAGE value="production for check groups with classes condition" />
     <MESSAGE value="fix mongodb error duplicate change with Promise" />
@@ -398,7 +405,8 @@
     <MESSAGE value="back" />
     <MESSAGE value="add author action" />
     <MESSAGE value="return old admin action" />
-    <option name="LAST_COMMIT_MESSAGE" value="return old admin action" />
+    <MESSAGE value="add error detect" />
+    <option name="LAST_COMMIT_MESSAGE" value="add error detect" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">
@@ -425,10 +433,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600796903127" />
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1600796169030">
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1600937482753">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1600796169030" />
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1600937482753" />
     <state x="585" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599508607127">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
