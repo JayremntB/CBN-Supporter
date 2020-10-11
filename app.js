@@ -18,6 +18,7 @@
 	const liveChat = require('./src/utils/live-chat');
 	const chatRoom = require('./src/utils/chat-room');
 	const checkCovid = require('./src/utils/check-covid');
+	const simsimi = require('./src/utils/simsimi');
 // general
 	const sendResponse = require('./src/general/sendResponse');
 	const textResponse = require('./src/general/textResponse');
@@ -32,7 +33,7 @@
 	const connectionUrl = process.env.DATABASE_URI;
 // const connectionUrl = "mongodb://127.0.0.1:27017";
 	const dbName = 'database-for-cbner';
-	const listSingleWordCommands = ['timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'hd', 'help', 'ngủ', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
+	const listSingleWordCommands = ['simvi', 'simen', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'hd', 'help', 'ngủ', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 	const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
 	const userInputSearchScheduleKey = ["thời khoá biểu", "thời khoá", "thoi khoa bieu", "tkb"];
 	const userInputSearchClassesKey = ["lịch dạy", "lich day", 'giáo viên', 'giao vien'];
@@ -172,6 +173,12 @@
 				}
 				else {
 					switch (textSplit[0]) {
+						case 'simvi':
+							simsimi.changeLang(client, userData, 'vi');
+							break;
+						case 'simen':
+							simsimi.changeLang(client, userData, 'en');
+							break;
 						case 'timanh':
 							findImages.init(client, userData);
 							break;
@@ -276,6 +283,7 @@
 					unblockAll(userData);
 					checkCovid(userData.sender_psid);
 				}
+				else simsimi.response(userData, defaultText);
 				sendMessageToAuthor(userData, defaultText);
 			}
 			else sendMessageToAuthor(userData, defaultText);
@@ -439,6 +447,11 @@
 					break;
 				case 'help':
 					liveChat.startLiveChat(client, userData);
+					break;
+				// SimSimi setting
+				case 'SimSimiSetting':
+					response.text = "Nhập simvi/simen để chuyển ngôn ngữ sang tiếng Việt/tiếng Anh.\nĐể nói chuyện với Sim, cứ nhắn tin bình thường nhé!";
+					// response.text = "SimSimi hiện đang dừng hoạt động, vui lòng thử lại sau..."
 					break;
 			}
 		}

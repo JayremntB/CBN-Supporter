@@ -127,23 +127,37 @@
     "attachment": {
       "type": "template",
       "payload": {
-        "template_type": "button",
-        "text": "Các mục khác",
-        "buttons": [
+        "template_type": "generic",
+        "elements": [
           {
-            "type": "postback",
-            "title": "Tính giờ ngủ, dậy",
-            "payload": "countSleepTime"
+            "title": "Bạn cần gì nào :3",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Cài đặt SimSimi",
+                "payload": "SimSimiSetting"
+              },
+              {
+                "type": "postback",
+                "title": "Tính giờ ngủ, dậy",
+                "payload": "countSleepTime"
+              },
+              {
+                "type": "postback",
+                "title": "Tình hình Covid",
+                "payload": "checkCovid"
+              }
+            ]
           },
           {
-            "type": "postback",
-            "title": "Tình hình Covid",
-            "payload": "checkCovid"
-          },
-          {
-            "type": "postback",
-            "title": "Tìm ảnh",
-            "payload": "findImages"
+            "title": "Khác",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Tìm ảnh",
+                "payload": "findImages"
+              }
+            ]
           }
         ]
       }
