@@ -19,10 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="add error detect">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fix afternoon schedule = null">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/search-schedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-schedule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/find-groups-have-4-or-5-classes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/find-groups-have-4-or-5-classes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/search-classes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-classes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/search-groups-taught.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-groups-taught.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +113,7 @@
       <workItem from="1601120091227" duration="380000" />
       <workItem from="1602004721484" duration="454000" />
       <workItem from="1602340344597" duration="201000" />
-      <workItem from="1602383663904" duration="400000" />
+      <workItem from="1602383663904" duration="1696000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -373,7 +374,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601120395974</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="fix afternoon schedule = null">
+      <created>1602384155410</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1602384155411</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -392,7 +400,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add check-covid feature" />
     <MESSAGE value="production for check groups with classes condition" />
     <MESSAGE value="fix mongodb error duplicate change with Promise" />
     <MESSAGE value="kick all users (room chatting)" />
@@ -417,7 +424,8 @@
     <MESSAGE value="add author action" />
     <MESSAGE value="return old admin action" />
     <MESSAGE value="add error detect" />
-    <option name="LAST_COMMIT_MESSAGE" value="add error detect" />
+    <MESSAGE value="fix afternoon schedule = null" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix afternoon schedule = null" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">
@@ -444,10 +452,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600796903127" />
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1601120398810">
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1602384163002">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1601120398810" />
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1602384163002" />
     <state x="585" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599508607127">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

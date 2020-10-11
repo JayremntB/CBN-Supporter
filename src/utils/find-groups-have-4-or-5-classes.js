@@ -35,7 +35,7 @@ async function getResults(client, classesNumber, day, today) {
   dayNow = Number(date.getDay()) + 1;
   if(today) {
     if(dayNow === 1) {
-      result = `Không có lớp nào học ${classesNumber} tiết thứ ${dayNow}...`;
+      result = `Hôm nay chủ nhật mà @@`;
       return result;
     }
   }

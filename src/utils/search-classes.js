@@ -100,6 +100,7 @@ async function updateData(client, userData, teacherName, other_teacher_block) {
       { "schedule.afternoon.teacher": teacherName }
     ]
   }).toArray((err, docs) => {
+    console.log(docs);
     if (err) {
       console.error("Could not update other teacher data: \n" + err);
       const response = {
@@ -117,7 +118,7 @@ async function updateData(client, userData, teacherName, other_teacher_block) {
         for(let j = 0; j < 5; j ++) { // loop classes
           // loop groups
           docs.forEach((doc) => {
-            if(doc.schedule[i].morning[j] && doc.schedule[i].morning[j].teacher === teacherName){
+            if(doc.schedule[i].morning && doc.schedule[i].morning[j] && doc.schedule[i].morning[j].teacher === teacherName){
               teaches[i].morning.push({
                 class: j + 1,
                 group: doc.group
@@ -126,7 +127,7 @@ async function updateData(client, userData, teacherName, other_teacher_block) {
             }
           });
           docs.forEach((doc) => {
-            if(doc.schedule[i].afternoon[j] && doc.schedule[i].afternoon[j].teacher === teacherName){
+            if(doc.schedule[i].afternoon && doc.schedule[i].afternoon[j] && doc.schedule[i].afternoon[j].teacher === teacherName){
               teaches[i].afternoon.push({
                 class: j + 1,
                 group: doc.group

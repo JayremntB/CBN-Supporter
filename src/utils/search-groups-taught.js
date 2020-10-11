@@ -113,10 +113,10 @@ async function updateData(client, userData, subjectName) {
             groups: []
           });
           docs.forEach((doc) => {
-            if(doc.schedule[i].morning[j] && doc.schedule[i].morning[j].subject === subjectName){
+            if(doc.schedule[i].morning && doc.schedule[i].morning[j] && doc.schedule[i].morning[j].subject === subjectName){
               groups[i].morning[j].groups.push(doc.group);
             }
-            if(doc.schedule[i].afternoon[j] && doc.schedule[i].afternoon[j].subject === subjectName){
+            if(doc.schedule[i].afternoon && doc.schedule[i].afternoon[j] && doc.schedule[i].afternoon[j].subject === subjectName){
               groups[i].afternoon[j].groups.push(doc.group);
             }
           });
