@@ -168,11 +168,13 @@ Thứ ${data.day}:
     text += `
  - Chiều: `;
       //
-      data.afternoon.forEach((Class, i) => {
-        if(Class.subject !== "")
-        subText += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
-      });
+      if(data.afternoon) {
+        data.afternoon.forEach((Class, i) => {
+          if(Class.subject !== "")
+          subText += `
+     + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
+        });
+      }
       if(!subText) text += "Nghỉ";
       else text += subText;
       subText = "";
@@ -208,11 +210,13 @@ Thứ ${data.day}:
  - Chiều: `;
       //
       subText = "";
-      data.afternoon.forEach((Class, i) => {
-        if(Class.subject !== "")
-        subText += `
-   + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
-      });
+      if(data.afternoon) {
+        data.afternoon.forEach((Class, i) => {
+          if(Class.subject !== "")
+          subText += `
+     + Tiết ${i + 1}: ${Class.subject} - ${Class.teacher}`;
+        });
+      }
       if(!subText) text += "Nghỉ";
       else text += subText;
       text += "\n-----------\nĐừng có ngủ gật trong giờ nhé 🥱";

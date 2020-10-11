@@ -113,6 +113,8 @@ function handleMessage(received_message, userData) {
         return;
       }
     });
+    const textSplit = defaultText.split(" ");
+    textSplit[0] = textSplit[0].toLo
     userInputChatRoomKey.forEach((input) => {
         if(text.includes(input)) {
         keyChatRoom = true; 
@@ -125,8 +127,6 @@ function handleMessage(received_message, userData) {
         return;
       }
     });
-    const textSplit = defaultText.split(" ");
-    textSplit[0] = textSplit[0].toLowerCase();
     console.log("message: " + text + "\n--------------------------------");
     //
     if(userData.room_chatting.has_joined) {
