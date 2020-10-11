@@ -19,11 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fix afternoon schedule = null">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="add teachers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/general/template.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/template.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/general/validate-input.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/validate-input.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/getTeachers.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/getTeachers.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +112,7 @@
       <workItem from="1601120091227" duration="380000" />
       <workItem from="1602004721484" duration="454000" />
       <workItem from="1602340344597" duration="201000" />
-      <workItem from="1602383663904" duration="3793000" />
+      <workItem from="1602383663904" duration="4602000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -388,7 +387,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602386211500</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="add teachers">
+      <created>1602388365929</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1602388365929</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -407,7 +413,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="production for check groups with classes condition" />
     <MESSAGE value="fix mongodb error duplicate change with Promise" />
     <MESSAGE value="kick all users (room chatting)" />
     <MESSAGE value="add recommend teachers" />
@@ -432,7 +437,8 @@
     <MESSAGE value="return old admin action" />
     <MESSAGE value="add error detect" />
     <MESSAGE value="fix afternoon schedule = null" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix afternoon schedule = null" />
+    <MESSAGE value="add teachers" />
+    <option name="LAST_COMMIT_MESSAGE" value="add teachers" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">
@@ -459,10 +465,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600796903127" />
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1602386212607">
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1602388367080">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1602386212607" />
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1602388367080" />
     <state x="585" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599508607127">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

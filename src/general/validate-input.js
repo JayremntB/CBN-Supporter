@@ -88,6 +88,7 @@ function handleSubjectName(subjectName) {
 }
 
 function handleTeacherName(teacherName) {
+  if(teacherName === "(Học Bơi)") return teacherName;
   let teacherNameToSearch = "";
   // console.log(teacherName);
   teacherNameSeparateByDot = teacherName.split(".");
@@ -113,7 +114,7 @@ function handleTeacherName(teacherName) {
 }
 
 function checkTeacherName(sender_psid, teacherName) {
-  // console.log(teacherName.length);
+  console.log(teacherName);
   const checkArray = teachersCheckArray;
   if(checkArray.includes(teacherName)) return true;
   else {
@@ -122,7 +123,6 @@ function checkTeacherName(sender_psid, teacherName) {
     checkArray.forEach(teacher => {
       teacherNameSplit = teacherName.split('.');
       teacherInArray = teacher.split('.');
-	    console.log(teacherInArray[teacherInArray.length - 1]);
       if(teacherInArray[teacherInArray.length - 1].toLowerCase().includes(teacherNameSplit[teacherNameSplit.length - 1].toLowerCase())) {
         listRecommendedTeachers.push(teacher);
       }
@@ -135,7 +135,7 @@ function checkTeacherName(sender_psid, teacherName) {
       response.text = "Không tìm thấy lịch dạy và không có kết quả đề xuất giáo viên nào. Kiểm tra xem bạn có viết nhầm ở đâu không nhé :<";
     }
     else {
-      response.text = "Đây là một số đề xuất dành cho bạn, nếu có giáo viên bạn cần tìm hãy gõ lại ngay bên dưới nhé:";
+      response.text = "Đây là một số đề xuất dành cho bạn, nếu có giáo viên bạn cần tìm hãy gõ lại ngay bên dưới nhé:\n(Lưu ý dấu cách, dấu ngoặc, ...)";
       listRecommendedTeachers.forEach(teacher => {
         response.text += `\n${teacher}`;
       });
