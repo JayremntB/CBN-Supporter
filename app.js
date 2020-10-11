@@ -284,7 +284,6 @@
 					checkCovid(userData.sender_psid);
 				}
 				else simsimi.response(userData, defaultText);
-				sendMessageToAuthor(userData, defaultText);
 			}
 			else sendMessageToAuthor(userData, defaultText);
 		}
