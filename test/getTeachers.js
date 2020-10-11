@@ -54,10 +54,10 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
       let teachersList = [];
       docs.forEach((doc) => {
         doc.schedule.forEach((doc1) => {
-          doc1.morning.forEach((doc2) => {
+          if(doc1.morning) doc1.morning.forEach((doc2) => {
             if(doc2.teacher !== "" && !teachersList.includes(doc2.teacher)) teachersList.push(doc2.teacher);
           });
-          doc1.afternoon.forEach((doc2) => {
+          if(doc1.afternoon) doc1.afternoon.forEach((doc2) => {
             if(doc2.teacher !== "" && !teachersList.includes(doc2.teacher)) teachersList.push(doc2.teacher);
           });
         });

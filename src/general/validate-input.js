@@ -121,7 +121,9 @@ function checkTeacherName(sender_psid, teacherName) {
     let listRecommendedTeachers = [];
     checkArray.forEach(teacher => {
       teacherNameSplit = teacherName.split('.');
-      if(teacher.includes(teacherNameSplit[teacherNameSplit.length - 1])) {
+      teacherInArray = teacher.split('.');
+	    console.log(teacherInArray[teacherInArray.length - 1]);
+      if(teacherInArray[teacherInArray.length - 1].toLowerCase().includes(teacherNameSplit[teacherNameSplit.length - 1].toLowerCase())) {
         listRecommendedTeachers.push(teacher);
       }
     });
