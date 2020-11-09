@@ -1,7 +1,7 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
 const textResponse = require('../general/textResponse');
-const { checkTeacherName, handleDayInput, handleTeacherName } = require('../general/validate-input');
+const { checkTeacherName, handleDayInput, handleTeacherName, convertTimestamp } = require('../general/validate-input');
 const { userDataUnblockSchema } = require('../general/template');
 
 const dbName = 'database-for-cbner';
@@ -31,10 +31,10 @@ function handleMessage(client, text, userData) {
         sendResponse(userData.sender_psid, response);
       }
       else if(!userData.search_classes_other_teacher.block) {
-        sendClasses(text, userData, client);
+        sendClasses(text, userData, client, data.updated_time);
       }
       else if(userData.search_classes_other_teacher.teacher) {
-        sendClasses(text, userData, client);
+        sendClasses(text, userData, client, data.updated_time);
       }
       else if(checkTeacherName(userData.sender_psid, handleTeacherName(text))) {
         updateData(client, userData, handleTeacherName(text), userData.search_classes_other_teacher.block);
@@ -174,7 +174,7 @@ async function updateData(client, userData, teacherName, other_teacher_block) {
   });
 }
 
-function sendClasses(dayInput, userData) {
+function sendClasses(dayInput, userData, client, updated_time) {
   let response = textResponse.askDay;
   response.quick_replies[0].title = "Tra giáo viên khác";
   response.quick_replies[0].payload = "overwriteTeacher";
@@ -243,7 +243,8 @@ Thứ ${days + 2}:
    + Tiết ${subdata.class}: ${subdata.group}`;
         });
       }
-      text += `\n-----------\nHí hí, bị thu điện thoại đúng không =))`;
+      text += "\n-----------\nNgày cập nhật thời khoá biểu: ";
+      text += convertTimestamp(updated_time ? updated_time : "Not found");
       response.text = text;
       sendResponse(userData.sender_psid, response);
     }

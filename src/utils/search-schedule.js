@@ -1,7 +1,7 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
 const textResponse = require('../general/textResponse');
-const { checkGroup, handleDayInput } = require('../general/validate-input');
+const { checkGroup, handleDayInput, convertTimestamp } = require('../general/validate-input');
 const { userDataUnblockSchema } = require('../general/template');
 
 const dbName = 'database-for-cbner';
@@ -31,10 +31,10 @@ function handleMessage(client, text, userData) {
         sendResponse(userData.sender_psid, response);
       }
       else if(!userData.search_schedule_other_group.block) { // have group set
-        sendSchedule(text, userData, client);
+        sendSchedule(text, userData, client, data.updated_time);
       }
       else if(userData.search_schedule_other_group.group) { // not have group set, but being day searching
-        sendSchedule(text, userData, client);
+        sendSchedule(text, userData, client, data.updated_time);
       }
       else if(checkGroup(userData.sender_psid, text)) { // not being day searching, but being group searching
         updateData(client, userData, text, userData.search_schedule_other_group.block);
@@ -140,7 +140,7 @@ async function updateData(client, userData, groupInput, other_group_block) {
   });
 }
 
-function sendSchedule(dayInput, userData) {
+function sendSchedule(dayInput, userData, client, updated_time) {
   let response = textResponse.askDay;
   response.quick_replies[0].title = "Tra lớp khác";
   response.quick_replies[0].payload = "overwriteClass";
@@ -219,7 +219,8 @@ Thứ ${data.day}:
       }
       if(!subText) text += "Nghỉ";
       else text += subText;
-      text += "\n-----------\nĐừng có ngủ gật trong giờ nhé 🥱";
+      text += "\n\nĐừng có ngủ gật trong giờ nhé 🥱\n-----------\nNgày cập nhật thời khoá biểu: ";
+      text += convertTimestamp(updated_time ? updated_time : "Not found");
       response.text = text;
       sendResponse(userData.sender_psid, response);
     }

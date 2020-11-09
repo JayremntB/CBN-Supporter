@@ -262,7 +262,7 @@ VÍ DỤ: dậy 6h15
     ]
   },
   "searchScheduleAskGroup": {
-    "text": "Bạn tìm lớp nào? \n(Ví dụ: 11ti, ...)",
+    "text": "Bạn tìm lớp nào? \n(Ví dụ: 12ti, ...)",
     "quick_replies": [
       {
         "content_type": "text",

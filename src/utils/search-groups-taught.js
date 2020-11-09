@@ -1,7 +1,7 @@
 'use strict'
 const sendResponse = require('../general/sendResponse');
 const textResponse = require('../general/textResponse');
-const { handleDayInput, checkSubjectName, handleSubjectName } = require('../general/validate-input');
+const { handleDayInput, checkSubjectName, handleSubjectName, convertTimestamp } = require('../general/validate-input');
 const { userDataUnblockSchema } = require('../general/template');
 
 const dbName = 'database-for-cbner';
@@ -33,7 +33,7 @@ function handleMessage(client, text, userData) {
         sendResponse(userData.sender_psid, response);
       }
       else if(userData.search_groups_taught.subject) {
-        sendGroups(text, userData, client);
+        sendGroups(text, userData, client, data.updated_time);
       }
       else if(checkSubjectName(userData.sender_psid, text.toLowerCase())) {
         text = handleSubjectName(text.toLowerCase());
@@ -150,7 +150,7 @@ async function updateData(client, userData, subjectName) {
   });
 }
 
-function sendGroups(dayInput, userData) {
+function sendGroups(dayInput, userData, client, updated_time) {
   let response = textResponse.searchGroupsAskDay;
   let day = handleDayInput(dayInput.toLowerCase());
   let groups = userData.search_groups_taught.groups;
@@ -195,8 +195,8 @@ function sendGroups(dayInput, userData) {
    + Tiết ${subdata.class}: ${groupsTaught}`;
       });
       //    ------------------------
-      text += `\n-----------`;
-      text += `\nHọc nhờ vất vả nhở, đi đi lại lại, đã thế còn phải xa đứa cùng bàn nữa chứ 😒`;
+      text += "\n-----------\nNgày cập nhật thời khoá biểu: ";
+      text += convertTimestamp(updated_time ? updated_time : "Not found");
       response.text = text;
       sendResponse(userData.sender_psid, response);
     }

@@ -12,31 +12,24 @@ module.exports = {
 	extractExtName: extractExtName,
 	extractHostname: extractHostname,
 	handleSubjectName: handleSubjectName,
-	filterWordSimsimi: filterWordSimsimi
+	filterWordSimsimi: filterWordSimsimi,
+	convertTimestamp: convertTimestamp
 }
 
-function filterWordSimsimi(text) {
-	const filterWords = ["Địt", "địt", "Lồn", "lồn", "Cặc", "cặc", "Cu", "cu", "liếm", "bú", "đái", "chym", "Buồi", "buồi"];
-	let textSplit = text.split(" ");
-	let fullText = "";
-	let filterWordsCount = 0;
-	textSplit.forEach((textPart, i) => {
-		console.log(textPart);
-		filterWords.forEach((word) => {
-			if (textPart.includes(word)) {
-				textSplit[i] = "***";
-				filterWordsCount++;
-				return;
-			}
-		});
-	});
-	textSplit.forEach(textPart => {
-		fullText += textPart + " ";
-	});
-	const textReturn = filterWordsCount >= 4 ?
-		"*Sim vừa bị Jay vả vì định nói quá nhiều từ bậy*" :
-		fullText;
-	return textReturn;
+function convertTimestamp(timestamp) {
+	const a = new Date(timestamp - 8 * 3600 * 1000);
+	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	const year = a.getFullYear();
+	const month = a.getMonth() + 1;
+	const date = a.getDate();
+	const hour = a.getHours();
+	const min = a.getMinutes() < 10 ?
+		'0' + a.getMinutes() :
+		a.getMinutes();
+	const sec = a.getSeconds() < 10 ?
+		'0' + a.getSeconds() :
+		a.getSeconds();
+	return hour + 'h' + min + " - " + date + '/' + month + '/' + year;
 }
 
 function checkSubjectName(sender_psid, subjectName) {
@@ -244,6 +237,30 @@ function extractExtName(url) {
 	extName = extName.split('?')[0];
 
 	return extName;
+}
+
+function filterWordSimsimi(text) {
+	const filterWords = ["Địt", "địt", "Lồn", "lồn", "Cặc", "cặc", "Cu", "cu", "liếm", "bú", "đái", "chym", "Buồi", "buồi"];
+	let textSplit = text.split(" ");
+	let fullText = "";
+	let filterWordsCount = 0;
+	textSplit.forEach((textPart, i) => {
+		console.log(textPart);
+		filterWords.forEach((word) => {
+			if (textPart.includes(word)) {
+				textSplit[i] = "***";
+				filterWordsCount++;
+
+			}
+		});
+	});
+	textSplit.forEach(textPart => {
+		fullText += textPart + " ";
+	});
+	const textReturn = filterWordsCount >= 4 ?
+		"*Sim vừa bị Jay vả vì định nói quá nhiều từ bậy*" :
+		fullText;
+	return textReturn;
 }
 
 function extractHostname(url) {
