@@ -17,7 +17,7 @@ module.exports = {
 }
 
 function convertTimestamp(timestamp) {
-	const a = new Date(timestamp - 8 * 3600 * 1000);
+	const a = new Date(timestamp);
 	const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 	const year = a.getFullYear();
 	const month = a.getMonth() + 1;
