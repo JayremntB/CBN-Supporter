@@ -178,9 +178,10 @@ Thứ ${data.day}:
       if(!subText) text += "Nghỉ";
       else text += subText;
       subText = "";
-      text += `\n-----------`;
+      text += `\n`;
     });
-    text += "\nHọc tập hẳn hoi không là bị véo tai suốt ngày như tôi đấy :(";
+    text += "\nHọc tập hẳn hoi không là bị véo tai suốt ngày như tôi đấy :(\n-----------\nNgày cập nhật thời khoá biểu: ";
+    text += convertTimestamp(updated_time ? updated_time : "Not found");
     response.text = text;
     sendResponse(userData.sender_psid, response);
   }

@@ -209,6 +209,8 @@ Thứ ${days + 2}:
       }
       //    ------------------------
     });
+    text += "\n-----------\nNgày cập nhật thời khoá biểu: ";
+    text += convertTimestamp(updated_time ? updated_time : "Not found");
     response.text = text;
     sendResponse(userData.sender_psid, response);
   }
