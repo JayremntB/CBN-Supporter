@@ -180,10 +180,11 @@ Thứ ${data.day}:
       subText = "";
       text += `\n`;
     });
-    text += `LỊCH HỌC THỂ DỤC KHỐI 12
-THỨ 4 (CA 1); 12 TOÁN - 12 LÍ - 12 HÓA; THỨ 4 (CA 2): 12 SINH  - 12 TIN - 12 VĂN						
-THỨ 6 (CA 2): 12 SỬ - 12 ĐỊA - 12 ANH 1						
-THỨ 7 (CA 1): 12 ANH 2 - 12 CẬN 1 - 12 CẬN 2						
+      text += `\n---\nLịch học thể dục khối 12:
++ Thứ 4 (CA 1): 12t - 12l - 12h
++ Thứ 4 (CA 2): 12si  - 12ti - 12v						
++ Thứ 6 (CA 2): 12su - 12d - 12a1					
++ Thứ 7 (CA 1): 12a2 - 12c1 - 12c2						
 `;
     text += "\nHọc tập hẳn hoi không là bị véo tai suốt ngày như tôi đấy :(\n-----------\nNgày cập nhật thời khoá biểu: ";
     text += convertTimestamp(updated_time ? updated_time : "Not found");
@@ -225,10 +226,11 @@ THỨ 7 (CA 1): 12 ANH 2 - 12 CẬN 1 - 12 CẬN 2
       }
       if(!subText) text += "Nghỉ";
       else text += subText;
-      text += `\nLỊCH HỌC THỂ DỤC KHỐI 12
-THỨ 4 (CA 1); 12 TOÁN - 12 LÍ - 12 HÓA; THỨ 4 (CA 2): 12 SINH  - 12 TIN - 12 VĂN						
-THỨ 6 (CA 2): 12 SỬ - 12 ĐỊA - 12 ANH 1						
-THỨ 7 (CA 1): 12 ANH 2 - 12 CẬN 1 - 12 CẬN 2						
+      text += `\n---\nLịch học thể dục khối 12:
++ Thứ 4 (CA 1): 12t - 12l - 12h
++ Thứ 4 (CA 2): 12si  - 12ti - 12v						
++ Thứ 6 (CA 2): 12su - 12d - 12a1					
++ Thứ 7 (CA 1): 12a2 - 12c1 - 12c2						
 `;
       text += "\n\nĐừng có ngủ gật trong giờ nhé 🥱\n-----------\nNgày cập nhật thời khoá biểu: ";
       text += convertTimestamp(updated_time ? updated_time : "Not found");
