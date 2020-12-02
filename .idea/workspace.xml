@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="add tkb">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fiaènoiea">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/search-groups-taught.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-groups-taught.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/search-schedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/search-schedule.js" afterDir="false" />
@@ -124,7 +124,8 @@
       <workItem from="1604844585057" duration="183000" />
       <workItem from="1604935680178" duration="3380000" />
       <workItem from="1605017900067" duration="967000" />
-      <workItem from="1606660850968" duration="582000" />
+      <workItem from="1606660850968" duration="884000" />
+      <workItem from="1606885906102" duration="39000" />
     </task>
     <task id="LOCAL-00001" summary="update frame">
       <created>1599322315310</created>
@@ -455,7 +456,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606661081738</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="fiaènoiea">
+      <created>1606661441429</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1606661441429</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -474,7 +482,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add subject detect" />
     <MESSAGE value="fix shuffle messages send" />
     <MESSAGE value="shorten ask subject quick response" />
     <MESSAGE value="final" />
@@ -499,7 +506,8 @@
     <MESSAGE value="add schedule updated time" />
     <MESSAGE value="fdsifds" />
     <MESSAGE value="add tkb" />
-    <option name="LAST_COMMIT_MESSAGE" value="add tkb" />
+    <MESSAGE value="fiaènoiea" />
+    <option name="LAST_COMMIT_MESSAGE" value="fiaènoiea" />
   </component>
   <component name="WindowStateProjectService">
     <state x="394" y="90" key="#Inspections" timestamp="1598669968168">
@@ -526,10 +534,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1535" height="209" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1600796903127" />
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1606661090002">
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2" timestamp="1606661442844">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1606661090002" />
+    <state x="360" y="142" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1606661442844" />
     <state x="585" y="325" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599508607127">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
