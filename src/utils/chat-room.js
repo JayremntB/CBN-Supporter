@@ -212,8 +212,8 @@ function sendAnnouncement(client, userData, room) {
   const message = {
     "text": `${userData.room_chatting.name.toUpperCase()} đã vào phòng chat!`
   };
-  sendNewPersonaMessage(room.list_users, message, userData, 1);
   setRoomID(client, room.room_id, userData);
+  sendNewPersonaMessage(room.list_users, message, userData, 1);
 }
 
 async function createNewSubRoom(client, userData, limitUsers) {
@@ -447,9 +447,12 @@ function getPersonaID(client, name, imgUrl, userData) {
 }
 
 function sendNewPersonaMessage(list_users, message, userData, adminAction) {
+  let sendPromises = [];
   list_users.forEach((userPsid) => {
-    if(userPsid !== userData.sender_psid) sendPersonaMessage(userPsid, message, userData.room_chatting.persona_id, adminAction);
+    if(userPsid !== userData.sender_psid) sendPromises.push(sendPersonaMessage(userPsid, message, userData.room_chatting.persona_id, adminAction));
   });
+
+ return Promise.all(sendPromises);
 }
 
 function sendPersonaMessage(sender_psid, message, persona_id, adminAction) {
