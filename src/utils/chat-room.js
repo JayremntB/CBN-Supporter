@@ -456,7 +456,7 @@ function getPersonaID(client, name, imgUrl, userData) {
 function sendNewPersonaMessage(list_users, message, userData, adminAction) {
 	let sendPromises = [];
 	list_users.forEach((userPsid) => {
-		if (userPsid !== userData.sender_psid) sendPromises.push(sendResponse(userPsid, message, userData.room_chatting.persona_id, adminAction));
+		if (userPsid !== userData.sender_psid) sendPromises.push(sendPersonaMessage(userPsid, message, userData.room_chatting.persona_id, adminAction));
 	});
 
 	Promise.all(sendPromises).then();

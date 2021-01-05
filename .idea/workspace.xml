@@ -21,7 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/updateUserData.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/updateUserData.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,14 +135,7 @@
       <workItem from="1609485053948" duration="109000" />
       <workItem from="1609797992953" duration="2481000" />
       <workItem from="1609800550853" duration="1471000" />
-      <workItem from="1609805028647" duration="3853000" />
-    </task>
-    <task id="LOCAL-00009" summary="production for check groups with classes condition">
-      <created>1599464161665</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1599464161665</updated>
+      <workItem from="1609805028647" duration="5081000" />
     </task>
     <task id="LOCAL-00010" summary="fix mongodb error duplicate change with Promise">
       <created>1599472811622</created>
@@ -478,7 +473,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609807507612</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="test">
+      <created>1609808889353</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1609808889353</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

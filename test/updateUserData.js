@@ -15,7 +15,8 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
   // update
   client.db(dbName).collection('users-data').updateMany({}, {
     $set: {
-      "room_chatting.persona_id": "3363745553659185"
+      "room_chatting.persona_id": "263211555146775",
+      "room_chatting.img_url": "https://i.imgur.com/187Y4u3.png"
     }
   }, (err) => {
     if(err) console.error(err);

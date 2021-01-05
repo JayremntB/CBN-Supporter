@@ -41,7 +41,9 @@
 	const userInputCheckCovidKey = ["covid", "covi"];
 // connect to database
 	const client = await MongoClient.connect(connectionUrl, {useNewUrlParser: true, useUnifiedTopology: true});
-// 
+//
+
+	chatRoom.getPersonaID(client, "Người lạ", "https://i.imgur.com/187Y4u3.png");
 	app.get('/', (req, res) => {
 		res.send("ok");
 	});
