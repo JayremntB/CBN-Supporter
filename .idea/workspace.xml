@@ -19,7 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="replace tạm">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="feknree">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,14 +133,7 @@
       <workItem from="1609485053948" duration="109000" />
       <workItem from="1609797992953" duration="2481000" />
       <workItem from="1609800550853" duration="1471000" />
-      <workItem from="1609805028647" duration="1631000" />
-    </task>
-    <task id="LOCAL-00005" summary="full name detect live chat">
-      <created>1599369792139</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1599369792139</updated>
+      <workItem from="1609805028647" duration="1889000" />
     </task>
     <task id="LOCAL-00006" summary="add full name in database">
       <created>1599372191806</created>
@@ -477,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609806301379</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="feknree">
+      <created>1609806668556</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1609806668556</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -496,7 +497,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change var name" />
     <MESSAGE value="delete abundant code" />
     <MESSAGE value="fix check teacher name" />
     <MESSAGE value="fix detect feature error" />
@@ -521,6 +521,7 @@
     <MESSAGE value="update send personas messages" />
     <MESSAGE value="test" />
     <MESSAGE value="replace tạm" />
-    <option name="LAST_COMMIT_MESSAGE" value="replace tạm" />
+    <MESSAGE value="feknree" />
+    <option name="LAST_COMMIT_MESSAGE" value="feknree" />
   </component>
 </project>
