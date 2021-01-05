@@ -452,7 +452,7 @@ function sendNewPersonaMessage(list_users, message, userData, adminAction) {
     if(userPsid !== userData.sender_psid) sendPromises.push(sendPersonaMessage(userPsid, message, userData.room_chatting.persona_id, adminAction));
   });
 
- return Promise.all(sendPromises);
+ Promise.all(sendPromises).then();
 }
 
 function sendPersonaMessage(sender_psid, message, persona_id, adminAction) {

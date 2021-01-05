@@ -19,9 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="uwu">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="update send personas messages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/announce-all-server.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/announce-all-server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,14 +132,9 @@
       <workItem from="1607432703133" duration="623000" />
       <workItem from="1607434539369" duration="613000" />
       <workItem from="1609485053948" duration="109000" />
-      <workItem from="1609797992953" duration="1435000" />
-    </task>
-    <task id="LOCAL-00001" summary="update frame">
-      <created>1599322315310</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1599322315310</updated>
+      <workItem from="1609797992953" duration="2481000" />
+      <workItem from="1609800550853" duration="1471000" />
+      <workItem from="1609805028647" duration="952000" />
     </task>
     <task id="LOCAL-00002" summary="open search features">
       <created>1599324296288</created>
@@ -476,7 +472,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606885967454</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="update send personas messages">
+      <created>1609799489423</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1609799489423</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -495,7 +498,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="shorten ask subject quick response" />
     <MESSAGE value="final" />
     <MESSAGE value="fix not show setting profile when left room" />
     <MESSAGE value="change var name" />
@@ -520,6 +522,7 @@
     <MESSAGE value="add tkb" />
     <MESSAGE value="fiaènoiea" />
     <MESSAGE value="uwu" />
-    <option name="LAST_COMMIT_MESSAGE" value="uwu" />
+    <MESSAGE value="update send personas messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="update send personas messages" />
   </component>
 </project>
