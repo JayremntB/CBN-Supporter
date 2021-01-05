@@ -456,8 +456,10 @@ function getPersonaID(client, name, imgUrl, userData) {
 function sendNewPersonaMessage(list_users, message, userData, adminAction) {
 	list_users.forEach((userPsid) => {
 		list_users.forEach((userPsid) => {
-			if (userPsid !== userData.sender_psid) sendPersonaMessage(userPsid, message, userData.room_chatting.persona_id, adminAction);
-			if (userPsid !== userData.sender_psid) sendPromises.push(sendPersonaMessage(userPsid, message, userData.room_chatting.persona_id, adminAction));
+			if (userPsid !== userData.sender_psid) {
+				// sendPersonaMessage(userPsid, message, userData.room_chatting.persona_id, adminAction);
+				sendResponse(userPsid, message);
+			}
 		});
 	});
 }
