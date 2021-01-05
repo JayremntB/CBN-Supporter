@@ -19,9 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="feknree">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/updateUserData.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/updateUserData.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,14 +134,7 @@
       <workItem from="1609485053948" duration="109000" />
       <workItem from="1609797992953" duration="2481000" />
       <workItem from="1609800550853" duration="1471000" />
-      <workItem from="1609805028647" duration="1889000" />
-    </task>
-    <task id="LOCAL-00006" summary="add full name in database">
-      <created>1599372191806</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1599372191806</updated>
+      <workItem from="1609805028647" duration="2349000" />
     </task>
     <task id="LOCAL-00007" summary="production">
       <created>1599376573232</created>
@@ -478,7 +472,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609806668556</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="test">
+      <created>1609806970135</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1609806970135</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -519,9 +520,9 @@
     <MESSAGE value="fiaènoiea" />
     <MESSAGE value="uwu" />
     <MESSAGE value="update send personas messages" />
-    <MESSAGE value="test" />
     <MESSAGE value="replace tạm" />
     <MESSAGE value="feknree" />
-    <option name="LAST_COMMIT_MESSAGE" value="feknree" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
 </project>
