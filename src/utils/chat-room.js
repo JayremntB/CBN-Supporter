@@ -45,7 +45,7 @@ function changeInforToDefault(client, userData) {
 	let update = userDataUnblockSchema(userData);
 	update.room_chatting.block = false;
 	update.room_chatting.type = "";
-	update.room_chatting.persona_id = "3363745553659185";
+	update.room_chatting.persona_id = "263211555146775";
 	update.room_chatting.name = "Người lạ";
 	update.room_chatting.img_url = "https://i.imgur.com/187Y4u3.png";
 	client.db(dbName).collection('users-data').updateOne({sender_psid: userData.sender_psid}, {

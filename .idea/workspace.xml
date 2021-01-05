@@ -20,7 +20,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="update app">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,14 +132,7 @@
       <workItem from="1609485053948" duration="109000" />
       <workItem from="1609797992953" duration="2481000" />
       <workItem from="1609800550853" duration="1471000" />
-      <workItem from="1609805028647" duration="7065000" />
-    </task>
-    <task id="LOCAL-00013" summary="production">
-      <created>1599486929058</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1599486929058</updated>
+      <workItem from="1609805028647" duration="7185000" />
     </task>
     <task id="LOCAL-00014" summary="add subject detect">
       <created>1599500543777</created>
@@ -478,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609812182288</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="update app">
+      <created>1609814158107</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1609814158107</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
