@@ -22,7 +22,6 @@
     <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/updateUserData.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/updateUserData.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,21 +133,7 @@
       <workItem from="1609485053948" duration="109000" />
       <workItem from="1609797992953" duration="2481000" />
       <workItem from="1609800550853" duration="1471000" />
-      <workItem from="1609805028647" duration="2349000" />
-    </task>
-    <task id="LOCAL-00007" summary="production">
-      <created>1599376573232</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1599376573232</updated>
-    </task>
-    <task id="LOCAL-00008" summary="add check-covid feature">
-      <created>1599433026843</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1599433026843</updated>
+      <workItem from="1609805028647" duration="3853000" />
     </task>
     <task id="LOCAL-00009" summary="production for check groups with classes condition">
       <created>1599464161665</created>
@@ -479,7 +464,21 @@
       <option name="project" value="LOCAL" />
       <updated>1609806970135</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="test">
+      <created>1609807385988</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1609807385988</updated>
+    </task>
+    <task id="LOCAL-00057" summary="test">
+      <created>1609807507612</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1609807507612</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
