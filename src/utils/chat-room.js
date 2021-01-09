@@ -78,9 +78,7 @@ function checkJoinedTime(listUsersIDs) {
 			})
 
 			return Promise.all(leaveRoomPromises);
-		}).then(() => {
-			resolve('Checked joined time done...');
-		}).catch(resolve);
+		}).then(resolve('Checked joined time done...')).catch(resolve);
 	});
 }
 
@@ -95,10 +93,10 @@ function handleMessage(client, text, userData, attachment_url) {
 				};
 				// if user send attachment
 				if (attachment_url) message = returnMessageBelongWithExtName(attachment_url);
-				checkJoinedTime(res.list_users).then(response => {
-					console.log(response);
+				// checkJoinedTime(res.list_users).then(response => {
+					// console.log(response);
 					sendNewPersonaMessage(res.list_users, message, userData);
-				});
+				// });
 			}
 		});
 	}
