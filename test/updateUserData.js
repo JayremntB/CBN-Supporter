@@ -11,12 +11,12 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology: 
   console.log("Connect successfully");
   const date = new Date();
   date.setHours(date.getHours() + 7); // deploy at US
+  date.setHours(date.getHours() - 24);
   const timeNow = date.getTime();
   // update
   client.db(dbName).collection('users-data').updateMany({}, {
     $set: {
-      "room_chatting.persona_id": "263211555146775",
-      "room_chatting.img_url": "https://i.imgur.com/187Y4u3.png"
+      "room_chatting.joined_time": timeNow
     }
   }, (err) => {
     if(err) console.error(err);

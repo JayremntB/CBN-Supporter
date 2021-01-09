@@ -73,9 +73,10 @@ function userDataFrame(sender_psid, name) {
       create_new_subroom: false,
       room_id: "",
       pre_room: 1,
-      persona_id: "3363745553659185",
+      persona_id: "263211555146775",
       name: "Người lạ",
-      img_url: "https://i.imgur.com/187Y4u3.png"
+      img_url: "https://i.imgur.com/187Y4u3.png",
+      joined_time: ""
     },
     live_chat: false
   }
@@ -116,7 +117,8 @@ function userDataUnblockSchema(userData) {
       pre_room: userData.room_chatting.pre_room,
       persona_id: userData.room_chatting.persona_id,
       name: userData.room_chatting.name,
-      img_url: userData.room_chatting.img_url
+      img_url: userData.room_chatting.img_url,
+      joined_time: ""
     },
     live_chat: false
   };

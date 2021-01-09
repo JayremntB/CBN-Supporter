@@ -57,6 +57,33 @@ function changeInforToDefault(client, userData) {
 	sendResponse(userData.sender_psid, response);
 }
 
+function checkJoinedTime(listUsersIDs) {
+	return new Promise(resolve => {
+		let getRoomUsersPromises = [];
+
+		listUsersID.forEach(id => {
+			getRoomUsersPromises.push(client.db(dbName).collection('users-data').findOne({sender_psid: id}));
+		});
+
+		Promise.all(getRoomUsersPromises).then(usersData => {
+			console.log(usersData);
+			let leaveRoomPromises = [];
+
+			usersData.forEach(userData => {
+				let date = new Date();
+				if (date.getTime() - userData.room_chatting.joined_time > 36 * 60 * 60 * 100) {
+					// exprire, kick out of room
+					leaveRoomPromises.push(leaveRoom(client, userData));
+				}
+			})
+
+			return Promise.all(leaveRoomPromises);
+		}).then(() => {
+			resolve('Checked joined time done...');
+		}).catch(resolve);
+	});
+}
+
 function handleMessage(client, text, userData, attachment_url) {
 	// if has joined an exist room, send message
 	if (userData.room_chatting.has_joined) {
@@ -68,7 +95,10 @@ function handleMessage(client, text, userData, attachment_url) {
 				};
 				// if user send attachment
 				if (attachment_url) message = returnMessageBelongWithExtName(attachment_url);
-				sendNewPersonaMessage(res.list_users, message, userData);
+				checkJoinedTime(res.list_users).then(response => {
+					console.log(response);
+					sendNewPersonaMessage(res.list_users, message, userData);
+				});
 			}
 		});
 	}
@@ -304,7 +334,7 @@ function joinPreRoom(client, userData) {
 	})
 }
 
-function leaveRoom(client, userData) {
+async function leaveRoom(client, userData) {
 	// leave current room
 	client.db(dbName).collection('room-chatting').findOneAndUpdate({
 		room_id: userData.room_chatting.room_id
@@ -378,7 +408,8 @@ function setRoomID(client, room_id, userData) {
 		$set: {
 			"room_chatting.block": true,
 			"room_chatting.has_joined": true,
-			"room_chatting.room_id": room_id
+			"room_chatting.room_id": room_id,
+			"room_chatting.joined_time": new Date().getTime()
 		}
 	});
 	client.db(dbName).collection('room-chatting').updateOne({room_id: room_id}, {

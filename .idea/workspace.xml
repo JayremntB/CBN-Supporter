@@ -20,7 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="update app">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/general/template.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/general/template.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/updateUserData.js" beforeDir="false" afterPath="$PROJECT_DIR$/test/updateUserData.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,14 +135,11 @@
       <workItem from="1609485053948" duration="109000" />
       <workItem from="1609797992953" duration="2481000" />
       <workItem from="1609800550853" duration="1471000" />
-      <workItem from="1609805028647" duration="7185000" />
-    </task>
-    <task id="LOCAL-00014" summary="add subject detect">
-      <created>1599500543777</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1599500543777</updated>
+      <workItem from="1609805028647" duration="7624000" />
+      <workItem from="1609818225509" duration="600000" />
+      <workItem from="1609824271122" duration="659000" />
+      <workItem from="1610201843996" duration="2536000" />
+      <workItem from="1610204562434" duration="721000" />
     </task>
     <task id="LOCAL-00015" summary="fix shuffle messages send">
       <created>1599501184641</created>
@@ -477,7 +477,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609814158107</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="update app">
+      <created>1609814252660</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1609814252660</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
