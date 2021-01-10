@@ -19,10 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="test check joined time in prod">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-    </list>
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="gesgs" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -138,14 +135,7 @@
       <workItem from="1609824271122" duration="659000" />
       <workItem from="1610201843996" duration="2536000" />
       <workItem from="1610204562434" duration="2030000" />
-      <workItem from="1610289849263" duration="1146000" />
-    </task>
-    <task id="LOCAL-00018" summary="final">
-      <created>1599508612812</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1599508612812</updated>
+      <workItem from="1610289849263" duration="1797000" />
     </task>
     <task id="LOCAL-00019" summary="final">
       <created>1599512788063</created>
@@ -483,7 +473,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610291613857</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="gesgs">
+      <created>1610291659709</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1610291659709</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -502,7 +499,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fuck" />
     <MESSAGE value="live chat detect" />
     <MESSAGE value="change text" />
     <MESSAGE value="text send to me" />
@@ -527,6 +523,7 @@
     <MESSAGE value="check joined time added" />
     <MESSAGE value="fix" />
     <MESSAGE value="test check joined time in prod" />
-    <option name="LAST_COMMIT_MESSAGE" value="test check joined time in prod" />
+    <MESSAGE value="gesgs" />
+    <option name="LAST_COMMIT_MESSAGE" value="gesgs" />
   </component>
 </project>
