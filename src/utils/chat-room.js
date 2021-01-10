@@ -388,9 +388,9 @@ async function leaveRoom(client, userData) {
 				list_users: userData.sender_psid
 			}
 		}, (err, roomData) => {
+			console.log(roomData);
 			if (err) console.log(err);
-			else if (roomData.vale) {
-				console.log(roomData);
+			else if (roomData.value) {
 				const response = templateResponse.rejoinChatroom;
 				response.attachment.payload.text = "Đã rời khỏi phòng...";
 				sendResponse(userData.sender_psid, response);

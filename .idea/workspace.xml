@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="send bug to author">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fniewnf">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
     </list>
@@ -139,14 +139,7 @@
       <workItem from="1610201843996" duration="2536000" />
       <workItem from="1610204562434" duration="2030000" />
       <workItem from="1610289849263" duration="4273000" />
-      <workItem from="1610294905022" duration="4373000" />
-    </task>
-    <task id="LOCAL-00026" summary="fuck">
-      <created>1599964810476</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1599964810476</updated>
+      <workItem from="1610294905022" duration="5116000" />
     </task>
     <task id="LOCAL-00027" summary="live chat detect">
       <created>1600704398516</created>
@@ -484,7 +477,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610298268595</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="fniewnf">
+      <created>1610299288998</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1610299288998</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -503,7 +503,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add author action" />
     <MESSAGE value="return old admin action" />
     <MESSAGE value="add error detect" />
     <MESSAGE value="fix afternoon schedule = null" />
@@ -528,6 +527,7 @@
     <MESSAGE value="blabla" />
     <MESSAGE value="test check joined time" />
     <MESSAGE value="send bug to author" />
-    <option name="LAST_COMMIT_MESSAGE" value="send bug to author" />
+    <MESSAGE value="fniewnf" />
+    <option name="LAST_COMMIT_MESSAGE" value="fniewnf" />
   </component>
 </project>
