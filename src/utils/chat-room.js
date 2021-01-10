@@ -88,7 +88,7 @@ function handleMessage(client, text, userData, attachment_url) {
 				};
 				// if user send attachment
 				if (attachment_url) message = returnMessageBelongWithExtName(attachment_url);
-				// checkJoinedTime(res.list_users);
+				checkJoinedTime(res.list_users);
 				sendNewPersonaMessage(res.list_users, message, userData);
 			}
 		});

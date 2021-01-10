@@ -19,7 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="gesgs" />
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fsềwe">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,14 +139,7 @@
       <workItem from="1609824271122" duration="659000" />
       <workItem from="1610201843996" duration="2536000" />
       <workItem from="1610204562434" duration="2030000" />
-      <workItem from="1610289849263" duration="1797000" />
-    </task>
-    <task id="LOCAL-00019" summary="final">
-      <created>1599512788063</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1599512788063</updated>
+      <workItem from="1610289849263" duration="2796000" />
     </task>
     <task id="LOCAL-00020" summary="fix not show setting profile when left room">
       <created>1599551170160</created>
@@ -480,7 +477,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610291659709</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="fsềwe">
+      <created>1610292302931</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1610292302931</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,7 +503,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="live chat detect" />
     <MESSAGE value="change text" />
     <MESSAGE value="text send to me" />
     <MESSAGE value="back" />
@@ -524,6 +527,7 @@
     <MESSAGE value="fix" />
     <MESSAGE value="test check joined time in prod" />
     <MESSAGE value="gesgs" />
-    <option name="LAST_COMMIT_MESSAGE" value="gesgs" />
+    <MESSAGE value="fsềwe" />
+    <option name="LAST_COMMIT_MESSAGE" value="fsềwe" />
   </component>
 </project>

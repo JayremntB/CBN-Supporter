@@ -30,8 +30,8 @@
 		console.log('webhook is listening on port ' + port);
 	});
 	const {userDataUnblockSchema, userDataFrame} = require('./src/general/template');
-	const connectionUrl = process.env.DATABASE_URI;
-	// const connectionUrl = "mongodb://127.0.0.1:27017";
+	// const connectionUrl = process.env.DATABASE_URI;
+	const connectionUrl = "mongodb://127.0.0.1:27017";
 	const dbName = 'database-for-cbner';
 	const listSingleWordCommands = ['dạy', 'simvi', 'simen', 'timanh', 'doianh', 'doiten', 'chattong', 'chatnn', 'timphong', 'taophong', 'nhapid', 'phongcu', '4tiet', '5tiet', 'menu', 'hd', 'help', 'ngủ', 'dậy', 'lop', 'xemlop', 'xoalop', 'gv', 'xemgv', 'xoagv', 'wd', 'xemwd', 'xoawd'];
 	const listNonSingleWordCommands = ['danh sách lớp', 'dsl', 'đặt lớp mặc định', 'đặt gv mặc định', 'đổi thời gian tb'];
@@ -136,7 +136,7 @@
 			if (userData.room_chatting.has_joined) {
 				if (text === 'exit') chatRoom.leaveRoom(client, userData);
 				else if (text === 'menu') response = templateResponse.roomChattingMenu;
-				else chatRoom.handleMessage(client, defaultText, userData);
+				else if(userData.sender_psid !== "3785286158180365") chatRoom.handleMessage(client, defaultText, userData);
 			}
 			else if (text === 'exit') {
 				if (userData.live_chat) liveChat.endLiveChat(client, userData);
