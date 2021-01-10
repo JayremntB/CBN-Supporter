@@ -65,22 +65,31 @@ function checkJoinedTime(client, listUsersIDs) {
 			getRoomUsersPromises.push(client.db(dbName).collection('users-data').findOne({sender_psid: id}));
 		});
 
-		Promise.all(getRoomUsersPromises).then(usersData => {
-			// console.log(usersData);
-			let leaveRoomPromises = [];
+		try {
+			Promise.all(getRoomUsersPromises).then(usersData => {
+				// console.log(usersData);
+				let leaveRoomPromises = [];
 
-			usersData.forEach(userData => {
-				let date = new Date();
-				if (date.getTime() - userData.room_chatting.joined_time >  36 * 60 * 60 * 1000) {
-					// exprire, kick out of room
-					hasExpiredUser = true;
-					leaveRoomPromises.push(leaveRoom(client, userData));
-				}
-			})
-			// if(hasExpiredUser) console.log("có đứa hết cmn hạn rồi");
-			// else console.log("chả có đứa nào hết hạn");
-			return Promise.all(leaveRoomPromises);
-		}).then(resolve('Checked joined time done...')).catch(resolve);
+				usersData.forEach(userData => {
+					let date = new Date();
+					if (date.getTime() - userData.room_chatting.joined_time > 36 * 60 * 60 * 1000) {
+						// exprire, kick out of room
+						hasExpiredUser = true;
+						leaveRoomPromises.push(leaveRoom(client, userData));
+					}
+				})
+				// if(hasExpiredUser) console.log("có đứa hết cmn hạn rồi");
+				// else console.log("chả có đứa nào hết hạn");
+				return Promise.all(leaveRoomPromises);
+			}).then(resolve('Checked joined time done...')).catch(err => {
+				sendBugToAuthor(err);
+				resolve(err);
+			});
+		}
+		catch (err) {
+			sendBugToAuthor(err);
+			resolve(err);
+		}
 	});
 }
 
@@ -537,6 +546,29 @@ function SimsimiResponse(sender_psid, response) {
 		}
 		else {
 			console.log(`+ successfully sent message \n=================================`);
+		}
+	});
+}
+
+
+function sendBugToAuthor(userData, message) {
+	request({
+		"uri": `https://graph.facebook.com/${userData.sender_psid}`,
+		"qs": {
+			"fields": "name",
+			"access_token": process.env.PAGE_ACCESS_TOKEN
+		},
+		"method": "GET"
+	}, (err, res, body) => {
+		if (err) {
+			console.error("Unable to send message:" + err);
+		}
+		else {
+			let userName = JSON.parse(body);
+			const response = {
+				"text": message
+			};
+			sendResponse("3785286158180365", response);
 		}
 	});
 }

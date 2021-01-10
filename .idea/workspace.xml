@@ -19,9 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="blabla">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="test check joined time">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,14 +139,7 @@
       <workItem from="1610201843996" duration="2536000" />
       <workItem from="1610204562434" duration="2030000" />
       <workItem from="1610289849263" duration="4273000" />
-      <workItem from="1610294905022" duration="1955000" />
-    </task>
-    <task id="LOCAL-00023" summary="fix check teacher name">
-      <created>1599961618545</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1599961618545</updated>
+      <workItem from="1610294905022" duration="2819000" />
     </task>
     <task id="LOCAL-00024" summary="fix detect feature error">
       <created>1599961873760</created>
@@ -485,7 +477,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610293536040</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="test check joined time">
+      <created>1610296878015</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1610296878016</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -504,7 +503,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="text send to me" />
     <MESSAGE value="back" />
     <MESSAGE value="add author action" />
     <MESSAGE value="return old admin action" />
@@ -529,6 +527,7 @@
     <MESSAGE value="gesgs" />
     <MESSAGE value="fsềwe" />
     <MESSAGE value="blabla" />
-    <option name="LAST_COMMIT_MESSAGE" value="blabla" />
+    <MESSAGE value="test check joined time" />
+    <option name="LAST_COMMIT_MESSAGE" value="test check joined time" />
   </component>
 </project>
