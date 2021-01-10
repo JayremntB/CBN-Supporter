@@ -551,24 +551,10 @@ function SimsimiResponse(sender_psid, response) {
 }
 
 
-function sendBugToAuthor(userData, message) {
-	request({
-		"uri": `https://graph.facebook.com/${userData.sender_psid}`,
-		"qs": {
-			"fields": "name",
-			"access_token": process.env.PAGE_ACCESS_TOKEN
-		},
-		"method": "GET"
-	}, (err, res, body) => {
-		if (err) {
-			console.error("Unable to send message:" + err);
-		}
-		else {
-			let userName = JSON.parse(body);
-			const response = {
-				"text": message
-			};
-			sendResponse("3785286158180365", response);
-		}
-	});
+function sendBugToAuthor(message) {
+	let userName = JSON.parse(body);
+	const response = {
+		"text": message
+	};
+	sendResponse("3785286158180365", response);
 }

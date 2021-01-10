@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="test check joined time">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="send bug to author">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
     </list>
@@ -139,14 +139,7 @@
       <workItem from="1610201843996" duration="2536000" />
       <workItem from="1610204562434" duration="2030000" />
       <workItem from="1610289849263" duration="4273000" />
-      <workItem from="1610294905022" duration="2819000" />
-    </task>
-    <task id="LOCAL-00024" summary="fix detect feature error">
-      <created>1599961873760</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1599961873760</updated>
+      <workItem from="1610294905022" duration="3345000" />
     </task>
     <task id="LOCAL-00025" summary="handle teacher input fix">
       <created>1599963566942</created>
@@ -484,7 +477,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610296878016</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="send bug to author">
+      <created>1610297738368</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1610297738368</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -503,7 +503,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="back" />
     <MESSAGE value="add author action" />
     <MESSAGE value="return old admin action" />
     <MESSAGE value="add error detect" />
@@ -528,6 +527,7 @@
     <MESSAGE value="fsềwe" />
     <MESSAGE value="blabla" />
     <MESSAGE value="test check joined time" />
-    <option name="LAST_COMMIT_MESSAGE" value="test check joined time" />
+    <MESSAGE value="send bug to author" />
+    <option name="LAST_COMMIT_MESSAGE" value="send bug to author" />
   </component>
 </project>
