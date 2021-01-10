@@ -57,24 +57,31 @@ function changeInforToDefault(client, userData) {
 	sendResponse(userData.sender_psid, response);
 }
 
-function checkJoinedTime(listUsersIDs) {
-	let getRoomUsersPromises = [];
-
-	listUsersID.forEach(id => {
-		getRoomUsersPromises.push(client.db(dbName).collection('users-data').findOne({sender_psid: id}));
-	});
-
-	Promise.all(getRoomUsersPromises).then(usersData => {
-		let leaveRoomPromises = [];
-
-		usersData.forEach(userData => {
-			let date = new Date();
-			if (date.getTime() - userData.room_chatting.joined_time > 36 * 60 * 60 * 100) {
-				// exprire, kick out of room
-				leaveRoom(client, userData);
-			}
+function checkJoinedTime(client, listUsersIDs) {
+	return new Promise(resolve => {
+		let getRoomUsersPromises = [];
+		let hasExpiredUser = false;
+		listUsersIDs.forEach(id => {
+			getRoomUsersPromises.push(client.db(dbName).collection('users-data').findOne({sender_psid: id}));
 		});
-	})
+
+		Promise.all(getRoomUsersPromises).then(usersData => {
+			// console.log(usersData);
+			let leaveRoomPromises = [];
+
+			usersData.forEach(userData => {
+				let date = new Date();
+				if (date.getTime() - userData.room_chatting.joined_time >  36 * 60 * 60 * 1000) {
+					// exprire, kick out of room
+					hasExpiredUser = true;
+					leaveRoomPromises.push(leaveRoom(client, userData));
+				}
+			})
+			// if(hasExpiredUser) console.log("có đứa hết cmn hạn rồi");
+			// else console.log("chả có đứa nào hết hạn");
+			return Promise.all(leaveRoomPromises);
+		}).then(resolve('Checked joined time done...')).catch(resolve);
+	});
 }
 
 function handleMessage(client, text, userData, attachment_url) {
@@ -88,8 +95,10 @@ function handleMessage(client, text, userData, attachment_url) {
 				};
 				// if user send attachment
 				if (attachment_url) message = returnMessageBelongWithExtName(attachment_url);
-				// checkJoinedTime(res.list_users);
-				sendNewPersonaMessage(res.list_users, message, userData);
+				checkJoinedTime(client, res.list_users).then(response => {
+					// console.log(response);
+					sendNewPersonaMessage(res.list_users, message, userData);
+				});
 			}
 		});
 	}

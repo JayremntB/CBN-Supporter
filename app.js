@@ -136,7 +136,7 @@
 			if (userData.room_chatting.has_joined) {
 				if (text === 'exit') chatRoom.leaveRoom(client, userData);
 				else if (text === 'menu') response = templateResponse.roomChattingMenu;
-				else if(userData.sender_psid !== "3785286158180365") chatRoom.handleMessage(client, defaultText, userData);
+				else chatRoom.handleMessage(client, defaultText, userData);
 			}
 			else if (text === 'exit') {
 				if (userData.live_chat) liveChat.endLiveChat(client, userData);
