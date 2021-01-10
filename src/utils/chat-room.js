@@ -58,28 +58,23 @@ function changeInforToDefault(client, userData) {
 }
 
 function checkJoinedTime(listUsersIDs) {
-	return new Promise(resolve => {
-		let getRoomUsersPromises = [];
+	let getRoomUsersPromises = [];
 
-		listUsersID.forEach(id => {
-			getRoomUsersPromises.push(client.db(dbName).collection('users-data').findOne({sender_psid: id}));
-		});
-
-		Promise.all(getRoomUsersPromises).then(usersData => {
-			console.log(usersData);
-			let leaveRoomPromises = [];
-
-			usersData.forEach(userData => {
-				let date = new Date();
-				if (date.getTime() - userData.room_chatting.joined_time > 36 * 60 * 60 * 100) {
-					// exprire, kick out of room
-					leaveRoomPromises.push(leaveRoom(client, userData));
-				}
-			})
-
-			return Promise.all(leaveRoomPromises);
-		}).then(resolve('Checked joined time done...')).catch(resolve);
+	listUsersID.forEach(id => {
+		getRoomUsersPromises.push(client.db(dbName).collection('users-data').findOne({sender_psid: id}));
 	});
+
+	Promise.all(getRoomUsersPromises).then(usersData => {
+		let leaveRoomPromises = [];
+
+		usersData.forEach(userData => {
+			let date = new Date();
+			if (date.getTime() - userData.room_chatting.joined_time > 36 * 60 * 60 * 100) {
+				// exprire, kick out of room
+				leaveRoom(client, userData);
+			}
+		});
+	})
 }
 
 function handleMessage(client, text, userData, attachment_url) {
@@ -93,10 +88,8 @@ function handleMessage(client, text, userData, attachment_url) {
 				};
 				// if user send attachment
 				if (attachment_url) message = returnMessageBelongWithExtName(attachment_url);
-				// checkJoinedTime(res.list_users).then(response => {
-					// console.log(response);
-					sendNewPersonaMessage(res.list_users, message, userData);
-				// });
+				checkJoinedTime(res.list_users);
+				sendNewPersonaMessage(res.list_users, message, userData);
 			}
 		});
 	}
