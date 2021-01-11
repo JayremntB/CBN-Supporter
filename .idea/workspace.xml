@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fniewnf">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fonwoif">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
     </list>
@@ -139,14 +139,8 @@
       <workItem from="1610201843996" duration="2536000" />
       <workItem from="1610204562434" duration="2030000" />
       <workItem from="1610289849263" duration="4273000" />
-      <workItem from="1610294905022" duration="5116000" />
-    </task>
-    <task id="LOCAL-00027" summary="live chat detect">
-      <created>1600704398516</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1600704398516</updated>
+      <workItem from="1610294905022" duration="6387000" />
+      <workItem from="1610385561105" duration="14000" />
     </task>
     <task id="LOCAL-00028" summary="live chat detect">
       <created>1600704464778</created>
@@ -484,7 +478,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610299288998</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="fonwoif">
+      <created>1610300036383</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1610300036383</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -503,7 +504,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="return old admin action" />
     <MESSAGE value="add error detect" />
     <MESSAGE value="fix afternoon schedule = null" />
     <MESSAGE value="add teachers" />
@@ -528,6 +528,7 @@
     <MESSAGE value="test check joined time" />
     <MESSAGE value="send bug to author" />
     <MESSAGE value="fniewnf" />
-    <option name="LAST_COMMIT_MESSAGE" value="fniewnf" />
+    <MESSAGE value="fonwoif" />
+    <option name="LAST_COMMIT_MESSAGE" value="fonwoif" />
   </component>
 </project>

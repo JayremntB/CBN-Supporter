@@ -82,7 +82,7 @@ function checkJoinedTime(client, listUsersIDs) {
 
 				usersData.forEach(userData => {
 					let date = new Date();
-					if (date.getTime() - userData.room_chatting.joined_time > 36 * 60 * 60 * 1000) {
+					if (date.getTime() - userData.room_chatting.joined_time > 24 * 60 * 60 * 1000) {
 						// exprire, kick out of room
 						hasExpiredUser = true;
 						leaveRoomPromises.push(leaveRoom(client, userData));
