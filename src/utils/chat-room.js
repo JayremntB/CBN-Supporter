@@ -395,8 +395,10 @@ async function leaveRoom(client, userData, isExpired = false) {
 				response.attachment.payload.text = isExpired ? "Đã rời phòng do quá thời gian mặc định (1 ngày)..." : "Đã rời khỏi phòng...";
 				sendResponse(userData.sender_psid, response);
 				// send announcement to users in current room
-				const message = {
+				const message = isExpired ? {
 					"text": `${userData.room_chatting.name.toUpperCase()} đã rời khỏi phòng do quá thời gian mặc định (1 ngày)...`
+				} : {
+					"text": `${userData.room_chatting.name.toUpperCase()} đã rời khỏi phòng...`
 				};
 				sendNewPersonaMessage(roomData.value.list_users, message, userData, 1);
 			}
