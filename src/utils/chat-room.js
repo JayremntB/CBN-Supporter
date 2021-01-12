@@ -85,7 +85,7 @@ function checkJoinedTime(client, listUsersIDs) {
 					if (date.getTime() - userData.room_chatting.joined_time > 24 * 60 * 60 * 1000) {
 						// exprire, kick out of room
 						hasExpiredUser = true;
-						leaveRoomPromises.push(leaveRoom(client, userData));
+						leaveRoomPromises.push(leaveRoom(client, userData, true));
 					}
 				})
 				// if(hasExpiredUser) console.log("có đứa hết cmn hạn rồi");
@@ -373,7 +373,7 @@ function joinPreRoom(client, userData) {
 	})
 }
 
-async function leaveRoom(client, userData) {
+async function leaveRoom(client, userData, isExpired = false) {
 	try {
 		console.log(userData);
 		// leave current room
@@ -392,11 +392,11 @@ async function leaveRoom(client, userData) {
 			if (err) console.log(err);
 			else if (roomData.value) {
 				const response = templateResponse.rejoinChatroom;
-				response.attachment.payload.text = "Đã rời khỏi phòng...";
+				response.attachment.payload.text = isExpired ? "Đã rời phòng do quá thời gian mặc định (1 ngày)..." : "Đã rời khỏi phòng...";
 				sendResponse(userData.sender_psid, response);
 				// send announcement to users in current room
 				const message = {
-					"text": `${userData.room_chatting.name.toUpperCase()} đã rời khỏi phòng...`
+					"text": `${userData.room_chatting.name.toUpperCase()} đã rời khỏi phòng do quá thời gian mặc định (1 ngày)...`
 				};
 				sendNewPersonaMessage(roomData.value.list_users, message, userData, 1);
 			}

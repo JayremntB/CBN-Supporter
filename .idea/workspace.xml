@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fonwoif">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="change time joined">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
     </list>
@@ -140,14 +140,8 @@
       <workItem from="1610204562434" duration="2030000" />
       <workItem from="1610289849263" duration="4273000" />
       <workItem from="1610294905022" duration="6387000" />
-      <workItem from="1610385561105" duration="14000" />
-    </task>
-    <task id="LOCAL-00028" summary="live chat detect">
-      <created>1600704464778</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1600704464778</updated>
+      <workItem from="1610385561105" duration="679000" />
+      <workItem from="1610481082517" duration="417000" />
     </task>
     <task id="LOCAL-00029" summary="change text">
       <created>1600706298756</created>
@@ -485,7 +479,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610300036383</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="change time joined">
+      <created>1610385598816</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1610385598817</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -504,7 +505,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add error detect" />
     <MESSAGE value="fix afternoon schedule = null" />
     <MESSAGE value="add teachers" />
     <MESSAGE value="add SIM" />
@@ -529,6 +529,7 @@
     <MESSAGE value="send bug to author" />
     <MESSAGE value="fniewnf" />
     <MESSAGE value="fonwoif" />
-    <option name="LAST_COMMIT_MESSAGE" value="fonwoif" />
+    <MESSAGE value="change time joined" />
+    <option name="LAST_COMMIT_MESSAGE" value="change time joined" />
   </component>
 </project>
