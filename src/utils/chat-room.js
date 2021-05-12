@@ -33,7 +33,7 @@ function changeToRealInfor(client, userData) {
 			// "qs": { "access_token": process.env.TEST_PAGE_ACCESS_TOKEN },
 			"qs": {
 				"access_token": process.env.PAGE_ACCESS_TOKEN,
-				"fields": "name,profile_pic"
+				"fields": "first_name,profile_pic"
 			},
 			"method": "GET"
 		}, (err, res, body) => {
