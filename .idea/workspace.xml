@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="add check expired users in chat room when someone message to page">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="use first name as real infor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
     </list>
@@ -148,14 +148,7 @@
       <workItem from="1613574313792" duration="14000" />
       <workItem from="1613574762566" duration="605000" />
       <workItem from="1620477983951" duration="6000" />
-      <workItem from="1620786381397" duration="5029000" />
-    </task>
-    <task id="LOCAL-00032" summary="add author action">
-      <created>1600708784050</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1600708784050</updated>
+      <workItem from="1620786381397" duration="5621000" />
     </task>
     <task id="LOCAL-00033" summary="add author action">
       <created>1600708805326</created>
@@ -493,7 +486,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620789974841</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="use first name as real infor">
+      <created>1620791431094</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1620791431094</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -512,7 +512,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add SIM" />
     <MESSAGE value="add dạy command" />
     <MESSAGE value="add schedule updated time" />
     <MESSAGE value="fdsifds" />
@@ -537,6 +536,7 @@
     <MESSAGE value="change time joined" />
     <MESSAGE value="update" />
     <MESSAGE value="add check expired users in chat room when someone message to page" />
-    <option name="LAST_COMMIT_MESSAGE" value="add check expired users in chat room when someone message to page" />
+    <MESSAGE value="use first name as real infor" />
+    <option name="LAST_COMMIT_MESSAGE" value="use first name as real infor" />
   </component>
 </project>
