@@ -19,6 +19,7 @@
 	const chatRoom = require('./src/utils/chat-room');
 	const checkCovid = require('./src/utils/check-covid');
 	const simsimi = require('./src/utils/simsimi');
+	const {checkJoinedTime} = require('./src/utils/chat-room');
 // general
 	const sendResponse = require('./src/general/sendResponse');
 	const textResponse = require('./src/general/textResponse');
@@ -302,6 +303,31 @@
 			const sendUser = received_message.text.split(" ")[0];
 			response.text = received_message.text.substring(sendUser.length, received_message.text.length);
 			sendResponse(sendUser, response);
+		}
+		// filter expired users in chat room
+		try {
+			client.db(dbName).collection('room-chatting').find({
+				"list_users.0": {
+					$exists: true
+				}
+			}).toArray((err, res) => {
+				if (err) console.log(err);
+				else if (res.length != 0) {
+					let filterExpiredUsers = [];
+					res.forEach(room => {
+						filterExpiredUsers.push(checkJoinedTime(client, room.list_users));
+					});
+
+					Promise.all(filterExpiredUsers).then(response => {
+						// console.log(response);
+					}).catch(err => {
+						console.log(err);
+					})
+				}
+			});
+		}
+		catch(err) {
+			console.log(err);
 		}
 	}
 

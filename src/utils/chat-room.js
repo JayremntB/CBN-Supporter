@@ -22,7 +22,8 @@ module.exports = {
 	roomInfo: roomInfo,
 	getPersonaID: getPersonaID,
 	changeToRealInfor: changeToRealInfor,
-	changeInforToDefault: changeInforToDefault
+	changeInforToDefault: changeInforToDefault,
+	checkJoinedTime: checkJoinedTime
 }
 
 function changeToRealInfor(client, userData) {
@@ -97,6 +98,7 @@ function checkJoinedTime(client, listUsersIDs) {
 			});
 		}
 		catch (err) {
+			console.log(err);
 			sendBugToAuthor(err);
 			resolve(err);
 		}
@@ -115,10 +117,7 @@ function handleMessage(client, text, userData, attachment_url) {
 					};
 					// if user send attachment
 					if (attachment_url) message = returnMessageBelongWithExtName(attachment_url);
-					checkJoinedTime(client, res.list_users).then(response => {
-						console.log(response);
-						sendNewPersonaMessage(res.list_users, message, userData);
-					});
+					sendNewPersonaMessage(res.list_users, message, userData);
 				}
 			});
 		}
