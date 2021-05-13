@@ -19,9 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="update author link">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fix rejoin room">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,14 +161,8 @@
       <workItem from="1620786381397" duration="5774000" />
       <workItem from="1620838705178" duration="2832000" />
       <workItem from="1620915343294" duration="1609000" />
-      <workItem from="1620916979390" duration="691000" />
-    </task>
-    <task id="LOCAL-00035" summary="return old admin action">
-      <created>1600796166655</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1600796166655</updated>
+      <workItem from="1620916979390" duration="1442000" />
+      <workItem from="1620918594424" duration="1496000" />
     </task>
     <task id="LOCAL-00036" summary="add error detect">
       <created>1600937480782</created>
@@ -505,7 +500,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620842279377</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="fix rejoin room">
+      <created>1620917725023</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1620917725023</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -524,7 +526,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fdsifds" />
     <MESSAGE value="add tkb" />
     <MESSAGE value="fiaènoiea" />
     <MESSAGE value="uwu" />
@@ -549,6 +550,7 @@
     <MESSAGE value="use first name as real infor" />
     <MESSAGE value="fix use real infor" />
     <MESSAGE value="update author link" />
-    <option name="LAST_COMMIT_MESSAGE" value="update author link" />
+    <MESSAGE value="fix rejoin room" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix rejoin room" />
   </component>
 </project>

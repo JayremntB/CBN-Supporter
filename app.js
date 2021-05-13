@@ -292,7 +292,7 @@
 			}
 			else sendMessageToAuthor(userData, defaultText);
 			// filter expired users in chat room
-			if (text !== 'exit') filterExpiredUsers();
+			// if (text !== 'exit') filterExpiredUsers();
 		}
 		else if (received_message.attachments) {
 			// Gets the URL of the message attachment

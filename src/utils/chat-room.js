@@ -477,7 +477,10 @@ function returnMessageBelongWithExtName(url) {
 	const hostName = extractHostname(url);
 	console.log(hostName);
 	// return right text response belong with each extName & hostname
-	if (hostName === "scontent.xx.fbcdn.net") message.attachment.type = "image";
+	if(hostName === "www.facebook.com") message = {
+		text: url
+	}
+	else if (hostName === "scontent.xx.fbcdn.net") message.attachment.type = "image";
 	else if (hostName === "video.xx.fbcdn.net") message.attachment.type = "video";
 	else if (hostName === "cdn.fbsbx.com") {
 		const extName = extractExtName(url);
@@ -487,7 +490,7 @@ function returnMessageBelongWithExtName(url) {
 	}
 	else if (hostName === 'l.facebook.com') {
 		message = templateResponse.personaSendLocation;
-		message.attachment.payload.text = "Đã gửi vị trí";
+		message.attachment.payload.text = url.includes('tiktok') ? "Đã gửi video tiktok" : "Đã gửi vị trí";
 		message.attachment.payload.buttons[0].url = url;
 		message.attachment.payload.buttons[0].title = "Xem";
 	}
