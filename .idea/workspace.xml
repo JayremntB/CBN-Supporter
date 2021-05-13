@@ -19,9 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="use first name as real infor">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="update author link">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +35,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/general/textResponse.js" root0="SKIP_INSPECTION" />
@@ -64,6 +72,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -148,21 +157,10 @@
       <workItem from="1613574313792" duration="14000" />
       <workItem from="1613574762566" duration="605000" />
       <workItem from="1620477983951" duration="6000" />
-      <workItem from="1620786381397" duration="5621000" />
-    </task>
-    <task id="LOCAL-00033" summary="add author action">
-      <created>1600708805326</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1600708805326</updated>
-    </task>
-    <task id="LOCAL-00034" summary="add author action">
-      <created>1600779708401</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1600779708401</updated>
+      <workItem from="1620786381397" duration="5774000" />
+      <workItem from="1620838705178" duration="2832000" />
+      <workItem from="1620915343294" duration="1609000" />
+      <workItem from="1620916979390" duration="691000" />
     </task>
     <task id="LOCAL-00035" summary="return old admin action">
       <created>1600796166655</created>
@@ -493,7 +491,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620791431094</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="fix use real infor">
+      <created>1620792019613</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1620792019613</updated>
+    </task>
+    <task id="LOCAL-00083" summary="update author link">
+      <created>1620842279376</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1620842279377</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -512,8 +524,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add dạy command" />
-    <MESSAGE value="add schedule updated time" />
     <MESSAGE value="fdsifds" />
     <MESSAGE value="add tkb" />
     <MESSAGE value="fiaènoiea" />
@@ -537,6 +547,8 @@
     <MESSAGE value="update" />
     <MESSAGE value="add check expired users in chat room when someone message to page" />
     <MESSAGE value="use first name as real infor" />
-    <option name="LAST_COMMIT_MESSAGE" value="use first name as real infor" />
+    <MESSAGE value="fix use real infor" />
+    <MESSAGE value="update author link" />
+    <option name="LAST_COMMIT_MESSAGE" value="update author link" />
   </component>
 </project>

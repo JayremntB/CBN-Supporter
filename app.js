@@ -291,6 +291,8 @@
 				else simsimi.response(userData, defaultText);
 			}
 			else sendMessageToAuthor(userData, defaultText);
+			// filter expired users in chat room
+			if (text !== 'exit') filterExpiredUsers();
 		}
 		else if (received_message.attachments) {
 			// Gets the URL of the message attachment
@@ -303,31 +305,6 @@
 			const sendUser = received_message.text.split(" ")[0];
 			response.text = received_message.text.substring(sendUser.length, received_message.text.length);
 			sendResponse(sendUser, response);
-		}
-		// filter expired users in chat room
-		try {
-			client.db(dbName).collection('room-chatting').find({
-				"list_users.0": {
-					$exists: true
-				}
-			}).toArray((err, res) => {
-				if (err) console.log(err);
-				else if (res.length != 0) {
-					let filterExpiredUsers = [];
-					res.forEach(room => {
-						filterExpiredUsers.push(checkJoinedTime(client, room.list_users));
-					});
-
-					Promise.all(filterExpiredUsers).then(response => {
-						// console.log(response);
-					}).catch(err => {
-						console.log(err);
-					})
-				}
-			});
-		}
-		catch(err) {
-			console.log(err);
 		}
 	}
 
@@ -529,5 +506,33 @@
 				sendResponse("3785286158180365", response);
 			}
 		});
+	}
+
+	function filterExpiredUsers() {
+		// filter expired users in chat room
+		try {
+			client.db(dbName).collection('room-chatting').find({
+				"list_users.0": {
+					$exists: true
+				}
+			}).toArray((err, res) => {
+				if (err) console.log(err);
+				else if (res.length != 0) {
+					let filterExpiredUsers = [];
+					res.forEach(room => {
+						filterExpiredUsers.push(checkJoinedTime(client, room.list_users));
+					});
+
+					Promise.all(filterExpiredUsers).then(response => {
+						// console.log(response);
+					}).catch(err => {
+						console.log(err);
+					})
+				}
+			});
+		}
+		catch (err) {
+			console.log(err);
+		}
 	}
 })();
