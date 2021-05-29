@@ -29,12 +29,12 @@ module.exports = function (sender_psid) {
   - Số ca hồi phục mới: ${data.Global.NewRecovered}
   ------
   Tình hình dịch bệnh trong nước:
-  - Tổng ca nhiễm: ${data.Countries[data.Countries.length - 5].TotalConfirmed}
-  - Tổng ca tử vong: ${data.Countries[data.Countries.length - 5].TotalDeaths}
-  - Tổng ca hồi phục: ${data.Countries[data.Countries.length - 5].TotalRecovered}
-  - Số ca nhiễm mới: ${data.Countries[data.Countries.length - 5].NewConfirmed}
-  - Số ca tử vong mới: ${data.Countries[data.Countries.length - 5].NewDeaths}
-  - Số ca hồi phục mới: ${data.Countries[data.Countries.length - 5].NewRecovered}
+  - Tổng ca nhiễm: ${data.Countries[data.Countries.length - 4].TotalConfirmed}
+  - Tổng ca tử vong: ${data.Countries[data.Countries.length - 4].TotalDeaths}
+  - Tổng ca hồi phục: ${data.Countries[data.Countries.length - 4].TotalRecovered}
+  - Số ca nhiễm mới: ${data.Countries[data.Countries.length - 4].NewConfirmed}
+  - Số ca tử vong mới: ${data.Countries[data.Countries.length - 4].NewDeaths}
+  - Số ca hồi phục mới: ${data.Countries[data.Countries.length - 4].NewRecovered}
   ------
   Giữ cho mình một sức khoẻ dẻo dai, luyện tập thể dục và rửa tay thường xuyên nha <3`
       sendResponse(sender_psid, response);

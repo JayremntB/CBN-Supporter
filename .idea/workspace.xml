@@ -19,10 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="fix rejoin room">
+    <list default="true" id="c85e6910-85b8-47db-a847-c0168a26d1f8" name="Default Changelist" comment="add tiktok link">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/chat-room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/chat-room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/check-covid.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/check-covid.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,13 +45,13 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/general/textResponse.js" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/utils/search-classes.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/test/updateUserData.js" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/utils/chat-room.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/utils/search-schedule.js" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/app.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/utils/search-classes.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/general/templateResponse.json" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/utils/chat-room.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/general/textResponse.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/app.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="JsbtTreeLayoutManager">
     <layout place="tools.popupnpm">
@@ -162,21 +161,14 @@
       <workItem from="1620838705178" duration="2832000" />
       <workItem from="1620915343294" duration="1609000" />
       <workItem from="1620916979390" duration="1442000" />
-      <workItem from="1620918594424" duration="1496000" />
-    </task>
-    <task id="LOCAL-00036" summary="add error detect">
-      <created>1600937480782</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1600937480782</updated>
-    </task>
-    <task id="LOCAL-00037" summary="add error detect">
-      <created>1601120395974</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1601120395974</updated>
+      <workItem from="1620918594424" duration="2301000" />
+      <workItem from="1621020178544" duration="1209000" />
+      <workItem from="1621137369975" duration="599000" />
+      <workItem from="1621151948464" duration="649000" />
+      <workItem from="1621262878907" duration="994000" />
+      <workItem from="1621319055255" duration="598000" />
+      <workItem from="1621322090485" duration="91000" />
+      <workItem from="1622277640477" duration="809000" />
     </task>
     <task id="LOCAL-00038" summary="fix afternoon schedule = null">
       <created>1602384155410</created>
@@ -507,7 +499,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620917725023</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="add tiktok link">
+      <created>1620920203391</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1620920203391</updated>
+    </task>
+    <task id="LOCAL-00086" summary="add tiktok link">
+      <created>1620920211194</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1620920211194</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -526,7 +532,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add tkb" />
     <MESSAGE value="fiaènoiea" />
     <MESSAGE value="uwu" />
     <MESSAGE value="update send personas messages" />
@@ -551,6 +556,7 @@
     <MESSAGE value="fix use real infor" />
     <MESSAGE value="update author link" />
     <MESSAGE value="fix rejoin room" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix rejoin room" />
+    <MESSAGE value="add tiktok link" />
+    <option name="LAST_COMMIT_MESSAGE" value="add tiktok link" />
   </component>
 </project>
