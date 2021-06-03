@@ -98,6 +98,11 @@
 			"text": ""
 		};
 		if (received_message.text) {
+			if (received_message.text.length > 1900) {
+				response.text = "Cảnh báo: Giới hạn ký tự mỗi tin nhắn là 2000, hãy chia nhỏ ra rồi nhắn tiếp nhaaa 😙"
+				sendResponse(userData.sender_psid, response);
+				return;
+			}
 			const defaultText = received_message.text;
 			let text = received_message.text.toLowerCase();
 			// check if have keyword for search schedule/classes
