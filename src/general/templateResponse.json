@@ -62,11 +62,11 @@
       "type": "template",
       "payload": {
         "template_type": "button",
-        "text": "CBN Supporter - Chatbot for supporting CBNers\nDeveloped in 2020, by JayremntB",
+        "text": "CBN Supporter - Chatbot for supporting CBNers\nDeveloped in 2020, by Jayremnt",
         "buttons": [
           {
             "type": "web_url",
-            "url": "https://www.facebook.com/jayremntb/",
+            "url": "https://www.facebook.com/jayremnt/",
             "title": "Find me on Facebook"
           }
         ]

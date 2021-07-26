@@ -232,7 +232,7 @@
 						case 'hd':
 							unblockAll(userData);
 							response = textResponse.defaultResponse;
-							response.text = "https://github.com/JayremntB/CBN-Supporter-How-to-use/blob/master/README.md";
+							response.text = "https://github.com/jayremnt/cbn-supporter-obsolete/blob/main/README.md";
 							break;
 						case 'lop':
 						case 'xemlop':
